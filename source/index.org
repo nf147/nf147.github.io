@@ -1,3 +1,19 @@
-#+TITLE: Sitemap for project _notes
+#+TITLE: S3S147 笔记
 
-- [[file:github.org][Github and Github Pages]]
+#+HTML_HEAD: <link rel="stylesheet" href="/asset/common.css?888">
+#+HTML_HEAD: <style>
+#+HTML_HEAD: #org-div-home-and-up { display:none; }
+#+HTML_HEAD: @media (max-width: 768px) {
+#+HTML_HEAD:   #content { background: #f9f9f9; }
+#+HTML_HEAD:   #content > .org-ul { display:flex; flex-flow: column wrap; height: 2200px; margin: 0 auto; }
+#+HTML_HEAD:   #content > .org-ul > li {  padding-right: 2em; list-style: none; }
+#+HTML_HEAD:   #content > .org-ul > li > ul:first-child { margin-top: 1em; }
+#+HTML_HEAD: }
+#+HTML_HEAD: @media (min-width: 768px) {
+#+HTML_HEAD:   #content { margin-right: 300px; }
+#+HTML_HEAD:   #postamble { display: none; }
+#+HTML_HEAD: }
+#+HTML_HEAD: </style>
+#+INCLUDE: "sitemap.org" :lines "4-"
+
+
