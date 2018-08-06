@@ -1,10 +1,43 @@
-#+TITLE: Github and Github Pages
+#+TITLE: Git and Github
 
 
 https://github.com
 
 全世界最大的代码托管网站
 
+* Git 命令基础
+
+首先，需要下载安装 git 工具
+- https://git-scm.com/downloads
+
+安装完毕之后，就可以进入提供的命令行窗口。
+
+然后就可以使用了，比如:
+#+BEGIN_SRC sh
+  # 从 github 将我们的项目下载下来
+  git clone https://github.com/nf147/nf147.github.io
+
+  # 切换到项目目录
+  cd nf147.github.io
+
+  # 在项目里添加、修改一系列文件
+  notepad index.html....
+
+  # 如果要查看项目下的文件修改情况
+  git status
+
+  # 如果要将修改保存，并同步到服务器，分三步:
+  git add .
+  git commit -m '我是注释信息'
+  git push
+
+  # 当然，如果是第一次使用，可能需要先告诉 git 工具你是谁，执行下面两条命令
+  git config --global user.email "你的邮箱地址"
+  git config --global user.name "你的名字。这个随便填，只是为了方便git区分不同用户"
+
+  # 后续，如果想将服务器的代码同步到本地
+  git pull  # pull 拉 push 推
+#+END_SRC
 
 * 注册账号
 
