@@ -1,0 +1,4 @@
+#+TITLE: Sitemap for project _notes
+
+- [[file:github.org][Github and Github Pages]]
+- [[file:sitemap.org][Sitemap for project org]]
