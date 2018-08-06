@@ -14,6 +14,6 @@
 #+HTML_HEAD:   #postamble { display: none; }
 #+HTML_HEAD: }
 #+HTML_HEAD: </style>
-#+INCLUDE: "sitemap.org" :lines "4-"
+#+INCLUDE: ".sitemap.org" :lines "4-"
 
 

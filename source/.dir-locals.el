@@ -18,7 +18,7 @@
     :html-preamble t
     :auto-sitemap t
     :author "某某人"
-    :sitemap-filename "sitemap.org")
+    :sitemap-filename ".sitemap.org")
    ("_assets"
     :base-directory "./"
     :base-extension "css\\|js\\|png\\|jpe?g\\|gif\\|svg\\|pdf\\|zip\\|html\\|txt"

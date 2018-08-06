@@ -1,6 +1,0 @@
-#+TITLE: Sitemap for project _notes
-
-- [[file:index.org][S3S147 笔记]]
-- tools
-  - [[file:tools/github.org][Git and Github]]
-  - [[file:tools/intellijIdea.org][Intellij Idea]]

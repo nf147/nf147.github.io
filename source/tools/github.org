@@ -37,6 +37,9 @@ https://github.com
 
   # 后续，如果想将服务器的代码同步到本地
   git pull  # pull 拉 push 推
+
+  # 查看历次修改历史
+  git log
 #+END_SRC
 
 * 注册账号
@@ -44,3 +47,16 @@ https://github.com
 * 使用 Github 管理项目
 
 * 使用 Github Page
+
+首先，需要登陆你的 Github 账号。
+
+其次，在你的 Github 中，参加一个 *特殊的仓库*，这个仓库的命名规则是:
+: 你的账号名字.github.io
+
+接下来，将仓库 ~clone~ 到本地，然后，在中间增加自己的 html 文件。
+
+之后，将自己的修改同步到仓库。过稍许，你就可以通过下面链接看到你的 Github Page 页面了:
+- https://你的账号名字.github.io
+- https://你的账号名字.github.io/index.html
+- https://你的账号名字.github.io/xxx.html
+- https://你的账号名字.github.io/xxx/yyy.jpeeg
