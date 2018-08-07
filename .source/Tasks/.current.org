@@ -3,7 +3,8 @@
 
 *今日任务*:
 
-- 使用 intellij idea 参加一个项目并配置运行
+
+- 使用 intellij idea 创建一个项目并配置运行(Tomcat)
 - 添加 .gitignore 并将项目发布到 github 服务器
 - 预习 WebSocket 的来龙去脉，以及简单使用
 - 预习 Java 中定时任务的使用方式(Timer)

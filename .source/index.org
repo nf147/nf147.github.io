@@ -1,4 +1,4 @@
-#+TITLE: S3S147 笔记
+#+TITLE: S3S147
 
 #+HTML_HEAD: <link rel="stylesheet" href="/asset/common.css?888">
 #+HTML_HEAD: <style>
@@ -10,7 +10,7 @@
 #+HTML_HEAD:   #content > .org-ul > li > ul:first-child { margin-top: 1em; }
 #+HTML_HEAD: }
 #+HTML_HEAD: @media (min-width: 768px) {
-#+HTML_HEAD:   #content { margin-left: auto; margin-right: auto; padding-left: 50px; }
+#+HTML_HEAD:   #content { margin-left: auto; margin-right: auto; padding-left: 100px; }
 #+HTML_HEAD:   #postamble { display: none; }
 #+HTML_HEAD:   #main {display: flex; flex-flow: row;}
 #+HTML_HEAD:   #toc { min-width: 60%; }
@@ -21,12 +21,18 @@
 #+HTML: <div id="main">
 
 #+HTML: <section id="toc">
+
+#+INCLUDE: "Tasks/.current.org" :lines "2-"
+
+#+HTML: <div><br>
+#+HTML: <h3>笔记目录</h3>
 #+INCLUDE: ".sitemap.org" :lines "4-"
+#+HTML: </div>
+
 #+HTML: </section>
 
 #+HTML: <aside>
-#+INCLUDE: "tasks/.current.org" :lines "2-"
-#+INCLUDE: "miscellaneous/.group.org" :lines "2-"
+#+INCLUDE: "Miscellaneous/.group.org"
 #+HTML: </aside>
 
 #+HTML: </div>
