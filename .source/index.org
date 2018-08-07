@@ -10,10 +10,23 @@
 #+HTML_HEAD:   #content > .org-ul > li > ul:first-child { margin-top: 1em; }
 #+HTML_HEAD: }
 #+HTML_HEAD: @media (min-width: 768px) {
-#+HTML_HEAD:   #content { margin-right: 300px; }
+#+HTML_HEAD:   #content { margin-left: auto; margin-right: auto; padding-left: 50px; }
 #+HTML_HEAD:   #postamble { display: none; }
+#+HTML_HEAD:   #main {display: flex; flex-flow: row;}
+#+HTML_HEAD:   #toc { min-width: 60%; }
 #+HTML_HEAD: }
 #+HTML_HEAD: </style>
+
+
+#+HTML: <div id="main">
+
+#+HTML: <section id="toc">
 #+INCLUDE: ".sitemap.org" :lines "4-"
+#+HTML: </section>
 
+#+HTML: <aside>
+#+INCLUDE: "tasks/.current.org" :lines "2-"
+#+INCLUDE: "miscellaneous/.group.org" :lines "2-"
+#+HTML: </aside>
 
+#+HTML: </div>
