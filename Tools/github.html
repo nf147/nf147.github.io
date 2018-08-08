@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-08-08 周三 03:09 -->
+<!-- 2018-08-08 周三 03:35 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Git and Github</title>
@@ -87,7 +87,25 @@ git log
 为命令取一个比较方便的别名:
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">git config --global alias.st status
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">Git config &#21629;&#20196;&#26159;&#29992;&#26469;&#21521;&#37197;&#32622;&#25991;&#20214;&#20013;&#20889;&#20837;&#37197;&#32622;&#20449;&#24687;&#30340;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#36825;&#20123;&#37197;&#32622;&#20449;&#24687;&#20250;&#24433;&#21709; git &#24037;&#20855;&#30340;&#34892;&#20026;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#27604;&#22914;&#65292;&#37197;&#32622; alias &#20250;&#20026;&#21629;&#20196;&#25552;&#20379;&#30456;&#24212;&#30340;&#8220;&#21035;&#21517;&#8221;&#65292;&#21487;&#20197;&#26041;&#20415;&#25105;&#20204;&#30340;&#35843;&#29992;</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#37197;&#32622;&#25991;&#20214;&#20998;&#20026;&#8220;&#20840;&#23616;&#8221;&#21644;&#8220;&#24403;&#21069;&#39033;&#30446;&#8221;&#65292;&#20998;&#21035;&#22312; ~/.gitconfig &#21644; project/.git/config</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#22914;&#26524;&#37197;&#32622;&#22312;&#20840;&#23616;&#37197;&#32622;&#25991;&#20214;&#37324;&#65292;&#37027;&#20040;&#37197;&#32622;&#21442;&#25968;&#20250;&#24433;&#21709;&#25152;&#26377;&#30340; git &#39033;&#30446;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#22914;&#26524;&#37197;&#32622;&#22312;&#26412;&#39033;&#30446;&#30340; .git &#30446;&#24405;&#37324;&#38754;&#65292;&#37027;&#20040;&#37197;&#32622;&#21442;&#25968;&#21482;&#20250;&#24433;&#21709;&#26412;&#39033;&#30446;</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#22914;&#26524;&#35201;&#20462;&#25913;&#37197;&#32622;&#65292;&#26377;&#20004;&#31181;&#26041;&#24335;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">1. &#25163;&#21160;&#20462;&#25913;&#30456;&#24212;&#37197;&#32622;&#25991;&#20214;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">2. &#20351;&#29992;&#21629;&#20196; git config &#20462;&#25913;</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">git config &#40664;&#35748;&#20462;&#25913;&#30340;&#26159;&#26412;&#39033;&#30446;&#30340;&#37197;&#32622;&#25991;&#20214;&#65292;&#22914;&#26524;&#24819;&#35201;&#20462;&#25913;&#8220;&#20840;&#23616;&#8221;&#37197;&#32622;&#25991;&#20214;&#65292;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#37027;&#20040;&#23601;&#38656;&#35201;&#20256;&#36882; --global &#21629;&#20196;&#34892;&#21442;&#25968;&#65292;&#22914;&#19979;:</span>
+git config --global alias.st status
+git status
+git st
+
+git config --global user.name <span class="org-string">"my name is lucy."</span>
 </pre>
 </div>
 </div>
@@ -148,7 +166,7 @@ git log
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-08-08 周三 03:09</p>
+<p class="date">Created: 2018-08-08 周三 03:35</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

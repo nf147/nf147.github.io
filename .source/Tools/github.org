@@ -45,7 +45,25 @@ https://github.com
 
 为命令取一个比较方便的别名:
 #+BEGIN_SRC sh
+  # Git config 命令是用来向配置文件中写入配置信息的
+  # 这些配置信息会影响 git 工具的行为
+  # 比如，配置 alias 会为命令提供相应的“别名”，可以方便我们的调用
+
+  # 配置文件分为“全局”和“当前项目”，分别在 ~/.gitconfig 和 project/.git/config
+  # 如果配置在全局配置文件里，那么配置参数会影响所有的 git 项目
+  # 如果配置在本项目的 .git 目录里面，那么配置参数只会影响本项目
+
+  # 如果要修改配置，有两种方式
+  # 1. 手动修改相应配置文件
+  # 2. 使用命令 git config 修改
+
+  # git config 默认修改的是本项目的配置文件，如果想要修改“全局”配置文件，
+  # 那么就需要传递 --global 命令行参数，如下:
   git config --global alias.st status
+  git status
+  git st
+
+  git config --global user.name "my name is lucy."
 #+END_SRC
 
 * 注册账号
