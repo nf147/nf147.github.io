@@ -1,10 +1,19 @@
 #+TITLE: 任务列表
 
 
-* 2018年8月7日
+
+* 2018年8月8日
 :PROPERTIES:
 :CUSTOM_ID: active
 :END:
+
+
+- 如何让 github 项目 *免密码* 同步
+- emmet 工具的基本使用，总结
+- markdown 语法的基本总结
+- viewport 的基本原理以及使用
+
+* 2018年8月7日
 
 - 使用 intellij idea 创建一个项目并配置运行(Tomcat)
 - 添加 .gitignore 并将项目发布到 github 服务器
