@@ -1,7 +1,10 @@
-#+TITLE: Current
+#+TITLE: 任务列表
 
 
-*今日任务*:
+* 2018年8月7日
+:PROPERTIES:
+:CUSTOM_ID: active
+:END:
 
 
 - 使用 intellij idea 创建一个项目并配置运行(Tomcat)

@@ -22,7 +22,7 @@
 
 #+HTML: <section id="toc">
 
-#+INCLUDE: "Tasks/.current.org" :lines "2-"
+#+INCLUDE: "Tasks/tasks.org::#active" :only-contents t
 
 #+HTML: <div><br>
 #+HTML: <h3>笔记目录</h3>
