@@ -8,6 +8,15 @@ https://github.com
 
 * Git 命令基础
 
+#+BEGIN_QUOTE
+
+Git 是当下最流行的版本控制工具(VCS)，由 linux 系统之父 linus 开发。
+它能实现团队中的代码协作开发，它在代码同步和代码管理方面功能强大、理念先进。
+
+Github.com 是基于 git 工具的一个代码托管网站，目前基本所有的开源项目都选择将自己的代码
+托管到了 github。它里面的代码包罗万象，是一个学习的宝库。
+#+END_QUOTE
+
 首先，需要下载安装 git 工具
 - https://git-scm.com/downloads
 
