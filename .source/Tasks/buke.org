@@ -14,7 +14,9 @@ http://www.bootcss.com/
 
 以 Vue 为主，学会简单使用，了解 MVVM 的基本概念
 
-* 在 JQuery 已经过气的情况下，如何使用标准 HTML5 API
+* 原生 JS 的使用
+
+在 JQuery 已经过气的情况下，如何使用标准 HTML5 API
 
 获取 DOM 节点 ID 的方式
 
@@ -27,3 +29,11 @@ http://www.bootcss.com/
 
 : document.querySelector("#id");
 : document.querySelectorAll("div");
+* Emmet 插件
+
+快速生成 html 代码的方案。使用了 css 语法，特别简单。效率工具。必须掌握。
+
+* Viewport 语法
+
+: <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
