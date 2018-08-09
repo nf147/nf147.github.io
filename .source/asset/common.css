@@ -214,7 +214,7 @@ body{
     /* margin:auto; */
     /*max-width:800px;*/
     min-height:100%;
-    padding:1.618em 3.236em;
+    padding: 1.618em 1.236em;
 }
 
 p{
@@ -639,13 +639,13 @@ sub{
 
 img{
     -ms-interpolation-mode:bicubic;
-    vertical-align:middle;
-    max-width:100%
+    max-width:100%;
     margin-bottom: 1em;
 }
 
 svg:not(:root){
-    overflow:hidden}
+    overflow:hidden;
+}
 
 figure{
     margin:0}
