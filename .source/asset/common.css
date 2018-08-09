@@ -640,7 +640,9 @@ sub{
 img{
     -ms-interpolation-mode:bicubic;
     vertical-align:middle;
-    max-width:100%}
+    max-width:100%
+    margin-bottom: 1em;
+}
 
 svg:not(:root){
     overflow:hidden}
@@ -1064,6 +1066,7 @@ footer p{
 
 #content img{
     max-width:100%;
+    margin-bottom: 1em;
 }
 
 #content div.figure{
