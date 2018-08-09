@@ -334,7 +334,9 @@ dl dd{
         page-break-inside:avoid}
 
     img{
-        max-width:100% !important}
+        max-width:100% !important;
+        margin-bottom: 1em;
+    }
 
     @page{
         margin:0.5cm}

@@ -1,0 +1,93 @@
+#+TITLE: 1. 使用 Idea 创建 Web 项目
+
+
+* 首先，在 Idea 中创建 Web 项目
+
+创建新的项目:
+
+[[file:img/clip_2018-08-09_01-10-20.png]]
+
+文件夹结构:
+
+[[file:img/clip_2018-08-09_01-08-20.png]]
+
+
+* 其次，创建并启动服务器
+
+首先，点击右上角，选择为项目创建服务器:
+
+[[file:img/clip_2018-08-09_01-37-13.png]]
+
+
+这是服务器的创建页面:
+
+[[file:img/clip_2018-08-09_01-21-22.png]]
+
+这是项目部署页面:
+
+[[file:img/clip_2018-08-09_01-28-22.png]]
+
+然后，就可以运行项目了:
+
+[[file:img/clip_2018-08-09_01-33-25.png]]
+
+在浏览器里输入:
+: http://localhost:8080/index.jsp
+
+就能看到访问成功的页面了。
+* 然后，选择性对项目进行配置
+
+右上角的区域，用来对当前项目进行操作:
+
+[[file:img/clip_2018-08-09_01-38-54.png]]
+
+
+这是项目设置的主页面:
+
+[[file:img/clip_2018-08-09_01-42-59.png]]
+
+
+这是模块设置页面:
+
+[[file:img/clip_2018-08-09_01-47-37.png]]
+
+可以通过 Dependencies 标签页，设置项目（默认模块）需要用到的 Jar 包:
+
+[[file:img/clip_2018-08-09_01-51-28.png]]
+
+点击上图所示的 Liberay，添加 Tomcat 的 Jar 包支持:
+
+[[file:img/clip_2018-08-09_01-54-01.png]]
+
+
+* 将项目上传到 Github
+
+#+BEGIN_QUOTE
+
+上传到 Github 的方式有很多，下面方法仅供参考。
+#+END_QUOTE
+
+首先，在 Github 上创建一个项目:
+
+: <图片暂缺>
+
+将项目克隆到本地:
+: git clone https://github.com/你的名字/项目名字
+
+将克隆下来的内容，剪切到我们的 idea 项目目录，之后，就可以使用常用的 Git 命令同步代码了:
+#+BEGIN_SRC sh
+  # 提交
+  git add .
+  git commit -m '注释不能少'
+
+  # 将本地修改同步到服务器
+  git push
+
+  # 日后更新
+  git pull
+#+END_SRC
+
+* 开始编码
+** 创建 Servlet
+** 创建 Filter
+** 创建 Listener
