@@ -57,6 +57,10 @@ $( document ).ready(function() {
     var closeBtn = $('<a class="close-sidebar" href="#">Close</a>');
     var tocTitle = $('#table-of-contents').find('h2');
     tocTitle.append(closeBtn);
+
+    $postamble.on('click', function (e) {
+        window.location.href='/';
+    });
 });
 
 window.SphinxRtdTheme = (function (jquery) {

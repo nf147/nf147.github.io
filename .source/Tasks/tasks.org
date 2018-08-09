@@ -1,12 +1,28 @@
 #+TITLE: 任务列表
 
 
-
-* 2018年8月8日
+* 2018年8月9日
 :PROPERTIES:
 :CUSTOM_ID: active
 :END:
 
+通过 Idea 创建一个项目，名字为 *hello_module*:
+1. 项目类型为 Web 项目
+2. 需要额外添加模块，至少有 dao、service、entity 模块
+3. 为各个模块设置好依赖关系
+4. 上传项目到自己的 github
+
+之后通过以上项目，复习:
+- ~@WebServlet~
+- ~@WebFilter~
+- ~@WebListener~
+- ~jstl~
+
+另外：
+: 什么是解耦?
+: 对项目划分为多个模块这种做法你有什么看法？优势、劣势有哪些？做个总结到自己的笔记。
+
+* 2018年8月8日
 
 - 如何让 github 项目 *免密码* 同步
 - emmet 工具的基本使用，总结
