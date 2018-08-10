@@ -1,10 +1,20 @@
 #+TITLE: 任务列表
 
 
-* 2018年8月9日
+
+* 2018年08月10日
 :PROPERTIES:
 :CUSTOM_ID: active
 :END:
+
+- 写代码理解 equals/== 的区别
+- 学习并总结 ~StringBuffer/StringBuilder/String~ 的区别（到时候希望有人能上台讲述）
+- 了解原生的 XMLHttpRequest 以及 FetchAPI 的使用，*务必整理笔记*
+- 了解 HTTP 协议的基本知识，包括请求流程、请求方法等
+- 了解 Servlet 接口的实现，思考总结“接口设计～实现”分离的好处
+- 其他，好像还有，暂时忘了。。。
+
+* 2018年8月9日
 
 通过 Idea 创建一个项目，名字为 *hello_module*:
 1. 项目类型为 Web 项目

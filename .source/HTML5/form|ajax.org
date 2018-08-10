@@ -1,0 +1,54 @@
+#+TITLE: Form/Ajax
+
+
+
+
+* XMLHttpRequest
+
+也算比较简单，需要掌握。不要没有 jQuery 就写不出代码，那样很危险。。
+
+#+BEGIN_SRC js
+  // 初始化
+  let xhr = new XMLHttpRequest();
+
+  // 可以增加请求参数
+  xhr.timeout = 3000;
+  xhr.reponseType = "text";
+
+  // 打开一部请求
+  xhr.open('POST', '/url', true);
+
+  // 发送请求，允许携带请求参数
+  xhr.send(null);
+
+  // 为请求注册回调函数
+  xhr.ontimeout = {...}
+  xhr.error = {...}
+  xhr.onprogress = {...}
+  xhr.upload.onprogress = {...}
+  xhr.onload = function (e) {
+      if(this.status == 200) {
+          alert(this.responseText);
+      } else {
+          alert(this.statusText);
+      }
+  };
+#+END_SRC
+
+* Fetch API
+
+旨在取代 XHR 的新标准，目前不是很成熟，但是日常测试使用很方便。
+
+三个接口一个方法: ~Headers/Request/Response~, ~fetch()~，语法简洁。
+
+#+BEGIN_SRC js
+  fetch('/some.json', {
+      method: 'get',
+      body: { id: 22 }
+  }).then(function (resp) {
+      resp.json().then(console.log);
+    
+  }).catch(function (r) {
+      console.err(r);
+  });
+#+END_SRC

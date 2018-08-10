@@ -1,0 +1,13 @@
+#+TITLE: Java / JSON
+
+
+
+使用最多的三个 jar 包:
+- jackson
+- gson
+- fastjson
+
+
+* Jackson
+
+* Gson

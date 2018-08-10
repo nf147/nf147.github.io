@@ -1,0 +1,24 @@
+#+TITLE: Java Web
+
+
+
+* Servlet 接口
+
+- 将 Servlet 的接口设计跟具体实现分开，这样做有什么好处？
+- Servlet 接口的方法有哪些？为什么这样设计？
+- 请描述 Service 方法与 doGet/doXxx 方法的区别和联系
+
+请结合 http 请求过程解释下面三个语句的作用：
+#+BEGIN_SRC java
+  req.setCharactorEncoding("utf-8");
+  resp.setCharactorEncoding("utf-8");
+  resp.setContentType("text/html;charset=utf-8");
+#+END_SRC
+
+* Servlet 基本语法
+
+- @WebServlet
+- @WebFilter
+- @WebListener
+
+* El表达式/JSTL
