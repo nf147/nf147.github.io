@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-08-13 周一 01:43 -->
+<!-- 2018-08-13 Mon 02:11 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>线程</title>
@@ -45,7 +45,7 @@
 代码示例:
 </p>
 <div class="org-src-container">
-<pre class="src src-java"><span class="org-keyword">class</span> <span class="org-type">MyThread</span> <span class="org-keyword">implements</span> <span class="org-type">Runnable</span> {
+<pre class="src src-java"><span class="org-keyword">class</span> <span class="org-type">MyThread</span> <span class="org-keyword">extends</span> <span class="org-type">Thread</span> {
     <span class="org-c-annotation">@Override</span>
     <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">run</span> () {
         System.out.println(<span class="org-string">"&#22312;&#26032;&#30340;&#32447;&#31243;&#20869;&#36816;&#34892;&#30340;&#20219;&#21153;&#12290;&#36825;&#20219;&#21153;&#26159;&#29420;&#31435;&#30340;&#65292;&#19981;&#20250;&#24433;&#21709;&#20027;&#32447;&#31243;&#20195;&#30721;&#25191;&#34892;&#12290;"</span>);
@@ -55,6 +55,25 @@
     <span class="org-keyword">public</span> <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">main</span> (<span class="org-type">String</span>... <span class="org-variable-name">args</span>) {
         <span class="org-type">Thread</span> <span class="org-variable-name">myThread</span> = <span class="org-keyword">new</span> <span class="org-type">MyThread</span>();   <span class="org-comment-delimiter">// </span><span class="org-comment">&#21019;&#24314;&#32447;&#31243;</span>
         mythread.start();                   <span class="org-comment-delimiter">// </span><span class="org-comment">&#36816;&#34892;&#32447;&#31243;</span>
+    }
+}
+</pre>
+</div>
+
+<p>
+也可以这样:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">class</span> <span class="org-type">MyThread</span> <span class="org-keyword">implements</span> <span class="org-type">Runnable</span> {
+    <span class="org-c-annotation">@Override</span>
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">run</span> () {
+        System.out.println(<span class="org-string">"&#22312;&#26032;&#30340;&#32447;&#31243;&#20869;&#36816;&#34892;&#30340;&#20219;&#21153;&#12290;&#36825;&#20219;&#21153;&#26159;&#29420;&#31435;&#30340;&#65292;&#19981;&#20250;&#24433;&#21709;&#20027;&#32447;&#31243;&#20195;&#30721;&#25191;&#34892;&#12290;"</span>);
+    }
+}
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">Main</span> {
+    <span class="org-keyword">public</span> <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">main</span> (<span class="org-type">String</span>... <span class="org-variable-name">args</span>) {
+        <span class="org-type">Thread</span> <span class="org-variable-name">myThread</span> = <span class="org-keyword">new</span> <span class="org-type">Thread</span>(<span class="org-keyword">new</span> <span class="org-type">MyThread</span>());   <span class="org-comment-delimiter">// </span><span class="org-comment">&#21019;&#24314;&#32447;&#31243;</span>
+        mythread.start();                               <span class="org-comment-delimiter">// </span><span class="org-comment">&#36816;&#34892;&#32447;&#31243;</span>
     }
 }
 </pre>
@@ -119,7 +138,7 @@
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-08-13 周一 01:43</p>
+<p class="date">Created: 2018-08-13 Mon 02:11</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

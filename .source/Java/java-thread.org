@@ -11,7 +11,7 @@
 
 代码示例:
 #+BEGIN_SRC java
-  class MyThread implements Runnable {
+  class MyThread extends Thread {
       @Override
       public void run () {
           System.out.println("在新的线程内运行的任务。这任务是独立的，不会影响主线程代码执行。");
@@ -21,6 +21,22 @@
       public static void main (String... args) {
           Thread myThread = new MyThread();   // 创建线程
           mythread.start();                   // 运行线程
+      }
+  }
+#+END_SRC
+
+也可以这样:
+#+BEGIN_SRC java
+  class MyThread implements Runnable {
+      @Override
+      public void run () {
+          System.out.println("在新的线程内运行的任务。这任务是独立的，不会影响主线程代码执行。");
+      }
+  }
+  public class Main {
+      public static void main (String... args) {
+          Thread myThread = new Thread(new MyThread());   // 创建线程
+          mythread.start();                               // 运行线程
       }
   }
 #+END_SRC
