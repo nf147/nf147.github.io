@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2018-08-13 周一 01:43 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>线程</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="某某人">
+<link rel='stylesheet' href='/asset/common.css' />
+<script src='https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+<script src='/asset/common.js'></script>
+</head>
+<body>
+<div id="content">
+<header>
+<h1 class="title">线程</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orge710c6e">1. 基本语法</a></li>
+<li><a href="#org0b29a50">2. API</a></li>
+<li><a href="#org3a5ede3">3. Java 线程发展历史</a></li>
+</ul>
+</div>
+</nav>
+
+
+
+<section id="outline-container-orge710c6e" class="outline-2">
+<h2 id="orge710c6e"><span class="section-number-2">1</span> 基本语法</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+使用新线程的步骤:
+</p>
+<ol class="org-ol">
+<li>通过覆写 Thread 的 run 方法，配置新线程需要做的事情</li>
+<li>创建新线程对象 <code>new YourThread()</code></li>
+<li>开启线程 <code>start</code></li>
+</ol>
+
+<p>
+代码示例:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">class</span> <span class="org-type">MyThread</span> <span class="org-keyword">implements</span> <span class="org-type">Runnable</span> {
+    <span class="org-c-annotation">@Override</span>
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">run</span> () {
+        System.out.println(<span class="org-string">"&#22312;&#26032;&#30340;&#32447;&#31243;&#20869;&#36816;&#34892;&#30340;&#20219;&#21153;&#12290;&#36825;&#20219;&#21153;&#26159;&#29420;&#31435;&#30340;&#65292;&#19981;&#20250;&#24433;&#21709;&#20027;&#32447;&#31243;&#20195;&#30721;&#25191;&#34892;&#12290;"</span>);
+    }
+}
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">Main</span> {
+    <span class="org-keyword">public</span> <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">main</span> (<span class="org-type">String</span>... <span class="org-variable-name">args</span>) {
+        <span class="org-type">Thread</span> <span class="org-variable-name">myThread</span> = <span class="org-keyword">new</span> <span class="org-type">MyThread</span>();   <span class="org-comment-delimiter">// </span><span class="org-comment">&#21019;&#24314;&#32447;&#31243;</span>
+        mythread.start();                   <span class="org-comment-delimiter">// </span><span class="org-comment">&#36816;&#34892;&#32447;&#31243;</span>
+    }
+}
+</pre>
+</div>
+
+<p>
+上面代码可以简写为:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-comment-delimiter">// </span><span class="org-comment">&#20351;&#29992;&#21311;&#21517;&#20869;&#37096;&#31867;&#36827;&#34892;&#31616;&#21270;</span>
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">Main</span> {
+    <span class="org-keyword">public</span> <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">main</span> (<span class="org-type">String</span>... <span class="org-variable-name">args</span>) {
+        <span class="org-type">Thread</span> <span class="org-variable-name">myThread</span> = <span class="org-keyword">new</span> <span class="org-type">Thread</span> () {
+                <span class="org-c-annotation">@Override</span>
+                <span class="org-keyword">public</span> <span class="org-type">void</span> run () {
+                    System.out.println(<span class="org-string">"&#22312;&#26032;&#30340;&#32447;&#31243;&#20869;&#36816;&#34892;&#30340;&#20219;&#21153;&#12290;&#36825;&#20219;&#21153;&#26159;&#29420;&#31435;&#30340;&#65292;&#19981;&#20250;&#24433;&#21709;&#20027;&#32447;&#31243;&#20195;&#30721;&#25191;&#34892;&#12290;"</span>);
+                }
+            };
+        myThread.start();
+    }
+}
+</pre>
+</div>
+
+<p>
+使用 jdk8 的语法，甚至可以简化为:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">Main</span> {
+    <span class="org-keyword">public</span> <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">main</span> (<span class="org-type">String</span>... <span class="org-variable-name">args</span>) {
+        <span class="org-keyword">new</span> <span class="org-type">Thread</span>(() -&gt; System.out.println(<span class="org-string">"task"</span>)).start();
+    }
+}
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org0b29a50" class="outline-2">
+<h2 id="org0b29a50"><span class="section-number-2">2</span> API</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li>Thread.sleep</li>
+<li>Thread.join</li>
+<li>Thread.start</li>
+<li>Thread.currentThread</li>
+<li>其他</li>
+</ul>
+</div>
+</section>
+
+<section id="outline-container-org3a5ede3" class="outline-2">
+<h2 id="org3a5ede3"><span class="section-number-2">3</span> Java 线程发展历史</h2>
+<div class="outline-text-2" id="text-3">
+<ul class="org-ul">
+<li>Thread</li>
+<li>ExecuteService, 线程池</li>
+<li>Fork/Join</li>
+</ul>
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: 某某人</p>
+<p class="date">Created: 2018-08-13 周一 01:43</p>
+<p class="validation">Go ahead, never stop.</p>
+</div>
+</body>
+</html>
