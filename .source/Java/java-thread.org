@@ -1,4 +1,4 @@
-#+TITLE: 线程
+#+TITLE: 线程(Thread)
 
 
 
@@ -66,6 +66,29 @@
     }
 #+END_SRC
 
+使用 *ThreadPool*:
+#+BEGIN_SRC java
+  ExecutorService service = Executors.newCachedThreadPool();
+
+  for (int i = 0; i < count; i++) {
+      service.execute(new Runnable() {
+              @Override
+              public void run() {
+                  System.out.println(Thread.currentThread());
+              }
+          });
+  }
+#+END_SRC
+
+可以简化为:
+#+BEGIN_SRC java
+  ExecutorService service = Executors.newCachedThreadPool();
+
+  for (int i = 0; i < count; i++) {
+      service.execute(() -> System.out.println(Thread.currentThread()));
+  }
+#+END_SRC
+
 * API
 
 [[file:img/thread_2018-08-13_02-31-05.png]]
@@ -76,6 +99,10 @@
 - ~Thread.join()~
 - ~Thread.sleep/yield()~..
 - ~Thread.currentThread/getState/isAlive/isDaemon/interruped()~..
+
+- t.join() ::
+
+  让当前线程阻塞并等待线程 t 结束再执行接下来代码
 
 * Java 线程发展历史
 
