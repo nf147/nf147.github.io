@@ -68,6 +68,8 @@
 
 * API
 
+[[file:img/thread_2018-08-13_02-31-05.png]]
+
 - Thread.sleep
 - Thread.join
 - Thread.start
@@ -79,3 +81,17 @@
 - Thread
 - ExecuteService, 线程池
 - Fork/Join
+* 面试题摘要
+** 什么是线程
+** 线程和进程有什么区别
+** 如何在 Java 中使用新线程
+** start() 和 run() 有什么区别
+** Thread.join 方法有什么用
+** 假如新建T1、T2、T3三个线程，如何保证它们按顺序执行？
+
+** volatile 变了是做什么的
+** 如果一个线程中发生了异常会怎么样
+** 什么是 ThreadLocal 变量
+** 什么是线程池，为什么要使用
+** Thread.sleep 和 wait 方法有什么不同
+** synchronized 关键词是做什么的
