@@ -70,11 +70,12 @@
 
 [[file:img/thread_2018-08-13_02-31-05.png]]
 
-- Thread.sleep
-- Thread.join
-- Thread.start
-- Thread.currentThread
-- 其他
+- ~Thread.start/run()~
+- ~Thread.getName/getId/getThreadGroup()~...
+- ~Thread.interrupt()~
+- ~Thread.join()~
+- ~Thread.sleep/yield()~..
+- ~Thread.currentThread/getState/isAlive/isDaemon/interruped()~..
 
 * Java 线程发展历史
 
