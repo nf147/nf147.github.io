@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-08-13 Mon 06:54 -->
+<!-- 2018-08-13 Mon 06:57 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>线程(Thread)</title>
@@ -130,6 +130,26 @@
 使用 <b>ThreadPool</b>:
 </p>
 <div class="org-src-container">
+<pre class="src src-java"><span class="org-comment-delimiter">// </span><span class="org-comment">1. &#21019;&#24314;&#32447;&#31243;&#27744;</span>
+<span class="org-type">ExecutorService</span> <span class="org-variable-name">service</span> = Executors.newCachedThreadPool();
+<span class="org-comment-delimiter">// </span><span class="org-comment">2. &#21019;&#24314;&#20219;&#21153;</span>
+<span class="org-type">Runnable</span> <span class="org-variable-name">task</span> = <span class="org-keyword">new</span> <span class="org-type">Runnable</span>() {
+        <span class="org-c-annotation">@Override</span>
+        <span class="org-keyword">public</span> <span class="org-type">void</span> run() {
+            System.out.println(Thread.currentThread());
+        }
+    };
+<span class="org-comment-delimiter">// </span><span class="org-comment">3. &#20351;&#29992;&#32447;&#31243;&#27744;&#21551;&#21160;&#20219;&#21153;</span>
+<span class="org-keyword">for</span> (<span class="org-type">int</span> <span class="org-variable-name">i</span> = 0; i &lt; 1000; i++) {
+    service.execute(task);
+}
+</pre>
+</div>
+
+<p>
+可以简化为:
+</p>
+<div class="org-src-container">
 <pre class="src src-java"><span class="org-type">ExecutorService</span> <span class="org-variable-name">service</span> = Executors.newCachedThreadPool();
 
 <span class="org-keyword">for</span> (<span class="org-type">int</span> <span class="org-variable-name">i</span> = 0; i &lt; <span class="org-type">count</span>; i++) {
@@ -144,7 +164,7 @@
 </div>
 
 <p>
-可以简化为:
+可以进一步简化为（jdk8）:
 </p>
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-type">ExecutorService</span> <span class="org-variable-name">service</span> = Executors.newCachedThreadPool();
@@ -234,7 +254,7 @@
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-08-13 Mon 06:54</p>
+<p class="date">Created: 2018-08-13 Mon 06:57</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

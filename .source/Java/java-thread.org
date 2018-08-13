@@ -68,6 +68,23 @@
 
 使用 *ThreadPool*:
 #+BEGIN_SRC java
+  // 1. 创建线程池
+  ExecutorService service = Executors.newCachedThreadPool();
+  // 2. 创建任务
+  Runnable task = new Runnable() {
+          @Override
+          public void run() {
+              System.out.println(Thread.currentThread());
+          }
+      };
+  // 3. 使用线程池启动任务
+  for (int i = 0; i < 1000; i++) {
+      service.execute(task);
+  }
+#+END_SRC
+
+可以简化为:
+#+BEGIN_SRC java
   ExecutorService service = Executors.newCachedThreadPool();
 
   for (int i = 0; i < count; i++) {
@@ -80,7 +97,7 @@
   }
 #+END_SRC
 
-可以简化为:
+可以进一步简化为（jdk8）:
 #+BEGIN_SRC java
   ExecutorService service = Executors.newCachedThreadPool();
 
