@@ -13,6 +13,8 @@
 其次，通过调用静态方法获取实例。
 
 #+BEGIN_SRC java
+  // 一般情况来说，这种方式就够用了！
+
   public class Boss {
       private Boss() {}
 
@@ -26,7 +28,11 @@
 
 * 懒汉模式以及演进
 
-设计的思路及代码如下:
+饿汉模式的问题在于，即使没有用到 boss，它也会被实例化，有些浪费空间...
+
+而懒汉模式就是让 boss 只在用到的时候才去加载。
+
+其设计的思路及代码如下:
 #+BEGIN_SRC java
   public class Boss {
       // 1. 私有化构造器
@@ -89,10 +95,15 @@
 #+END_SRC
 
 其中:
-- volatile 是为防止编译器指令重排，导致双重检查锁失败
-- synchronized 块尽量缩小了锁定的范围，提高效率
+- ~synchronized~ 块尽量缩小了锁定的范围，提高效率
+- ~volatile~ 是为防止编译器指令重排而导致双重检查锁失效
+
+另外:
+- *指令重排* 本是为了优化代码执行效率而存在的，虽然在单线程中效果拔群，但是在多线程中却能带来麻烦。~volatile~ 可以要求编译器不要做指令重排。
 
 * 静态内部类方式
+
+这是相对来说，非常优秀的一种实现。在很多地方，推荐使用这种方式。
 
 #+BEGIN_SRC java
   public class Boss {
@@ -115,4 +126,25 @@
 
 * ENUM方式
 
-如果感兴趣，自己学习整理
+ENUM 应该是最 *简单*，也是 *最好* 的一种实现单例模式的方式。
+
+它充分利用了 JVM 的特性，既保证了线程安全，又保证了延迟加载。
+
+#+BEGIN_SRC java
+  enum Boss {
+      INSTANCE;
+
+      public void sayHello () {
+          System.out.println("hello");
+      }
+  }
+
+  public class Main {
+      public static void main (String... args) {
+          Boss theBoss = Boss.INSTANCE;  // 获取实例
+          theBoss.sayHello();            // 调用方法
+      }
+  }
+#+END_SRC
+
+更多，如果感兴趣，自己学习整理
