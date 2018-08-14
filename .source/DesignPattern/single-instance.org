@@ -11,6 +11,18 @@
 
 其次，通过调用静态方法获取实例。
 
+#+BEGIN_SRC java
+  public class Boss {
+      private Boss() {}
+
+      private static Boss instance = new Boss();
+
+      public static Boss getInstance() {
+          return instance;
+      }
+  }
+#+END_SRC
+
 * 懒汉模式以及演进
 
 设计的思路及代码如下:
@@ -78,13 +90,26 @@
 其中:
 - volatile 是为防止编译器指令重排，导致双重检查锁失败
 - synchronized 块尽量缩小了锁定的范围，提高效率
-* 内部类方式
+
+* 静态内部类方式
 
 #+BEGIN_SRC java
   public class Boss {
-      private Boss () {}
+      // 1. 将构造器私有化
+      private Boss() { }
 
-      // ...
+      // 2. 充分利用了静态内部类的特性，在里面初始化 Boss 实例
+      //    - 只会被初始化一次
+      //    - 只有当静态内部类内部的属性、方法等被调用的时候，静态内部类才会被加载
+      static class Singleton {
+          private final static Boss INSTANCE = new Boss();
+      }
+
+      // 3. 提供一个公共方法，获取实例化好之后的对象
+      public static Boss getInstance() {
+          return Singleton.INSTANCE;
+      }
   }
 #+END_SRC
+
 * ENUM方式
