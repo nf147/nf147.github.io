@@ -1,0 +1,90 @@
+#+TITLE: 单例模式
+
+
+为什么:
+- 逻辑上，一个公司只能有一个老板
+- 效率上，尽量少实例化对象避免空间占用
+
+* 饿汉模式
+
+最基本的思路，就是将类的构造器私有化，那么就不能在外部调用 new 创建实例了。
+
+其次，通过调用静态方法获取实例。
+
+* 懒汉模式以及演进
+
+设计的思路及代码如下:
+#+BEGIN_SRC java
+  public class Boss {
+      // 1. 私有化构造器
+      private Boss {}
+
+      // 2. 定义实例的变量
+      private static Boss instance;
+
+      // 3. 通过静态方法创建或返回实例
+      public static Boss getInstance () {
+          if (instance == null) {
+              instance = new Boss();  // 虽然构造器是私有的，但是可以在内部调用
+          }
+          return instance;
+      }
+  }
+#+END_SRC
+
+这种方法在单线程下没有任何问题，但是在多线程环境中，却可能会实例化出多个对象。
+也就是说，它并不是线程安全的。为了解决这个问题，需要对 getInstance 加锁:
+#+BEGIN_SRC java
+  public class Boss {
+      // 1. 私有化构造器
+      private Boss {}
+
+      // 2. 定义实例的变量
+      private static Boss instance;
+
+      // 3. 通过静态方法创建或返回实例
+      public synchronized static Boss getInstance () { // 通过锁，将对此方法的调用变成串行的。这就防止了错误
+          if (instance == null) {
+              instance = new Boss();  // 虽然构造器是私有的，但是可以在内部调用
+          }
+          return instance;
+      }
+  }
+#+END_SRC
+
+上述加锁的方式，可以保证正确实例化对象。但是，因为在方法上加了锁，使得获取单例对象的效率过低。
+这时候，需要兼顾线程安全和效率，就出现了 *双重检查锁* 的概念:
+#+BEGIN_SRC java
+  // 1. 将构造器私有化
+  private Boss() {}
+
+  // 2. 初始化一个静态变量
+  private static volatile Boss instance = null;
+
+  // 3. 构造一个静态方法，通过它初始化或返还对象
+  public static Boss getInstance() {
+      // 双重检查锁机制
+      if (instance == null) {
+          synchronized (Boss.class) {
+              if (instance == null) {
+                  instance = new Boss();
+              }
+          }
+      }
+      return instance;
+  }
+#+END_SRC
+
+其中:
+- volatile 是为防止编译器指令重排，导致双重检查锁失败
+- synchronized 块尽量缩小了锁定的范围，提高效率
+* 内部类方式
+
+#+BEGIN_SRC java
+  public class Boss {
+      private Boss () {}
+
+      // ...
+  }
+#+END_SRC
+* ENUM方式
