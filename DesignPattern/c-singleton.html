@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-08-14 Tue 03:49 -->
+<!-- 2018-08-14 Tue 15:31 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>单例模式</title>
@@ -20,10 +20,10 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org1a03c1d">1. 饿汉模式</a></li>
-<li><a href="#orgfd5b201">2. 懒汉模式以及演进</a></li>
-<li><a href="#org7f42d68">3. 静态内部类方式</a></li>
-<li><a href="#org765c4db">4. ENUM方式</a></li>
+<li><a href="#orgbb90773">1. 饿汉模式</a></li>
+<li><a href="#org0fb5a37">2. 懒汉模式以及演进</a></li>
+<li><a href="#org943b3e4">3. 静态内部类方式</a></li>
+<li><a href="#org9446570">4. ENUM方式</a></li>
 </ul>
 </div>
 </nav>
@@ -36,8 +36,8 @@
 <li>其他</li>
 </ul>
 
-<section id="outline-container-org1a03c1d" class="outline-2">
-<h2 id="org1a03c1d"><span class="section-number-2">1</span> 饿汉模式</h2>
+<section id="outline-container-orgbb90773" class="outline-2">
+<h2 id="orgbb90773"><span class="section-number-2">1</span> 饿汉模式</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 最基本的思路，就是将类的构造器私有化，那么就不能在外部调用 new 创建实例了。
@@ -62,8 +62,8 @@
 </div>
 </section>
 
-<section id="outline-container-orgfd5b201" class="outline-2">
-<h2 id="orgfd5b201"><span class="section-number-2">2</span> 懒汉模式以及演进</h2>
+<section id="outline-container-org0fb5a37" class="outline-2">
+<h2 id="org0fb5a37"><span class="section-number-2">2</span> 懒汉模式以及演进</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 设计的思路及代码如下:
@@ -144,8 +144,8 @@
 </div>
 </section>
 
-<section id="outline-container-org7f42d68" class="outline-2">
-<h2 id="org7f42d68"><span class="section-number-2">3</span> 静态内部类方式</h2>
+<section id="outline-container-org943b3e4" class="outline-2">
+<h2 id="org943b3e4"><span class="section-number-2">3</span> 静态内部类方式</h2>
 <div class="outline-text-2" id="text-3">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">Boss</span> {
@@ -169,8 +169,8 @@
 </div>
 </section>
 
-<section id="outline-container-org765c4db" class="outline-2">
-<h2 id="org765c4db"><span class="section-number-2">4</span> ENUM方式</h2>
+<section id="outline-container-org9446570" class="outline-2">
+<h2 id="org9446570"><span class="section-number-2">4</span> ENUM方式</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 如果感兴趣，自己学习整理
@@ -180,7 +180,7 @@
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-08-14 Tue 03:49</p>
+<p class="date">Created: 2018-08-14 Tue 15:31</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
