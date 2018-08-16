@@ -22,3 +22,14 @@
 - @WebListener
 
 * El表达式/JSTL
+* Dispatcher/Redirect
+
+- include()/forward() 方法有什么区别
+- 请总结转发和重定向的区别
+- 转发和重定向分别有什么优点和缺点？
+- 什么是 405 错误?
+
+* Cookie/Session
+
+- 请总结 Cookie 和 Session 有什么区别
+- 请自己设计并实现 Session
