@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-08-20 周一 02:27 -->
+<!-- 2018-08-20 Mon 02:37 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CSS3 基础</title>
@@ -20,10 +20,11 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orge80a1be">1. 媒体查询</a>
+<li><a href="#org92b5f61">1. 弹性盒子布局(flex)</a></li>
+<li><a href="#org5e31292">2. 媒体查询(Media Query)</a>
 <ul>
-<li><a href="#org3fc4e47">1.1. @import</a></li>
-<li><a href="#org4aa32f4">1.2. @media</a></li>
+<li><a href="#org3fc4e47">2.1. @import</a></li>
+<li><a href="#org4aa32f4">2.2. @media</a></li>
 </ul>
 </li>
 </ul>
@@ -32,16 +33,38 @@
 
 
 
-<section id="outline-container-orge80a1be" class="outline-2">
-<h2 id="orge80a1be"><span class="section-number-2">1</span> 媒体查询</h2>
+
+<section id="outline-container-org92b5f61" class="outline-2">
+<h2 id="org92b5f61"><span class="section-number-2">1</span> 弹性盒子布局(flex)</h2>
 <div class="outline-text-2" id="text-1">
+<p>
+css3 中引入的一个非常灵活，非常强大的布局方式。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-css"><span class="org-css-selector">#container </span>{
+    <span class="org-css-property">display</span>: flex;
+    <span class="org-css-property">justify-content</span>: center;
+}
+
+<span class="org-css-selector">.item </span>{
+    <span class="org-css-property">flex</span>: 1;
+}
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org5e31292" class="outline-2">
+<h2 id="org5e31292"><span class="section-number-2">2</span> 媒体查询(Media Query)</h2>
+<div class="outline-text-2" id="text-2">
 </div>
 <div id="outline-container-org3fc4e47" class="outline-3">
-<h3 id="org3fc4e47"><span class="section-number-3">1.1</span> @import</h3>
+<h3 id="org3fc4e47"><span class="section-number-3">2.1</span> @import</h3>
 </div>
 <div id="outline-container-org4aa32f4" class="outline-3">
-<h3 id="org4aa32f4"><span class="section-number-3">1.2</span> @media</h3>
-<div class="outline-text-3" id="text-1-2">
+<h3 id="org4aa32f4"><span class="section-number-3">2.2</span> @media</h3>
+<div class="outline-text-3" id="text-2-2">
 <p>
 语法分为三部分:
 </p>
@@ -85,7 +108,7 @@
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-08-20 周一 02:27</p>
+<p class="date">Created: 2018-08-20 Mon 02:37</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

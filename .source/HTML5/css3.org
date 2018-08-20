@@ -2,7 +2,23 @@
 
 
 
-* 媒体查询
+
+* 弹性盒子布局(flex)
+
+css3 中引入的一个非常灵活，非常强大的布局方式。
+
+#+BEGIN_SRC css
+  #container {
+      display: flex;
+      justify-content: center;
+  }
+
+  .item {
+      flex: 1;
+  }
+#+END_SRC
+
+* 媒体查询(Media Query)
 ** @import
 ** @media
 

@@ -1,0 +1,18 @@
+#+TITLE: JSTL
+
+
+
+
+* el 表达式
+
+* JSTL
+
+首先，需要引入 Jar 包:
+: javax.servlet:jstl:1.2
+
+主要包括这些类型:
+- 核心标签
+- 格式化标签
+- JSTL 函数
+
+
