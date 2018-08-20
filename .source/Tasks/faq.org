@@ -1,0 +1,6 @@
+#+TITLE: 常见问题
+
+
+* java web
+
+- <%@include> 跟 <jsp:include> 有什么区别？
