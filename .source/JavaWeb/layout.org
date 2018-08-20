@@ -1,0 +1,61 @@
+#+TITLE: 页面跟布局
+
+
+* include
+
+- ~<jsp:include>~
+- ~<%@include file="xxx">~
+
+* SiteMesh
+
+*首先*，将 jar 包添加到项目中:
+: opensymphony:sitemesh:2.4.2
+
+*其次*，在 web.xml 中添加过滤器，将所有请求交给 SiteMesh 过滤
+: com.opensymphony.module.sitemesh.filter.PageFilter
+
+*然后*，添加 SiteMesh 的配置文件 ~WEB-INF/decorators.xml~:
+#+BEGIN_SRC sgml
+  <?xml version="1.0" encoding="utf-8" ?>
+  <decorators defaultdir="/jsp/layouts/">
+    <!-- 先定义不过滤的页面，即排除页面 -->
+    <excludes>
+      <pattern>/assets/*</pattern>
+    </excludes>
+
+    <!-- 定义需要修饰的页面 -->
+    <decorator name="book" page="book_tpl.jsp">
+      <pattern>/*</pattern>
+    </decorator>
+  </decorators>
+#+END_SRC
+
+*之后*，创建模板文件 ~jsp/layouts/book_tpl.jsp~:
+#+BEGIN_SRC html
+  <!doctype html>
+  <html lang="en">
+    <head>
+      <title><sitemesh:title /></title>
+      <sitemesh:head />
+    </head>
+    <body>
+      <header>
+        <%@include file="book_header.jsp" />
+      </header>
+
+      <div>
+        <sitemesh:body />
+      </div>
+
+      <footer>
+        <%@include file="book_footer.jsp" />
+      </footer>
+    </body>
+  </html>
+#+END_SRC
+
+最后，就可以使用了。
+
+* Apache Tile
+
+另一款比较流行的页面布局插件。它比 SiteMesh 复杂，但更灵活。

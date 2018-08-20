@@ -1,0 +1,38 @@
+#+TITLE: CSS3 基础
+
+
+
+* 媒体查询
+** @import
+** @media
+
+语法分为三部分:
+1. Media 类型
+2. Media 特性表达式
+3. 逻辑操作符
+
+如下所示:
+#+BEGIN_SRC css
+  /* 语法 */
+  @media not|only MediaType and (MediaFeatureExpressions) {
+      CSS-Code;
+  }
+
+  /* 示例 */
+  @media print {
+      /* 只有在打印的时候，这些样式才会生效 */
+  }
+
+  @media screen, print {
+      /* Media Type 分为4种，all/print/screen/speech */
+  }
+
+  @media screen and (min-width: 480px) {
+      /* 显示的时候，并且屏幕宽度大于 480 的时候才生效 */
+  }
+
+  @media (min-height: 500px), (not (screen and ((color))) and (max-width: 90em) and (oritentation:lanscape)) {
+      /* 更复杂的条件 */
+      /* 逻辑运算符包括 and/not/only */
+  }
+#+END_SRC
