@@ -12,7 +12,7 @@
 : opensymphony:sitemesh:2.4.2
 
 *其次*，在 web.xml 中添加过滤器，将所有请求交给 SiteMesh 过滤
-: com.opensymphony.module.sitemesh.filter.PageFilter
+: com.opensymphony.sitemesh.webapp.SiteMeshFilter
 
 *然后*，添加 SiteMesh 的配置文件 ~WEB-INF/decorators.xml~:
 #+BEGIN_SRC sgml
@@ -50,6 +50,19 @@
       <footer>
         <%@include file="book_footer.jsp" />
       </footer>
+
+
+      <!-- 其他用法 -->
+
+      <!-- 可以通过 meta 在页面之间传递数据 -->
+      <!-- <meta name='xxx' content='ksjfkjskf' -->
+      <decorator:getProperty property="meta.xxx" />
+
+      <!-- 可以通过 usePage 引用到原始页面的 jsp 对象 -->
+      <decorator:usePage id="myPage" />
+      <%= myPage.getRequest().getAttribute("xxx") %>
+
+      <!-- 其他，自行总结 -->
     </body>
   </html>
 #+END_SRC

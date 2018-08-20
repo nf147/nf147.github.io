@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-08-20 Mon 02:31 -->
+<!-- 2018-08-20 Mon 07:34 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>页面跟布局</title>
@@ -52,7 +52,7 @@ opensymphony:sitemesh:2.4.2
 <b>其次</b>，在 web.xml 中添加过滤器，将所有请求交给 SiteMesh 过滤
 </p>
 <pre class="example">
-com.opensymphony.module.sitemesh.filter.PageFilter
+com.opensymphony.sitemesh.webapp.SiteMeshFilter
 </pre>
 
 <p>
@@ -96,6 +96,19 @@ com.opensymphony.module.sitemesh.filter.PageFilter
     &lt;<span class="org-function-name">footer</span>&gt;
       &lt;%@include <span class="org-variable-name">file</span>=<span class="org-string">"book_footer.jsp"</span> /&gt;
     &lt;/<span class="org-function-name">footer</span>&gt;
+
+
+    <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#20854;&#20182;&#29992;&#27861; </span><span class="org-comment-delimiter">--&gt;</span>
+
+    <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#21487;&#20197;&#36890;&#36807; meta &#22312;&#39029;&#38754;&#20043;&#38388;&#20256;&#36882;&#25968;&#25454; </span><span class="org-comment-delimiter">--&gt;</span>
+    <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&lt;meta name='xxx' content='ksjfkjskf' </span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-sgml-namespace">decorator</span>:<span class="org-function-name">getProperty</span> <span class="org-variable-name">property</span>=<span class="org-string">"meta.xxx"</span> /&gt;
+
+    <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#21487;&#20197;&#36890;&#36807; usePage &#24341;&#29992;&#21040;&#21407;&#22987;&#39029;&#38754;&#30340; jsp &#23545;&#35937; </span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-sgml-namespace">decorator</span>:<span class="org-function-name">usePage</span> <span class="org-variable-name">id</span>=<span class="org-string">"myPage"</span> /&gt;
+    &lt;%= myPage.getRequest().getAttribute(<span class="org-string">"xxx"</span>) %&gt;
+
+    <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#20854;&#20182;&#65292;&#33258;&#34892;&#24635;&#32467; </span><span class="org-comment-delimiter">--&gt;</span>
   &lt;/<span class="org-function-name">body</span>&gt;
 &lt;/<span class="org-function-name">html</span>&gt;
 </pre>
@@ -118,7 +131,7 @@ com.opensymphony.module.sitemesh.filter.PageFilter
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-08-20 Mon 02:31</p>
+<p class="date">Created: 2018-08-20 Mon 07:34</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
