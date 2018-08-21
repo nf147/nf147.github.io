@@ -1,0 +1,35 @@
+#+TITLE: Bootstrap
+
+
+
+* 基础
+
+网站:
+- 官网 http://getbootstrap.com/
+- 中文网站 http://bootcss.com/
+
+实现原理:
+1. 使用 *百分比/em/rem* 定义尺寸
+2. 网格系统（Grid System）概念的提出跟实现
+3. 媒体查询(@Media)
+
+注意，如果要使用弹出 Model 等功能，需要引入相关 js，bootstrap.js 需要 jQuery 的支持
+
+* 组件
+
+- 表单/表格
+- 导航栏
+- 菜单
+- 轮播
+- 巨幕
+- alert/tip/popup
+- Modal
+- Progress
+- Card/Figure
+
+* v3 vs v4
+
+- v4 大量使用了 flex 语法，api 更简洁，功能更强大
+- 因为使用了 flex 语法，所以放弃了兼容一些旧的浏览器
+- v3 历史悠久，基于它的主题和插件更多
+- v4 代表着未来

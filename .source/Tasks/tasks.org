@@ -7,14 +7,15 @@
 :CUSTOM_ID: active
 :END:
 
-
 #+BEGIN_QUOTE
+
 鉴于目前大家任务完成情况不甚乐观，咱们现在暂时再慢一下
 #+END_QUOTE
 
 - *bootstrap* + *sitemesh* + *servlet*，理解、掌握
 - 使用 JSTL 替换 JSP 中 Java 代码
 - 练习 bootstrap modal 使用。将“书籍更新”改为传递id、ajax 形式获取书籍、JS填充方式
+- 有余力的同学，尝试使用 ajax 方式实现整个 book_list.jsp
 
 * 2018年08月20日
 

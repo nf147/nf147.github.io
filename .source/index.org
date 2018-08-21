@@ -22,6 +22,8 @@
 
 #+HTML: <section id="toc">
 
+*高手是用代码喂出来的，如果你觉得自己弱，那是因为你的代码量太少了。*
+
 #+HTML: <h3>当前任务</h3>
 #+INCLUDE: "Tasks/tasks.org::#active" :only-contents t
 
