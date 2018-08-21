@@ -4,3 +4,4 @@
 * java web
 
 - <%@include> 跟 <jsp:include> 有什么区别？
+- JSTL 有什么优势？为什么要在 JSP 中去使用它？

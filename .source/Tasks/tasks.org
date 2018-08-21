@@ -2,10 +2,21 @@
 
 
 
-* 2018年08月20日
+* 2018年08月21日
 :PROPERTIES:
 :CUSTOM_ID: active
 :END:
+
+
+#+BEGIN_QUOTE
+鉴于目前大家任务完成情况不甚乐观，咱们现在暂时再慢一下
+#+END_QUOTE
+
+- *bootstrap* + *sitemesh* + *servlet*，理解、掌握
+- 使用 JSTL 替换 JSP 中 Java 代码
+- 练习 bootstrap modal 使用。将“书籍更新”改为传递id、ajax 形式获取书籍、JS填充方式
+
+* 2018年08月20日
 
 - 多敲代码
 - 练习并总结，如何使用 *bootstrap* + *sitemesh* + *servlet* 快速搭建网站，实现完整的增删改查功能
