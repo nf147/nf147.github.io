@@ -1,0 +1,8 @@
+#+TITLE: SQLServer
+
+
+* 分页
+
+如何取得 50-80 条的数据
+
+- https://stackoverflow.com/questions/109232/what-is-the-best-way-to-paginate-results-in-sql-server

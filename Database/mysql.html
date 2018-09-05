@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2018-09-05 Wed 07:19 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MySQL</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="某某人">
+<link rel='stylesheet' href='/asset/common.css' />
+<script src='https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+<script src='/asset/common.js'></script>
+</head>
+<body>
+<div id="content">
+<header>
+<h1 class="title">MySQL</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org2e4c3fc">1. 安装与配置</a></li>
+</ul>
+</div>
+</nav>
+
+
+
+<section id="outline-container-org2e4c3fc" class="outline-2">
+<h2 id="org2e4c3fc"><span class="section-number-2">1</span> 安装与配置</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+MySQL/MariaDB:
+</p>
+<ul class="org-ul">
+<li><a href="https://www.mysql.com/cn/">https://www.mysql.com/cn/</a></li>
+<li><a href="http://mariadb.org">http://mariadb.org</a></li>
+</ul>
+
+<p>
+比如，MariaDB 的下载页面:
+</p>
+<ul class="org-ul">
+<li><a href="https://downloads.mariadb.org/mariadb/10.3.9/">https://downloads.mariadb.org/mariadb/10.3.9/</a></li>
+</ul>
+
+<p>
+下载安装即可：
+</p>
+<ul class="org-ul">
+<li>注意，要注意勾选“将utf8作为默认字符集”</li>
+<li>安装过程中需要提供 root 用户的密码，需要记住</li>
+<li>安装完后，需要将 bin 目录添加到环境变量中</li>
+<li>可以选择将 mysqld 安装为 windows 服务，如果没有勾选，那么也可以手动创建服务</li>
+</ul>
+
+<p>
+创建服务的方式:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">&#22914;&#26524;&#35201;&#21024;&#38500;&#30456;&#20851;&#26381;&#21153;&#65292;&#21482;&#38656;&#35201;&#22312;&#8220;&#31649;&#29702;&#21592;&#36523;&#20221;&#8221;&#30340;&#21629;&#20196;&#34892;&#31383;&#21475;&#19979;&#38754;&#36816;&#34892;:</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">sc delete &#26381;&#21153;&#21517;&#23383;</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#23558; MySQL &#23433;&#35013;&#20026;&#26381;&#21153;&#30340;&#26041;&#24335;:</span>
+<span class="org-string">"C:\Program Files\MariaDB 10.3\bin\mysqld.exe"</span> install MyDB --defaults-file=<span class="org-string">"C:\Program Files\MariaDB 10.3\my.ini"</span>
+</pre>
+</div>
+
+<p>
+在连接之前，需要启动服务器守护程序，可以通过下面两种方式之一:
+</p>
+<ol class="org-ol">
+<li>启动相关 windows 服务，比如 MySQL 服务</li>
+<li>通过命令行窗口，执行 <code>mysqld --defaults-file=my.ini</code> 命令</li>
+</ol>
+
+<p>
+服务启动后，就可以通过客户端访问了:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">mysql -u root -p
+mysql -uroot -proot
+mysql -h 45.42.32.1 -P 9999 -uroot -p
+</pre>
+</div>
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: 某某人</p>
+<p class="date">Created: 2018-09-05 Wed 07:19</p>
+<p class="validation">Go ahead, never stop.</p>
+</div>
+</body>
+</html>

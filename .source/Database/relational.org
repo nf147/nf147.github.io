@@ -2,6 +2,17 @@
 
 
 
+
+* SQL
+
+Structure Query Language，结构化查询语言
+
+分类:
+- ddl
+- dml
+- dcl
+- tcl
+
 * 三大范式
 * ACID
 * 事务与隔离级别

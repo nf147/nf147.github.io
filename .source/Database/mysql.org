@@ -1,0 +1,38 @@
+#+TITLE: MySQL
+
+
+
+* 安装与配置
+
+MySQL/MariaDB:
+- https://www.mysql.com/cn/
+- http://mariadb.org
+
+比如，MariaDB 的下载页面:
+- https://downloads.mariadb.org/mariadb/10.3.9/
+
+下载安装即可：
+- 注意，要注意勾选“将utf8作为默认字符集”
+- 安装过程中需要提供 root 用户的密码，需要记住
+- 安装完后，需要将 bin 目录添加到环境变量中
+- 可以选择将 mysqld 安装为 windows 服务，如果没有勾选，那么也可以手动创建服务
+
+创建服务的方式:
+#+BEGIN_SRC sh
+  # 如果要删除相关服务，只需要在“管理员身份”的命令行窗口下面运行:
+  # sc delete 服务名字
+
+  # 将 MySQL 安装为服务的方式:
+  "C:\Program Files\MariaDB 10.3\bin\mysqld.exe" install MyDB --defaults-file="C:\Program Files\MariaDB 10.3\my.ini"
+#+END_SRC
+
+在连接之前，需要启动服务器守护程序，可以通过下面两种方式之一:
+1. 启动相关 windows 服务，比如 MySQL 服务
+2. 通过命令行窗口，执行 ~mysqld --defaults-file=my.ini~ 命令
+
+服务启动后，就可以通过客户端访问了:
+#+BEGIN_SRC sh
+  mysql -u root -p
+  mysql -uroot -proot
+  mysql -h 45.42.32.1 -P 9999 -uroot -p
+#+END_SRC
