@@ -36,3 +36,48 @@ MySQL/MariaDB:
   mysql -uroot -proot
   mysql -h 45.42.32.1 -P 9999 -uroot -p
 #+END_SRC
+
+* 数据库与账户
+
+MySQL 在用户登录后（默认使用 root 用户登录），需要切换到一个 *database* 才能进行表的创建等操作。所有的数都隶属于某个数据库。
+
+刚安装完之后，MySQL 中有若干内置数据库：
+
+[[file:img/clip_2018-09-05_07-24-23.png]]
+
+想要切换到某个数据库下，使用 ~use~ 指令:
+: use mysql
+
+我们可以为自己的业务创建单独的数据库，比如，为我们的书店项目，我们需要创建一个数据库:
+#+BEGIN_SRC sql
+  create database bookstore;
+  create database bookstore character set UTF8; -- 创建时可以指定字符集
+  use bookstore;  -- 切换到数据库下
+#+END_SRC
+
+虽然 root 用户强大无比，但是使用 root 用户进行数据库操作不是一个好的行为。
+所以我们需要为数据库的操作创建相关的用户:
+#+BEGIN_SRC sql
+  -- 特别需要注意，在 MySQL 中，账号由两部分组成:
+  -- 1. user
+  -- 2. host
+  -- 即使 user 相同，只要 host 不同，也会被认为是不同账号。
+  -- 这样可以非常方便对来自不同 ip 地址的访问进行精细的权限控制。
+  -- 默认情况下，创建的用户 host 为 '%'，这是一个匹配符，跟模糊查询里的意思一样，表示匹配所有
+  create user vip identified by 'vippp';             -- 所有连接
+  create user vip@'127.0.0.1' identified by 'xxx';   -- 本地连接
+  create user vip@'192.168.%' identified by 'yyy';   -- 192.168 网段的连接
+#+END_SRC
+
+新创建的用户没有多少权限，登录之后，只能访问操作 test 以及以 test 开头的数据库。
+如果想让新用户有更多权限，就需要用到授权语句(DCL)：
+#+BEGIN_SRC sql
+  grant all on *.* to vip@'127.0.0.1';        -- 将所有数据库上的所有权利都授予通过本机连接的 vip 用户！
+  grant all privileges on lagou.* to vip@'%'; -- 将数据库 lagou 上的所有权利都授予所有连接的 vip 用户!
+  grant select on lagou.position to vip@'%';  -- 将 lagou 数据库上的 position 表的访问权限开放给所有 vip 用户。
+#+END_SRC
+
+如果想查看某个用户拥有的权限，只需要:
+#+BEGIN_SRC sql
+  show grants for vip@'%';
+#+END_SRC

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-05 Wed 07:19 -->
+<!-- 2018-09-05 Wed 07:39 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MySQL</title>
@@ -21,6 +21,7 @@
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#org2e4c3fc">1. 安装与配置</a></li>
+<li><a href="#orgef7e074">2. 数据库与账户</a></li>
 </ul>
 </div>
 </nav>
@@ -86,10 +87,80 @@ mysql -h 45.42.32.1 -P 9999 -uroot -p
 </div>
 </div>
 </section>
+
+<section id="outline-container-orgef7e074" class="outline-2">
+<h2 id="orgef7e074"><span class="section-number-2">2</span> 数据库与账户</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+MySQL 在用户登录后（默认使用 root 用户登录），需要切换到一个 <b>database</b> 才能进行表的创建等操作。所有的数都隶属于某个数据库。
+</p>
+
+<p>
+刚安装完之后，MySQL 中有若干内置数据库：
+</p>
+
+
+<figure>
+<img src="img/clip_2018-09-05_07-24-23.png" alt="clip_2018-09-05_07-24-23.png">
+
+</figure>
+
+<p>
+想要切换到某个数据库下，使用 <code>use</code> 指令:
+</p>
+<pre class="example">
+use mysql
+</pre>
+
+<p>
+我们可以为自己的业务创建单独的数据库，比如，为我们的书店项目，我们需要创建一个数据库:
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">create</span> database bookstore;
+<span class="org-keyword">create</span> database bookstore <span class="org-type">character</span> <span class="org-keyword">set</span> UTF8; <span class="org-comment">-- &#21019;&#24314;&#26102;&#21487;&#20197;&#25351;&#23450;&#23383;&#31526;&#38598;</span>
+use bookstore;  <span class="org-comment">-- &#20999;&#25442;&#21040;&#25968;&#25454;&#24211;&#19979;</span>
+</pre>
+</div>
+
+<p>
+虽然 root 用户强大无比，但是使用 root 用户进行数据库操作不是一个好的行为。所以我们需要为数据库的操作创建相关的用户:
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-comment">-- &#29305;&#21035;&#38656;&#35201;&#27880;&#24847;&#65292;&#22312; MySQL &#20013;&#65292;&#36134;&#21495;&#30001;&#20004;&#37096;&#20998;&#32452;&#25104;:</span>
+<span class="org-comment">-- 1. user</span>
+<span class="org-comment">-- 2. host</span>
+<span class="org-comment">-- &#21363;&#20351; user &#30456;&#21516;&#65292;&#21482;&#35201; host &#19981;&#21516;&#65292;&#20063;&#20250;&#34987;&#35748;&#20026;&#26159;&#19981;&#21516;&#36134;&#21495;&#12290;</span>
+<span class="org-comment">-- &#36825;&#26679;&#21487;&#20197;&#38750;&#24120;&#26041;&#20415;&#23545;&#26469;&#33258;&#19981;&#21516; ip &#22320;&#22336;&#30340;&#35775;&#38382;&#36827;&#34892;&#31934;&#32454;&#30340;&#26435;&#38480;&#25511;&#21046;&#12290;</span>
+<span class="org-comment">-- &#40664;&#35748;&#24773;&#20917;&#19979;&#65292;&#21019;&#24314;&#30340;&#29992;&#25143; host &#20026; '%'&#65292;&#36825;&#26159;&#19968;&#20010;&#21305;&#37197;&#31526;&#65292;&#36319;&#27169;&#31946;&#26597;&#35810;&#37324;&#30340;&#24847;&#24605;&#19968;&#26679;&#65292;&#34920;&#31034;&#21305;&#37197;&#25152;&#26377;</span>
+<span class="org-keyword">create</span> <span class="org-builtin">user</span> vip identified <span class="org-keyword">by</span> <span class="org-string">'vippp'</span>;             <span class="org-comment">-- &#25152;&#26377;&#36830;&#25509;</span>
+<span class="org-keyword">create</span> <span class="org-builtin">user</span> vip@<span class="org-string">'127.0.0.1'</span> identified <span class="org-keyword">by</span> <span class="org-string">'xxx'</span>;   <span class="org-comment">-- &#26412;&#22320;&#36830;&#25509;</span>
+<span class="org-keyword">create</span> <span class="org-builtin">user</span> vip@<span class="org-string">'192.168.%'</span> identified <span class="org-keyword">by</span> <span class="org-string">'yyy'</span>;   <span class="org-comment">-- 192.168 &#32593;&#27573;&#30340;&#36830;&#25509;</span>
+</pre>
+</div>
+
+<p>
+新创建的用户没有多少权限，登录之后，只能访问操作 test 以及以 test 开头的数据库。如果想让新用户有更多权限，就需要用到授权语句(DCL)：
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">grant</span> <span class="org-keyword">all</span> <span class="org-keyword">on</span> *.* <span class="org-keyword">to</span> vip@<span class="org-string">'127.0.0.1'</span>;        <span class="org-comment">-- &#23558;&#25152;&#26377;&#25968;&#25454;&#24211;&#19978;&#30340;&#25152;&#26377;&#26435;&#21033;&#37117;&#25480;&#20104;&#36890;&#36807;&#26412;&#26426;&#36830;&#25509;&#30340; vip &#29992;&#25143;&#65281;</span>
+<span class="org-keyword">grant</span> <span class="org-keyword">all</span> <span class="org-keyword">privileges</span> <span class="org-keyword">on</span> lagou.* <span class="org-keyword">to</span> vip@<span class="org-string">'%'</span>; <span class="org-comment">-- &#23558;&#25968;&#25454;&#24211; lagou &#19978;&#30340;&#25152;&#26377;&#26435;&#21033;&#37117;&#25480;&#20104;&#25152;&#26377;&#36830;&#25509;&#30340; vip &#29992;&#25143;!</span>
+<span class="org-keyword">grant</span> <span class="org-keyword">select</span> <span class="org-keyword">on</span> lagou.<span class="org-keyword">position</span> <span class="org-keyword">to</span> vip@<span class="org-string">'%'</span>;  <span class="org-comment">-- &#23558; lagou &#25968;&#25454;&#24211;&#19978;&#30340; position &#34920;&#30340;&#35775;&#38382;&#26435;&#38480;&#24320;&#25918;&#32473;&#25152;&#26377; vip &#29992;&#25143;&#12290;</span>
+</pre>
+</div>
+
+<p>
+如果想查看某个用户拥有的权限，只需要:
+</p>
+<div class="org-src-container">
+<pre class="src src-sql">show grants <span class="org-keyword">for</span> vip@<span class="org-string">'%'</span>;
+</pre>
+</div>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-05 Wed 07:19</p>
+<p class="date">Created: 2018-09-05 Wed 07:39</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
