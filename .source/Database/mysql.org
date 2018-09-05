@@ -39,7 +39,7 @@ MySQL/MariaDB:
 
 * 数据库与账户
 
-MySQL 在用户登录后（默认使用 root 用户登录），需要切换到一个 *database* 才能进行表的创建等操作。所有的数都隶属于某个数据库。
+MySQL 在用户登录后（默认使用 root 用户登录），需要切换到一个 *database* 才能进行表的创建等操作。所有的表和数据都隶属于某个数据库。
 
 刚安装完之后，MySQL 中有若干内置数据库：
 
@@ -48,7 +48,7 @@ MySQL 在用户登录后（默认使用 root 用户登录），需要切换到�
 想要切换到某个数据库下，使用 ~use~ 指令:
 : use mysql
 
-我们可以为自己的业务创建单独的数据库，比如，为我们的书店项目，我们需要创建一个数据库:
+我们可以为自己的业务创建单独的数据库，比如，为我们的书店项目我们创建一个单独的数据库:
 #+BEGIN_SRC sql
   create database bookstore;
   create database bookstore character set UTF8; -- 创建时可以指定字符集
@@ -80,4 +80,58 @@ MySQL 在用户登录后（默认使用 root 用户登录），需要切换到�
 如果想查看某个用户拥有的权限，只需要:
 #+BEGIN_SRC sql
   show grants for vip@'%';
+#+END_SRC
+
+* 用户跟权限
+
+用户跟权限的相关信息，都是保存在下面表中：
+- mysql.user
+- mysql.db/host/table/priv...
+
+~mysql.user~ 是一个非常重要非常特殊的表，它保存了所有的账号信息，以及保存了账号的权限信息。
+
+如果要操作用户和权限，有两种方式:
+1. 使用相关的授权语句
+2. 直接修改 mysql.user 表
+
+*第一种方式*:
+#+BEGIN_SRC sql
+  -- 查看用户
+  select current_user(), user();
+  select * from mysql.user;
+
+  -- 创建与授权
+  create user 'xxx'@'host' identified by '密码';
+  grant all on ttt.* to 'user'@'host' with grant options;
+
+  -- 查看授权情况
+  show grants for 'user'@'host';
+
+  -- 用户的管理，删除密码等
+  set password for 'user'@'host' = password('新密码');
+  drop user vip;
+
+  -- 授权的相对完整语法为:
+  grant all/alter/create/drop/select/update/delete
+        on *.* -- db.*/db.table
+        to 'user'@'host'
+        identified by '密码'
+        with max_user_connections 2
+             max_connections_pser_hour 5;
+#+END_SRC
+
+
+*第二种方式*:
+#+BEGIN_SRC sql
+  -- 增加用户
+  insert into mysql.user(host, user, password) values (xx, yy, zz);
+
+  -- 修改密码
+  update mysql.user set password=password('新密码') where user='vip' and host='%';
+
+  -- 修改权限
+  update mysql.user set event_priv='Y' where user='vip' and host='%';
+
+  -- 注意，使用 sql 语句修改用户跟权限之后，需要手动刷新权限表
+  flush privileges;
 #+END_SRC
