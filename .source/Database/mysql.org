@@ -264,3 +264,27 @@ alter table book
 2. varchar 最多存储的长度是多少？
 3. varchar 跟 text 类型有什么区别？
 4. set/enum 该怎么去使用？
+
+#+BEGIN_SRC sql
+  create table char_demo 
+  (
+    aaa char(40),
+    bbb varchar(40),
+    ccc text(40)
+  );
+
+  insert into char_demo values ('123', '123', '123');
+
+  select length(aaa), length(bbb), length(ccc) from char_demo;
+
+  SET sql_mode = 'PAD_CHAR_TO_FULL_LENGTH';
+
+  select length(aaa), length(bbb), length(ccc) from char_demo;
+#+END_SRC
+
+总结 Char vs Varchar vs Text:
+1. char(n) 和 varchar(n) 中间的 n 代表字符的个数，不是字节的个数
+
+
+
+
