@@ -22,3 +22,6 @@
 * CSS3
 
 - ~p:first-child~ / ~p:first-of-type~ 的区别是什么
+* Miscellaneous
+
+- Unicode vs UTF8 vs GBK, 历史以及区别
