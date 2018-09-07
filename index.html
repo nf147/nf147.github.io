@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-07 Fri 02:50 -->
+<!-- 2018-09-07 Fri 07:18 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>S3S147</title>
@@ -28,17 +28,67 @@
 <div id="content">
 <header>
 <h1 class="title">S3S147</h1>
-</header><div id="main">
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgb680bee">1. 预习整理 mysql 相关知识</a></li>
+<li><a href="#orge27d0d9">2. 将 lagou.db 里的数据，迁移到 mysql 数据库</a></li>
+<li><a href="#org195ebf6">3. 根据这个购物小票，为其设计数据库结构</a></li>
+</ul>
+</div>
+</nav>
+<div id="main">
 
 <section id="toc">
 
 <h4 style='color: red;'>高手是用代码喂出来的，如果你觉得自己弱，那是因为你的代码量太少了。</h4>
 
 <h3>当前任务</h3>
-<p>
-根据这个购物小票，为其设计数据库结构:
-</p>
+<section id="outline-container-orgb680bee" class="outline-2">
+<h2 id="orgb680bee"><span class="section-number-2">1</span> 预习整理 mysql 相关知识</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>常用函数, 字符串/数值/逻辑运算函数等</li>
+<li>存储过程的定义，如何使用 jdbc 调用存储过程</li>
+<li>函数与触发器</li>
+</ul>
+</div>
+</section>
 
+<section id="outline-container-orge27d0d9" class="outline-2">
+<h2 id="orge27d0d9"><span class="section-number-2">2</span> 将 lagou.db 里的数据，迁移到 mysql 数据库</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+第一步、使用这两种方式:
+</p>
+<ul class="org-ul">
+<li>首先，尝试使用数据导入导出的方式实现</li>
+<li>其次，使用 jdbc 的方式，实现数据的迁移</li>
+</ul>
+
+<p>
+第二步、导入 mysql 成功之后:
+</p>
+<ul class="org-ul">
+<li>清理无效数据。position/salary 等字段为空，说明数据是不完整的，需要被清理</li>
+<li>删除重复数据。如果两条数据存在重复，只保留其中一条</li>
+</ul>
+
+<p>
+第三步、将给定的表按照范式进行分表处理，<b>至少</b>要分为两个表
+</p>
+<ol class="org-ol">
+<li>position 工作表</li>
+<li>company  公司表</li>
+<li>其他表</li>
+</ol>
+</div>
+</section>
+
+<section id="outline-container-org195ebf6" class="outline-2">
+<h2 id="org195ebf6"><span class="section-number-2">3</span> 根据这个购物小票，为其设计数据库结构</h2>
+<div class="outline-text-2" id="text-3">
 
 <figure>
 <img src="img/clip_2018-09-07_00-25-07.png" alt="clip_2018-09-07_00-25-07.png" width="500px">
@@ -177,9 +227,11 @@
 
 </div>
 </div>
+</section>
+</div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-07 Fri 02:50</p>
+<p class="date">Created: 2018-09-07 Fri 07:18</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
