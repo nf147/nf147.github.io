@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-10 Mon 01:48 -->
+<!-- 2018-09-10 Mon 02:55 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MySQL</title>
@@ -30,8 +30,9 @@
 <li><a href="#org5f9cd3d">8. 表的修改的语法</a></li>
 <li><a href="#orgd5aa2aa">9. 其他命令</a></li>
 <li><a href="#orge426756">10. 存储过程</a></li>
-<li><a href="#orgd22562b">11. 查询练习</a></li>
-<li><a href="#orgcf9e5c1">12. sqlite -&gt; mysql 迁移步骤</a></li>
+<li><a href="#orgda54abc">11. 备份与恢复</a></li>
+<li><a href="#orgd22562b">12. 查询练习</a></li>
+<li><a href="#orgcf9e5c1">13. sqlite -&gt; mysql 迁移步骤</a></li>
 </ul>
 </div>
 </nav>
@@ -768,9 +769,84 @@ delimiter ;                    <span class="org-comment">-- &#36807;&#31243;&#23
 </div>
 </div>
 </section>
-<section id="outline-container-orgd22562b" class="outline-2">
-<h2 id="orgd22562b"><span class="section-number-2">11</span> 查询练习</h2>
+<section id="outline-container-orgda54abc" class="outline-2">
+<h2 id="orgda54abc"><span class="section-number-2">11</span> 备份与恢复</h2>
 <div class="outline-text-2" id="text-11">
+<p>
+各种灾难防不胜防:
+</p>
+<ul class="org-ul">
+<li>操作系统崩溃</li>
+<li>突然的断电</li>
+<li>文件系统损坏</li>
+<li>硬盘故障</li>
+</ul>
+
+<p>
+所以需要多种不同的数据备份策略:
+</p>
+<ul class="org-ul">
+<li>热备份、冷备份</li>
+<li>全量备份、增量备份</li>
+<li>多机备份，灾后重建</li>
+</ul>
+
+<p>
+不仅为了灾难，数据的迁移，也需要掌握相关的备份、恢复技巧。
+</p>
+
+<p>
+在 MySQL 中:
+</p>
+<ul class="org-ul">
+<li>不同引擎的备份机制是不一样的</li>
+<li>最常用的备份方式是 mysqldump 命令</li>
+</ul>
+
+<p>
+基本的导入、导出:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">&#25968;&#25454;&#24211;&#22791;&#20221;</span>
+mysqldump -uroot -proot &gt; ~/xxx.sql  <span class="org-comment-delimiter"># </span><span class="org-comment">&gt; &#21644; &lt; &#26159;&#31649;&#36947;&#35821;&#21477;</span>
+mysqldump --all-databases --master-data --single-transaction &gt; ~/xxx.sql
+mysqldump -uroot -proot --databases lagou test &gt; ~/lagou.sql
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#25968;&#25454;&#24211;&#24674;&#22797;</span>
+mysql -uroot -proot &lt; ~/xxx.sql
+mysql&gt; source ~/xxx.sql
+</pre>
+</div>
+
+<p>
+在 InnoDB 引擎下，为了提高 source 导入效率，需要：
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">set</span> <span class="org-keyword">names</span> utf8;       <span class="org-comment">-- &#38656;&#35201;&#27491;&#30830;&#30340;&#23458;&#25143;&#31471;&#32534;&#30721;</span>
+
+<span class="org-keyword">SET</span> autocommit=0;     <span class="org-comment">-- &#23558;&#33258;&#21160;&#25552;&#20132;&#20851;&#38381;&#65292;&#36991;&#20813;&#27599;&#19968;&#26465;&#35821;&#21477;&#37117;&#20250;&#20986;&#21457;&#26085;&#24535;&#20889;&#20837;&#25805;&#20316;</span>
+<span class="org-keyword">SET</span> unique_checks=0;  <span class="org-comment">-- &#23558;&#21807;&#19968;&#32422;&#26463;&#26816;&#26597;&#20851;&#38381;</span>
+<span class="org-keyword">SET</span> foreign_key_checks=0; <span class="org-comment">-- &#23558;&#22806;&#38190;&#32422;&#26463;&#26816;&#26597;&#20851;&#38381;</span>
+
+
+... <span class="org-keyword">SQL</span> import statements ...
+<span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> yourtable <span class="org-keyword">VALUES</span> (1,2), (5,5), ...; <span class="org-comment">-- &#23613;&#37327;&#20351;&#29992;&#36825;&#31181;&#26041;&#24335;&#30340;&#23548;&#20837;&#35821;&#21477;</span>
+
+
+<span class="org-keyword">COMMIT</span>;             <span class="org-comment">-- &#25552;&#20132;&#20107;&#21153;</span>
+
+<span class="org-comment">-- &#24674;&#22797;&#35774;&#32622;</span>
+<span class="org-keyword">set</span> autocommit=1;
+<span class="org-keyword">SET</span> unique_checks=1;
+<span class="org-keyword">SET</span> foreign_key_checks=1;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgd22562b" class="outline-2">
+<h2 id="orgd22562b"><span class="section-number-2">12</span> 查询练习</h2>
+<div class="outline-text-2" id="text-12">
 <p>
 创建表:
 </p>
@@ -934,8 +1010,8 @@ delimiter ;                    <span class="org-comment">-- &#36807;&#31243;&#23
 </div>
 </section>
 <section id="outline-container-orgcf9e5c1" class="outline-2">
-<h2 id="orgcf9e5c1"><span class="section-number-2">12</span> sqlite -&gt; mysql 迁移步骤</h2>
-<div class="outline-text-2" id="text-12">
+<h2 id="orgcf9e5c1"><span class="section-number-2">13</span> sqlite -&gt; mysql 迁移步骤</h2>
+<div class="outline-text-2" id="text-13">
 <p>
 首先，从 sqlite 中导出:
 </p>
@@ -970,7 +1046,7 @@ delimiter ;                    <span class="org-comment">-- &#36807;&#31243;&#23
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-10 Mon 01:48</p>
+<p class="date">Created: 2018-09-10 Mon 02:55</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
