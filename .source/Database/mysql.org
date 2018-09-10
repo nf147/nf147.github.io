@@ -536,3 +536,94 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
   end
 
 #+END_SRC
+* 查询练习
+
+创建表:
+#+BEGIN_SRC sql
+  DROP TABLE IF EXISTS emp;
+
+  CREATE TABLE emp (
+    empno decimal(4,0) NOT NULL,
+    ename varchar(10) default NULL,
+    job varchar(9) default NULL,
+    mgr decimal(4,0) default NULL,
+    hiredate date default NULL,
+    sal decimal(7,2) default NULL,
+    comm decimal(7,2) default NULL,
+    deptno decimal(2,0) default NULL
+  );
+
+  DROP TABLE IF EXISTS dept;
+
+  CREATE TABLE dept (
+    deptno decimal(2,0) default NULL,
+    dname varchar(14) default NULL,
+    loc varchar(13) default NULL
+  );
+
+  INSERT INTO emp VALUES ('7369','SMITH','CLERK','7902','1980-12-17','800.00',NULL,'20');
+  INSERT INTO emp VALUES ('7499','ALLEN','SALESMAN','7698','1981-02-20','1600.00','300.00','30');
+  INSERT INTO emp VALUES ('7521','WARD','SALESMAN','7698','1981-02-22','1250.00','500.00','30');
+  INSERT INTO emp VALUES ('7566','JONES','MANAGER','7839','1981-04-02','2975.00',NULL,'20');
+  INSERT INTO emp VALUES ('7654','MARTIN','SALESMAN','7698','1981-09-28','1250.00','1400.00','30');
+  INSERT INTO emp VALUES ('7698','BLAKE','MANAGER','7839','1981-05-01','2850.00',NULL,'30');
+  INSERT INTO emp VALUES ('7782','CLARK','MANAGER','7839','1981-06-09','2450.00',NULL,'10');
+  INSERT INTO emp VALUES ('7788','SCOTT','ANALYST','7566','1982-12-09','3000.00',NULL,'20');
+  INSERT INTO emp VALUES ('7839','KING','PRESIDENT',NULL,'1981-11-17','5000.00',NULL,'10');
+  INSERT INTO emp VALUES ('7844','TURNER','SALESMAN','7698','1981-09-08','1500.00','0.00','30');
+  INSERT INTO emp VALUES ('7876','ADAMS','CLERK','7788','1983-01-12','1100.00',NULL,'20');
+  INSERT INTO emp VALUES ('7900','JAMES','CLERK','7698','1981-12-03','950.00',NULL,'30');
+  INSERT INTO emp VALUES ('7902','FORD','ANALYST','7566','1981-12-03','3000.00',NULL,'20');
+  INSERT INTO emp VALUES ('7934','MILLER','CLERK','7782','1982-01-23','1300.00',NULL,'10');
+
+  INSERT INTO dept VALUES ('10','ACCOUNTING','NEW YORK');
+  INSERT INTO dept VALUES ('20','RESEARCH','DALLAS');
+  INSERT INTO dept VALUES ('30','SALES','CHICAGO');
+  INSERT INTO dept VALUES ('40','OPERATIONS','BOSTON');
+#+END_SRC
+
+1:
+- 在芝加哥工作的人中，谁的工资最高
+- 查询每个部门下有多少员工
+- 查询除去 salesman 所有平均工资超过 1500 的部门
+- 查询在 new york 工作的所有员工的姓名，部门名称和工资信息
+- 查询姓名为 King 的员工的编号，名称跟部门
+- 查询各种工作的最低工资
+- 查询工龄大于10年的所有员工信息
+- 查询每个部门员工数量，平均工资和平均工作年限
+- 统计各部门每个工种的人数，平均工资。
+- 查询从事同一种工作但不属于同一部门的员工信息。
+- 查询所有员工工资都大于1000的部门的信息及员工信息
+- 查询入职日期早于其直接上级的所有员工信息。
+- 列出雇员中（除去mgr为空的人)工资第二高的人。
+- 列出1981年来公司所有员工的总收入（包括sal和comm）
+
+2:
+- 查询工资为 2500 到 4000 的人的数量（用不同方式查询）
+- 查询部门编号为 10 和 30 的所有人（用不同方式查询）
+- 查询部门编号为 10 和 30 中名字中不含有 ‘C’ 的所有人
+- 查询部门编号为 10 和 30 中名字首字母之外不含有 ‘C’ 的所有人
+- 查询部门编号为 10 和 30 中所有的经理以及名字首字母之外不含有 ‘C’ 的所有人
+- 查询纽约和芝加哥地区所有的经理以及名字首字母之外不含有 ‘C’ 的所有人
+- 查询纽约和芝加哥地区所有的经理以及顶头上司名字的首字母之外不含有 ‘C’ 的所有人
+- 查询每个人的工资等级
+- 查询每个部门的平均工资的等级
+
+3:
+- 查询每个组最高工资的那些人
+- 有下面一个表，写一条 sql 语句计算男女之差
+  | gender | number |
+  |--------+--------|
+  | 男     |     46 |
+  | 女     |     10 |
+- 给 emp 中的人加工资，请写出相关语句:
+  | 条件       | 加多少 |
+  |------------+--------|
+  | 1000元以下 |    50% |
+  | 2000元以下 |    30% |
+  | 3000元以下 |    20% |
+  | 其他       |     5% |
+- 给 emp 中的人加工资，如上。但 1981/5/1 之后来的所有人，只加 2%, 请写出语句。
+- 计算你们从入学到现在过了多少个周末
+- 计算你们从现在到毕业还有多少天，还有多少个周末
+- 计算你们在学校的时间内，每天花费多少钱
