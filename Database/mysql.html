@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-10 Mon 00:30 -->
+<!-- 2018-09-10 Mon 01:48 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MySQL</title>
@@ -31,6 +31,7 @@
 <li><a href="#orgd5aa2aa">9. 其他命令</a></li>
 <li><a href="#orge426756">10. 存储过程</a></li>
 <li><a href="#orgd22562b">11. 查询练习</a></li>
+<li><a href="#orgcf9e5c1">12. sqlite -&gt; mysql 迁移步骤</a></li>
 </ul>
 </div>
 </nav>
@@ -932,10 +933,44 @@ delimiter ;                    <span class="org-comment">-- &#36807;&#31243;&#23
 </ul>
 </div>
 </section>
+<section id="outline-container-orgcf9e5c1" class="outline-2">
+<h2 id="orgcf9e5c1"><span class="section-number-2">12</span> sqlite -&gt; mysql 迁移步骤</h2>
+<div class="outline-text-2" id="text-12">
+<p>
+首先，从 sqlite 中导出:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">sqlite3 lagou.db
+
+&gt; .output d:/data/lagou.sql
+&gt; .dump
+</pre>
+</div>
+
+<p>
+然后，修改 lagou.sql 文件，让其兼容 MySQL 数据库。
+</p>
+
+<p>
+之后就可以连接 MySQL 进行导入了:
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">drop</span> <span class="org-keyword">table</span> <span class="org-function-name">if</span> <span class="org-keyword">exists</span> lagou_position;
+
+<span class="org-keyword">set</span> <span class="org-keyword">names</span> utf8;
+<span class="org-keyword">set</span> autocommit=0;
+<span class="org-keyword">source</span> d:/<span class="org-keyword">data</span>/lagou.<span class="org-keyword">sql</span>
+<span class="org-keyword">commit</span>;
+
+<span class="org-keyword">select</span> <span class="org-builtin">count</span>(*) <span class="org-keyword">from</span> lagou_position;
+</pre>
+</div>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-10 Mon 00:30</p>
+<p class="date">Created: 2018-09-10 Mon 01:48</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

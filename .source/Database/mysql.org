@@ -627,3 +627,26 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
 - 计算你们从入学到现在过了多少个周末
 - 计算你们从现在到毕业还有多少天，还有多少个周末
 - 计算你们在学校的时间内，每天花费多少钱
+* sqlite -> mysql 迁移步骤
+
+首先，从 sqlite 中导出:
+#+BEGIN_SRC sh
+  sqlite3 lagou.db
+
+  > .output d:/data/lagou.sql
+  > .dump
+#+END_SRC
+
+然后，修改 lagou.sql 文件，让其兼容 MySQL 数据库。
+
+之后就可以连接 MySQL 进行导入了:
+#+BEGIN_SRC sql
+  drop table if exists lagou_position;
+
+  set names utf8;
+  set autocommit=0;
+  source d:/data/lagou.sql
+  commit;
+
+  select count(*) from lagou_position;
+#+END_SRC
