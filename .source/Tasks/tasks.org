@@ -3,6 +3,9 @@
 
 
 * 2018年09月11日
+:PROPERTIES:
+:CUSTOM_ID: active
+:END:
 
 - 为 lagou_position 进行数据清理
 - 了解三大范式，对 lagou_position 进行分表处理
@@ -17,9 +20,6 @@
 - 了解 echart 的使用
 
 * 2018年09月07日
-:PROPERTIES:
-:CUSTOM_ID: active
-:END:
 
 *预习整理 mysql 相关知识*
 
