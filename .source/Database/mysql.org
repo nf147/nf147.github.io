@@ -534,8 +534,8 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
     set @sum = @sum + x;
     until x >= y end repeat;
   end
-
 #+END_SRC
+
 * 备份与恢复
 
 各种灾难防不胜防:
@@ -588,6 +588,147 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
   SET foreign_key_checks=1;
 #+END_SRC
 
+https://dev.mysql.com/doc/refman/5.6/en/optimizing-innodb-bulk-data-loading.html
+
+* 数据迁移示例
+
+将 sqlite3 格式的 lagou.db 中的数据迁移到 MySQL 中
+
+** 命令行的方式
+
+首先，从 sqlite 中导出:
+#+BEGIN_SRC sh
+  sqlite3 lagou.db
+
+  > .output d:/data/lagou.sql
+  > .dump
+#+END_SRC
+
+然后，修改 lagou.sql 文件，让其兼容 MySQL 数据库。
+
+之后就可以连接 MySQL 进行导入了:
+#+BEGIN_SRC sql
+  drop table if exists lagou_position;
+
+  set names utf8;
+  set autocommit=0;
+  source d:/data/lagou.sql
+  commit;
+
+  select count(*) from lagou_position;
+#+END_SRC
+
+** JDBC 的方式
+
+需要注意的问题:
+- 如何使用 jdbc 同时连接操作两个数据库
+- 如何在 jdbc 中合理释放资源
+- 异常的捕获与抛出，如何正确处理异常逻辑
+- jdbc 中批量导入数据的方式
+- MySQL 驱动中的 ~rewriteBatchedStatements~ 参数
+- 代码的格式与规范问题
+
+#+BEGIN_SRC java
+  import java.sql.*;
+
+  public class DataMigrateFromSQLiteToMySQL {
+      private Connection getSQLiteConnection() throws Exception {
+          Class.forName("org.sqlite.JDBC");
+          return DriverManager.getConnection("jdbc:sqlite:d:/data/lagou.db");
+      }
+
+      private Connection getMySQLConnection() throws Exception {
+          Class.forName("org.mariadb.jdbc.Driver"); // 注意 rewriteBatchedStatements 参数！
+          return DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/lagou?rewriteBatchedStatements=true", "root", "xxx");
+      }
+
+      private void release(Connection conn, Statement st, ResultSet rs) {
+          if (rs != null) {
+              try {
+                  rs.close();
+              } catch (SQLException ignored) {
+              }
+          }
+          if (st != null) {
+              try {
+                  st.close();
+              } catch (SQLException ignored) {
+              }
+          }
+          if (conn != null) {
+              try {
+                  conn.close();
+              } catch (SQLException ignored) {
+              }
+          }
+      }
+
+      public void doMigrate() {
+          // 数据从哪里来？
+          Connection liteConn = null;
+          Statement liteSt = null;
+          ResultSet liteRs = null;
+
+          // 数据到哪里去？
+          Connection mysqlConn = null;
+          PreparedStatement mysqlPs = null;
+
+          try {
+              // 数据从这里来
+              liteConn = this.getSQLiteConnection();
+              liteSt = liteConn.createStatement();
+              liteRs = liteSt.executeQuery("select * from lagou_position");
+
+              // 数据到这里去
+              mysqlConn = this.getMySQLConnection();
+              mysqlPs = mysqlConn.prepareStatement("insert into lagou_p1 values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+              // 关闭自动提交，也就是开启事务
+              mysqlConn.setAutoCommit(false);
+
+              int i = 0;
+              long startTime = System.currentTimeMillis(); // 计时开始
+
+              while(liteRs.next()) {
+                  // 数据的转移
+                  for (int j = 1; j < 20; j++) {
+                      mysqlPs.setObject(j, liteRs.getObject(j));
+                  }
+                  mysqlPs.addBatch();
+
+                  // 每 1000 条，向数据库发送一次执行请求
+                  if (i++ % 10000 == 0) {
+                      mysqlPs.executeBatch();
+                  }
+              }
+
+              mysqlPs.executeBatch();
+              mysqlConn.commit();  // 提交事务
+
+              long stopTime = System.currentTimeMillis(); // 计时结束
+
+              // 输出结果
+              System.out.println("总共多少数据:" + i);
+              System.out.println("一共花费 " + (stopTime - startTime) / 1000.0 + " 秒");
+          } catch (Exception var14) {
+              try {
+                  if (mysqlConn != null) {
+                      mysqlConn.rollback();
+                  }
+              } catch (SQLException ignored) {
+              }
+          } finally {
+              this.release(liteConn, liteSt, liteRs);
+              this.release(mysqlConn, mysqlPs, null);
+          }
+      }
+
+      public static void main(String[] args) {
+          DataMigrateFromSQLiteToMySQL migrate = new DataMigrateFromSQLiteToMySQL();
+          migrate.doMigrate();
+      }
+  }
+#+END_SRC
 * 查询练习
 
 创建表:
@@ -679,26 +820,4 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
 - 计算你们从入学到现在过了多少个周末
 - 计算你们从现在到毕业还有多少天，还有多少个周末
 - 计算你们在学校的时间内，每天花费多少钱
-* sqlite -> mysql 迁移步骤
 
-首先，从 sqlite 中导出:
-#+BEGIN_SRC sh
-  sqlite3 lagou.db
-
-  > .output d:/data/lagou.sql
-  > .dump
-#+END_SRC
-
-然后，修改 lagou.sql 文件，让其兼容 MySQL 数据库。
-
-之后就可以连接 MySQL 进行导入了:
-#+BEGIN_SRC sql
-  drop table if exists lagou_position;
-
-  set names utf8;
-  set autocommit=0;
-  source d:/data/lagou.sql
-  commit;
-
-  select count(*) from lagou_position;
-#+END_SRC
