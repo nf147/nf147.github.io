@@ -628,39 +628,17 @@ https://dev.mysql.com/doc/refman/5.6/en/optimizing-innodb-bulk-data-loading.html
 - MySQL 驱动中的 ~rewriteBatchedStatements~ 参数
 - 代码的格式与规范问题
 
+代码示例:
 #+BEGIN_SRC java
   import java.sql.*;
 
   public class DataMigrateFromSQLiteToMySQL {
-      private Connection getSQLiteConnection() throws Exception {
-          Class.forName("org.sqlite.JDBC");
-          return DriverManager.getConnection("jdbc:sqlite:d:/data/lagou.db");
-      }
 
-      private Connection getMySQLConnection() throws Exception {
-          Class.forName("org.mariadb.jdbc.Driver"); // 注意 rewriteBatchedStatements 参数！
-          return DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/lagou?rewriteBatchedStatements=true", "root", "xxx");
-      }
+      // create table lagou_p1 as select * from lagou_position limit 0;
 
-      private void release(Connection conn, Statement st, ResultSet rs) {
-          if (rs != null) {
-              try {
-                  rs.close();
-              } catch (SQLException ignored) {
-              }
-          }
-          if (st != null) {
-              try {
-                  st.close();
-              } catch (SQLException ignored) {
-              }
-          }
-          if (conn != null) {
-              try {
-                  conn.close();
-              } catch (SQLException ignored) {
-              }
-          }
+      public static void main(String[] args) {
+          DataMigrateFromSQLiteToMySQL migrate = new DataMigrateFromSQLiteToMySQL();
+          migrate.doMigrate();
       }
 
       public void doMigrate() {
@@ -689,14 +667,14 @@ https://dev.mysql.com/doc/refman/5.6/en/optimizing-innodb-bulk-data-loading.html
               int i = 0;
               long startTime = System.currentTimeMillis(); // 计时开始
 
+              // 来吧，迁移吧！
               while(liteRs.next()) {
-                  // 数据的转移
                   for (int j = 1; j < 20; j++) {
                       mysqlPs.setObject(j, liteRs.getObject(j));
                   }
                   mysqlPs.addBatch();
 
-                  // 每 1000 条，向数据库发送一次执行请求
+                  // 每 10000 条，向数据库发送一次执行请求
                   if (i++ % 10000 == 0) {
                       mysqlPs.executeBatch();
                   }
@@ -710,25 +688,64 @@ https://dev.mysql.com/doc/refman/5.6/en/optimizing-innodb-bulk-data-loading.html
               // 输出结果
               System.out.println("总共多少数据:" + i);
               System.out.println("一共花费 " + (stopTime - startTime) / 1000.0 + " 秒");
-          } catch (Exception var14) {
-              try {
-                  if (mysqlConn != null) {
-                      mysqlConn.rollback();
-                  }
-              } catch (SQLException ignored) {
-              }
+
+          } catch (Exception e) {
+              DBUtil.tryRollback(mysqlConn);
           } finally {
-              this.release(liteConn, liteSt, liteRs);
-              this.release(mysqlConn, mysqlPs, null);
+              DBUtil.tryRelease(liteConn, liteSt, liteRs);
+              DBUtil.tryRelease(mysqlConn, mysqlPs, null);
           }
       }
 
-      public static void main(String[] args) {
-          DataMigrateFromSQLiteToMySQL migrate = new DataMigrateFromSQLiteToMySQL();
-          migrate.doMigrate();
+      private Connection getSQLiteConnection() throws Exception {
+          Class.forName("org.sqlite.JDBC");
+          return DriverManager.getConnection("jdbc:sqlite:d:/data/lagou.db");
+      }
+
+      private Connection getMySQLConnection() throws Exception {
+          Class.forName("org.mariadb.jdbc.Driver"); // 注意 rewriteBatchedStatements 参数！
+          return DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/lagou?rewriteBatchedStatements=true", "root", "xxx");
+      }
+  }
+
+  class DBUtil {
+
+      // 释放资源
+      // 注意关闭顺序
+      // 注意异常处理方式
+      public static void tryRelease(Connection conn, Statement st, ResultSet rs) {
+          if (rs != null) {
+              try {
+                  rs.close();
+              } catch (SQLException ignored) {
+              }
+          }
+          if (st != null) {
+              try {
+                  st.close();
+              } catch (SQLException ignored) {
+              }
+          }
+          if (conn != null) {
+              try {
+                  conn.close();
+              } catch (SQLException ignored) {
+              }
+          }
+      }
+
+      // 尝试回滚
+      public static void tryRollback(Connection conn) {
+          try {
+              if (mysqlConn != null) {
+                  mysqlConn.rollback();
+              }
+          } catch (SQLException ignored) {
+          }
       }
   }
 #+END_SRC
+
 * 查询练习
 
 创建表:
