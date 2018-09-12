@@ -737,14 +737,216 @@ https://dev.mysql.com/doc/refman/5.6/en/optimizing-innodb-bulk-data-loading.html
       // 尝试回滚
       public static void tryRollback(Connection conn) {
           try {
-              if (mysqlConn != null) {
-                  mysqlConn.rollback();
+              if (conn != null) {
+                  conn.rollback();
               }
           } catch (SQLException ignored) {
           }
       }
   }
 #+END_SRC
+
+* 数据处理示例
+** 数据清理
+
+#+BEGIN_SRC sql
+  create table lagou_position_result as
+    select distinct *
+    from lagou_position
+    where pid is not null
+      and city is not null
+      and position is not null
+      and field is not null
+      and salary_min is not null
+      and salary_max is not null
+      and workyear is not null
+      and education is not null
+      and ptype is not null
+      and pnature is not null
+      and advantage is not null
+      and company_id is not null
+      and company_short_name is not null
+      and company_full_name is not null
+      and company_size is not null
+      and financestage is not null;
+#+END_SRC
+
+** 公司的分离
+
+#+BEGIN_SRC sql
+  -- 创建公司表
+  create table company_result as
+    select distinct t.company_id         as cid,
+                    t.company_short_name as short_name,
+                    t.company_full_name  as full_name,
+                    t.company_size       as size,
+                    t.financestage
+    from lagou_position_result t;
+
+  -- 删除原表字段
+  alter table lagou_position_result drop company_size;
+  alter table lagou_position_result drop company_full_name;
+  alter table lagou_position_result drop company_short_name;
+  alter table lagou_position_result drop company_id;
+  alter table lagou_position_result drop financestage;
+#+END_SRC
+
+** TODO 城市的分离
+
+* 省市县模式数据库设计
+
+最朴素的实现方式:
+#+BEGIN_SRC sql
+    create table area_demo1 (
+      area_id int auto_increment primary key,
+      sheng varchar(20) not null,
+      shi varchar(20) not null,
+      xian varchar(20) not null,
+      quhao varchar(20) not null,
+      youbian varchar(20),
+      jingdu decimal(10, 10),
+      weidu decimal(10, 10)
+    );
+
+  insert into area_demo1 (sheng, shi, xian, quhao) values
+    ('广东省', '珠海市', '斗门区', '22323'),
+    ('广东省', '珠海市', '香洲区', '22324'),
+    ('广东省', '珠海市', '金湾区', '22325'),
+    ('广东省', '广州市', '天河区', '11155'),
+    ('广东省', '广州市', '越秀区', '11156'),
+    ('广东省', '广州市', '白云区', '11157');
+
+  select * from area_demo1 where shi='珠海市' or shi='广州市';
+
+  select distinct shi from area_demo1 where sheng='广东省';
+
+  select * from area_demo1;
+#+END_SRC
+
+按照范式，需要分表:
+#+BEGIN_SRC sql
+  create table s_sheng (pid int auto_increment primary key, p_name varchar(20));
+  insert into s_sheng (p_name) values ('广东省'), ('山东省'), ('广西省'), ('湖南省');
+
+  create table s_shi (sid int auto_increment primary key, s_name varchar(20), sheng int references s_sheng(id));
+  insert into s_shi (s_name, sheng) values
+    ('珠海市', 1), ('广州市', 1), ('湛江', 1),
+    ('桂林市', 3), ('南宁市', 3), ('柳州', 3);
+
+
+  create table s_xian (xid int auto_increment primary key, x_name varchar(20), shi int references s_shi(id), youbian varchar(20), jingdu varchar(20), weidu  varchar(20));
+  insert into s_xian (x_name, shi) values
+    ('斗门区',  1), ('金湾区', 1), ('香洲区', 1),
+    ('白云区', 2), ('越秀区', 2), ('天河区', 2),
+    ('锦绣区', 5), ('风景区', 5);
+
+  select * from s_sheng;
+  select * from s_shi;
+  select * from s_xian;
+
+  delete from s_xian where xid > 8;
+#+END_SRC
+
+查询，以及语句:
+#+BEGIN_SRC sql
+  -- 全连接，笛卡尔积
+  select * from s_shi full join s_sheng;
+
+  select * from s_shi inner join s_sheng on s_shi.sheng = s_sheng.id;
+
+  select * from s_shi s inner join s_sheng t on s.sheng = t.id;
+
+  select * from (select * from s_shi s inner join s_sheng t on s.sheng = t.id) w where w.name = '广东省';
+
+  select * from (select * from s_shi s inner join s_sheng t on s.sheng = t.pid) w where w.p_name = '广东省';
+
+
+  select sid, s_name from (
+  select s.sid, s.s_name, p.p_name from s_shi s join s_sheng p on s.sheng = p.pid
+  ) a where p_name = '广东省';
+
+  select * from s_xian x
+         inner join s_shi s on x.shi = s.sid
+         inner join s_sheng sh on s.sheng = sh.pid
+  where sh.p_name = '广东省';
+
+  select x.* from s_xian x
+         join s_shi on s_shi.sid = x.shi
+         join s_sheng on s_shi.sheng = s_sheng.pid
+      where p_name = '广西省';
+
+  select x.* from s_xian x
+         join s_shi on s_shi.sid = x.shi
+         where s_name = '珠海市';
+
+  select * from s_sheng;
+  select * from s_shi;
+  select * from s_xian;
+
+  select x.* from s_xian x, s_shi s, s_sheng p
+     where x.shi = s.sid
+           and s.sheng = p.pid
+           and p.p_name = '广西省';
+
+  select * from s_shi s
+    left join s_sheng p on s.sheng = p.pid;
+
+
+  select * from lagou_position_result limit 5;
+  select * from company_result limit 5;
+  select * from s_provinces limit 5;
+
+  select count(*) from lagou_position_result;
+
+
+  desc s_provinces;
+  select * from s_sheng limit 1;
+  select * from s_shi limit 1;
+  select * from s_provinces limit 5;
+
+  select * from lagou_position_result order by salary_min desc limit 10;
+#+END_SRC
+
+合并为一张表的方式，连接自己:
+#+BEGIN_SRC sql
+  CREATE TABLE `s_provinces` (
+    `id` int(11) NOT NULL,
+    `cityName` varchar(30) NOT NULL,
+    `parentId` int(11) NOT NULL,
+    `shortName` varchar(30) NOT NULL,
+    `depth` int(1) NOT NULL,
+    `cityCode` varchar(4) NOT NULL,
+    `zipCode` varchar(6) NOT NULL,
+    `mergerName` varchar(50) NOT NULL,
+    `longitude` varchar(16) NOT NULL,
+    `latitude` varchar(16) NOT NULL,
+    `pinyin` varchar(30) NOT NULL,
+    `isUse` int(1) unsigned zerofill DEFAULT NULL
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+#+END_SRC
+
+查询广东省所有县市:
+#+BEGIN_SRC sql
+  -- 所有县
+  select x.id, p.cityName, s.cityName, x.cityName
+  from s_provinces x
+         join s_provinces s on x.parentId = s.id
+         join s_provinces p on s.parentId = p.id
+  where p.cityName = '广东省';
+
+  -- 所有市
+  select x.id, p.cityName, s.cityName, x.cityName
+  from s_provinces x
+         join s_provinces s on x.parentId = s.id
+         join s_provinces p on s.parentId = p.id
+  where p.cityName = '广东省'
+  union all
+  select s.id, p.cityName, s.cityName, null from s_provinces s
+         join s_provinces p on s.parentId = p.id
+  where p.cityName = '广东省';
+#+END_SRC
+
+请总结各种方式的优劣。
 
 * 查询练习
 
