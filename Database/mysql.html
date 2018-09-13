@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-13 周四 07:26 -->
+<!-- 2018-09-13 Thu 15:44 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MySQL</title>
@@ -20,39 +20,39 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org2e4c3fc">1. 安装与配置</a></li>
-<li><a href="#orgef7e074">2. 数据库与账户</a></li>
-<li><a href="#org03d51a7">3. 用户跟权限</a></li>
-<li><a href="#org6ab6e50">4. 基本命令</a></li>
-<li><a href="#orgf0f64f7">5. 创建表</a></li>
-<li><a href="#org0ef7199">6. 数据类型</a></li>
-<li><a href="#org77663c8">7. 主键</a></li>
-<li><a href="#org5f9cd3d">8. 表的修改的语法</a></li>
-<li><a href="#orgd5aa2aa">9. 其他命令</a></li>
-<li><a href="#orge426756">10. 存储过程</a></li>
-<li><a href="#orgda54abc">11. 备份与恢复</a></li>
-<li><a href="#orgc485735">12. 数据迁移示例</a>
+<li><a href="#orgfb01b60">1. 安装与配置</a></li>
+<li><a href="#org1b8087e">2. 数据库与账户</a></li>
+<li><a href="#orgbea5888">3. 用户跟权限</a></li>
+<li><a href="#orgf202eae">4. 基本命令</a></li>
+<li><a href="#org4727ee5">5. 创建表</a></li>
+<li><a href="#org7fe3927">6. 数据类型</a></li>
+<li><a href="#org029d13d">7. 主键</a></li>
+<li><a href="#org43f5be0">8. 表的修改的语法</a></li>
+<li><a href="#org42e60e8">9. 其他命令</a></li>
+<li><a href="#org7f676fa">10. 存储过程</a></li>
+<li><a href="#org4ea11ad">11. 备份与恢复</a></li>
+<li><a href="#orga20ef74">12. 数据迁移示例</a>
 <ul>
-<li><a href="#org5cd8b6a">12.1. 命令行的方式</a></li>
-<li><a href="#orgd872dfa">12.2. JDBC 的方式</a></li>
+<li><a href="#orgea74ae1">12.1. 命令行的方式</a></li>
+<li><a href="#orgcf0f674">12.2. JDBC 的方式</a></li>
 </ul>
 </li>
-<li><a href="#org2b304cc">13. 数据处理示例</a>
+<li><a href="#orgd002879">13. 数据处理示例</a>
 <ul>
-<li><a href="#orgd54f58d">13.1. 数据清理</a></li>
-<li><a href="#org44c30ab">13.2. 表的分离</a></li>
+<li><a href="#org157a631">13.1. 数据清理</a></li>
+<li><a href="#org2127c45">13.2. 表的分离</a></li>
 </ul>
 </li>
-<li><a href="#org831fa9f">14. 省市县模式数据库设计</a></li>
-<li><a href="#orgd22562b">15. 查询练习</a></li>
+<li><a href="#org6b0625c">14. 省市县模式数据库设计</a></li>
+<li><a href="#org4dbfeaa">15. 查询练习</a></li>
 </ul>
 </div>
 </nav>
 
 
 
-<section id="outline-container-org2e4c3fc" class="outline-2">
-<h2 id="org2e4c3fc"><span class="section-number-2">1</span> 安装与配置</h2>
+<section id="outline-container-orgfb01b60" class="outline-2">
+<h2 id="orgfb01b60"><span class="section-number-2">1</span> 安装与配置</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 MySQL/MariaDB:
@@ -111,8 +111,8 @@ mysql -h 45.42.32.1 -P 9999 -uroot -p
 </div>
 </section>
 
-<section id="outline-container-orgef7e074" class="outline-2">
-<h2 id="orgef7e074"><span class="section-number-2">2</span> 数据库与账户</h2>
+<section id="outline-container-org1b8087e" class="outline-2">
+<h2 id="org1b8087e"><span class="section-number-2">2</span> 数据库与账户</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 MySQL 在用户登录后（默认使用 root 用户登录），需要切换到一个 <b>database</b> 才能进行表的创建等操作。所有的表和数据都隶属于某个数据库。
@@ -181,8 +181,8 @@ use bookstore;  <span class="org-comment">-- &#20999;&#25442;&#21040;&#25968;&#2
 </div>
 </section>
 
-<section id="outline-container-org03d51a7" class="outline-2">
-<h2 id="org03d51a7"><span class="section-number-2">3</span> 用户跟权限</h2>
+<section id="outline-container-orgbea5888" class="outline-2">
+<h2 id="orgbea5888"><span class="section-number-2">3</span> 用户跟权限</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 用户跟权限的相关信息，都是保存在下面表中：
@@ -253,8 +253,8 @@ flush <span class="org-keyword">privileges</span>;
 </div>
 </div>
 </section>
-<section id="outline-container-org6ab6e50" class="outline-2">
-<h2 id="org6ab6e50"><span class="section-number-2">4</span> 基本命令</h2>
+<section id="outline-container-orgf202eae" class="outline-2">
+<h2 id="orgf202eae"><span class="section-number-2">4</span> 基本命令</h2>
 <div class="outline-text-2" id="text-4">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-comment">-- &#26597;&#35810;&#24403;&#21069;&#26085;&#26399;</span>
@@ -271,8 +271,8 @@ use test;
 </div>
 </section>
 
-<section id="outline-container-orgf0f64f7" class="outline-2">
-<h2 id="orgf0f64f7"><span class="section-number-2">5</span> 创建表</h2>
+<section id="outline-container-org4727ee5" class="outline-2">
+<h2 id="org4727ee5"><span class="section-number-2">5</span> 创建表</h2>
 <div class="outline-text-2" id="text-5">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">book1</span> (
@@ -481,8 +481,8 @@ use test;
 </div>
 </section>
 
-<section id="outline-container-org0ef7199" class="outline-2">
-<h2 id="org0ef7199"><span class="section-number-2">6</span> 数据类型</h2>
+<section id="outline-container-org7fe3927" class="outline-2">
+<h2 id="org7fe3927"><span class="section-number-2">6</span> 数据类型</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 大致分为 <b>6</b> 类:
@@ -570,8 +570,8 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
 </div>
 </section>
 
-<section id="outline-container-org77663c8" class="outline-2">
-<h2 id="org77663c8"><span class="section-number-2">7</span> 主键</h2>
+<section id="outline-container-org029d13d" class="outline-2">
+<h2 id="org029d13d"><span class="section-number-2">7</span> 主键</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 主键，primary key，从性能和实际出发，应该遵循下面几点:
@@ -594,8 +594,8 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
 </div>
 </section>
 
-<section id="outline-container-org5f9cd3d" class="outline-2">
-<h2 id="org5f9cd3d"><span class="section-number-2">8</span> 表的修改的语法</h2>
+<section id="outline-container-org43f5be0" class="outline-2">
+<h2 id="org43f5be0"><span class="section-number-2">8</span> 表的修改的语法</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 基本语法:
@@ -732,14 +732,14 @@ table_option:
 </div>
 </div>
 </section>
-<section id="outline-container-orgd5aa2aa" class="outline-2">
-<h2 id="orgd5aa2aa"><span class="section-number-2">9</span> 其他命令</h2>
+<section id="outline-container-org42e60e8" class="outline-2">
+<h2 id="org42e60e8"><span class="section-number-2">9</span> 其他命令</h2>
 </section>
 
 
 
-<section id="outline-container-orge426756" class="outline-2">
-<h2 id="orge426756"><span class="section-number-2">10</span> 存储过程</h2>
+<section id="outline-container-org7f676fa" class="outline-2">
+<h2 id="org7f676fa"><span class="section-number-2">10</span> 存储过程</h2>
 <div class="outline-text-2" id="text-10">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-comment">-- &#23384;&#20648;&#36807;&#31243;&#30340;&#23450;&#20041;</span>
@@ -781,8 +781,8 @@ delimiter ;                    <span class="org-comment">-- &#36807;&#31243;&#23
 </div>
 </section>
 
-<section id="outline-container-orgda54abc" class="outline-2">
-<h2 id="orgda54abc"><span class="section-number-2">11</span> 备份与恢复</h2>
+<section id="outline-container-org4ea11ad" class="outline-2">
+<h2 id="org4ea11ad"><span class="section-number-2">11</span> 备份与恢复</h2>
 <div class="outline-text-2" id="text-11">
 <p>
 各种灾难防不胜防:
@@ -860,16 +860,16 @@ mysql&gt; source ~/xxx.sql
 </div>
 </section>
 
-<section id="outline-container-orgc485735" class="outline-2">
-<h2 id="orgc485735"><span class="section-number-2">12</span> 数据迁移示例</h2>
+<section id="outline-container-orga20ef74" class="outline-2">
+<h2 id="orga20ef74"><span class="section-number-2">12</span> 数据迁移示例</h2>
 <div class="outline-text-2" id="text-12">
 <p>
 将 sqlite3 格式的 lagou.db 中的数据迁移到 MySQL 中
 </p>
 </div>
 
-<div id="outline-container-org5cd8b6a" class="outline-3">
-<h3 id="org5cd8b6a"><span class="section-number-3">12.1</span> 命令行的方式</h3>
+<div id="outline-container-orgea74ae1" class="outline-3">
+<h3 id="orgea74ae1"><span class="section-number-3">12.1</span> 命令行的方式</h3>
 <div class="outline-text-3" id="text-12-1">
 <p>
 首先，从 sqlite 中导出:
@@ -903,8 +903,8 @@ mysql&gt; source ~/xxx.sql
 </div>
 </div>
 
-<div id="outline-container-orgd872dfa" class="outline-3">
-<h3 id="orgd872dfa"><span class="section-number-3">12.2</span> JDBC 的方式</h3>
+<div id="outline-container-orgcf0f674" class="outline-3">
+<h3 id="orgcf0f674"><span class="section-number-3">12.2</span> JDBC 的方式</h3>
 <div class="outline-text-3" id="text-12-2">
 <p>
 需要注意的问题:
@@ -1042,12 +1042,12 @@ mysql&gt; source ~/xxx.sql
 </div>
 </section>
 
-<section id="outline-container-org2b304cc" class="outline-2">
-<h2 id="org2b304cc"><span class="section-number-2">13</span> 数据处理示例</h2>
+<section id="outline-container-orgd002879" class="outline-2">
+<h2 id="orgd002879"><span class="section-number-2">13</span> 数据处理示例</h2>
 <div class="outline-text-2" id="text-13">
 </div>
-<div id="outline-container-orgd54f58d" class="outline-3">
-<h3 id="orgd54f58d"><span class="section-number-3">13.1</span> 数据清理</h3>
+<div id="outline-container-org157a631" class="outline-3">
+<h3 id="org157a631"><span class="section-number-3">13.1</span> 数据清理</h3>
 <div class="outline-text-3" id="text-13-1">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">lagou_position_result</span> <span class="org-keyword">as</span>
@@ -1074,8 +1074,8 @@ mysql&gt; source ~/xxx.sql
 </div>
 </div>
 
-<div id="outline-container-org44c30ab" class="outline-3">
-<h3 id="org44c30ab"><span class="section-number-3">13.2</span> 表的分离</h3>
+<div id="outline-container-org2127c45" class="outline-3">
+<h3 id="org2127c45"><span class="section-number-3">13.2</span> 表的分离</h3>
 <div class="outline-text-3" id="text-13-2">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-comment">-- &#28304;&#25968;&#25454;</span>
@@ -1179,17 +1179,17 @@ lagou_company 公司分离:
 注意:
 </p>
 <ul class="org-ul">
-<li>分表过程中、分完的表，需要添加主键或索引，否则关联查询会比较慢</li>
-<li>使用 create as 语句分表会比较简单，但这个过程存储数据复制，会比较占用硬盘存储</li>
-<li>除了 create as 语句，也可以在基表上进行数据操作。但是注意数据的备份，当心不慎操作导致的数据永久丢失</li>
+<li>分表过程中、分完的表，需要添加主键或索引，否则关联查询会特别特别慢</li>
+<li>使用 create as 语句分表会比较简单，但这个过程存在数据的复制，会比较占用硬盘存储</li>
+<li>除了 create as 语句，也可以在基表上进行数据操作（删改）。但是注意数据的备份，当心不慎操作导致的数据永久丢失</li>
 <li>备份迁移需要在系统停机的情况下进行</li>
 </ul>
 </div>
 </div>
 </section>
 
-<section id="outline-container-org831fa9f" class="outline-2">
-<h2 id="org831fa9f"><span class="section-number-2">14</span> 省市县模式数据库设计</h2>
+<section id="outline-container-org6b0625c" class="outline-2">
+<h2 id="org6b0625c"><span class="section-number-2">14</span> 省市县模式数据库设计</h2>
 <div class="outline-text-2" id="text-14">
 <p>
 最朴素的实现方式:
@@ -1363,8 +1363,8 @@ lagou_company 公司分离:
 </div>
 </section>
 
-<section id="outline-container-orgd22562b" class="outline-2">
-<h2 id="orgd22562b"><span class="section-number-2">15</span> 查询练习</h2>
+<section id="outline-container-org4dbfeaa" class="outline-2">
+<h2 id="org4dbfeaa"><span class="section-number-2">15</span> 查询练习</h2>
 <div class="outline-text-2" id="text-15">
 <p>
 创建表:
@@ -1531,7 +1531,7 @@ lagou_company 公司分离:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-13 周四 07:26</p>
+<p class="date">Created: 2018-09-13 Thu 15:44</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
