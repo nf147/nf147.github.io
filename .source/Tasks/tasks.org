@@ -2,10 +2,32 @@
 
 
 
-* 2018年09月13日
+* 2018年09月14日
 :PROPERTIES:
 :CUSTOM_ID: active
 :END:
+
+- 测试 jdbc 中连接关闭的时机 ::
+  - 写一段程序，测试 jdbc 连接的关闭情况
+  - 使用 show processlist 查看所有数据库连接
+  - 测试调用 conn.close 之后，连接的变化情况
+  - 测试如果不写 conn.close 而是调用 System.gc() 之后，连接的变化情况
+  - 测试如果不写 conn.close 而是让程序执行完或退出，连接的变化情况
+  - 思考为什么必须要手动写 conn.close 语句释放资源
+  - 思考为什么要手动释放 resultset 和 statement
+
+- 创建一张表，插入随机的 10w 条数据 ::
+  - 使用 *存储过程* 的方式插入数据，存储过程的参数是插入数据的条数
+  - 需要使用到生成随机字符串的功能，使用一个 *函数* 来实现
+  - [扩展，可选] 了解 out 类型的参数
+  - [扩展，可选] 了解游标的使用
+  - [扩展，可选] 使用 jdbc 调用 mysql 存储过程，详细了解
+
+- 了解 echart 插件 ::
+  - http://echarts.baidu.com/
+  - [扩展，可选] 使用 echart + jdbc 将 lagou_position 中相关统计数据进行可视化渲染
+
+* 2018年09月13日
 
 - 表的分割已更新到笔记！请 *认真复习*！
 - 总结分割方法！存入 github HomeWork 仓库下的 ~migrate.md~ 文件！至少500字！

@@ -135,8 +135,9 @@ MySQL 在用户登录后（默认使用 root 用户登录），需要切换到�
   -- 注意，使用 sql 语句修改用户跟权限之后，需要手动刷新权限表
   flush privileges;
 #+END_SRC
-* 基本命令
+* 常用命令
 
+基本命令:
 #+BEGIN_SRC sql
   -- 查询当前日期
   select now(), current_date, current_time;
@@ -149,7 +150,19 @@ MySQL 在用户登录后（默认使用 root 用户登录），需要切换到�
   use test;
 #+END_SRC
 
-* 创建表
+更多命令：
+#+BEGIN_SRC sql
+  show engines; -- 所有引擎
+  show plugins; -- 所有插件
+  show variables; -- 所有系统变量
+  show variables like '%char%'; -- 可以使用 like 进行过滤, 注意 % _ 的使用
+  set names utf8; -- 一个快捷方式，用来快速批量设置字符集
+
+  show full processlist;
+  kill 109;
+#+END_SRC
+
+* 表的创建
 
 #+BEGIN_SRC sql
   create table book1 (
@@ -354,7 +367,7 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
   insert into person3 (name, gender, country) values ('灭绝', '女', '美国,南非');
 #+END_SRC
 
-* 主键
+* 主键约束
 
 主键，primary key，从性能和实际出发，应该遵循下面几点:
 1. 尽量短，避免占用太多空间
@@ -367,7 +380,7 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
 - 因为和业务无关，所以可以避免因为业务变动引起的主键变化
 - *不要相信自己的直觉，因为在直觉上感觉不会变的东西，往往都是经不起实践考验的*
 
-* 表的修改的语法
+* 表的修改
 
 基本语法:
 #+BEGIN_SRC sql
@@ -496,18 +509,6 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
   -- 重命名
   alter table rename to people;
 #+END_SRC
-* 其他命令
-
-#+BEGIN_SRC sql
-  show engines; -- 所有引擎
-  show plugins; -- 所有插件
-  show variables; -- 所有系统变量
-  show variables like '%char%'; -- 可以使用 like 进行过滤, 注意 % _ 的使用
-  set names utf8; -- 一个快捷方式，用来快速批量设置字符集
-
-  show full processlist;
-  kill 109;
-#+END_SRC
 
 * 引擎(Engine)
 
@@ -526,6 +527,46 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
   rollback;          -- 回滚
   rollback to xxx;   -- 回档到某个保存点
   commit;            -- 提交事务
+
+
+  -- 创表
+  create table xxx_inno (id int) engine=InnoDB;
+  create table xxx_isam (id int) engine=MyISAM;
+  -- 查看
+  show create table xxx_inno;
+  show create table xxx_isam;
+
+
+
+  -- 查看 xxx_inno 的事务支持情况
+  -- 首先，开启事务
+  start transaction;
+  -- 然后，插入数据
+  insert into xxx_inno values (111);
+  insert into xxx_inno values (222);
+  -- 现在，在其他的连接中，是查询不到这数据的
+  select * from xxx_inno;
+  -- 建立保存点(存档)
+  savepoint s1;
+  -- 再插入更多数据
+  insert into xxx_inno values (333);
+  -- 现在，在当前事务中，可以查到3条数据
+  select * from xxx_inno;
+  -- 使用 rollback 回档，将回到插入 333 前的状态
+  rollback to s1;
+  -- 提交事务
+  commit;  
+  -- 现在，在其他的连接中，就能查询到这些数据了
+  select * from xxx_inno;
+
+
+
+  -- 查看 xxx_isam 的事务支持情况
+  start transaction;
+  insert into xxx_isam values (666);
+  -- 在没有 commit 的时候，在其他连接中竟然能查询这数据
+  -- 说明 MyISAM 是不支持事务的
+  select * from xxx_isam;
 #+END_SRC
 
 * 存储过程
