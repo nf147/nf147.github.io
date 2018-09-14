@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-13 周四 07:26 -->
+<!-- 2018-09-14 周五 07:36 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MySQL</title>
@@ -29,22 +29,23 @@
 <li><a href="#org77663c8">7. 主键</a></li>
 <li><a href="#org5f9cd3d">8. 表的修改的语法</a></li>
 <li><a href="#orgd5aa2aa">9. 其他命令</a></li>
-<li><a href="#orge426756">10. 存储过程</a></li>
-<li><a href="#orgda54abc">11. 备份与恢复</a></li>
-<li><a href="#orgc485735">12. 数据迁移示例</a>
+<li><a href="#orgf388c04">10. 引擎(Engine)</a></li>
+<li><a href="#orge426756">11. 存储过程</a></li>
+<li><a href="#orgda54abc">12. 备份与恢复</a></li>
+<li><a href="#orgc485735">13. 数据迁移示例</a>
 <ul>
-<li><a href="#org5cd8b6a">12.1. 命令行的方式</a></li>
-<li><a href="#orgd872dfa">12.2. JDBC 的方式</a></li>
+<li><a href="#org5cd8b6a">13.1. 命令行的方式</a></li>
+<li><a href="#orgd872dfa">13.2. JDBC 的方式</a></li>
 </ul>
 </li>
-<li><a href="#org2b304cc">13. 数据处理示例</a>
+<li><a href="#org2b304cc">14. 数据处理示例</a>
 <ul>
-<li><a href="#orgd54f58d">13.1. 数据清理</a></li>
-<li><a href="#org44c30ab">13.2. 表的分离</a></li>
+<li><a href="#orgd54f58d">14.1. 数据清理</a></li>
+<li><a href="#org44c30ab">14.2. 表的分离</a></li>
 </ul>
 </li>
-<li><a href="#org831fa9f">14. 省市县模式数据库设计</a></li>
-<li><a href="#orgd22562b">15. 查询练习</a></li>
+<li><a href="#org831fa9f">15. 省市县模式数据库设计</a></li>
+<li><a href="#orgd22562b">16. 查询练习</a></li>
 </ul>
 </div>
 </nav>
@@ -734,13 +735,59 @@ table_option:
 </section>
 <section id="outline-container-orgd5aa2aa" class="outline-2">
 <h2 id="orgd5aa2aa"><span class="section-number-2">9</span> 其他命令</h2>
+<div class="outline-text-2" id="text-9">
+<div class="org-src-container">
+<pre class="src src-sql">show engines; <span class="org-comment">-- &#25152;&#26377;&#24341;&#25806;</span>
+show plugins; <span class="org-comment">-- &#25152;&#26377;&#25554;&#20214;</span>
+show variables; <span class="org-comment">-- &#25152;&#26377;&#31995;&#32479;&#21464;&#37327;</span>
+show variables <span class="org-keyword">like</span> <span class="org-string">'%char%'</span>; <span class="org-comment">-- &#21487;&#20197;&#20351;&#29992; like &#36827;&#34892;&#36807;&#28388;, &#27880;&#24847; % _ &#30340;&#20351;&#29992;</span>
+<span class="org-keyword">set</span> <span class="org-keyword">names</span> utf8; <span class="org-comment">-- &#19968;&#20010;&#24555;&#25463;&#26041;&#24335;&#65292;&#29992;&#26469;&#24555;&#36895;&#25209;&#37327;&#35774;&#32622;&#23383;&#31526;&#38598;</span>
+
+show <span class="org-keyword">full</span> processlist;
+kill 109;
+</pre>
+</div>
+</div>
 </section>
 
+<section id="outline-container-orgf388c04" class="outline-2">
+<h2 id="orgf388c04"><span class="section-number-2">10</span> 引擎(Engine)</h2>
+<div class="outline-text-2" id="text-10">
+<ul class="org-ul">
+<li><p>
+MySQL 为了满足各种需求，提供了不同的引擎实现，比如 MyISAM/InnoDB 等。
+</p>
+<pre class="example">
+show engines
+</pre></li>
+<li>可以为数据库指定默认引擎，只需要在 my.ini 配置文件中增加 <code>default-storage-engine=InnoDB</code> 就可以了</li>
+<li><p>
+也可以在创建表的时候，手动指定使用的引擎:
+</p>
+<pre class="example">
+create table xxx (id int) engine=MyISAM;
+</pre></li>
+<li>在早期(&lt;5.0)MySQL 的默认引擎是 MyISAM，它的特点是快，它的缺点是功能简单，不支持事务包括外键等功能</li>
+<li>目前(&gt;5)默认引擎是 InnoDB，它为数据库提供了事务支持、外键支持、锁的支持等特性</li>
+</ul>
 
+<p>
+事务相关的语法有:
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">start</span> <span class="org-keyword">transaction</span>; <span class="org-comment">-- begin;</span>
+<span class="org-keyword">savepoint</span> xxx;     <span class="org-comment">-- &#23384;&#26723;</span>
+<span class="org-keyword">rollback</span>;          <span class="org-comment">-- &#22238;&#28378;</span>
+<span class="org-keyword">rollback</span> <span class="org-keyword">to</span> xxx;   <span class="org-comment">-- &#22238;&#26723;&#21040;&#26576;&#20010;&#20445;&#23384;&#28857;</span>
+<span class="org-keyword">commit</span>;            <span class="org-comment">-- &#25552;&#20132;&#20107;&#21153;</span>
+</pre>
+</div>
+</div>
+</section>
 
 <section id="outline-container-orge426756" class="outline-2">
-<h2 id="orge426756"><span class="section-number-2">10</span> 存储过程</h2>
-<div class="outline-text-2" id="text-10">
+<h2 id="orge426756"><span class="section-number-2">11</span> 存储过程</h2>
+<div class="outline-text-2" id="text-11">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-comment">-- &#23384;&#20648;&#36807;&#31243;&#30340;&#23450;&#20041;</span>
 delimiter //                   <span class="org-comment">-- &#20351;&#29992; delimiter &#25351;&#20196;&#65292;&#23558;&#40664;&#35748;&#30340;&#20998;&#38548;&#31526;(;)&#25442;&#20026;&#25105;&#20204;&#33258;&#23450;&#20041;&#30340;&#20998;&#38548;&#31526;</span>
@@ -782,8 +829,8 @@ delimiter ;                    <span class="org-comment">-- &#36807;&#31243;&#23
 </section>
 
 <section id="outline-container-orgda54abc" class="outline-2">
-<h2 id="orgda54abc"><span class="section-number-2">11</span> 备份与恢复</h2>
-<div class="outline-text-2" id="text-11">
+<h2 id="orgda54abc"><span class="section-number-2">12</span> 备份与恢复</h2>
+<div class="outline-text-2" id="text-12">
 <p>
 各种灾难防不胜防:
 </p>
@@ -861,16 +908,16 @@ mysql&gt; source ~/xxx.sql
 </section>
 
 <section id="outline-container-orgc485735" class="outline-2">
-<h2 id="orgc485735"><span class="section-number-2">12</span> 数据迁移示例</h2>
-<div class="outline-text-2" id="text-12">
+<h2 id="orgc485735"><span class="section-number-2">13</span> 数据迁移示例</h2>
+<div class="outline-text-2" id="text-13">
 <p>
 将 sqlite3 格式的 lagou.db 中的数据迁移到 MySQL 中
 </p>
 </div>
 
 <div id="outline-container-org5cd8b6a" class="outline-3">
-<h3 id="org5cd8b6a"><span class="section-number-3">12.1</span> 命令行的方式</h3>
-<div class="outline-text-3" id="text-12-1">
+<h3 id="org5cd8b6a"><span class="section-number-3">13.1</span> 命令行的方式</h3>
+<div class="outline-text-3" id="text-13-1">
 <p>
 首先，从 sqlite 中导出:
 </p>
@@ -904,8 +951,8 @@ mysql&gt; source ~/xxx.sql
 </div>
 
 <div id="outline-container-orgd872dfa" class="outline-3">
-<h3 id="orgd872dfa"><span class="section-number-3">12.2</span> JDBC 的方式</h3>
-<div class="outline-text-3" id="text-12-2">
+<h3 id="orgd872dfa"><span class="section-number-3">13.2</span> JDBC 的方式</h3>
+<div class="outline-text-3" id="text-13-2">
 <p>
 需要注意的问题:
 </p>
@@ -1043,12 +1090,12 @@ mysql&gt; source ~/xxx.sql
 </section>
 
 <section id="outline-container-org2b304cc" class="outline-2">
-<h2 id="org2b304cc"><span class="section-number-2">13</span> 数据处理示例</h2>
-<div class="outline-text-2" id="text-13">
+<h2 id="org2b304cc"><span class="section-number-2">14</span> 数据处理示例</h2>
+<div class="outline-text-2" id="text-14">
 </div>
 <div id="outline-container-orgd54f58d" class="outline-3">
-<h3 id="orgd54f58d"><span class="section-number-3">13.1</span> 数据清理</h3>
-<div class="outline-text-3" id="text-13-1">
+<h3 id="orgd54f58d"><span class="section-number-3">14.1</span> 数据清理</h3>
+<div class="outline-text-3" id="text-14-1">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">lagou_position_result</span> <span class="org-keyword">as</span>
   <span class="org-keyword">select</span> <span class="org-keyword">distinct</span> *
@@ -1075,8 +1122,8 @@ mysql&gt; source ~/xxx.sql
 </div>
 
 <div id="outline-container-org44c30ab" class="outline-3">
-<h3 id="org44c30ab"><span class="section-number-3">13.2</span> 表的分离</h3>
-<div class="outline-text-3" id="text-13-2">
+<h3 id="org44c30ab"><span class="section-number-3">14.2</span> 表的分离</h3>
+<div class="outline-text-3" id="text-14-2">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-comment">-- &#28304;&#25968;&#25454;</span>
 <span class="org-keyword">select</span> * <span class="org-keyword">from</span> china_city <span class="org-keyword">limit</span> 4;
@@ -1189,8 +1236,8 @@ lagou_company 公司分离:
 </section>
 
 <section id="outline-container-org831fa9f" class="outline-2">
-<h2 id="org831fa9f"><span class="section-number-2">14</span> 省市县模式数据库设计</h2>
-<div class="outline-text-2" id="text-14">
+<h2 id="org831fa9f"><span class="section-number-2">15</span> 省市县模式数据库设计</h2>
+<div class="outline-text-2" id="text-15">
 <p>
 最朴素的实现方式:
 </p>
@@ -1364,8 +1411,8 @@ lagou_company 公司分离:
 </section>
 
 <section id="outline-container-orgd22562b" class="outline-2">
-<h2 id="orgd22562b"><span class="section-number-2">15</span> 查询练习</h2>
-<div class="outline-text-2" id="text-15">
+<h2 id="orgd22562b"><span class="section-number-2">16</span> 查询练习</h2>
+<div class="outline-text-2" id="text-16">
 <p>
 创建表:
 </p>
@@ -1531,7 +1578,7 @@ lagou_company 公司分离:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-13 周四 07:26</p>
+<p class="date">Created: 2018-09-14 周五 07:36</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

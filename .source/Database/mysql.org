@@ -498,7 +498,35 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
 #+END_SRC
 * 其他命令
 
+#+BEGIN_SRC sql
+  show engines; -- 所有引擎
+  show plugins; -- 所有插件
+  show variables; -- 所有系统变量
+  show variables like '%char%'; -- 可以使用 like 进行过滤, 注意 % _ 的使用
+  set names utf8; -- 一个快捷方式，用来快速批量设置字符集
 
+  show full processlist;
+  kill 109;
+#+END_SRC
+
+* 引擎(Engine)
+
+- MySQL 为了满足各种需求，提供了不同的引擎实现，比如 MyISAM/InnoDB 等。
+  : show engines
+- 可以为数据库指定默认引擎，只需要在 my.ini 配置文件中增加 ~default-storage-engine=InnoDB~ 就可以了
+- 也可以在创建表的时候，手动指定使用的引擎:
+  : create table xxx (id int) engine=MyISAM;
+- 在早期(<5.0)MySQL 的默认引擎是 MyISAM，它的特点是快，它的缺点是功能简单，不支持事务包括外键等功能
+- 目前(>5)默认引擎是 InnoDB，它为数据库提供了事务支持、外键支持、锁的支持等特性
+
+事务相关的语法有:
+#+BEGIN_SRC sql
+  start transaction; -- begin;
+  savepoint xxx;     -- 存档
+  rollback;          -- 回滚
+  rollback to xxx;   -- 回档到某个保存点
+  commit;            -- 提交事务
+#+END_SRC
 
 * 存储过程
 
