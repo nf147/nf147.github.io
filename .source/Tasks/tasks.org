@@ -2,6 +2,18 @@
 
 
 
+* 2018年09月13日
+:PROPERTIES:
+:CUSTOM_ID: active
+:END:
+
+- 表的分割已更新到笔记！请 *认真复习*！
+- 总结分割方法！存入 github HomeWork 仓库下的 ~migrate.md~ 文件！至少500字！
+- 前几次的作业，没做完的花点功夫补一下。
+- 扩充题（选做）:
+  - 使用存储过程完成数据表的处理
+  - 使用 jdbc 完成数据表的处理
+
 * 2018年09月12日
 :PROPERTIES:
 :CUSTOM_ID: active

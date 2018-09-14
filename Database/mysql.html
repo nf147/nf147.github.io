@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-14 周五 07:36 -->
+<!-- 2018-09-14 周五 07:38 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MySQL</title>
@@ -1226,9 +1226,9 @@ lagou_company 公司分离:
 注意:
 </p>
 <ul class="org-ul">
-<li>分表过程中、分完的表，需要添加主键或索引，否则关联查询会比较慢</li>
-<li>使用 create as 语句分表会比较简单，但这个过程存储数据复制，会比较占用硬盘存储</li>
-<li>除了 create as 语句，也可以在基表上进行数据操作。但是注意数据的备份，当心不慎操作导致的数据永久丢失</li>
+<li>分表过程中、分完的表，需要添加主键或索引，否则关联查询会特别特别慢</li>
+<li>使用 create as 语句分表会比较简单，但这个过程存在数据的复制，会比较占用硬盘存储</li>
+<li>除了 create as 语句，也可以在基表上进行数据操作（删改）。但是注意数据的备份，当心不慎操作导致的数据永久丢失</li>
 <li>备份迁移需要在系统停机的情况下进行</li>
 </ul>
 </div>
@@ -1578,7 +1578,7 @@ lagou_company 公司分离:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-14 周五 07:36</p>
+<p class="date">Created: 2018-09-14 周五 07:38</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
