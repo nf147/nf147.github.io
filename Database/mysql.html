@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-14 Fri 16:35 -->
+<!-- 2018-09-18 周二 06:56 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MySQL</title>
@@ -20,39 +20,39 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgfb01b60">1. 安装与配置</a></li>
-<li><a href="#org1b8087e">2. 数据库与账户</a></li>
-<li><a href="#orgbea5888">3. 用户跟权限</a></li>
-<li><a href="#orgbf94afe">4. 常用命令</a></li>
-<li><a href="#org49735eb">5. 表的创建</a></li>
-<li><a href="#org7fe3927">6. 数据类型</a></li>
-<li><a href="#org3321b3b">7. 主键约束</a></li>
-<li><a href="#org901eba2">8. 表的修改</a></li>
-<li><a href="#org23561b8">9. 引擎(Engine)</a></li>
-<li><a href="#org7f676fa">10. 存储过程</a></li>
-<li><a href="#org4ea11ad">11. 备份与恢复</a></li>
-<li><a href="#orga20ef74">12. 数据迁移示例</a>
+<li><a href="#org2e4c3fc">1. 安装与配置</a></li>
+<li><a href="#orgef7e074">2. 数据库与账户</a></li>
+<li><a href="#org03d51a7">3. 用户跟权限</a></li>
+<li><a href="#orgde1157b">4. 常用命令</a></li>
+<li><a href="#org4db6a30">5. 表的创建</a></li>
+<li><a href="#org0ef7199">6. 数据类型</a></li>
+<li><a href="#org8be3bd4">7. 主键约束</a></li>
+<li><a href="#org4bb2160">8. 表的修改</a></li>
+<li><a href="#orgf388c04">9. 引擎(Engine)</a></li>
+<li><a href="#orge426756">10. 存储过程</a></li>
+<li><a href="#orgda54abc">11. 备份与恢复</a></li>
+<li><a href="#orgc485735">12. 数据迁移示例</a>
 <ul>
-<li><a href="#orgea74ae1">12.1. 命令行的方式</a></li>
-<li><a href="#orgcf0f674">12.2. JDBC 的方式</a></li>
+<li><a href="#org5cd8b6a">12.1. 命令行的方式</a></li>
+<li><a href="#orgd872dfa">12.2. JDBC 的方式</a></li>
 </ul>
 </li>
-<li><a href="#orgd002879">13. 数据处理示例</a>
+<li><a href="#org2b304cc">13. 数据处理示例</a>
 <ul>
-<li><a href="#org157a631">13.1. 数据清理</a></li>
-<li><a href="#org2127c45">13.2. 表的分离</a></li>
+<li><a href="#orgd54f58d">13.1. 数据清理</a></li>
+<li><a href="#org44c30ab">13.2. 表的分离</a></li>
 </ul>
 </li>
-<li><a href="#org6b0625c">14. 省市县模式数据库设计</a></li>
-<li><a href="#org4dbfeaa">15. 查询练习</a></li>
+<li><a href="#org831fa9f">14. 省市县模式数据库设计</a></li>
+<li><a href="#orgd22562b">15. 查询练习</a></li>
 </ul>
 </div>
 </nav>
 
 
 
-<section id="outline-container-orgfb01b60" class="outline-2">
-<h2 id="orgfb01b60"><span class="section-number-2">1</span> 安装与配置</h2>
+<section id="outline-container-org2e4c3fc" class="outline-2">
+<h2 id="org2e4c3fc"><span class="section-number-2">1</span> 安装与配置</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 MySQL/MariaDB:
@@ -111,8 +111,8 @@ mysql -h 45.42.32.1 -P 9999 -uroot -p
 </div>
 </section>
 
-<section id="outline-container-org1b8087e" class="outline-2">
-<h2 id="org1b8087e"><span class="section-number-2">2</span> 数据库与账户</h2>
+<section id="outline-container-orgef7e074" class="outline-2">
+<h2 id="orgef7e074"><span class="section-number-2">2</span> 数据库与账户</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 MySQL 在用户登录后（默认使用 root 用户登录），需要切换到一个 <b>database</b> 才能进行表的创建等操作。所有的表和数据都隶属于某个数据库。
@@ -181,8 +181,8 @@ use bookstore;  <span class="org-comment">-- &#20999;&#25442;&#21040;&#25968;&#2
 </div>
 </section>
 
-<section id="outline-container-orgbea5888" class="outline-2">
-<h2 id="orgbea5888"><span class="section-number-2">3</span> 用户跟权限</h2>
+<section id="outline-container-org03d51a7" class="outline-2">
+<h2 id="org03d51a7"><span class="section-number-2">3</span> 用户跟权限</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 用户跟权限的相关信息，都是保存在下面表中：
@@ -253,8 +253,8 @@ flush <span class="org-keyword">privileges</span>;
 </div>
 </div>
 </section>
-<section id="outline-container-orgbf94afe" class="outline-2">
-<h2 id="orgbf94afe"><span class="section-number-2">4</span> 常用命令</h2>
+<section id="outline-container-orgde1157b" class="outline-2">
+<h2 id="orgde1157b"><span class="section-number-2">4</span> 常用命令</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 基本命令:
@@ -289,8 +289,8 @@ kill 109;
 </div>
 </section>
 
-<section id="outline-container-org49735eb" class="outline-2">
-<h2 id="org49735eb"><span class="section-number-2">5</span> 表的创建</h2>
+<section id="outline-container-org4db6a30" class="outline-2">
+<h2 id="org4db6a30"><span class="section-number-2">5</span> 表的创建</h2>
 <div class="outline-text-2" id="text-5">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">book1</span> (
@@ -499,8 +499,8 @@ kill 109;
 </div>
 </section>
 
-<section id="outline-container-org7fe3927" class="outline-2">
-<h2 id="org7fe3927"><span class="section-number-2">6</span> 数据类型</h2>
+<section id="outline-container-org0ef7199" class="outline-2">
+<h2 id="org0ef7199"><span class="section-number-2">6</span> 数据类型</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 大致分为 <b>6</b> 类:
@@ -588,8 +588,8 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
 </div>
 </section>
 
-<section id="outline-container-org3321b3b" class="outline-2">
-<h2 id="org3321b3b"><span class="section-number-2">7</span> 主键约束</h2>
+<section id="outline-container-org8be3bd4" class="outline-2">
+<h2 id="org8be3bd4"><span class="section-number-2">7</span> 主键约束</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 主键，primary key，从性能和实际出发，应该遵循下面几点:
@@ -612,8 +612,8 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
 </div>
 </section>
 
-<section id="outline-container-org901eba2" class="outline-2">
-<h2 id="org901eba2"><span class="section-number-2">8</span> 表的修改</h2>
+<section id="outline-container-org4bb2160" class="outline-2">
+<h2 id="org4bb2160"><span class="section-number-2">8</span> 表的修改</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 基本语法:
@@ -751,8 +751,8 @@ table_option:
 </div>
 </section>
 
-<section id="outline-container-org23561b8" class="outline-2">
-<h2 id="org23561b8"><span class="section-number-2">9</span> 引擎(Engine)</h2>
+<section id="outline-container-orgf388c04" class="outline-2">
+<h2 id="orgf388c04"><span class="section-number-2">9</span> 引擎(Engine)</h2>
 <div class="outline-text-2" id="text-9">
 <ul class="org-ul">
 <li><p>
@@ -826,11 +826,18 @@ show <span class="org-keyword">create</span> <span class="org-keyword">table</sp
 </div>
 </section>
 
-<section id="outline-container-org7f676fa" class="outline-2">
-<h2 id="org7f676fa"><span class="section-number-2">10</span> 存储过程</h2>
+<section id="outline-container-orge426756" class="outline-2">
+<h2 id="orge426756"><span class="section-number-2">10</span> 存储过程</h2>
 <div class="outline-text-2" id="text-10">
 <div class="org-src-container">
-<pre class="src src-sql"><span class="org-comment">-- &#23384;&#20648;&#36807;&#31243;&#30340;&#23450;&#20041;</span>
+<pre class="src src-sql"><span class="org-comment">-- [WARNNING] &#23384;&#20648;&#36807;&#31243;&#19981;&#24314;&#35758;&#20351;&#29992;</span>
+<span class="org-comment">-- 1. &#38590;&#20197;&#35843;&#35797;&#65292;&#38590;&#20197;&#32500;&#25252;</span>
+<span class="org-comment">-- 2. &#19994;&#21153;&#36923;&#36753;&#36319;&#25968;&#25454;&#24211;&#32806;&#21512;&#24230;&#36807;&#39640;&#65292;&#19981;&#20415;&#20110;&#36801;&#31227;</span>
+<span class="org-comment">-- 3. &#23545;&#25968;&#25454;&#24211;&#30340;&#21387;&#21147;&#36807;&#22823;&#65292;&#38656;&#35201;&#20998;&#25286;</span>
+<span class="org-comment">-- 4. MySQL &#23545;&#23384;&#20648;&#36807;&#31243;&#30340;&#25903;&#25345;&#26377;&#20123;&#24369;&#40481;</span>
+
+
+<span class="org-comment">-- &#23384;&#20648;&#36807;&#31243;&#30340;&#23450;&#20041;</span>
 delimiter //                   <span class="org-comment">-- &#20351;&#29992; delimiter &#25351;&#20196;&#65292;&#23558;&#40664;&#35748;&#30340;&#20998;&#38548;&#31526;(;)&#25442;&#20026;&#25105;&#20204;&#33258;&#23450;&#20041;&#30340;&#20998;&#38548;&#31526;</span>
 <span class="org-keyword">create</span> <span class="org-keyword">procedure</span> <span class="org-function-name">ppx1</span> (p <span class="org-type">int</span>)  <span class="org-comment">-- &#21019;&#24314;&#23384;&#20648;&#36807;&#31243;&#65292;&#21517;&#23383; ppx1, &#19968;&#20010;&#20837;&#21442; int &#31867;&#22411;&#30340; p</span>
 <span class="org-keyword">begin</span>                          <span class="org-comment">-- &#20351;&#29992; begin &#36319; end &#23558;&#25152;&#26377;&#35821;&#21477;&#21253;&#25324;&#36215;&#26469;&#65292;&#30456;&#24403;&#20110; {}</span>
@@ -866,11 +873,69 @@ delimiter ;                    <span class="org-comment">-- &#36807;&#31243;&#23
 <span class="org-keyword">end</span>
 </pre>
 </div>
+
+<p>
+创建一张表，插入随机的 10w 条数据:
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-comment">/*</span>
+<span class="org-comment">create table t_person (</span>
+<span class="org-comment">  pid int auto_increment primary key,</span>
+<span class="org-comment">  name varchar(20) not null,</span>
+<span class="org-comment">  weixin varchar(20) not null</span>
+<span class="org-comment">);</span>
+<span class="org-comment">*/</span>
+
+delimiter //
+<span class="org-keyword">drop</span> <span class="org-keyword">procedure</span> <span class="org-function-name">if</span> <span class="org-keyword">exists</span> pro_person_data;
+<span class="org-keyword">create</span> <span class="org-keyword">procedure</span> <span class="org-function-name">pro_person_data</span> (num <span class="org-type">int</span>)
+<span class="org-keyword">begin</span>
+    <span class="org-comment">-- &#23450;&#20041;&#21464;&#37327;</span>
+    <span class="org-comment">-- 1. &#23616;&#37096;&#21464;&#37327;&#65292;&#20351;&#29992;&#22312;&#23384;&#20648;&#36807;&#31243;&#25110;&#20989;&#25968;&#20013;&#65292;&#36825;&#26679;&#30340;&#21464;&#37327;&#20351;&#29992; declare &#36827;&#34892;&#22768;&#26126;&#65292;&#20351;&#29992; set &#36827;&#34892;&#36171;&#20540;&#12290;&#20316;&#29992;&#22495;&#26159;&#36807;&#31243;&#20013;&#12290;</span>
+    <span class="org-comment">-- 2. &#29992;&#25143;&#21464;&#37327;&#65292;&#23450;&#20041; set @xxx = 333; select @xxx := 333;  &#38656;&#35201;&#29992; @ &#31526;&#21495;&#36827;&#34892;&#20462;&#39280;</span>
+    <span class="org-comment">-- 3. &#31995;&#32479;&#21464;&#37327;&#65292;&#31995;&#32479;&#33258;&#24102;&#30340;&#65292;&#20869;&#24314;&#30340;&#21464;&#37327;</span>
+    <span class="org-comment">--    - &#21487;&#20197;&#36890;&#36807;&#21629;&#20196;&#34892;&#30340;&#26041;&#24335;&#36827;&#34892;&#35774;&#32622; mysqld --default_storage_engine=MyISAM</span>
+    <span class="org-comment">--    - &#21487;&#20197;&#22312; my.ini &#37197;&#32622;&#25991;&#20214;&#20013;&#36827;&#34892;&#37197;&#32622; default_storage_engine=MyISAM</span>
+    <span class="org-comment">--    - &#21487;&#20197;&#36890;&#36807; set &#30340;&#26041;&#24335;&#36827;&#34892;&#21160;&#24577;&#35774;&#32622;</span>
+    <span class="org-comment">--    - &#31995;&#32479;&#21464;&#37327;&#65292;&#20998;&#20026;&#20004;&#31867;:</span>
+    <span class="org-comment">--      1. &#20840;&#23616;&#30340;(global)</span>
+    <span class="org-comment">--         show global variables;</span>
+    <span class="org-comment">--         set global default_storage_engine=MyISAM;</span>
+    <span class="org-comment">--         set @@global.default_storage_engine=MyISAM;</span>
+    <span class="org-comment">--      2. &#20250;&#35805;&#30340;(session)</span>
+    <span class="org-comment">--         show session variables;</span>
+    <span class="org-comment">--         show local variables;</span>
+    <span class="org-comment">--         show variables;</span>
+    <span class="org-comment">--         set session default_storage_engine=MyISAM;</span>
+    <span class="org-comment">--         set local   default_storage_engine=MyISAM;</span>
+    <span class="org-comment">--         set @@session.default_storage_engine=MyISAM;</span>
+    <span class="org-comment">--         set @@local.default_storage_engine=MyISAM;</span>
+    <span class="org-comment">--         set default_storage_engine=MyISAM;</span>
+    <span class="org-comment">--         set @@default_storage_engine=MyISAM;</span>
+    <span class="org-keyword">declare</span> ii <span class="org-type">int</span> <span class="org-keyword">default</span> 0;
+    <span class="org-keyword">declare</span> v_name <span class="org-type">varchar</span>(20);
+    <span class="org-keyword">declare</span> v_weixin <span class="org-type">varchar</span>(20);
+
+    <span class="org-comment">-- while .. end while</span>
+    <span class="org-comment">-- repeat .. until .. end repeat</span>
+    <span class="org-comment">-- loop_label:loop ... leave loop_label .. end loop;</span>
+    while ii &lt; num do
+          <span class="org-keyword">set</span> v_name = <span class="org-builtin">substring</span>(md5(rand()), 9, 7);
+          <span class="org-keyword">set</span> v_weixin = <span class="org-builtin">substring</span>(rand(), 3, 8);
+
+          <span class="org-keyword">insert</span> <span class="org-keyword">into</span> t_person (<span class="org-keyword">name</span>, weixin) <span class="org-keyword">values</span> (v_name, v_weixin);
+
+          <span class="org-keyword">set</span> ii = ii + 1;
+    <span class="org-keyword">end</span> while;
+<span class="org-keyword">end</span>;
+//
+</pre>
+</div>
 </div>
 </section>
 
-<section id="outline-container-org4ea11ad" class="outline-2">
-<h2 id="org4ea11ad"><span class="section-number-2">11</span> 备份与恢复</h2>
+<section id="outline-container-orgda54abc" class="outline-2">
+<h2 id="orgda54abc"><span class="section-number-2">11</span> 备份与恢复</h2>
 <div class="outline-text-2" id="text-11">
 <p>
 各种灾难防不胜防:
@@ -948,16 +1013,16 @@ mysql&gt; source ~/xxx.sql
 </div>
 </section>
 
-<section id="outline-container-orga20ef74" class="outline-2">
-<h2 id="orga20ef74"><span class="section-number-2">12</span> 数据迁移示例</h2>
+<section id="outline-container-orgc485735" class="outline-2">
+<h2 id="orgc485735"><span class="section-number-2">12</span> 数据迁移示例</h2>
 <div class="outline-text-2" id="text-12">
 <p>
 将 sqlite3 格式的 lagou.db 中的数据迁移到 MySQL 中
 </p>
 </div>
 
-<div id="outline-container-orgea74ae1" class="outline-3">
-<h3 id="orgea74ae1"><span class="section-number-3">12.1</span> 命令行的方式</h3>
+<div id="outline-container-org5cd8b6a" class="outline-3">
+<h3 id="org5cd8b6a"><span class="section-number-3">12.1</span> 命令行的方式</h3>
 <div class="outline-text-3" id="text-12-1">
 <p>
 首先，从 sqlite 中导出:
@@ -991,8 +1056,8 @@ mysql&gt; source ~/xxx.sql
 </div>
 </div>
 
-<div id="outline-container-orgcf0f674" class="outline-3">
-<h3 id="orgcf0f674"><span class="section-number-3">12.2</span> JDBC 的方式</h3>
+<div id="outline-container-orgd872dfa" class="outline-3">
+<h3 id="orgd872dfa"><span class="section-number-3">12.2</span> JDBC 的方式</h3>
 <div class="outline-text-3" id="text-12-2">
 <p>
 需要注意的问题:
@@ -1130,12 +1195,12 @@ mysql&gt; source ~/xxx.sql
 </div>
 </section>
 
-<section id="outline-container-orgd002879" class="outline-2">
-<h2 id="orgd002879"><span class="section-number-2">13</span> 数据处理示例</h2>
+<section id="outline-container-org2b304cc" class="outline-2">
+<h2 id="org2b304cc"><span class="section-number-2">13</span> 数据处理示例</h2>
 <div class="outline-text-2" id="text-13">
 </div>
-<div id="outline-container-org157a631" class="outline-3">
-<h3 id="org157a631"><span class="section-number-3">13.1</span> 数据清理</h3>
+<div id="outline-container-orgd54f58d" class="outline-3">
+<h3 id="orgd54f58d"><span class="section-number-3">13.1</span> 数据清理</h3>
 <div class="outline-text-3" id="text-13-1">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">lagou_position_result</span> <span class="org-keyword">as</span>
@@ -1162,8 +1227,8 @@ mysql&gt; source ~/xxx.sql
 </div>
 </div>
 
-<div id="outline-container-org2127c45" class="outline-3">
-<h3 id="org2127c45"><span class="section-number-3">13.2</span> 表的分离</h3>
+<div id="outline-container-org44c30ab" class="outline-3">
+<h3 id="org44c30ab"><span class="section-number-3">13.2</span> 表的分离</h3>
 <div class="outline-text-3" id="text-13-2">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-comment">-- &#28304;&#25968;&#25454;</span>
@@ -1276,8 +1341,8 @@ lagou_company 公司分离:
 </div>
 </section>
 
-<section id="outline-container-org6b0625c" class="outline-2">
-<h2 id="org6b0625c"><span class="section-number-2">14</span> 省市县模式数据库设计</h2>
+<section id="outline-container-org831fa9f" class="outline-2">
+<h2 id="org831fa9f"><span class="section-number-2">14</span> 省市县模式数据库设计</h2>
 <div class="outline-text-2" id="text-14">
 <p>
 最朴素的实现方式:
@@ -1451,8 +1516,8 @@ lagou_company 公司分离:
 </div>
 </section>
 
-<section id="outline-container-org4dbfeaa" class="outline-2">
-<h2 id="org4dbfeaa"><span class="section-number-2">15</span> 查询练习</h2>
+<section id="outline-container-orgd22562b" class="outline-2">
+<h2 id="orgd22562b"><span class="section-number-2">15</span> 查询练习</h2>
 <div class="outline-text-2" id="text-15">
 <p>
 创建表:
@@ -1619,7 +1684,7 @@ lagou_company 公司分离:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-14 Fri 16:35</p>
+<p class="date">Created: 2018-09-18 周二 06:56</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
