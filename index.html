@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-18 周二 06:56 -->
+<!-- 2018-09-18 周二 06:59 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>S3S147</title>
@@ -35,30 +35,104 @@
 <h4 style='color: red;'>高手是用代码喂出来的，如果你觉得自己弱，那是因为你的代码量太少了。</h4>
 
 <h3>当前任务</h3>
-<dl class="org-dl">
-<dt>一、测试 jdbc 中连接关闭的时机</dt><dd><ul class="org-ul">
-<li>写一段程序，测试 jdbc 连接的关闭情况</li>
-<li>使用 show processlist 查看所有数据库连接</li>
-<li>测试调用 conn.close 之后，连接的变化情况</li>
-<li>测试如果不写 conn.close 而是调用 System.gc() 之后，连接的变化情况</li>
-<li>测试如果不写 conn.close 而是让程序执行完或退出，连接的变化情况</li>
-<li>思考为什么必须要手动写 conn.close 语句释放资源</li>
-<li>思考为什么要手动释放 resultset 和 statement</li>
-</ul></dd>
+<ul class="org-ul">
+<li>复习今天所讲，认真总结笔记</li>
+<li>将插入随机数据的存储过程中的生成随机字符串功能分离到单独的函数中，完毕实现</li>
+<li>之前的作业，没完成的赶紧完成</li>
+<li><p>
+新的作业，行列转换
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-comment">-- &#34920;&#20013;&#30340;&#25968;&#25454;&#26159;&#36825;&#26679;&#30340;</span>
+<span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> `t_score` <span class="org-keyword">VALUES</span>
+    (<span class="org-string">'&#29579;&#28023;'</span>, <span class="org-string">'&#35821;&#25991;'</span>, <span class="org-string">'86'</span>),
+    (<span class="org-string">'&#29579;&#28023;'</span>, <span class="org-string">'&#25968;&#23398;'</span>, <span class="org-string">'83'</span>),
+    (<span class="org-string">'&#29579;&#28023;'</span>, <span class="org-string">'&#33521;&#35821;'</span>, <span class="org-string">'93'</span>),
+    (<span class="org-string">'&#38518;&#20426;'</span>, <span class="org-string">'&#35821;&#25991;'</span>, <span class="org-string">'88'</span>),
+    (<span class="org-string">'&#38518;&#20426;'</span>, <span class="org-string">'&#25968;&#23398;'</span>, <span class="org-string">'84'</span>),
+    (<span class="org-string">'&#38518;&#20426;'</span>, <span class="org-string">'&#33521;&#35821;'</span>, <span class="org-string">'94'</span>),
+    (<span class="org-string">'&#21016;&#21487;'</span>, <span class="org-string">'&#35821;&#25991;'</span>, <span class="org-string">'80'</span>),
+    (<span class="org-string">'&#21016;&#21487;'</span>, <span class="org-string">'&#25968;&#23398;'</span>, <span class="org-string">'86'</span>),
+    (<span class="org-string">'&#21016;&#21487;'</span>, <span class="org-string">'&#33521;&#35821;'</span>, <span class="org-string">'88'</span>),
+    (<span class="org-string">'&#26446;&#26149;'</span>, <span class="org-string">'&#35821;&#25991;'</span>, <span class="org-string">'89'</span>),
+    (<span class="org-string">'&#26446;&#26149;'</span>, <span class="org-string">'&#25968;&#23398;'</span>, <span class="org-string">'80'</span>),
+    (<span class="org-string">'&#26446;&#26149;'</span>, <span class="org-string">'&#33521;&#35821;'</span>, <span class="org-string">'87'</span>);
+</pre>
+</div>
 
-<dt>二、创建一张表，插入随机的 10w 条数据</dt><dd><ul class="org-ul">
-<li>使用<b>存储过程</b>的方式插入数据，存储过程的参数是插入数据的条数</li>
-<li>需要使用到生成随机字符串的功能，使用一个<b>函数</b>来实现</li>
-<li>[扩展，可选] 了解 out 类型的参数</li>
-<li>[扩展，可选] 了解游标的使用</li>
-<li>[扩展，可选] 使用 jdbc 调用 mysql 存储过程，详细了解</li>
-</ul></dd>
+<p>
+要求查询的结果是这样:
+</p>
+<table>
 
-<dt>三、了解 echart 插件</dt><dd><ul class="org-ul">
-<li><a href="http://echarts.baidu.com/">http://echarts.baidu.com/</a></li>
-<li>[扩展，可选] 使用 echart + jdbc 将 lagou_position 中相关统计数据进行可视化渲染</li>
-</ul></dd>
-</dl>
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-right">
+
+<col  class="org-right">
+
+<col  class="org-right">
+
+<col  class="org-right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-right">Chinese</th>
+<th scope="col" class="org-right">Math</th>
+<th scope="col" class="org-right">English</th>
+<th scope="col" class="org-right">score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">刘可</td>
+<td class="org-right">80</td>
+<td class="org-right">86</td>
+<td class="org-right">88</td>
+<td class="org-right">254</td>
+</tr>
+
+<tr>
+<td class="org-left">李春</td>
+<td class="org-right">89</td>
+<td class="org-right">80</td>
+<td class="org-right">87</td>
+<td class="org-right">256</td>
+</tr>
+
+<tr>
+<td class="org-left">王海</td>
+<td class="org-right">86</td>
+<td class="org-right">83</td>
+<td class="org-right">93</td>
+<td class="org-right">262</td>
+</tr>
+
+<tr>
+<td class="org-left">陶俊</td>
+<td class="org-right">88</td>
+<td class="org-right">84</td>
+<td class="org-right">94</td>
+<td class="org-right">266</td>
+</tr>
+
+<tr>
+<td class="org-left">TOTAL</td>
+<td class="org-right">343</td>
+<td class="org-right">333</td>
+<td class="org-right">362</td>
+<td class="org-right">1038</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+方法不拘，但是要思考，要实现。
+</p></li>
+</ul>
 
 <div><br>
 <h3>笔记目录</h3>
@@ -194,7 +268,7 @@
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-18 周二 06:56</p>
+<p class="date">Created: 2018-09-18 周二 06:59</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
