@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-19 周三 01:51 -->
+<!-- 2018-09-19 周三 03:35 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MySQL</title>
@@ -951,6 +951,10 @@ show variables;
 <div class="outline-text-3" id="text-11-1">
 <blockquote>
 <p>
+
+</p>
+
+<p>
 创建表，使用存储过程插入 10w 条数据
 </p>
 </blockquote>
@@ -996,6 +1000,39 @@ delimiter $$
     <span class="org-keyword">return</span> ret;
   <span class="org-keyword">end</span>$$
 delimiter ;
+
+<span class="org-comment">-- &#35843;&#29992;</span>
+<span class="org-keyword">select</span> rand_str(5, 1);
+
+<span class="org-comment">-- &#26681;&#25454;&#19978;&#36848;&#20989;&#25968;&#65292;&#27714;&#21462; 5 &#21040; 12 &#20301;&#38271;&#24230;&#30340;&#19968;&#20010;&#38543;&#26426;&#23383;&#31526;&#20018;</span>
+
+<span class="org-comment">-- &#24605;&#36335;&#19968;</span>
+<span class="org-comment">-- &#31532;&#19968;&#27493;&#65292;&#27714;&#21462; 0-9 &#20043;&#38388;&#30340;&#19968;&#20010;&#38543;&#26426;&#25968;&#23383;</span>
+<span class="org-keyword">select</span> rand_str(1, 2);
+<span class="org-comment">-- &#31532;&#20108;&#27493;&#65292;&#23558;&#36825;&#20010;&#38543;&#26426;&#25968;&#23383;&#21152;&#19978; 5 &#65292;&#24471;&#21040;&#30340;&#32467;&#26524;&#23601;&#26159; 5 &#21040; 14 &#20043;&#38388;&#30340;&#19968;&#20010;&#38543;&#26426;&#25968;&#23383;</span>
+<span class="org-keyword">select</span> rand_str(1, 2) + 5;
+<span class="org-comment">-- &#31532;&#19977;&#27493;&#65292;&#27714;&#21462; 5 &#21040; 14 &#20301;&#38271;&#24230;&#30340;&#19968;&#20010;&#38543;&#26426;&#25968;&#23383;</span>
+<span class="org-keyword">select</span> rand_str(rand_str(1, 2) + 5, 1);
+<span class="org-comment">-- &#31532;&#22235;&#27493;&#65292;&#23558;&#19978;&#36848;&#23383;&#31526;&#20018;&#65292;&#36229;&#36807;&#38271;&#24230;&#30340;&#37096;&#20998;&#65292;&#25130;&#21462;&#25481;&#65292;&#35753;&#20854;&#26368;&#38271;&#30340;&#38271;&#24230;&#26159; 12&#12290;&#20219;&#21153;&#23436;&#25104;</span>
+<span class="org-keyword">select</span> <span class="org-keyword">left</span>(rand_str(rand_str(1, 2) + 5, 1), 12);
+
+<span class="org-comment">-- &#24605;&#36335;&#20108;</span>
+<span class="org-comment">-- &#31532;&#19968;&#27493;&#65292;&#24471;&#21040;&#19968;&#20010;&#38543;&#26426;&#23383;&#31526;&#20018;&#65292;&#38271;&#24230;&#20026; 5</span>
+<span class="org-keyword">select</span> rand_str(5, 1);
+<span class="org-comment">-- &#31532;&#20108;&#27493;&#65292;&#24471;&#21040;&#19968;&#20010;&#38543;&#26426;&#23383;&#31526;&#20018;&#65292;&#38271;&#24230;&#20026; 0 &#21040; 9 &#20043;&#38388;</span>
+<span class="org-keyword">select</span> rand_str(rand_str(1, 2), 1);
+<span class="org-comment">-- &#31532;&#19977;&#27493;&#65292;&#23558;&#20004;&#20010;&#23383;&#31526;&#20018;&#25340;&#25509;&#65292;&#37027;&#20040;&#38271;&#24230;&#26159; 5 &#21040; 14 &#20043;&#38388;</span>
+<span class="org-keyword">select</span> concat(rand_str(5, 1), rand_str(rand_str(1, 2), 1));
+<span class="org-comment">-- &#26368;&#21518;&#19968;&#27493;&#65292;&#25130;&#26029;</span>
+<span class="org-keyword">select</span> <span class="org-keyword">left</span>(concat(rand_str(5, 1), rand_str(rand_str(1, 2), 1)), 12);
+
+<span class="org-comment">-- &#24605;&#36335;&#19977;</span>
+<span class="org-keyword">select</span> concat(rand_str(5, 1), <span class="org-keyword">left</span>(rand_str(rand_str(1, 2), 1), 7));
+
+<span class="org-comment">-- TODO &#39064;&#30446;</span>
+<span class="org-comment">-- &#23553;&#35013;&#19968;&#20010;&#20989;&#25968; rand_str2(m, n)</span>
+<span class="org-comment">-- &#20256;&#20837;&#20004;&#20010;&#25968;&#23383;&#65292;&#36820;&#22238;&#19968;&#20010; m~n &#38271;&#24230;&#30340;&#38543;&#26426;&#23383;&#31526;&#20018;</span>
+<span class="org-comment">-- &#22312;&#23454;&#29616;&#20013;&#65292;&#23613;&#37327;&#20351;&#29992;&#21018;&#25165;&#23553;&#35013;&#22909;&#30340; rand_str &#20989;&#25968;</span>
 </pre>
 </div>
 
@@ -1006,23 +1043,24 @@ delimiter ;
 <pre class="src src-sql">delimiter //
 <span class="org-keyword">drop</span> <span class="org-keyword">procedure</span> <span class="org-function-name">if</span> <span class="org-keyword">exists</span> proc_person_data;
 <span class="org-keyword">create</span> <span class="org-keyword">procedure</span> <span class="org-function-name">proc_person_data</span> (num <span class="org-type">int</span>)
-<span class="org-keyword">begin</span>
+  <span class="org-keyword">begin</span>
     <span class="org-keyword">declare</span> ii <span class="org-type">int</span> <span class="org-keyword">default</span> 0;
-    <span class="org-keyword">declare</span> v_name <span class="org-type">varchar</span>(20);
-    <span class="org-keyword">declare</span> v_weixin <span class="org-type">varchar</span>(20);
 
     <span class="org-comment">-- while .. end while</span>
     <span class="org-comment">-- repeat .. until .. end repeat</span>
     <span class="org-comment">-- loop_label:loop ... leave loop_label .. end loop;</span>
+
+    <span class="org-keyword">set</span> autocommit = 0;
+
     while ii &lt; num do
-          <span class="org-keyword">set</span> v_name = <span class="org-builtin">substring</span>(md5(rand()), 9, 7);
-          <span class="org-keyword">set</span> v_weixin = <span class="org-builtin">substring</span>(rand(), 3, 8);
+      <span class="org-keyword">insert</span> <span class="org-keyword">into</span> t_person (<span class="org-keyword">name</span>, weixin) <span class="org-keyword">values</span> (concat(<span class="org-string">'user_'</span>, rand_str(6, 1)), rand_str(8, 2));
+      <span class="org-keyword">set</span> ii = ii + 1;
 
-          <span class="org-keyword">insert</span> <span class="org-keyword">into</span> t_person (<span class="org-keyword">name</span>, weixin) <span class="org-keyword">values</span> (v_name, v_weixin);
-
-          <span class="org-keyword">set</span> ii = ii + 1;
+      if ii % 100000 = 1 <span class="org-keyword">then</span> <span class="org-keyword">commit</span> ; <span class="org-keyword">end</span> if;
     <span class="org-keyword">end</span> while;
-<span class="org-keyword">end</span>;
+
+    <span class="org-keyword">commit</span> ;
+  <span class="org-keyword">end</span>;
 //
 </pre>
 </div>
@@ -1878,7 +1916,7 @@ lagou_company 公司分离:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-19 周三 01:51</p>
+<p class="date">Created: 2018-09-19 周三 03:35</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

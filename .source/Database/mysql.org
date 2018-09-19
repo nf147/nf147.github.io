@@ -647,6 +647,7 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
 ** 使用存储过程批量插入数据
 
 #+BEGIN_QUOTE
+
 创建表，使用存储过程插入 10w 条数据
 #+END_QUOTE
 
@@ -686,6 +687,39 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
       return ret;
     end$$
   delimiter ;
+
+  -- 调用
+  select rand_str(5, 1);
+
+  -- 根据上述函数，求取 5 到 12 位长度的一个随机字符串
+
+  -- 思路一
+  -- 第一步，求取 0-9 之间的一个随机数字
+  select rand_str(1, 2);
+  -- 第二步，将这个随机数字加上 5 ，得到的结果就是 5 到 14 之间的一个随机数字
+  select rand_str(1, 2) + 5;
+  -- 第三步，求取 5 到 14 位长度的一个随机数字
+  select rand_str(rand_str(1, 2) + 5, 1);
+  -- 第四步，将上述字符串，超过长度的部分，截取掉，让其最长的长度是 12。任务完成
+  select left(rand_str(rand_str(1, 2) + 5, 1), 12);
+
+  -- 思路二
+  -- 第一步，得到一个随机字符串，长度为 5
+  select rand_str(5, 1);
+  -- 第二步，得到一个随机字符串，长度为 0 到 9 之间
+  select rand_str(rand_str(1, 2), 1);
+  -- 第三步，将两个字符串拼接，那么长度是 5 到 14 之间
+  select concat(rand_str(5, 1), rand_str(rand_str(1, 2), 1));
+  -- 最后一步，截断
+  select left(concat(rand_str(5, 1), rand_str(rand_str(1, 2), 1)), 12);
+
+  -- 思路三
+  select concat(rand_str(5, 1), left(rand_str(rand_str(1, 2), 1), 7));
+
+  -- TODO 题目
+  -- 封装一个函数 rand_str2(m, n)
+  -- 传入两个数字，返回一个 m~n 长度的随机字符串
+  -- 在实现中，尽量使用刚才封装好的 rand_str 函数
 #+END_SRC
 
 然后，编写存储过程，实现数据的插入:
@@ -693,23 +727,24 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
   delimiter //
   drop procedure if exists proc_person_data;
   create procedure proc_person_data (num int)
-  begin
+    begin
       declare ii int default 0;
-      declare v_name varchar(20);
-      declare v_weixin varchar(20);
 
       -- while .. end while
       -- repeat .. until .. end repeat
       -- loop_label:loop ... leave loop_label .. end loop;
+
+      set autocommit = 0;
+
       while ii < num do
-            set v_name = substring(md5(rand()), 9, 7);
-            set v_weixin = substring(rand(), 3, 8);
+        insert into t_person (name, weixin) values (concat('user_', rand_str(6, 1)), rand_str(8, 2));
+        set ii = ii + 1;
 
-            insert into t_person (name, weixin) values (v_name, v_weixin);
-
-            set ii = ii + 1;
+        if ii % 100000 = 1 then commit ; end if;
       end while;
-  end;
+
+      commit ;
+    end;
   //
 #+END_SRC
 
