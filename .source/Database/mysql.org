@@ -744,6 +744,7 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
       end while;
 
       commit ;
+      set autocommit = 1;
     end;
   //
 #+END_SRC
