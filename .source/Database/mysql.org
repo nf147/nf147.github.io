@@ -643,6 +643,95 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
           set @@default_storage_engine=MyISAM;
         #+END_SRC
 
+** 变量参数
+
+如果让存储过程跟外边进行数据交互，需要用到参数
+
+第一种，在过程内部使用用户变量 @xxx
+#+BEGIN_SRC sql
+  delimiter //
+  create procedure pp1 ()
+    begin
+      declare v1 int default 100;
+
+      set @aaa = v1*101;
+    end //
+  delimiter ;
+
+  -- 调用
+  call pp1();
+  select @aaa;
+#+END_SRC
+
+另外，可以将表中查询到的数据赋予参数:
+#+BEGIN_SRC sql
+  delimiter //
+  drop procedure if exists pp2;
+  create procedure pp2 ()
+    begin
+      select count(*) into @bbb from t_person;
+      select weixin into @ccc from t_person limit 1;
+    end //
+  delimiter ;
+
+  -- 调用
+  call pp2();
+  select @bbb, @ccc;
+#+END_SRC
+
+使用过程内部定义用户变量的方式，容易在调用的时候产生冲突、混淆，所以最好使用外部定义，结合 out/inout 类型参数:
+#+BEGIN_SRC sql
+  delimiter //
+  drop procedure if exists pp3;
+  create procedure pp3 (inout bbb varchar(30), inout ccc varchar(20)) -- in out in out
+    begin
+      insert into t_person (name, weixin) value (bbb, ccc);
+
+      select count(*) into bbb from t_person;
+      select weixin into ccc from t_person limit 1;
+    end //
+  delimiter ;
+
+  -- 调用
+  set @ddd = '3333';
+  set @eee = 'sdfsfsd';
+  call pp3(@ddd, @eee);
+  select @ddd, @eee;
+#+END_SRC
+
+如果需要处理表中的多行数据，就需要用到游标(Cursor):
+#+BEGIN_SRC sql
+  delimiter //
+  drop procedure if exists pp4;
+  create procedure pp4 (out sum bigint)
+    begin
+      declare iii int;
+      declare done int default 0;
+
+      declare c_person cursor for select weixin from t_person; -- 1. 游标的定义
+      declare continue handler for not found set done = 1;     -- 捕获系统抛出的 not found 错误，如果捕获到，将 done 设置为 1
+
+      set sum = 0;
+      open c_person; -- 2. 打开游标
+
+      xxx:loop
+        fetch c_person into iii; -- 3. 使用游标
+        if done = 1 then   -- 4. 设定退出条件
+          leave xxx;
+        end if;
+        set sum = sum + iii;
+      end loop;
+
+      close c_person; -- 5. 关闭游标
+    end //
+  delimiter ;
+
+  -- 调用
+  set @sum = 0;
+  call pp4(@sum);
+  select @sum;
+#+END_SRC
+
 * UseCases
 ** 使用存储过程批量插入数据
 
