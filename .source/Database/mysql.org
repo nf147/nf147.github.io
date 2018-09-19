@@ -643,7 +643,7 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
           set @@default_storage_engine=MyISAM;
         #+END_SRC
 
-** 变量参数
+** 参数与游标
 
 如果让存储过程跟外边进行数据交互，需要用到参数
 
