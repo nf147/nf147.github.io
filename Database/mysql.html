@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-19 周三 01:33 -->
+<!-- 2018-09-19 周三 01:49 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MySQL</title>
@@ -29,22 +29,33 @@
 <li><a href="#org8be3bd4">7. 主键约束</a></li>
 <li><a href="#org4bb2160">8. 表的修改</a></li>
 <li><a href="#orgf388c04">9. 引擎(Engine)</a></li>
-<li><a href="#orge426756">10. 存储过程</a></li>
-<li><a href="#orgda54abc">11. 备份与恢复</a></li>
-<li><a href="#orgc485735">12. 数据迁移示例</a>
+<li><a href="#orge426756">10. 存储过程</a>
 <ul>
-<li><a href="#org5cd8b6a">12.1. 命令行的方式</a></li>
-<li><a href="#orgd872dfa">12.2. JDBC 的方式</a></li>
+<li><a href="#org2f5f8b7">10.1. 基本语句</a></li>
+<li><a href="#orga02d502">10.2. 变量定义</a></li>
 </ul>
 </li>
-<li><a href="#org2b304cc">13. 数据处理示例</a>
+<li><a href="#org5017abd">11. UseCases</a>
 <ul>
-<li><a href="#orgd54f58d">13.1. 数据清理</a></li>
-<li><a href="#org44c30ab">13.2. 表的分离</a></li>
+<li><a href="#orgda83744">11.1. 创建表，使用存储过程插入 10w 条数据</a></li>
+<li><a href="#org1b8f5b3">11.2. 行列转换</a></li>
 </ul>
 </li>
-<li><a href="#org831fa9f">14. 省市县模式数据库设计</a></li>
-<li><a href="#orgd22562b">15. 查询练习</a></li>
+<li><a href="#orgda54abc">12. 备份与恢复</a></li>
+<li><a href="#orgc485735">13. 数据迁移示例</a>
+<ul>
+<li><a href="#org5cd8b6a">13.1. 命令行的方式</a></li>
+<li><a href="#orgd872dfa">13.2. JDBC 的方式</a></li>
+</ul>
+</li>
+<li><a href="#org2b304cc">14. 数据处理示例</a>
+<ul>
+<li><a href="#orgd54f58d">14.1. 数据清理</a></li>
+<li><a href="#org44c30ab">14.2. 表的分离</a></li>
+</ul>
+</li>
+<li><a href="#org831fa9f">15. 省市县模式数据库设计</a></li>
+<li><a href="#orgd22562b">16. 查询练习</a></li>
 </ul>
 </div>
 </nav>
@@ -829,15 +840,22 @@ show <span class="org-keyword">create</span> <span class="org-keyword">table</sp
 <section id="outline-container-orge426756" class="outline-2">
 <h2 id="orge426756"><span class="section-number-2">10</span> 存储过程</h2>
 <div class="outline-text-2" id="text-10">
+<p>
+[WARNNING] 存储过程不建议使用:
+</p>
+<ol class="org-ol">
+<li>难以调试，难以维护</li>
+<li>业务逻辑跟数据库耦合度过高，不便于迁移</li>
+<li>对数据库的压力过大，需要分拆</li>
+<li>MySQL 对存储过程的支持有些弱鸡</li>
+</ol>
+</div>
+
+<div id="outline-container-org2f5f8b7" class="outline-3">
+<h3 id="org2f5f8b7"><span class="section-number-3">10.1</span> 基本语句</h3>
+<div class="outline-text-3" id="text-10-1">
 <div class="org-src-container">
-<pre class="src src-sql"><span class="org-comment">-- [WARNNING] &#23384;&#20648;&#36807;&#31243;&#19981;&#24314;&#35758;&#20351;&#29992;</span>
-<span class="org-comment">-- 1. &#38590;&#20197;&#35843;&#35797;&#65292;&#38590;&#20197;&#32500;&#25252;</span>
-<span class="org-comment">-- 2. &#19994;&#21153;&#36923;&#36753;&#36319;&#25968;&#25454;&#24211;&#32806;&#21512;&#24230;&#36807;&#39640;&#65292;&#19981;&#20415;&#20110;&#36801;&#31227;</span>
-<span class="org-comment">-- 3. &#23545;&#25968;&#25454;&#24211;&#30340;&#21387;&#21147;&#36807;&#22823;&#65292;&#38656;&#35201;&#20998;&#25286;</span>
-<span class="org-comment">-- 4. MySQL &#23545;&#23384;&#20648;&#36807;&#31243;&#30340;&#25903;&#25345;&#26377;&#20123;&#24369;&#40481;</span>
-
-
-<span class="org-comment">-- &#23384;&#20648;&#36807;&#31243;&#30340;&#23450;&#20041;</span>
+<pre class="src src-sql"><span class="org-comment">-- &#23384;&#20648;&#36807;&#31243;&#30340;&#23450;&#20041;</span>
 delimiter //                   <span class="org-comment">-- &#20351;&#29992; delimiter &#25351;&#20196;&#65292;&#23558;&#40664;&#35748;&#30340;&#20998;&#38548;&#31526;(;)&#25442;&#20026;&#25105;&#20204;&#33258;&#23450;&#20041;&#30340;&#20998;&#38548;&#31526;</span>
 <span class="org-keyword">create</span> <span class="org-keyword">procedure</span> <span class="org-function-name">ppx1</span> (p <span class="org-type">int</span>)  <span class="org-comment">-- &#21019;&#24314;&#23384;&#20648;&#36807;&#31243;&#65292;&#21517;&#23383; ppx1, &#19968;&#20010;&#20837;&#21442; int &#31867;&#22411;&#30340; p</span>
 <span class="org-keyword">begin</span>                          <span class="org-comment">-- &#20351;&#29992; begin &#36319; end &#23558;&#25152;&#26377;&#35821;&#21477;&#21253;&#25324;&#36215;&#26469;&#65292;&#30456;&#24403;&#20110; {}</span>
@@ -873,45 +891,116 @@ delimiter ;                    <span class="org-comment">-- &#36807;&#31243;&#23
 <span class="org-keyword">end</span>
 </pre>
 </div>
+</div>
+</div>
 
+<div id="outline-container-orga02d502" class="outline-3">
+<h3 id="orga02d502"><span class="section-number-3">10.2</span> 变量定义</h3>
+<div class="outline-text-3" id="text-10-2">
 <p>
-创建一张表，插入随机的 10w 条数据:
+变量分类：
+</p>
+<ol class="org-ol">
+<li>局部变量，使用在存储过程或函数中，这样的变量使用 declare 进行声明，使用 set 进行赋值。作用域是过程中。</li>
+<li>用户变量，定义 set @xxx = 333; select @xxx := 333;  需要用 @ 符号进行修饰</li>
+<li>系统变量，系统自带的，内建的变量
+<ul class="org-ul">
+<li>可以通过命令行的方式进行设置 mysqld &#x2013;default_storage_engine=MyISAM</li>
+<li>可以在 my.ini 配置文件中进行配置 default_storage_engine=MyISAM</li>
+<li>可以通过 set 的方式进行动态设置</li>
+<li>系统变量，分为两类:
+<ol class="org-ol">
+<li><p>
+全局的(global)
 </p>
 <div class="org-src-container">
-<pre class="src src-sql"><span class="org-comment">/*</span>
-<span class="org-comment">create table t_person (</span>
-<span class="org-comment">  pid int auto_increment primary key,</span>
-<span class="org-comment">  name varchar(20) not null,</span>
-<span class="org-comment">  weixin varchar(20) not null</span>
-<span class="org-comment">);</span>
-<span class="org-comment">*/</span>
+<pre class="src src-sql">show <span class="org-keyword">global</span> variables;
+<span class="org-keyword">set</span> <span class="org-keyword">global</span> default_storage_engine=MyISAM;
+<span class="org-keyword">set</span> @@<span class="org-keyword">global</span>.default_storage_engine=MyISAM;
+</pre>
+</div></li>
 
-delimiter //
-<span class="org-keyword">drop</span> <span class="org-keyword">procedure</span> <span class="org-function-name">if</span> <span class="org-keyword">exists</span> pro_person_data;
-<span class="org-keyword">create</span> <span class="org-keyword">procedure</span> <span class="org-function-name">pro_person_data</span> (num <span class="org-type">int</span>)
+<li><p>
+会话的(session)
+</p>
+<div class="org-src-container">
+<pre class="src src-sql">show <span class="org-keyword">session</span> variables;
+show <span class="org-keyword">local</span> variables;
+show variables;
+<span class="org-keyword">set</span> <span class="org-keyword">session</span> default_storage_engine=MyISAM;
+<span class="org-keyword">set</span> <span class="org-keyword">local</span>   default_storage_engine=MyISAM;
+<span class="org-keyword">set</span> @@<span class="org-keyword">session</span>.default_storage_engine=MyISAM;
+<span class="org-keyword">set</span> @@<span class="org-keyword">local</span>.default_storage_engine=MyISAM;
+<span class="org-keyword">set</span> default_storage_engine=MyISAM;
+<span class="org-keyword">set</span> @@default_storage_engine=MyISAM;
+</pre>
+</div></li>
+</ol></li>
+</ul></li>
+</ol>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org5017abd" class="outline-2">
+<h2 id="org5017abd"><span class="section-number-2">11</span> UseCases</h2>
+<div class="outline-text-2" id="text-11">
+</div>
+<div id="outline-container-orgda83744" class="outline-3">
+<h3 id="orgda83744"><span class="section-number-3">11.1</span> 创建表，使用存储过程插入 10w 条数据</h3>
+<div class="outline-text-3" id="text-11-1">
+<p>
+首先，创建表，比如:
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">t_person</span> (
+  pid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>,
+  <span class="org-keyword">name</span> <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
+  weixin <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span>
+);
+</pre>
+</div>
+
+<p>
+其次，编写函数，求取随机字符串。将求取随机字符串的方法提取出来的目的是为了复用，这也是函数的目的:
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">drop</span> <span class="org-keyword">function</span> <span class="org-function-name">if</span> <span class="org-keyword">exists</span> rand_str;
+delimiter $$
+<span class="org-keyword">create</span> <span class="org-keyword">function</span> <span class="org-function-name">rand_str</span>(<span class="org-keyword">size</span> <span class="org-type">int</span>, <span class="org-keyword">type</span> <span class="org-type">int</span>)
+  <span class="org-keyword">returns</span> <span class="org-type">varchar</span>(255)
+  <span class="org-keyword">begin</span>
+    <span class="org-keyword">declare</span> seed <span class="org-type">varchar</span>(255);
+    <span class="org-keyword">declare</span> seed_no <span class="org-type">varchar</span>(255) <span class="org-keyword">default</span> <span class="org-string">'1234567890'</span>;
+    <span class="org-keyword">declare</span> seed_en <span class="org-type">varchar</span>(255) <span class="org-keyword">default</span> <span class="org-string">'qwertryuiopasdfghjklzxcvbnm'</span>;
+
+    <span class="org-keyword">declare</span> ret <span class="org-type">varchar</span>(255) <span class="org-keyword">default</span> <span class="org-string">''</span>;
+    <span class="org-keyword">declare</span> i <span class="org-type">int</span> <span class="org-keyword">default</span> 0;
+
+    <span class="org-keyword">set</span> seed = <span class="org-keyword">case</span> <span class="org-keyword">type</span>    <span class="org-comment">-- if .. else / case when</span>
+               <span class="org-keyword">when</span> 1 <span class="org-keyword">then</span> seed_en
+               <span class="org-keyword">when</span> 2 <span class="org-keyword">then</span> seed_no
+               <span class="org-keyword">else</span> concat(seed_en, seed_no) <span class="org-keyword">end</span>;
+
+    while i &lt; <span class="org-keyword">size</span> do
+      <span class="org-keyword">set</span> ret = concat(ret, <span class="org-builtin">substring</span>(seed, floor(<span class="org-keyword">length</span>(seed) * rand() + 1), 1));
+      <span class="org-keyword">set</span> i = i + 1;
+    <span class="org-keyword">end</span> while;
+
+    <span class="org-keyword">return</span> ret;
+  <span class="org-keyword">end</span>$$
+delimiter ;
+</pre>
+</div>
+
+<p>
+然后，编写存储过程，实现数据的插入:
+</p>
+<div class="org-src-container">
+<pre class="src src-sql">delimiter //
+<span class="org-keyword">drop</span> <span class="org-keyword">procedure</span> <span class="org-function-name">if</span> <span class="org-keyword">exists</span> proc_person_data;
+<span class="org-keyword">create</span> <span class="org-keyword">procedure</span> <span class="org-function-name">proc_person_data</span> (num <span class="org-type">int</span>)
 <span class="org-keyword">begin</span>
-    <span class="org-comment">-- &#23450;&#20041;&#21464;&#37327;</span>
-    <span class="org-comment">-- 1. &#23616;&#37096;&#21464;&#37327;&#65292;&#20351;&#29992;&#22312;&#23384;&#20648;&#36807;&#31243;&#25110;&#20989;&#25968;&#20013;&#65292;&#36825;&#26679;&#30340;&#21464;&#37327;&#20351;&#29992; declare &#36827;&#34892;&#22768;&#26126;&#65292;&#20351;&#29992; set &#36827;&#34892;&#36171;&#20540;&#12290;&#20316;&#29992;&#22495;&#26159;&#36807;&#31243;&#20013;&#12290;</span>
-    <span class="org-comment">-- 2. &#29992;&#25143;&#21464;&#37327;&#65292;&#23450;&#20041; set @xxx = 333; select @xxx := 333;  &#38656;&#35201;&#29992; @ &#31526;&#21495;&#36827;&#34892;&#20462;&#39280;</span>
-    <span class="org-comment">-- 3. &#31995;&#32479;&#21464;&#37327;&#65292;&#31995;&#32479;&#33258;&#24102;&#30340;&#65292;&#20869;&#24314;&#30340;&#21464;&#37327;</span>
-    <span class="org-comment">--    - &#21487;&#20197;&#36890;&#36807;&#21629;&#20196;&#34892;&#30340;&#26041;&#24335;&#36827;&#34892;&#35774;&#32622; mysqld --default_storage_engine=MyISAM</span>
-    <span class="org-comment">--    - &#21487;&#20197;&#22312; my.ini &#37197;&#32622;&#25991;&#20214;&#20013;&#36827;&#34892;&#37197;&#32622; default_storage_engine=MyISAM</span>
-    <span class="org-comment">--    - &#21487;&#20197;&#36890;&#36807; set &#30340;&#26041;&#24335;&#36827;&#34892;&#21160;&#24577;&#35774;&#32622;</span>
-    <span class="org-comment">--    - &#31995;&#32479;&#21464;&#37327;&#65292;&#20998;&#20026;&#20004;&#31867;:</span>
-    <span class="org-comment">--      1. &#20840;&#23616;&#30340;(global)</span>
-    <span class="org-comment">--         show global variables;</span>
-    <span class="org-comment">--         set global default_storage_engine=MyISAM;</span>
-    <span class="org-comment">--         set @@global.default_storage_engine=MyISAM;</span>
-    <span class="org-comment">--      2. &#20250;&#35805;&#30340;(session)</span>
-    <span class="org-comment">--         show session variables;</span>
-    <span class="org-comment">--         show local variables;</span>
-    <span class="org-comment">--         show variables;</span>
-    <span class="org-comment">--         set session default_storage_engine=MyISAM;</span>
-    <span class="org-comment">--         set local   default_storage_engine=MyISAM;</span>
-    <span class="org-comment">--         set @@session.default_storage_engine=MyISAM;</span>
-    <span class="org-comment">--         set @@local.default_storage_engine=MyISAM;</span>
-    <span class="org-comment">--         set default_storage_engine=MyISAM;</span>
-    <span class="org-comment">--         set @@default_storage_engine=MyISAM;</span>
     <span class="org-keyword">declare</span> ii <span class="org-type">int</span> <span class="org-keyword">default</span> 0;
     <span class="org-keyword">declare</span> v_name <span class="org-type">varchar</span>(20);
     <span class="org-keyword">declare</span> v_weixin <span class="org-type">varchar</span>(20);
@@ -931,44 +1020,111 @@ delimiter //
 //
 </pre>
 </div>
+</div>
+</div>
 
+<div id="outline-container-org1b8f5b3" class="outline-3">
+<h3 id="org1b8f5b3"><span class="section-number-3">11.2</span> 行列转换</h3>
+<div class="outline-text-3" id="text-11-2">
 <p>
-编写函数，求取随机字符串:
+表中的数据是这样的:
 </p>
 <div class="org-src-container">
-<pre class="src src-sql"><span class="org-keyword">drop</span> <span class="org-keyword">function</span> <span class="org-function-name">if</span> <span class="org-keyword">exists</span> rand_str;
-delimiter $$
-<span class="org-keyword">create</span> <span class="org-keyword">function</span> <span class="org-function-name">rand_str</span>(<span class="org-keyword">size</span> <span class="org-type">int</span>, <span class="org-keyword">type</span> <span class="org-type">int</span>)
-  <span class="org-keyword">returns</span> <span class="org-type">varchar</span>(255)
-  <span class="org-keyword">begin</span>
-    <span class="org-keyword">declare</span> seed <span class="org-type">varchar</span>(255);
-    <span class="org-keyword">declare</span> seed_no <span class="org-type">varchar</span>(255) <span class="org-keyword">default</span> <span class="org-string">'1234567890'</span>;
-    <span class="org-keyword">declare</span> seed_en <span class="org-type">varchar</span>(255) <span class="org-keyword">default</span> <span class="org-string">'qwertryuiopasdfghjklzxcvbnm'</span>;
-
-    <span class="org-keyword">declare</span> ret <span class="org-type">varchar</span>(255) <span class="org-keyword">default</span> <span class="org-string">''</span>;
-    <span class="org-keyword">declare</span> i <span class="org-type">int</span> <span class="org-keyword">default</span> 0;
-
-    <span class="org-keyword">set</span> seed = <span class="org-keyword">case</span> <span class="org-keyword">type</span>
-               <span class="org-keyword">when</span> 1 <span class="org-keyword">then</span> seed_en
-               <span class="org-keyword">when</span> 2 <span class="org-keyword">then</span> seed_no
-               <span class="org-keyword">else</span> concat(seed_en, seed_no) <span class="org-keyword">end</span>;
-
-    while i &lt; <span class="org-keyword">size</span> do
-      <span class="org-keyword">set</span> ret = concat(ret, <span class="org-builtin">substring</span>(seed, floor(<span class="org-keyword">length</span>(seed) * rand() + 1), 1));
-      <span class="org-keyword">set</span> i = i + 1;
-    <span class="org-keyword">end</span> while;
-
-    <span class="org-keyword">return</span> ret;
-  <span class="org-keyword">end</span>$$
-delimiter ;
+<pre class="src src-sql"><span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> `t_score` <span class="org-keyword">VALUES</span>
+    (<span class="org-string">'&#29579;&#28023;'</span>, <span class="org-string">'&#35821;&#25991;'</span>, <span class="org-string">'86'</span>),
+    (<span class="org-string">'&#29579;&#28023;'</span>, <span class="org-string">'&#25968;&#23398;'</span>, <span class="org-string">'83'</span>),
+    (<span class="org-string">'&#29579;&#28023;'</span>, <span class="org-string">'&#33521;&#35821;'</span>, <span class="org-string">'93'</span>),
+    (<span class="org-string">'&#38518;&#20426;'</span>, <span class="org-string">'&#35821;&#25991;'</span>, <span class="org-string">'88'</span>),
+    (<span class="org-string">'&#38518;&#20426;'</span>, <span class="org-string">'&#25968;&#23398;'</span>, <span class="org-string">'84'</span>),
+    (<span class="org-string">'&#38518;&#20426;'</span>, <span class="org-string">'&#33521;&#35821;'</span>, <span class="org-string">'94'</span>),
+    (<span class="org-string">'&#21016;&#21487;'</span>, <span class="org-string">'&#35821;&#25991;'</span>, <span class="org-string">'80'</span>),
+    (<span class="org-string">'&#21016;&#21487;'</span>, <span class="org-string">'&#25968;&#23398;'</span>, <span class="org-string">'86'</span>),
+    (<span class="org-string">'&#21016;&#21487;'</span>, <span class="org-string">'&#33521;&#35821;'</span>, <span class="org-string">'88'</span>),
+    (<span class="org-string">'&#26446;&#26149;'</span>, <span class="org-string">'&#35821;&#25991;'</span>, <span class="org-string">'89'</span>),
+    (<span class="org-string">'&#26446;&#26149;'</span>, <span class="org-string">'&#25968;&#23398;'</span>, <span class="org-string">'80'</span>),
+    (<span class="org-string">'&#26446;&#26149;'</span>, <span class="org-string">'&#33521;&#35821;'</span>, <span class="org-string">'87'</span>);
 </pre>
+</div>
+
+<p>
+要求查询的结果是这样:
+</p>
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-right">
+
+<col  class="org-right">
+
+<col  class="org-right">
+
+<col  class="org-right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-right">Chinese</th>
+<th scope="col" class="org-right">Math</th>
+<th scope="col" class="org-right">English</th>
+<th scope="col" class="org-right">score</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">刘可</td>
+<td class="org-right">80</td>
+<td class="org-right">86</td>
+<td class="org-right">88</td>
+<td class="org-right">254</td>
+</tr>
+
+<tr>
+<td class="org-left">李春</td>
+<td class="org-right">89</td>
+<td class="org-right">80</td>
+<td class="org-right">87</td>
+<td class="org-right">256</td>
+</tr>
+
+<tr>
+<td class="org-left">王海</td>
+<td class="org-right">86</td>
+<td class="org-right">83</td>
+<td class="org-right">93</td>
+<td class="org-right">262</td>
+</tr>
+
+<tr>
+<td class="org-left">陶俊</td>
+<td class="org-right">88</td>
+<td class="org-right">84</td>
+<td class="org-right">94</td>
+<td class="org-right">266</td>
+</tr>
+
+<tr>
+<td class="org-left">TOTAL</td>
+<td class="org-right">343</td>
+<td class="org-right">333</td>
+<td class="org-right">362</td>
+<td class="org-right">1038</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+方法不拘，但是要思考，要实现。
+</p>
 </div>
 </div>
 </section>
 
 <section id="outline-container-orgda54abc" class="outline-2">
-<h2 id="orgda54abc"><span class="section-number-2">11</span> 备份与恢复</h2>
-<div class="outline-text-2" id="text-11">
+<h2 id="orgda54abc"><span class="section-number-2">12</span> 备份与恢复</h2>
+<div class="outline-text-2" id="text-12">
 <p>
 各种灾难防不胜防:
 </p>
@@ -1046,16 +1202,16 @@ mysql&gt; source ~/xxx.sql
 </section>
 
 <section id="outline-container-orgc485735" class="outline-2">
-<h2 id="orgc485735"><span class="section-number-2">12</span> 数据迁移示例</h2>
-<div class="outline-text-2" id="text-12">
+<h2 id="orgc485735"><span class="section-number-2">13</span> 数据迁移示例</h2>
+<div class="outline-text-2" id="text-13">
 <p>
 将 sqlite3 格式的 lagou.db 中的数据迁移到 MySQL 中
 </p>
 </div>
 
 <div id="outline-container-org5cd8b6a" class="outline-3">
-<h3 id="org5cd8b6a"><span class="section-number-3">12.1</span> 命令行的方式</h3>
-<div class="outline-text-3" id="text-12-1">
+<h3 id="org5cd8b6a"><span class="section-number-3">13.1</span> 命令行的方式</h3>
+<div class="outline-text-3" id="text-13-1">
 <p>
 首先，从 sqlite 中导出:
 </p>
@@ -1089,8 +1245,8 @@ mysql&gt; source ~/xxx.sql
 </div>
 
 <div id="outline-container-orgd872dfa" class="outline-3">
-<h3 id="orgd872dfa"><span class="section-number-3">12.2</span> JDBC 的方式</h3>
-<div class="outline-text-3" id="text-12-2">
+<h3 id="orgd872dfa"><span class="section-number-3">13.2</span> JDBC 的方式</h3>
+<div class="outline-text-3" id="text-13-2">
 <p>
 需要注意的问题:
 </p>
@@ -1228,12 +1384,12 @@ mysql&gt; source ~/xxx.sql
 </section>
 
 <section id="outline-container-org2b304cc" class="outline-2">
-<h2 id="org2b304cc"><span class="section-number-2">13</span> 数据处理示例</h2>
-<div class="outline-text-2" id="text-13">
+<h2 id="org2b304cc"><span class="section-number-2">14</span> 数据处理示例</h2>
+<div class="outline-text-2" id="text-14">
 </div>
 <div id="outline-container-orgd54f58d" class="outline-3">
-<h3 id="orgd54f58d"><span class="section-number-3">13.1</span> 数据清理</h3>
-<div class="outline-text-3" id="text-13-1">
+<h3 id="orgd54f58d"><span class="section-number-3">14.1</span> 数据清理</h3>
+<div class="outline-text-3" id="text-14-1">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">lagou_position_result</span> <span class="org-keyword">as</span>
   <span class="org-keyword">select</span> <span class="org-keyword">distinct</span> *
@@ -1260,8 +1416,8 @@ mysql&gt; source ~/xxx.sql
 </div>
 
 <div id="outline-container-org44c30ab" class="outline-3">
-<h3 id="org44c30ab"><span class="section-number-3">13.2</span> 表的分离</h3>
-<div class="outline-text-3" id="text-13-2">
+<h3 id="org44c30ab"><span class="section-number-3">14.2</span> 表的分离</h3>
+<div class="outline-text-3" id="text-14-2">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-comment">-- &#28304;&#25968;&#25454;</span>
 <span class="org-keyword">select</span> * <span class="org-keyword">from</span> china_city <span class="org-keyword">limit</span> 4;
@@ -1374,8 +1530,8 @@ lagou_company 公司分离:
 </section>
 
 <section id="outline-container-org831fa9f" class="outline-2">
-<h2 id="org831fa9f"><span class="section-number-2">14</span> 省市县模式数据库设计</h2>
-<div class="outline-text-2" id="text-14">
+<h2 id="org831fa9f"><span class="section-number-2">15</span> 省市县模式数据库设计</h2>
+<div class="outline-text-2" id="text-15">
 <p>
 最朴素的实现方式:
 </p>
@@ -1549,8 +1705,8 @@ lagou_company 公司分离:
 </section>
 
 <section id="outline-container-orgd22562b" class="outline-2">
-<h2 id="orgd22562b"><span class="section-number-2">15</span> 查询练习</h2>
-<div class="outline-text-2" id="text-15">
+<h2 id="orgd22562b"><span class="section-number-2">16</span> 查询练习</h2>
+<div class="outline-text-2" id="text-16">
 <p>
 创建表:
 </p>
@@ -1716,7 +1872,7 @@ lagou_company 公司分离:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-19 周三 01:33</p>
+<p class="date">Created: 2018-09-19 周三 01:49</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

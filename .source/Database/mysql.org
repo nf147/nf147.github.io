@@ -571,14 +571,15 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
 
 * 存储过程
 
+[WARNNING] 存储过程不建议使用:
+1. 难以调试，难以维护
+2. 业务逻辑跟数据库耦合度过高，不便于迁移
+3. 对数据库的压力过大，需要分拆
+4. MySQL 对存储过程的支持有些弱鸡
+
+** 基本语句
+
 #+BEGIN_SRC sql
-  -- [WARNNING] 存储过程不建议使用
-  -- 1. 难以调试，难以维护
-  -- 2. 业务逻辑跟数据库耦合度过高，不便于迁移
-  -- 3. 对数据库的压力过大，需要分拆
-  -- 4. MySQL 对存储过程的支持有些弱鸡
-
-
   -- 存储过程的定义
   delimiter //                   -- 使用 delimiter 指令，将默认的分隔符(;)换为我们自定义的分隔符
   create procedure ppx1 (p int)  -- 创建存储过程，名字 ppx1, 一个入参 int 类型的 p
@@ -612,42 +613,83 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
   end
 #+END_SRC
 
-创建一张表，插入随机的 10w 条数据:
+** 变量定义
+
+变量分类：
+1. 局部变量，使用在存储过程或函数中，这样的变量使用 declare 进行声明，使用 set 进行赋值。作用域是过程中。
+2. 用户变量，定义 set @xxx = 333; select @xxx := 333;  需要用 @ 符号进行修饰
+3. 系统变量，系统自带的，内建的变量
+   - 可以通过命令行的方式进行设置 mysqld --default_storage_engine=MyISAM
+   - 可以在 my.ini 配置文件中进行配置 default_storage_engine=MyISAM
+   - 可以通过 set 的方式进行动态设置
+   - 系统变量，分为两类:
+     1. 全局的(global)
+        #+BEGIN_SRC sql
+          show global variables;
+          set global default_storage_engine=MyISAM;
+          set @@global.default_storage_engine=MyISAM;
+        #+END_SRC
+
+     2. 会话的(session)
+        #+BEGIN_SRC sql
+          show session variables;
+          show local variables;
+          show variables;
+          set session default_storage_engine=MyISAM;
+          set local   default_storage_engine=MyISAM;
+          set @@session.default_storage_engine=MyISAM;
+          set @@local.default_storage_engine=MyISAM;
+          set default_storage_engine=MyISAM;
+          set @@default_storage_engine=MyISAM;
+        #+END_SRC
+
+* UseCases
+** 创建表，使用存储过程插入 10w 条数据
+
+首先，创建表，比如:
 #+BEGIN_SRC sql
-  /*
   create table t_person (
     pid int auto_increment primary key,
     name varchar(20) not null,
     weixin varchar(20) not null
   );
-  ,*/
+#+END_SRC
 
+其次，编写函数，求取随机字符串。将求取随机字符串的方法提取出来的目的是为了复用，这也是函数的目的:
+#+BEGIN_SRC sql
+  drop function if exists rand_str;
+  delimiter $$
+  create function rand_str(size int, type int)
+    returns varchar(255)
+    begin
+      declare seed varchar(255);
+      declare seed_no varchar(255) default '1234567890';
+      declare seed_en varchar(255) default 'qwertryuiopasdfghjklzxcvbnm';
+
+      declare ret varchar(255) default '';
+      declare i int default 0;
+
+      set seed = case type    -- if .. else / case when
+                 when 1 then seed_en
+                 when 2 then seed_no
+                 else concat(seed_en, seed_no) end;
+
+      while i < size do
+        set ret = concat(ret, substring(seed, floor(length(seed) * rand() + 1), 1));
+        set i = i + 1;
+      end while;
+
+      return ret;
+    end$$
+  delimiter ;
+#+END_SRC
+
+然后，编写存储过程，实现数据的插入:
+#+BEGIN_SRC sql
   delimiter //
-  drop procedure if exists pro_person_data;
-  create procedure pro_person_data (num int)
+  drop procedure if exists proc_person_data;
+  create procedure proc_person_data (num int)
   begin
-      -- 定义变量
-      -- 1. 局部变量，使用在存储过程或函数中，这样的变量使用 declare 进行声明，使用 set 进行赋值。作用域是过程中。
-      -- 2. 用户变量，定义 set @xxx = 333; select @xxx := 333;  需要用 @ 符号进行修饰
-      -- 3. 系统变量，系统自带的，内建的变量
-      --    - 可以通过命令行的方式进行设置 mysqld --default_storage_engine=MyISAM
-      --    - 可以在 my.ini 配置文件中进行配置 default_storage_engine=MyISAM
-      --    - 可以通过 set 的方式进行动态设置
-      --    - 系统变量，分为两类:
-      --      1. 全局的(global)
-      --         show global variables;
-      --         set global default_storage_engine=MyISAM;
-      --         set @@global.default_storage_engine=MyISAM;
-      --      2. 会话的(session)
-      --         show session variables;
-      --         show local variables;
-      --         show variables;
-      --         set session default_storage_engine=MyISAM;
-      --         set local   default_storage_engine=MyISAM;
-      --         set @@session.default_storage_engine=MyISAM;
-      --         set @@local.default_storage_engine=MyISAM;
-      --         set default_storage_engine=MyISAM;
-      --         set @@default_storage_engine=MyISAM;
       declare ii int default 0;
       declare v_name varchar(20);
       declare v_weixin varchar(20);
@@ -667,34 +709,35 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
   //
 #+END_SRC
 
-编写函数，求取随机字符串:
+** 行列转换
+
+表中的数据是这样的:
 #+BEGIN_SRC sql
-  drop function if exists rand_str;
-  delimiter $$
-  create function rand_str(size int, type int)
-    returns varchar(255)
-    begin
-      declare seed varchar(255);
-      declare seed_no varchar(255) default '1234567890';
-      declare seed_en varchar(255) default 'qwertryuiopasdfghjklzxcvbnm';
+    INSERT INTO `t_score` VALUES
+        ('王海', '语文', '86'),
+        ('王海', '数学', '83'),
+        ('王海', '英语', '93'),
+        ('陶俊', '语文', '88'),
+        ('陶俊', '数学', '84'),
+        ('陶俊', '英语', '94'),
+        ('刘可', '语文', '80'),
+        ('刘可', '数学', '86'),
+        ('刘可', '英语', '88'),
+        ('李春', '语文', '89'),
+        ('李春', '数学', '80'),
+        ('李春', '英语', '87');
+  #+END_SRC
 
-      declare ret varchar(255) default '';
-      declare i int default 0;
+  要求查询的结果是这样:
+  | Name  | Chinese | Math | English | score |
+  |-------+---------+------+---------+-------|
+  | 刘可  |      80 |   86 |      88 |   254 |
+  | 李春  |      89 |   80 |      87 |   256 |
+  | 王海  |      86 |   83 |      93 |   262 |
+  | 陶俊  |      88 |   84 |      94 |   266 |
+  | TOTAL |     343 |  333 |     362 |  1038 |
 
-      set seed = case type
-                 when 1 then seed_en
-                 when 2 then seed_no
-                 else concat(seed_en, seed_no) end;
-
-      while i < size do
-        set ret = concat(ret, substring(seed, floor(length(seed) * rand() + 1), 1));
-        set i = i + 1;
-      end while;
-
-      return ret;
-    end$$
-  delimiter ;
-#+END_SRC
+  方法不拘，但是要思考，要实现。
 
 * 备份与恢复
 
