@@ -667,6 +667,35 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
   //
 #+END_SRC
 
+编写函数，求取随机字符串:
+#+BEGIN_SRC sql
+  drop function if exists rand_str;
+  delimiter $$
+  create function rand_str(size int, type int)
+    returns varchar(255)
+    begin
+      declare seed varchar(255);
+      declare seed_no varchar(255) default '1234567890';
+      declare seed_en varchar(255) default 'qwertryuiopasdfghjklzxcvbnm';
+
+      declare ret varchar(255) default '';
+      declare i int default 0;
+
+      set seed = case type
+                 when 1 then seed_en
+                 when 2 then seed_no
+                 else concat(seed_en, seed_no) end;
+
+      while i < size do
+        set ret = concat(ret, substring(seed, floor(length(seed) * rand() + 1), 1));
+        set i = i + 1;
+      end while;
+
+      return ret;
+    end$$
+  delimiter ;
+#+END_SRC
+
 * 备份与恢复
 
 各种灾难防不胜防:

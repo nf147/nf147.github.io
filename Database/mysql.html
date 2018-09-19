@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-18 周二 06:56 -->
+<!-- 2018-09-19 周三 01:33 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MySQL</title>
@@ -931,6 +931,38 @@ delimiter //
 //
 </pre>
 </div>
+
+<p>
+编写函数，求取随机字符串:
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">drop</span> <span class="org-keyword">function</span> <span class="org-function-name">if</span> <span class="org-keyword">exists</span> rand_str;
+delimiter $$
+<span class="org-keyword">create</span> <span class="org-keyword">function</span> <span class="org-function-name">rand_str</span>(<span class="org-keyword">size</span> <span class="org-type">int</span>, <span class="org-keyword">type</span> <span class="org-type">int</span>)
+  <span class="org-keyword">returns</span> <span class="org-type">varchar</span>(255)
+  <span class="org-keyword">begin</span>
+    <span class="org-keyword">declare</span> seed <span class="org-type">varchar</span>(255);
+    <span class="org-keyword">declare</span> seed_no <span class="org-type">varchar</span>(255) <span class="org-keyword">default</span> <span class="org-string">'1234567890'</span>;
+    <span class="org-keyword">declare</span> seed_en <span class="org-type">varchar</span>(255) <span class="org-keyword">default</span> <span class="org-string">'qwertryuiopasdfghjklzxcvbnm'</span>;
+
+    <span class="org-keyword">declare</span> ret <span class="org-type">varchar</span>(255) <span class="org-keyword">default</span> <span class="org-string">''</span>;
+    <span class="org-keyword">declare</span> i <span class="org-type">int</span> <span class="org-keyword">default</span> 0;
+
+    <span class="org-keyword">set</span> seed = <span class="org-keyword">case</span> <span class="org-keyword">type</span>
+               <span class="org-keyword">when</span> 1 <span class="org-keyword">then</span> seed_en
+               <span class="org-keyword">when</span> 2 <span class="org-keyword">then</span> seed_no
+               <span class="org-keyword">else</span> concat(seed_en, seed_no) <span class="org-keyword">end</span>;
+
+    while i &lt; <span class="org-keyword">size</span> do
+      <span class="org-keyword">set</span> ret = concat(ret, <span class="org-builtin">substring</span>(seed, floor(<span class="org-keyword">length</span>(seed) * rand() + 1), 1));
+      <span class="org-keyword">set</span> i = i + 1;
+    <span class="org-keyword">end</span> while;
+
+    <span class="org-keyword">return</span> ret;
+  <span class="org-keyword">end</span>$$
+delimiter ;
+</pre>
+</div>
 </div>
 </section>
 
@@ -1684,7 +1716,7 @@ lagou_company 公司分离:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-18 周二 06:56</p>
+<p class="date">Created: 2018-09-19 周三 01:33</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
