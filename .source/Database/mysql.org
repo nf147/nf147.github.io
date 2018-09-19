@@ -732,6 +732,65 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
   select @sum;
 #+END_SRC
 
+** JDBC 操作存储过程示例
+
+存储过程示例:
+#+BEGIN_SRC sql
+  delimiter //
+  drop procedure if exists pp6;
+  create procedure pp6 (inout bbb varchar(30), inout ccc varchar(20)) -- in out in out
+    begin
+      insert into t_person (name, weixin) value (bbb, ccc);
+
+      select count(*) into bbb from t_person;
+      select weixin into ccc from t_person limit 1;
+
+      select * from lagou_city where province='广东省';
+      select * from lagou_pos order by salary_min desc limit 10;
+    end //
+  delimiter ;
+#+END_SRC
+
+#+BEGIN_SRC java
+   // Statement PrepareStatement CallableStatement
+
+   public static void main(String[] args) {
+      Connection connection = null;
+      CallableStatement ps = null;
+      ResultSet rs = null;
+
+
+      try {
+          connection = DBUtil.getMySQLConnection();
+          ps = connection.prepareCall("call pp6(?, ?)");
+          ps.setString(1, "dfasd");
+          ps.setString(2, "16463");
+
+          ps.registerOutParameter(1, Types.VARCHAR);
+          ps.registerOutParameter(2, Types.VARCHAR);
+
+          boolean hasMore = ps.execute();
+
+          while (hasMore) {
+              rs = ps.getResultSet();
+              while (rs.next()) {
+                  System.out.println(rs.getObject(1) + "/" + rs.getObject(2));
+              }
+              rs.close();
+
+              hasMore = ps.getMoreResults();
+          }
+
+          System.out.println(ps.getObject(1));
+          System.out.println(ps.getObject(2));
+      } catch (Exception e) {
+          e.printStackTrace();
+      } finally {
+          DBUtil.tryRelease(connection, ps, rs);
+      }
+  }
+#+END_SRC
+
 * UseCases
 ** 使用存储过程批量插入数据
 
