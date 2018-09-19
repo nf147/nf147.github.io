@@ -644,7 +644,11 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
         #+END_SRC
 
 * UseCases
-** 创建表，使用存储过程插入 10w 条数据
+** 使用存储过程批量插入数据
+
+#+BEGIN_QUOTE
+创建表，使用存储过程插入 10w 条数据
+#+END_QUOTE
 
 首先，创建表，比如:
 #+BEGIN_SRC sql
