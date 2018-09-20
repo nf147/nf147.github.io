@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-20 Thu 02:14 -->
+<!-- 2018-09-20 Thu 03:40 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MySQL</title>
@@ -37,27 +37,33 @@
 <li><a href="#org20ff1e9">10.4. JDBC 操作存储过程示例</a></li>
 </ul>
 </li>
-<li><a href="#org5017abd">11. UseCases</a>
+<li><a href="#orgfe8c593">11. 优化(Optimization)</a>
 <ul>
-<li><a href="#orgc700360">11.1. 使用存储过程批量插入数据</a></li>
-<li><a href="#org1b8f5b3">11.2. 行列转换</a></li>
+<li><a href="#orge743430">11.1. 解释计划(Explain)</a></li>
+<li><a href="#org74f953e">11.2. 索引</a></li>
 </ul>
 </li>
-<li><a href="#orgda54abc">12. 备份与恢复</a></li>
-<li><a href="#orgc485735">13. 数据迁移示例</a>
+<li><a href="#org5017abd">12. UseCases</a>
 <ul>
-<li><a href="#org5cd8b6a">13.1. 命令行的方式</a></li>
-<li><a href="#orgd872dfa">13.2. JDBC 的方式</a></li>
+<li><a href="#orgc700360">12.1. 使用存储过程批量插入数据</a></li>
+<li><a href="#org1b8f5b3">12.2. 行列转换</a></li>
 </ul>
 </li>
-<li><a href="#org2b304cc">14. 数据处理示例</a>
+<li><a href="#orgda54abc">13. 备份与恢复</a></li>
+<li><a href="#orgc485735">14. 数据迁移示例</a>
 <ul>
-<li><a href="#orgd54f58d">14.1. 数据清理</a></li>
-<li><a href="#org44c30ab">14.2. 表的分离</a></li>
+<li><a href="#org5cd8b6a">14.1. 命令行的方式</a></li>
+<li><a href="#orgd872dfa">14.2. JDBC 的方式</a></li>
 </ul>
 </li>
-<li><a href="#org831fa9f">15. 省市县模式数据库设计</a></li>
-<li><a href="#orgd22562b">16. 查询练习</a></li>
+<li><a href="#org2b304cc">15. 数据处理示例</a>
+<ul>
+<li><a href="#orgd54f58d">15.1. 数据清理</a></li>
+<li><a href="#org44c30ab">15.2. 表的分离</a></li>
+</ul>
+</li>
+<li><a href="#org831fa9f">16. 省市县模式数据库设计</a></li>
+<li><a href="#orgd22562b">17. 查询练习</a></li>
 </ul>
 </div>
 </nav>
@@ -1119,13 +1125,78 @@ JDBC代码:
 </div>
 </section>
 
-<section id="outline-container-org5017abd" class="outline-2">
-<h2 id="org5017abd"><span class="section-number-2">11</span> UseCases</h2>
+<section id="outline-container-orgfe8c593" class="outline-2">
+<h2 id="orgfe8c593"><span class="section-number-2">11</span> 优化(Optimization)</h2>
 <div class="outline-text-2" id="text-11">
 </div>
-<div id="outline-container-orgc700360" class="outline-3">
-<h3 id="orgc700360"><span class="section-number-3">11.1</span> 使用存储过程批量插入数据</h3>
+<div id="outline-container-orge743430" class="outline-3">
+<h3 id="orge743430"><span class="section-number-3">11.1</span> 解释计划(Explain)</h3>
 <div class="outline-text-3" id="text-11-1">
+<p>
+可以查看数据内部是怎么分析执行相关语句的，根据这些可以对语句进行优化
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sql">explain <span class="org-keyword">select</span> c.city <span class="org-keyword">as</span> city2, p.* <span class="org-keyword">from</span> lagou_pos p
+        <span class="org-keyword">join</span> lagou_city c <span class="org-keyword">on</span> p.city = c.cid
+        <span class="org-keyword">where</span> c.province = <span class="org-string">'&#24191;&#19996;&#30465;'</span>
+    <span class="org-keyword">order</span> <span class="org-keyword">by</span> salary_min <span class="org-keyword">desc</span> <span class="org-keyword">limit</span> 10;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org74f953e" class="outline-3">
+<h3 id="org74f953e"><span class="section-number-3">11.2</span> 索引</h3>
+<div class="outline-text-3" id="text-11-2">
+<p>
+索引是跟引擎相关的，索引的主要分类有:
+</p>
+<ul class="org-ul">
+<li>B-Tree 索引，这是默认的索引形式，是最普遍的方式</li>
+<li>R-Tree 索引，主要用于空间数据库字段上</li>
+<li>Hash 索引，只用在 Memory 引擎上，使用场景比较简单</li>
+</ul>
+
+<p>
+MySQL 不支持函数索引，但是可以支持前缀索引:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-comment">-- &#21019;&#24314;</span>
+
+<span class="org-keyword">create</span> index idx_pos_city_01 <span class="org-keyword">on</span> lagou_pos(city);  <span class="org-comment">-- &#26222;&#36890;&#32034;&#24341;</span>
+<span class="org-keyword">create</span> <span class="org-keyword">unique</span> index skdfjks <span class="org-keyword">on</span> lagou_pos(pid);    <span class="org-comment">-- &#21807;&#19968;&#32034;&#24341;</span>
+
+<span class="org-keyword">create</span> index idex_city_p01 <span class="org-keyword">on</span> lagou_city (province(2));     <span class="org-comment">-- &#21069;&#32512;&#32034;&#24341;</span>
+<span class="org-keyword">create</span> index idex_city_p01 <span class="org-keyword">on</span> lagou_city (province, city);  <span class="org-comment">-- &#32452;&#21512;&#32034;&#24341;</span>
+
+<span class="org-comment">-- &#32034;&#24341;&#30340;&#21019;&#24314;&#21407;&#21017;:</span>
+<span class="org-comment">-- 1. &#39057;&#32321;&#35835;&#21462;&#30340;&#23383;&#27573;&#65292;&#36866;&#21512;&#21019;&#24314;</span>
+<span class="org-comment">-- 2. &#26356;&#26032;&#39057;&#32321;&#30340;&#23383;&#27573;&#65292;&#19981;&#36866;&#21512;</span>
+<span class="org-comment">-- 3. &#25968;&#25454;&#24046;&#24322;&#24615;&#22823;&#30340;&#23383;&#27573;&#25165;&#36866;&#21512;&#65292;&#27604;&#22914;&#24615;&#21035;&#23601;&#19981;&#36866;&#21512;</span>
+<span class="org-comment">-- 4. &#32034;&#24341;&#35201;&#36866;&#24403;&#65292;&#22240;&#20026;&#32034;&#24341;&#20250;&#21344;&#29992;&#26356;&#22810;&#31354;&#38388;&#65292;&#24182;&#35753;&#26597;&#35810;&#30340;&#36807;&#31243;&#21464;&#24471;&#22797;&#26434;&#12290;&#22914;&#26524;&#19981;&#24688;&#24403;&#20351;&#29992;&#65292;&#38750;&#20294;&#19981;&#33021;&#22686;&#21152;&#25928;&#29575;&#65292;&#21453;&#32780;&#20250;&#25302;&#32047;&#25928;&#29575;</span>
+
+<span class="org-comment">-- &#21024;&#38500;</span>
+
+<span class="org-keyword">drop</span> index idx_pos_city_01 <span class="org-keyword">on</span> lagou_pos;
+<span class="org-keyword">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">lagou_pos</span> <span class="org-keyword">drop</span> index  idx_pos_city_01;
+
+<span class="org-comment">-- &#26597;&#30475;&#34920;&#19978;&#30340;&#25152;&#26377;&#32034;&#24341;</span>
+show index <span class="org-keyword">from</span> lagou_pos;
+</pre>
+</div>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org5017abd" class="outline-2">
+<h2 id="org5017abd"><span class="section-number-2">12</span> UseCases</h2>
+<div class="outline-text-2" id="text-12">
+</div>
+<div id="outline-container-orgc700360" class="outline-3">
+<h3 id="orgc700360"><span class="section-number-3">12.1</span> 使用存储过程批量插入数据</h3>
+<div class="outline-text-3" id="text-12-1">
 <blockquote>
 <p>
 
@@ -1246,8 +1317,8 @@ delimiter ;
 </div>
 
 <div id="outline-container-org1b8f5b3" class="outline-3">
-<h3 id="org1b8f5b3"><span class="section-number-3">11.2</span> 行列转换</h3>
-<div class="outline-text-3" id="text-11-2">
+<h3 id="org1b8f5b3"><span class="section-number-3">12.2</span> 行列转换</h3>
+<div class="outline-text-3" id="text-12-2">
 <p>
 表中的数据是这样的:
 </p>
@@ -1362,7 +1433,7 @@ delimiter ;
 
 <span class="org-comment">-- 2</span>
 <span class="org-keyword">select</span>
-       IFNULL(<span class="org-keyword">NAME</span>,<span class="org-string">'TOTAL'</span>)<span class="org-keyword">name</span>, <span class="org-comment">-- name or 'TOTAL'</span>
+       IFNULL(<span class="org-keyword">NAME</span>,<span class="org-string">'TOTAL'</span>) <span class="org-keyword">name</span>, <span class="org-comment">-- name or 'TOTAL'</span>
        <span class="org-builtin">SUM</span>(<span class="org-keyword">case</span> subject <span class="org-keyword">when</span> <span class="org-string">'&#25968;&#23398;'</span> <span class="org-keyword">then</span> score <span class="org-keyword">else</span> 0 <span class="org-keyword">end</span>) Math,
        <span class="org-builtin">SUM</span>(<span class="org-keyword">case</span> subject <span class="org-keyword">when</span> <span class="org-string">'&#35821;&#25991;'</span> <span class="org-keyword">then</span> score <span class="org-keyword">else</span> 0 <span class="org-keyword">end</span>) Chinese,
        <span class="org-builtin">SUM</span>(<span class="org-keyword">case</span> subject <span class="org-keyword">when</span> <span class="org-string">'&#33521;&#35821;'</span> <span class="org-keyword">then</span> score <span class="org-keyword">else</span> 0 <span class="org-keyword">end</span>) English,
@@ -1371,7 +1442,7 @@ delimiter ;
 
 <span class="org-comment">-- 3</span>
 <span class="org-keyword">select</span>
-       IFNULL(<span class="org-keyword">NAME</span>,<span class="org-string">'TOTAL'</span>)<span class="org-keyword">name</span>, <span class="org-comment">-- name or 'TOTAL'</span>
+       IFNULL(<span class="org-keyword">NAME</span>,<span class="org-string">'TOTAL'</span>) <span class="org-keyword">name</span>, <span class="org-comment">-- name or 'TOTAL'</span>
        <span class="org-builtin">SUM</span>(if (subject = <span class="org-string">'&#25968;&#23398;'</span>,score, 0) ) Math,
        <span class="org-builtin">SUM</span>(if (subject = <span class="org-string">'&#35821;&#25991;'</span>,score, 0) ) Chinese,
        <span class="org-builtin">SUM</span>(if (subject = <span class="org-string">'&#33521;&#35821;'</span>,score, 0) ) English,
@@ -1384,8 +1455,8 @@ delimiter ;
 </section>
 
 <section id="outline-container-orgda54abc" class="outline-2">
-<h2 id="orgda54abc"><span class="section-number-2">12</span> 备份与恢复</h2>
-<div class="outline-text-2" id="text-12">
+<h2 id="orgda54abc"><span class="section-number-2">13</span> 备份与恢复</h2>
+<div class="outline-text-2" id="text-13">
 <p>
 各种灾难防不胜防:
 </p>
@@ -1463,16 +1534,16 @@ mysql&gt; source ~/xxx.sql
 </section>
 
 <section id="outline-container-orgc485735" class="outline-2">
-<h2 id="orgc485735"><span class="section-number-2">13</span> 数据迁移示例</h2>
-<div class="outline-text-2" id="text-13">
+<h2 id="orgc485735"><span class="section-number-2">14</span> 数据迁移示例</h2>
+<div class="outline-text-2" id="text-14">
 <p>
 将 sqlite3 格式的 lagou.db 中的数据迁移到 MySQL 中
 </p>
 </div>
 
 <div id="outline-container-org5cd8b6a" class="outline-3">
-<h3 id="org5cd8b6a"><span class="section-number-3">13.1</span> 命令行的方式</h3>
-<div class="outline-text-3" id="text-13-1">
+<h3 id="org5cd8b6a"><span class="section-number-3">14.1</span> 命令行的方式</h3>
+<div class="outline-text-3" id="text-14-1">
 <p>
 首先，从 sqlite 中导出:
 </p>
@@ -1506,8 +1577,8 @@ mysql&gt; source ~/xxx.sql
 </div>
 
 <div id="outline-container-orgd872dfa" class="outline-3">
-<h3 id="orgd872dfa"><span class="section-number-3">13.2</span> JDBC 的方式</h3>
-<div class="outline-text-3" id="text-13-2">
+<h3 id="orgd872dfa"><span class="section-number-3">14.2</span> JDBC 的方式</h3>
+<div class="outline-text-3" id="text-14-2">
 <p>
 需要注意的问题:
 </p>
@@ -1645,12 +1716,12 @@ mysql&gt; source ~/xxx.sql
 </section>
 
 <section id="outline-container-org2b304cc" class="outline-2">
-<h2 id="org2b304cc"><span class="section-number-2">14</span> 数据处理示例</h2>
-<div class="outline-text-2" id="text-14">
+<h2 id="org2b304cc"><span class="section-number-2">15</span> 数据处理示例</h2>
+<div class="outline-text-2" id="text-15">
 </div>
 <div id="outline-container-orgd54f58d" class="outline-3">
-<h3 id="orgd54f58d"><span class="section-number-3">14.1</span> 数据清理</h3>
-<div class="outline-text-3" id="text-14-1">
+<h3 id="orgd54f58d"><span class="section-number-3">15.1</span> 数据清理</h3>
+<div class="outline-text-3" id="text-15-1">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">lagou_position_result</span> <span class="org-keyword">as</span>
   <span class="org-keyword">select</span> <span class="org-keyword">distinct</span> *
@@ -1677,8 +1748,8 @@ mysql&gt; source ~/xxx.sql
 </div>
 
 <div id="outline-container-org44c30ab" class="outline-3">
-<h3 id="org44c30ab"><span class="section-number-3">14.2</span> 表的分离</h3>
-<div class="outline-text-3" id="text-14-2">
+<h3 id="org44c30ab"><span class="section-number-3">15.2</span> 表的分离</h3>
+<div class="outline-text-3" id="text-15-2">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-comment">-- &#28304;&#25968;&#25454;</span>
 <span class="org-keyword">select</span> * <span class="org-keyword">from</span> china_city <span class="org-keyword">limit</span> 4;
@@ -1791,8 +1862,8 @@ lagou_company 公司分离:
 </section>
 
 <section id="outline-container-org831fa9f" class="outline-2">
-<h2 id="org831fa9f"><span class="section-number-2">15</span> 省市县模式数据库设计</h2>
-<div class="outline-text-2" id="text-15">
+<h2 id="org831fa9f"><span class="section-number-2">16</span> 省市县模式数据库设计</h2>
+<div class="outline-text-2" id="text-16">
 <p>
 最朴素的实现方式:
 </p>
@@ -1966,8 +2037,8 @@ lagou_company 公司分离:
 </section>
 
 <section id="outline-container-orgd22562b" class="outline-2">
-<h2 id="orgd22562b"><span class="section-number-2">16</span> 查询练习</h2>
-<div class="outline-text-2" id="text-16">
+<h2 id="orgd22562b"><span class="section-number-2">17</span> 查询练习</h2>
+<div class="outline-text-2" id="text-17">
 <p>
 创建表:
 </p>
@@ -2133,7 +2204,7 @@ lagou_company 公司分离:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-20 Thu 02:14</p>
+<p class="date">Created: 2018-09-20 Thu 03:40</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

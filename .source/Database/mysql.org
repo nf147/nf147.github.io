@@ -792,6 +792,51 @@ JDBC代码:
   }
 #+END_SRC
 
+* 优化(Optimization)
+** 解释计划(Explain)
+
+可以查看数据内部是怎么分析执行相关语句的，根据这些可以对语句进行优化
+
+#+BEGIN_SRC sql
+  explain select c.city as city2, p.* from lagou_pos p
+          join lagou_city c on p.city = c.cid
+          where c.province = '广东省'
+      order by salary_min desc limit 10;
+#+END_SRC
+
+** 索引
+
+索引是跟引擎相关的，索引的主要分类有:
+- B-Tree 索引，这是默认的索引形式，是最普遍的方式
+- R-Tree 索引，主要用于空间数据库字段上
+- Hash 索引，只用在 Memory 引擎上，使用场景比较简单
+
+MySQL 不支持函数索引，但是可以支持前缀索引:
+
+#+BEGIN_SRC sql
+  -- 创建
+
+  create index idx_pos_city_01 on lagou_pos(city);  -- 普通索引
+  create unique index skdfjks on lagou_pos(pid);    -- 唯一索引
+
+  create index idex_city_p01 on lagou_city (province(2));     -- 前缀索引
+  create index idex_city_p01 on lagou_city (province, city);  -- 组合索引
+
+  -- 索引的创建原则:
+  -- 1. 频繁读取的字段，适合创建
+  -- 2. 更新频繁的字段，不适合
+  -- 3. 数据差异性大的字段才适合，比如性别就不适合
+  -- 4. 索引要适当，因为索引会占用更多空间，并让查询的过程变得复杂。如果不恰当使用，非但不能增加效率，反而会拖累效率
+
+  -- 删除
+
+  drop index idx_pos_city_01 on lagou_pos;
+  alter table lagou_pos drop index  idx_pos_city_01;
+
+  -- 查看表上的所有索引
+  show index from lagou_pos;
+#+END_SRC
+
 * UseCases
 ** 使用存储过程批量插入数据
 
@@ -947,7 +992,7 @@ JDBC代码:
 
   -- 2
   select
-         IFNULL(NAME,'TOTAL')name, -- name or 'TOTAL'
+         IFNULL(NAME,'TOTAL') name, -- name or 'TOTAL'
          SUM(case subject when '数学' then score else 0 end) Math,
          SUM(case subject when '语文' then score else 0 end) Chinese,
          SUM(case subject when '英语' then score else 0 end) English,
@@ -956,7 +1001,7 @@ JDBC代码:
 
   -- 3
   select
-         IFNULL(NAME,'TOTAL')name, -- name or 'TOTAL'
+         IFNULL(NAME,'TOTAL') name, -- name or 'TOTAL'
          SUM(if (subject = '数学',score, 0) ) Math,
          SUM(if (subject = '语文',score, 0) ) Chinese,
          SUM(if (subject = '英语',score, 0) ) English,
