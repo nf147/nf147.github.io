@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-19 周三 08:24 -->
+<!-- 2018-09-20 Thu 02:14 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MySQL</title>
@@ -1072,6 +1072,9 @@ delimiter ;
 </pre>
 </div>
 
+<p>
+JDBC代码:
+</p>
 <div class="org-src-container">
 <pre class="src src-java"> <span class="org-comment-delimiter">// </span><span class="org-comment">Statement PrepareStatement CallableStatement</span>
 
@@ -1337,6 +1340,45 @@ delimiter ;
 <p>
 方法不拘，但是要思考，要实现。
 </p>
+
+<p>
+实现方法:
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-comment">-- 1</span>
+<span class="org-keyword">select</span> <span class="org-keyword">name</span>,
+       <span class="org-builtin">max</span>(<span class="org-keyword">case</span> subject <span class="org-keyword">when</span> <span class="org-string">'&#25968;&#23398;'</span> <span class="org-keyword">then</span> score <span class="org-keyword">else</span> 0 <span class="org-keyword">end</span>) Math,
+       <span class="org-builtin">max</span>(<span class="org-keyword">case</span> subject <span class="org-keyword">when</span> <span class="org-string">'&#35821;&#25991;'</span> <span class="org-keyword">then</span> score <span class="org-keyword">else</span> 0 <span class="org-keyword">end</span>) Chinese,
+       <span class="org-builtin">max</span>(<span class="org-keyword">case</span> subject <span class="org-keyword">when</span> <span class="org-string">'&#33521;&#35821;'</span> <span class="org-keyword">then</span> score <span class="org-keyword">else</span> 0 <span class="org-keyword">end</span>) English,
+       <span class="org-builtin">sum</span>(score) score
+<span class="org-keyword">from</span> t_score <span class="org-keyword">group</span> <span class="org-keyword">by</span> <span class="org-keyword">name</span>
+<span class="org-keyword">union</span> <span class="org-keyword">all</span>
+<span class="org-keyword">select</span> <span class="org-string">'TOTAL'</span>,
+       <span class="org-builtin">sum</span>(<span class="org-keyword">case</span> subject <span class="org-keyword">when</span> <span class="org-string">'&#25968;&#23398;'</span> <span class="org-keyword">then</span> score <span class="org-keyword">else</span> 0 <span class="org-keyword">end</span>),
+       <span class="org-builtin">sum</span>(<span class="org-keyword">case</span> subject <span class="org-keyword">when</span> <span class="org-string">'&#35821;&#25991;'</span> <span class="org-keyword">then</span> score <span class="org-keyword">else</span> 0 <span class="org-keyword">end</span>),
+       <span class="org-builtin">sum</span>(<span class="org-keyword">case</span> subject <span class="org-keyword">when</span> <span class="org-string">'&#33521;&#35821;'</span> <span class="org-keyword">then</span> score <span class="org-keyword">else</span> 0 <span class="org-keyword">end</span>),
+       <span class="org-builtin">sum</span>(score)
+<span class="org-keyword">from</span> t_score;
+
+<span class="org-comment">-- 2</span>
+<span class="org-keyword">select</span>
+       IFNULL(<span class="org-keyword">NAME</span>,<span class="org-string">'TOTAL'</span>)<span class="org-keyword">name</span>, <span class="org-comment">-- name or 'TOTAL'</span>
+       <span class="org-builtin">SUM</span>(<span class="org-keyword">case</span> subject <span class="org-keyword">when</span> <span class="org-string">'&#25968;&#23398;'</span> <span class="org-keyword">then</span> score <span class="org-keyword">else</span> 0 <span class="org-keyword">end</span>) Math,
+       <span class="org-builtin">SUM</span>(<span class="org-keyword">case</span> subject <span class="org-keyword">when</span> <span class="org-string">'&#35821;&#25991;'</span> <span class="org-keyword">then</span> score <span class="org-keyword">else</span> 0 <span class="org-keyword">end</span>) Chinese,
+       <span class="org-builtin">SUM</span>(<span class="org-keyword">case</span> subject <span class="org-keyword">when</span> <span class="org-string">'&#33521;&#35821;'</span> <span class="org-keyword">then</span> score <span class="org-keyword">else</span> 0 <span class="org-keyword">end</span>) English,
+       <span class="org-builtin">sum</span>(score) score
+<span class="org-keyword">from</span> t_score <span class="org-keyword">group</span> <span class="org-keyword">by</span> <span class="org-keyword">name</span> <span class="org-keyword">WITH</span> <span class="org-keyword">ROLLUP</span>;
+
+<span class="org-comment">-- 3</span>
+<span class="org-keyword">select</span>
+       IFNULL(<span class="org-keyword">NAME</span>,<span class="org-string">'TOTAL'</span>)<span class="org-keyword">name</span>, <span class="org-comment">-- name or 'TOTAL'</span>
+       <span class="org-builtin">SUM</span>(if (subject = <span class="org-string">'&#25968;&#23398;'</span>,score, 0) ) Math,
+       <span class="org-builtin">SUM</span>(if (subject = <span class="org-string">'&#35821;&#25991;'</span>,score, 0) ) Chinese,
+       <span class="org-builtin">SUM</span>(if (subject = <span class="org-string">'&#33521;&#35821;'</span>,score, 0) ) English,
+       <span class="org-builtin">sum</span>(score) score
+<span class="org-keyword">from</span> t_score <span class="org-keyword">group</span> <span class="org-keyword">by</span> <span class="org-keyword">name</span> <span class="org-keyword">WITH</span> <span class="org-keyword">ROLLUP</span>;
+</pre>
+</div>
 </div>
 </div>
 </section>
@@ -2091,7 +2133,7 @@ lagou_company 公司分离:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-19 周三 08:24</p>
+<p class="date">Created: 2018-09-20 Thu 02:14</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

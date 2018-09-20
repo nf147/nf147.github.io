@@ -751,6 +751,7 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
   delimiter ;
 #+END_SRC
 
+JDBC代码:
 #+BEGIN_SRC java
    // Statement PrepareStatement CallableStatement
 
@@ -916,16 +917,52 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
         ('李春', '英语', '87');
   #+END_SRC
 
-  要求查询的结果是这样:
-  | Name  | Chinese | Math | English | score |
-  |-------+---------+------+---------+-------|
-  | 刘可  |      80 |   86 |      88 |   254 |
-  | 李春  |      89 |   80 |      87 |   256 |
-  | 王海  |      86 |   83 |      93 |   262 |
-  | 陶俊  |      88 |   84 |      94 |   266 |
-  | TOTAL |     343 |  333 |     362 |  1038 |
+要求查询的结果是这样:
+| Name  | Chinese | Math | English | score |
+|-------+---------+------+---------+-------|
+| 刘可  |      80 |   86 |      88 |   254 |
+| 李春  |      89 |   80 |      87 |   256 |
+| 王海  |      86 |   83 |      93 |   262 |
+| 陶俊  |      88 |   84 |      94 |   266 |
+| TOTAL |     343 |  333 |     362 |  1038 |
 
-  方法不拘，但是要思考，要实现。
+方法不拘，但是要思考，要实现。
+
+实现方法:
+#+BEGIN_SRC sql
+  -- 1
+  select name,
+         max(case subject when '数学' then score else 0 end) Math,
+         max(case subject when '语文' then score else 0 end) Chinese,
+         max(case subject when '英语' then score else 0 end) English,
+         sum(score) score
+  from t_score group by name
+  union all
+  select 'TOTAL',
+         sum(case subject when '数学' then score else 0 end),
+         sum(case subject when '语文' then score else 0 end),
+         sum(case subject when '英语' then score else 0 end),
+         sum(score)
+  from t_score;
+
+  -- 2
+  select
+         IFNULL(NAME,'TOTAL')name, -- name or 'TOTAL'
+         SUM(case subject when '数学' then score else 0 end) Math,
+         SUM(case subject when '语文' then score else 0 end) Chinese,
+         SUM(case subject when '英语' then score else 0 end) English,
+         sum(score) score
+  from t_score group by name WITH ROLLUP;
+
+  -- 3
+  select
+         IFNULL(NAME,'TOTAL')name, -- name or 'TOTAL'
+         SUM(if (subject = '数学',score, 0) ) Math,
+         SUM(if (subject = '语文',score, 0) ) Chinese,
+         SUM(if (subject = '英语',score, 0) ) English,
+         sum(score) score
+  from t_score group by name WITH ROLLUP;
+#+END_SRC
 
 * 备份与恢复
 
