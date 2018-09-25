@@ -153,7 +153,7 @@ Maven 的配置文件是 pom.xml，想为项目添加依赖，只需要向 pom.x
 
 然后，点击 Maven 工具包的刷新，jar 包就会被自动下载并配置。
 
-* 增加配置文件
+* 之后，增加配置文件
 
 基本只需要三个配置文件:
 - resources/spring-root.xml, spring 的核心配置文件，可以将 mybatis 配置在里面
@@ -263,6 +263,40 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
 #+DOWNLOADED: c:/Users/nf147/AppData/Local/Temp/clip.png @ 2018-09-25 03:40:36
 [[file:img/clip_2018-09-25_03-40-36.png]]
 
-* 创建服务器，启动之
+* 然后就可以创建服务器，启动之了
 
 之后就可以在 idea 里面创建应用服务器，将项目部署到上面，运行之。
+
+* 开始编码, dao 层示例
+* 开始编码, web 层示例
+
+#+BEGIN_SRC java
+  @Controller
+  public class BookController {
+
+      @Autowired
+      private BookService bookService;
+
+      @Autowired
+      private BookDAO bookDAO;
+
+      @RequestMapping("/book")
+      public ModelAndView getBook(int bookid) {
+          ModelAndView mv = new ModelAndView("book_detail");
+          Book book = bookService.getBookById(bookid);
+          mv.addObject("book", book);
+          return mv;
+      }
+
+      @RequestMapping("/bookupdate")
+      public String update(int bookid) {
+          for (int i = 0; i < 10000; i++) {
+              bookDAO.updateCnt(bookid);
+          }
+          return "book_detail";
+      }
+  }
+#+END_SRC
+
+
+

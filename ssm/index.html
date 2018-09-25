@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-25 Tue 03:41 -->
+<!-- 2018-09-25 Tue 03:43 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SSM 整合示例</title>
@@ -23,8 +23,10 @@
 <li><a href="#org79628b2">1. 简介</a></li>
 <li><a href="#org18b5657">2. 首先，创建项目</a></li>
 <li><a href="#orgb4fadf2">3. 其次，增加依赖(jar 包)</a></li>
-<li><a href="#org75c2d4e">4. 增加配置文件</a></li>
-<li><a href="#org760f0d7">5. 创建服务器，启动之</a></li>
+<li><a href="#orgb36e9b8">4. 之后，增加配置文件</a></li>
+<li><a href="#org7474554">5. 然后就可以创建服务器，启动之了</a></li>
+<li><a href="#org56365e7">6. 开始编码, dao 层示例</a></li>
+<li><a href="#orga6f40fb">7. 开始编码, web 层示例</a></li>
 </ul>
 </div>
 </nav>
@@ -206,8 +208,8 @@ Maven 的配置文件是 pom.xml，想为项目添加依赖，只需要向 pom.x
 </div>
 </section>
 
-<section id="outline-container-org75c2d4e" class="outline-2">
-<h2 id="org75c2d4e"><span class="section-number-2">4</span> 增加配置文件</h2>
+<section id="outline-container-orgb36e9b8" class="outline-2">
+<h2 id="orgb36e9b8"><span class="section-number-2">4</span> 之后，增加配置文件</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 基本只需要三个配置文件:
@@ -337,18 +339,55 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
 </div>
 </section>
 
-<section id="outline-container-org760f0d7" class="outline-2">
-<h2 id="org760f0d7"><span class="section-number-2">5</span> 创建服务器，启动之</h2>
+<section id="outline-container-org7474554" class="outline-2">
+<h2 id="org7474554"><span class="section-number-2">5</span> 然后就可以创建服务器，启动之了</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 之后就可以在 idea 里面创建应用服务器，将项目部署到上面，运行之。
 </p>
 </div>
 </section>
+
+<section id="outline-container-org56365e7" class="outline-2">
+<h2 id="org56365e7"><span class="section-number-2">6</span> 开始编码, dao 层示例</h2>
+</section>
+<section id="outline-container-orga6f40fb" class="outline-2">
+<h2 id="orga6f40fb"><span class="section-number-2">7</span> 开始编码, web 层示例</h2>
+<div class="outline-text-2" id="text-7">
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Controller</span>
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">BookController</span> {
+
+    <span class="org-c-annotation">@Autowired</span>
+    <span class="org-keyword">private</span> <span class="org-type">BookService</span> <span class="org-variable-name">bookService</span>;
+
+    <span class="org-c-annotation">@Autowired</span>
+    <span class="org-keyword">private</span> <span class="org-type">BookDAO</span> <span class="org-variable-name">bookDAO</span>;
+
+    <span class="org-c-annotation">@RequestMapping</span>(<span class="org-string">"/book"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">ModelAndView</span> <span class="org-function-name">getBook</span>(<span class="org-type">int</span> <span class="org-variable-name">bookid</span>) {
+        <span class="org-type">ModelAndView</span> <span class="org-variable-name">mv</span> = <span class="org-keyword">new</span> <span class="org-type">ModelAndView</span>(<span class="org-string">"book_detail"</span>);
+        <span class="org-type">Book</span> <span class="org-variable-name">book</span> = bookService.getBookById(bookid);
+        mv.addObject(<span class="org-string">"book"</span>, book);
+        <span class="org-keyword">return</span> mv;
+    }
+
+    <span class="org-c-annotation">@RequestMapping</span>(<span class="org-string">"/bookupdate"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">update</span>(<span class="org-type">int</span> <span class="org-variable-name">bookid</span>) {
+        <span class="org-keyword">for</span> (<span class="org-type">int</span> <span class="org-variable-name">i</span> = 0; i &lt; 10000; i++) {
+            bookDAO.updateCnt(bookid);
+        }
+        <span class="org-keyword">return</span> <span class="org-string">"book_detail"</span>;
+    }
+}
+</pre>
+</div>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-25 Tue 03:41</p>
+<p class="date">Created: 2018-09-25 Tue 03:43</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
