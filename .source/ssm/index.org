@@ -228,7 +228,7 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
       <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
       <init-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring-mvc.xml</param-value>
+        <param-value>classpath:spring-web.xml</param-value>
       </init-param>
     </servlet>
     <servlet-mapping>
@@ -249,9 +249,97 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
 之后就可以在 idea 里面创建应用服务器，将项目部署到上面，运行之。
 
 * 开始编码, dao 层示例
+
+实现 Book 类后，就可以为其创建 BookDAO 接口了:
+#+BEGIN_SRC java
+  public interface BookDAO {
+      /**
+       ,* 通过 id 获取图书
+       ,*/
+      Book getById(int bookid);
+
+      /**
+       ,* 获取书籍数目
+       ,*/
+      int countAll();
+
+      /**
+       ,* 获取所有图书
+       ,*/
+      List<Book> listAll();
+
+      /**
+       ,* 获取所有图书
+       ,*/
+      List<Book> listAllPager(@Param("offset") int offset, @Param("size") int size);
+    
+      /**
+       ,* 新增图书
+       ,*/
+      int insert(Book book);
+
+      /**
+       ,* 修改图书
+       ,*/
+      int update(Book book);
+
+      /**
+       ,* 删除图书
+       ,*/
+      int delete(int bookid);
+  }
+#+END_SRC
+
+然后，为这个接口，编写相应 mapper.xml，可以看做这个 xml 是这个接口的实现类(由 mybatis 根据这个 xml 创建相应的实现类):
+
+#+BEGIN_SRC sgml
+  <?xml version="1.0" encoding="UTF-8" ?>
+  <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="com.nf147.bookstore_ssm.dao.BookDAO">
+      <insert id="insert" parameterType="com.nf147.bookstore_ssm.entity.Book">
+          insert into ssm_book (name, cnt) values (#{name}, #{cnt})
+      </insert>
+
+      <insert id="update" parameterType="com.nf147.bookstore_ssm.entity.Book">
+          update ssm_book
+            set name = #{name}, cnt = #{cnt}
+            where bookid = #{bookid}
+      </insert>
+
+      <delete id="delete" parameterType="int">
+          delete from ssm_book where bookid=#{bookid}
+      </delete>
+
+      <select id="getById" parameterType="int" resultType="com.nf147.bookstore_ssm.entity.Book">
+              select bookid, name, cnt from ssm_book where bookid = #{bookid}
+      </select>
+
+      <select id="countAll" resultType="java.lang.Integer">
+          select count(*) from ssm_book
+      </select>
+
+      <select id="listAll" resultType="com.nf147.bookstore_ssm.entity.Book">
+          select bookid, name, cnt from ssm_book
+      </select>
+
+      <select id="listAllPager" resultType="com.nf147.bookstore_ssm.entity.Book">
+          select bookid, name, cnt from ssm_book limit #{offset}, #{size}
+      </select>
+  </mapper>
+#+END_SRC
+
 * 开始编码, service 层示例
+
+需要有接口，有实现类，面向接口编程。
+
+需要在实现类上，写 ~@Service~ 注解。
+
+根据实际需要，在需要开启事务的方法上，添加 ~@Transactional~ 注解。
+
 * 开始编码, web 层示例
 
+简单示例:
 #+BEGIN_SRC java
   @Controller
   public class BookController {

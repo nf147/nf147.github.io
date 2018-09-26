@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-26 周三 03:45 -->
+<!-- 2018-09-26 周三 06:02 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SSM 整合示例</title>
@@ -297,7 +297,7 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
     &lt;<span class="org-function-name">servlet-class</span>&gt;org.springframework.web.servlet.DispatcherServlet&lt;/<span class="org-function-name">servlet-class</span>&gt;
     &lt;<span class="org-function-name">init-param</span>&gt;
       &lt;<span class="org-function-name">param-name</span>&gt;contextConfigLocation&lt;/<span class="org-function-name">param-name</span>&gt;
-      &lt;<span class="org-function-name">param-value</span>&gt;classpath:spring-mvc.xml&lt;/<span class="org-function-name">param-value</span>&gt;
+      &lt;<span class="org-function-name">param-value</span>&gt;classpath:spring-web.xml&lt;/<span class="org-function-name">param-value</span>&gt;
     &lt;/<span class="org-function-name">init-param</span>&gt;
   &lt;/<span class="org-function-name">servlet</span>&gt;
   &lt;<span class="org-function-name">servlet-mapping</span>&gt;
@@ -332,13 +332,117 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
 
 <section id="outline-container-org06b1b46" class="outline-2">
 <h2 id="org06b1b46"><span class="section-number-2">6</span> 开始编码, dao 层示例</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+实现 Book 类后，就可以为其创建 BookDAO 接口了:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">interface</span> <span class="org-type">BookDAO</span> {
+    <span class="org-doc">/**</span>
+<span class="org-doc">     * &#36890;&#36807; id &#33719;&#21462;&#22270;&#20070;</span>
+<span class="org-doc">     */</span>
+    <span class="org-type">Book</span> <span class="org-function-name">getById</span>(<span class="org-type">int</span> <span class="org-variable-name">bookid</span>);
+
+    <span class="org-doc">/**</span>
+<span class="org-doc">     * &#33719;&#21462;&#20070;&#31821;&#25968;&#30446;</span>
+<span class="org-doc">     */</span>
+    <span class="org-type">int</span> <span class="org-function-name">countAll</span>();
+
+    <span class="org-doc">/**</span>
+<span class="org-doc">     * &#33719;&#21462;&#25152;&#26377;&#22270;&#20070;</span>
+<span class="org-doc">     */</span>
+    <span class="org-type">List</span>&lt;<span class="org-type">Book</span>&gt; <span class="org-function-name">listAll</span>();
+
+    <span class="org-doc">/**</span>
+<span class="org-doc">     * &#33719;&#21462;&#25152;&#26377;&#22270;&#20070;</span>
+<span class="org-doc">     */</span>
+    <span class="org-type">List</span>&lt;<span class="org-type">Book</span>&gt; <span class="org-function-name">listAllPager</span>(<span class="org-c-annotation">@Param</span>(<span class="org-string">"offset"</span>) <span class="org-type">int</span> <span class="org-variable-name">offset</span>, <span class="org-c-annotation">@Param</span>(<span class="org-string">"size"</span>) <span class="org-type">int</span> <span class="org-variable-name">size</span>);
+
+    <span class="org-doc">/**</span>
+<span class="org-doc">     * &#26032;&#22686;&#22270;&#20070;</span>
+<span class="org-doc">     */</span>
+    <span class="org-type">int</span> <span class="org-function-name">insert</span>(<span class="org-type">Book</span> <span class="org-variable-name">book</span>);
+
+    <span class="org-doc">/**</span>
+<span class="org-doc">     * &#20462;&#25913;&#22270;&#20070;</span>
+<span class="org-doc">     */</span>
+    <span class="org-type">int</span> <span class="org-function-name">update</span>(<span class="org-type">Book</span> <span class="org-variable-name">book</span>);
+
+    <span class="org-doc">/**</span>
+<span class="org-doc">     * &#21024;&#38500;&#22270;&#20070;</span>
+<span class="org-doc">     */</span>
+    <span class="org-type">int</span> <span class="org-function-name">delete</span>(<span class="org-type">int</span> <span class="org-variable-name">bookid</span>);
+}
+</pre>
+</div>
+
+<p>
+然后，为这个接口，编写相应 mapper.xml，可以看做这个 xml 是这个接口的实现类(由 mybatis 根据这个 xml 创建相应的实现类):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sgml"><span class="org-string">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="org-string">&lt;!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"&gt;</span>
+
+&lt;<span class="org-function-name">mapper</span> <span class="org-variable-name">namespace</span>=<span class="org-string">"com.nf147.bookstore_ssm.dao.BookDAO"</span>&gt;
+    &lt;<span class="org-function-name">insert</span> <span class="org-variable-name">id</span>=<span class="org-string">"insert"</span> <span class="org-variable-name">parameterType</span>=<span class="org-string">"com.nf147.bookstore_ssm.entity.Book"</span>&gt;
+        insert into ssm_book (name, cnt) values (#{name}, #{cnt})
+    &lt;/<span class="org-function-name">insert</span>&gt;
+
+    &lt;<span class="org-function-name">insert</span> <span class="org-variable-name">id</span>=<span class="org-string">"update"</span> <span class="org-variable-name">parameterType</span>=<span class="org-string">"com.nf147.bookstore_ssm.entity.Book"</span>&gt;
+        update ssm_book
+          set name = #{name}, cnt = #{cnt}
+          where bookid = #{bookid}
+    &lt;/<span class="org-function-name">insert</span>&gt;
+
+    &lt;<span class="org-function-name">delete</span> <span class="org-variable-name">id</span>=<span class="org-string">"delete"</span> <span class="org-variable-name">parameterType</span>=<span class="org-string">"int"</span>&gt;
+        delete from ssm_book where bookid=#{bookid}
+    &lt;/<span class="org-function-name">delete</span>&gt;
+
+    &lt;<span class="org-function-name">select</span> <span class="org-variable-name">id</span>=<span class="org-string">"getById"</span> <span class="org-variable-name">parameterType</span>=<span class="org-string">"int"</span> <span class="org-variable-name">resultType</span>=<span class="org-string">"com.nf147.bookstore_ssm.entity.Book"</span>&gt;
+            select bookid, name, cnt from ssm_book where bookid = #{bookid}
+    &lt;/<span class="org-function-name">select</span>&gt;
+
+    &lt;<span class="org-function-name">select</span> <span class="org-variable-name">id</span>=<span class="org-string">"countAll"</span> <span class="org-variable-name">resultType</span>=<span class="org-string">"java.lang.Integer"</span>&gt;
+        select count(*) from ssm_book
+    &lt;/<span class="org-function-name">select</span>&gt;
+
+    &lt;<span class="org-function-name">select</span> <span class="org-variable-name">id</span>=<span class="org-string">"listAll"</span> <span class="org-variable-name">resultType</span>=<span class="org-string">"com.nf147.bookstore_ssm.entity.Book"</span>&gt;
+        select bookid, name, cnt from ssm_book
+    &lt;/<span class="org-function-name">select</span>&gt;
+
+    &lt;<span class="org-function-name">select</span> <span class="org-variable-name">id</span>=<span class="org-string">"listAllPager"</span> <span class="org-variable-name">resultType</span>=<span class="org-string">"com.nf147.bookstore_ssm.entity.Book"</span>&gt;
+        select bookid, name, cnt from ssm_book limit #{offset}, #{size}
+    &lt;/<span class="org-function-name">select</span>&gt;
+&lt;/<span class="org-function-name">mapper</span>&gt;
+</pre>
+</div>
+</div>
 </section>
+
 <section id="outline-container-org773dd78" class="outline-2">
 <h2 id="org773dd78"><span class="section-number-2">7</span> 开始编码, service 层示例</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+需要有接口，有实现类，面向接口编程。
+</p>
+
+<p>
+需要在实现类上，写 <code>@Service</code> 注解。
+</p>
+
+<p>
+根据实际需要，在需要开启事务的方法上，添加 <code>@Transactional</code> 注解。
+</p>
+</div>
 </section>
+
 <section id="outline-container-orgbe915c7" class="outline-2">
 <h2 id="orgbe915c7"><span class="section-number-2">8</span> 开始编码, web 层示例</h2>
 <div class="outline-text-2" id="text-8">
+<p>
+简单示例:
+</p>
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-c-annotation">@Controller</span>
 <span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">BookController</span> {
@@ -372,7 +476,7 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-26 周三 03:45</p>
+<p class="date">Created: 2018-09-26 周三 06:02</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
