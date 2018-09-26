@@ -61,6 +61,18 @@ Maven 的配置文件是 pom.xml，想为项目添加依赖，只需要向 pom.x
         <version>5.1.0.RELEASE</version>
       </dependency>
 
+      <dependency>
+        <groupId>org.aspectj</groupId>
+        <artifactId>aspectjweaver</artifactId>
+        <version>1.9.1</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.9.7</version>
+      </dependency>
+
       <!--spring mvc 的依赖-->
       <dependency>
         <groupId>org.springframework</groupId>
@@ -108,47 +120,12 @@ Maven 的配置文件是 pom.xml，想为项目添加依赖，只需要向 pom.x
         <version>4.11</version>
         <scope>test</scope>
       </dependency>
-
     </dependencies>
 
     <build>
       <finalName>bookstore-ssm</finalName>
-      <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-        <plugins>
-          <plugin>
-            <artifactId>maven-clean-plugin</artifactId>
-            <version>3.0.0</version>
-          </plugin>
-          <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
-          <plugin>
-            <artifactId>maven-resources-plugin</artifactId>
-            <version>3.0.2</version>
-          </plugin>
-          <plugin>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.7.0</version>
-          </plugin>
-          <plugin>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.20.1</version>
-          </plugin>
-          <plugin>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>3.2.0</version>
-          </plugin>
-          <plugin>
-            <artifactId>maven-install-plugin</artifactId>
-            <version>2.5.2</version>
-          </plugin>
-          <plugin>
-            <artifactId>maven-deploy-plugin</artifactId>
-            <version>2.8.2</version>
-          </plugin>
-        </plugins>
-      </pluginManagement>
     </build>
   </project>
-
 #+END_SRC
 
 然后，点击 Maven 工具包的刷新，jar 包就会被自动下载并配置。
@@ -166,7 +143,8 @@ spring-root.xml 示例:
   <beans xmlns="http://www.springframework.org/schema/beans"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:context="http://www.springframework.org/schema/context"
-         xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+         xmlns:aop="http://www.springframework.org/schema/aop"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
       <!--@Component/@Service/@Repository/@Controller-->
       <context:component-scan base-package="com.nf147.bookstore_ssm.service" />
@@ -182,7 +160,7 @@ spring-root.xml 示例:
       <!--配置 mybatis-->
       <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
           <property name="dataSource" ref="dataSource" />
-          <property name="mapperLocations" value="classpath:com.nf147.bookstore_ssm.dao/*.xml" />
+          <property name="mapperLocations" value="classpath:mapper/*.xml" />
       </bean>
 
       <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
@@ -191,6 +169,10 @@ spring-root.xml 示例:
       </bean>
 
       <!--配置事务管理-->
+      <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+          <property name="dataSource" ref="dataSource" />
+      </bean>
+      <aop:aspectj-autoproxy proxy-target-class="true" />
 
   </beans>
 #+END_SRC
@@ -213,7 +195,7 @@ spring-web.xml 示例:
       <!--将所有的静态资源，交给 Servlet 处理-->
       <mvc:default-servlet-handler />
 
-      <!--配置 jsp-->
+      <!--配置视图解析器，使用 jsp 来渲染视图-->
       <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
           <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
           <property name="prefix" value="/WEB-INF/views/" />

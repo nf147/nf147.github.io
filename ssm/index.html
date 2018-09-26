@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-25 Tue 03:44 -->
+<!-- 2018-09-26 周三 03:35 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SSM 整合示例</title>
@@ -20,21 +20,21 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org79628b2">1. 简介</a></li>
-<li><a href="#org18b5657">2. 首先，创建项目</a></li>
-<li><a href="#orgb4fadf2">3. 其次，增加依赖(jar 包)</a></li>
-<li><a href="#orgb36e9b8">4. 之后，增加配置文件</a></li>
-<li><a href="#org7474554">5. 然后就可以创建服务器，启动之了</a></li>
-<li><a href="#org56365e7">6. 开始编码, dao 层示例</a></li>
-<li><a href="#org1274d82">7. 开始编码, service 层示例</a></li>
-<li><a href="#orga6f40fb">8. 开始编码, web 层示例</a></li>
+<li><a href="#org6ccee6e">1. 简介</a></li>
+<li><a href="#org781d82b">2. 首先，创建项目</a></li>
+<li><a href="#org329f7ad">3. 其次，增加依赖(jar 包)</a></li>
+<li><a href="#orgcdfb93c">4. 之后，增加配置文件</a></li>
+<li><a href="#org0502e7a">5. 然后就可以创建服务器，启动之了</a></li>
+<li><a href="#org06b1b46">6. 开始编码, dao 层示例</a></li>
+<li><a href="#org773dd78">7. 开始编码, service 层示例</a></li>
+<li><a href="#orgbe915c7">8. 开始编码, web 层示例</a></li>
 </ul>
 </div>
 </nav>
 
 
-<section id="outline-container-org79628b2" class="outline-2">
-<h2 id="org79628b2"><span class="section-number-2">1</span> 简介</h2>
+<section id="outline-container-org6ccee6e" class="outline-2">
+<h2 id="org6ccee6e"><span class="section-number-2">1</span> 简介</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 SSM 包含三大框架:
@@ -47,8 +47,8 @@ SSM 包含三大框架:
 </div>
 </section>
 
-<section id="outline-container-org18b5657" class="outline-2">
-<h2 id="org18b5657"><span class="section-number-2">2</span> 首先，创建项目</h2>
+<section id="outline-container-org781d82b" class="outline-2">
+<h2 id="org781d82b"><span class="section-number-2">2</span> 首先，创建项目</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 推荐使用 Maven 或者 Gradle 创建 ssm 项目。
@@ -60,8 +60,8 @@ SSM 包含三大框架:
 </div>
 </section>
 
-<section id="outline-container-orgb4fadf2" class="outline-2">
-<h2 id="orgb4fadf2"><span class="section-number-2">3</span> 其次，增加依赖(jar 包)</h2>
+<section id="outline-container-org329f7ad" class="outline-2">
+<h2 id="org329f7ad"><span class="section-number-2">3</span> 其次，增加依赖(jar 包)</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Maven 的配置文件是 pom.xml，想为项目添加依赖，只需要向 pom.xml 增加相关配置即可。
@@ -112,6 +112,18 @@ Maven 的配置文件是 pom.xml，想为项目添加依赖，只需要向 pom.x
       &lt;<span class="org-function-name">version</span>&gt;5.1.0.RELEASE&lt;/<span class="org-function-name">version</span>&gt;
     &lt;/<span class="org-function-name">dependency</span>&gt;
 
+    &lt;<span class="org-function-name">dependency</span>&gt;
+      &lt;<span class="org-function-name">groupId</span>&gt;org.aspectj&lt;/<span class="org-function-name">groupId</span>&gt;
+      &lt;<span class="org-function-name">artifactId</span>&gt;aspectjweaver&lt;/<span class="org-function-name">artifactId</span>&gt;
+      &lt;<span class="org-function-name">version</span>&gt;1.9.1&lt;/<span class="org-function-name">version</span>&gt;
+    &lt;/<span class="org-function-name">dependency</span>&gt;
+
+    &lt;<span class="org-function-name">dependency</span>&gt;
+      &lt;<span class="org-function-name">groupId</span>&gt;com.fasterxml.jackson.core&lt;/<span class="org-function-name">groupId</span>&gt;
+      &lt;<span class="org-function-name">artifactId</span>&gt;jackson-databind&lt;/<span class="org-function-name">artifactId</span>&gt;
+      &lt;<span class="org-function-name">version</span>&gt;2.9.7&lt;/<span class="org-function-name">version</span>&gt;
+    &lt;/<span class="org-function-name">dependency</span>&gt;
+
     <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">spring mvc &#30340;&#20381;&#36182;</span><span class="org-comment-delimiter">--&gt;</span>
     &lt;<span class="org-function-name">dependency</span>&gt;
       &lt;<span class="org-function-name">groupId</span>&gt;org.springframework&lt;/<span class="org-function-name">groupId</span>&gt;
@@ -159,47 +171,12 @@ Maven 的配置文件是 pom.xml，想为项目添加依赖，只需要向 pom.x
       &lt;<span class="org-function-name">version</span>&gt;4.11&lt;/<span class="org-function-name">version</span>&gt;
       &lt;<span class="org-function-name">scope</span>&gt;test&lt;/<span class="org-function-name">scope</span>&gt;
     &lt;/<span class="org-function-name">dependency</span>&gt;
-
   &lt;/<span class="org-function-name">dependencies</span>&gt;
 
   &lt;<span class="org-function-name">build</span>&gt;
     &lt;<span class="org-function-name">finalName</span>&gt;bookstore-ssm&lt;/<span class="org-function-name">finalName</span>&gt;
-    &lt;<span class="org-function-name">pluginManagement</span>&gt;<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) </span><span class="org-comment-delimiter">--&gt;</span>
-      &lt;<span class="org-function-name">plugins</span>&gt;
-        &lt;<span class="org-function-name">plugin</span>&gt;
-          &lt;<span class="org-function-name">artifactId</span>&gt;maven-clean-plugin&lt;/<span class="org-function-name">artifactId</span>&gt;
-          &lt;<span class="org-function-name">version</span>&gt;3.0.0&lt;/<span class="org-function-name">version</span>&gt;
-        &lt;/<span class="org-function-name">plugin</span>&gt;
-        <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging </span><span class="org-comment-delimiter">--&gt;</span>
-        &lt;<span class="org-function-name">plugin</span>&gt;
-          &lt;<span class="org-function-name">artifactId</span>&gt;maven-resources-plugin&lt;/<span class="org-function-name">artifactId</span>&gt;
-          &lt;<span class="org-function-name">version</span>&gt;3.0.2&lt;/<span class="org-function-name">version</span>&gt;
-        &lt;/<span class="org-function-name">plugin</span>&gt;
-        &lt;<span class="org-function-name">plugin</span>&gt;
-          &lt;<span class="org-function-name">artifactId</span>&gt;maven-compiler-plugin&lt;/<span class="org-function-name">artifactId</span>&gt;
-          &lt;<span class="org-function-name">version</span>&gt;3.7.0&lt;/<span class="org-function-name">version</span>&gt;
-        &lt;/<span class="org-function-name">plugin</span>&gt;
-        &lt;<span class="org-function-name">plugin</span>&gt;
-          &lt;<span class="org-function-name">artifactId</span>&gt;maven-surefire-plugin&lt;/<span class="org-function-name">artifactId</span>&gt;
-          &lt;<span class="org-function-name">version</span>&gt;2.20.1&lt;/<span class="org-function-name">version</span>&gt;
-        &lt;/<span class="org-function-name">plugin</span>&gt;
-        &lt;<span class="org-function-name">plugin</span>&gt;
-          &lt;<span class="org-function-name">artifactId</span>&gt;maven-war-plugin&lt;/<span class="org-function-name">artifactId</span>&gt;
-          &lt;<span class="org-function-name">version</span>&gt;3.2.0&lt;/<span class="org-function-name">version</span>&gt;
-        &lt;/<span class="org-function-name">plugin</span>&gt;
-        &lt;<span class="org-function-name">plugin</span>&gt;
-          &lt;<span class="org-function-name">artifactId</span>&gt;maven-install-plugin&lt;/<span class="org-function-name">artifactId</span>&gt;
-          &lt;<span class="org-function-name">version</span>&gt;2.5.2&lt;/<span class="org-function-name">version</span>&gt;
-        &lt;/<span class="org-function-name">plugin</span>&gt;
-        &lt;<span class="org-function-name">plugin</span>&gt;
-          &lt;<span class="org-function-name">artifactId</span>&gt;maven-deploy-plugin&lt;/<span class="org-function-name">artifactId</span>&gt;
-          &lt;<span class="org-function-name">version</span>&gt;2.8.2&lt;/<span class="org-function-name">version</span>&gt;
-        &lt;/<span class="org-function-name">plugin</span>&gt;
-      &lt;/<span class="org-function-name">plugins</span>&gt;
-    &lt;/<span class="org-function-name">pluginManagement</span>&gt;
   &lt;/<span class="org-function-name">build</span>&gt;
 &lt;/<span class="org-function-name">project</span>&gt;
-
 </pre>
 </div>
 
@@ -209,8 +186,8 @@ Maven 的配置文件是 pom.xml，想为项目添加依赖，只需要向 pom.x
 </div>
 </section>
 
-<section id="outline-container-orgb36e9b8" class="outline-2">
-<h2 id="orgb36e9b8"><span class="section-number-2">4</span> 之后，增加配置文件</h2>
+<section id="outline-container-orgcdfb93c" class="outline-2">
+<h2 id="orgcdfb93c"><span class="section-number-2">4</span> 之后，增加配置文件</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 基本只需要三个配置文件:
@@ -229,7 +206,8 @@ spring-root.xml 示例:
 &lt;<span class="org-function-name">beans</span> <span class="org-variable-name">xmlns</span>=<span class="org-string">"http://www.springframework.org/schema/beans"</span>
        <span class="org-sgml-namespace">xmlns</span>:<span class="org-variable-name">xsi</span>=<span class="org-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
        <span class="org-sgml-namespace">xmlns</span>:<span class="org-variable-name">context</span>=<span class="org-string">"http://www.springframework.org/schema/context"</span>
-       <span class="org-sgml-namespace">xsi</span>:<span class="org-variable-name">schemaLocation</span>=<span class="org-string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"</span>&gt;
+       <span class="org-sgml-namespace">xmlns</span>:<span class="org-variable-name">aop</span>=<span class="org-string">"http://www.springframework.org/schema/aop"</span>
+       <span class="org-sgml-namespace">xsi</span>:<span class="org-variable-name">schemaLocation</span>=<span class="org-string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"</span>&gt;
 
     <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">@Component/@Service/@Repository/@Controller</span><span class="org-comment-delimiter">--&gt;</span>
     &lt;<span class="org-sgml-namespace">context</span>:<span class="org-function-name">component-scan</span> <span class="org-variable-name">base-package</span>=<span class="org-string">"com.nf147.bookstore_ssm.service"</span> /&gt;
@@ -245,7 +223,7 @@ spring-root.xml 示例:
     <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#37197;&#32622; mybatis</span><span class="org-comment-delimiter">--&gt;</span>
     &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"sqlSessionFactory"</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.mybatis.spring.SqlSessionFactoryBean"</span>&gt;
         &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"dataSource"</span> <span class="org-variable-name">ref</span>=<span class="org-string">"dataSource"</span> /&gt;
-        &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"mapperLocations"</span> <span class="org-variable-name">value</span>=<span class="org-string">"classpath:com.nf147.bookstore_ssm.dao/*.xml"</span> /&gt;
+        &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"mapperLocations"</span> <span class="org-variable-name">value</span>=<span class="org-string">"classpath:mapper/*.xml"</span> /&gt;
     &lt;/<span class="org-function-name">bean</span>&gt;
 
     &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.mybatis.spring.mapper.MapperScannerConfigurer"</span>&gt;
@@ -254,6 +232,10 @@ spring-root.xml 示例:
     &lt;/<span class="org-function-name">bean</span>&gt;
 
     <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#37197;&#32622;&#20107;&#21153;&#31649;&#29702;</span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"transactionManager"</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;
+        &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"dataSource"</span> <span class="org-variable-name">ref</span>=<span class="org-string">"dataSource"</span> /&gt;
+    &lt;/<span class="org-function-name">bean</span>&gt;
+    &lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">aspectj-autoproxy</span> <span class="org-variable-name">proxy-target-class</span>=<span class="org-string">"true"</span> /&gt;
 
 &lt;/<span class="org-function-name">beans</span>&gt;
 </pre>
@@ -279,7 +261,7 @@ spring-web.xml 示例:
     <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#23558;&#25152;&#26377;&#30340;&#38745;&#24577;&#36164;&#28304;&#65292;&#20132;&#32473; Servlet &#22788;&#29702;</span><span class="org-comment-delimiter">--&gt;</span>
     &lt;<span class="org-sgml-namespace">mvc</span>:<span class="org-function-name">default-servlet-handler</span> /&gt;
 
-    <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#37197;&#32622; jsp</span><span class="org-comment-delimiter">--&gt;</span>
+    <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#37197;&#32622;&#35270;&#22270;&#35299;&#26512;&#22120;&#65292;&#20351;&#29992; jsp &#26469;&#28210;&#26579;&#35270;&#22270;</span><span class="org-comment-delimiter">--&gt;</span>
     &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.springframework.web.servlet.view.InternalResourceViewResolver"</span>&gt;
         &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"viewClass"</span> <span class="org-variable-name">value</span>=<span class="org-string">"org.springframework.web.servlet.view.JstlView"</span> /&gt;
         &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"prefix"</span> <span class="org-variable-name">value</span>=<span class="org-string">"/WEB-INF/views/"</span> /&gt;
@@ -340,8 +322,8 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
 </div>
 </section>
 
-<section id="outline-container-org7474554" class="outline-2">
-<h2 id="org7474554"><span class="section-number-2">5</span> 然后就可以创建服务器，启动之了</h2>
+<section id="outline-container-org0502e7a" class="outline-2">
+<h2 id="org0502e7a"><span class="section-number-2">5</span> 然后就可以创建服务器，启动之了</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 之后就可以在 idea 里面创建应用服务器，将项目部署到上面，运行之。
@@ -349,14 +331,14 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
 </div>
 </section>
 
-<section id="outline-container-org56365e7" class="outline-2">
-<h2 id="org56365e7"><span class="section-number-2">6</span> 开始编码, dao 层示例</h2>
+<section id="outline-container-org06b1b46" class="outline-2">
+<h2 id="org06b1b46"><span class="section-number-2">6</span> 开始编码, dao 层示例</h2>
 </section>
-<section id="outline-container-org1274d82" class="outline-2">
-<h2 id="org1274d82"><span class="section-number-2">7</span> 开始编码, service 层示例</h2>
+<section id="outline-container-org773dd78" class="outline-2">
+<h2 id="org773dd78"><span class="section-number-2">7</span> 开始编码, service 层示例</h2>
 </section>
-<section id="outline-container-orga6f40fb" class="outline-2">
-<h2 id="orga6f40fb"><span class="section-number-2">8</span> 开始编码, web 层示例</h2>
+<section id="outline-container-orgbe915c7" class="outline-2">
+<h2 id="orgbe915c7"><span class="section-number-2">8</span> 开始编码, web 层示例</h2>
 <div class="outline-text-2" id="text-8">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-c-annotation">@Controller</span>
@@ -391,7 +373,7 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-25 Tue 03:44</p>
+<p class="date">Created: 2018-09-26 周三 03:35</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
