@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-26 周三 06:02 -->
+<!-- 2018-09-26 周三 06:17 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SSM 整合示例</title>
@@ -25,9 +25,10 @@
 <li><a href="#org329f7ad">3. 其次，增加依赖(jar 包)</a></li>
 <li><a href="#orgcdfb93c">4. 之后，增加配置文件</a></li>
 <li><a href="#org0502e7a">5. 然后就可以创建服务器，启动之了</a></li>
-<li><a href="#org06b1b46">6. 开始编码, dao 层示例</a></li>
-<li><a href="#org773dd78">7. 开始编码, service 层示例</a></li>
-<li><a href="#orgbe915c7">8. 开始编码, web 层示例</a></li>
+<li><a href="#org3e01e27">6. 开始编码, 准备工作</a></li>
+<li><a href="#org06b1b46">7. 开始编码, dao 层示例</a></li>
+<li><a href="#org773dd78">8. 开始编码, service 层示例</a></li>
+<li><a href="#orgbe915c7">9. 开始编码, web 层示例</a></li>
 </ul>
 </div>
 </nav>
@@ -330,11 +331,83 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
 </div>
 </section>
 
-<section id="outline-container-org06b1b46" class="outline-2">
-<h2 id="org06b1b46"><span class="section-number-2">6</span> 开始编码, dao 层示例</h2>
+<section id="outline-container-org3e01e27" class="outline-2">
+<h2 id="org3e01e27"><span class="section-number-2">6</span> 开始编码, 准备工作</h2>
 <div class="outline-text-2" id="text-6">
 <p>
-实现 Book 类后，就可以为其创建 BookDAO 接口了:
+创建表:
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">ssm_book</span> (
+    bookid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>,
+    <span class="org-keyword">name</span> <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
+    cnt <span class="org-type">int</span> <span class="org-keyword">default</span> 0
+);
+</pre>
+</div>
+
+<p>
+为其创建实现类:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">package</span> com.nf147.bookstore_ssm.<span class="org-constant">entity</span>;
+
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">Book</span> {
+    <span class="org-keyword">private</span> <span class="org-type">int</span> <span class="org-variable-name">bookid</span>;
+    <span class="org-keyword">private</span> <span class="org-type">String</span> <span class="org-variable-name">name</span>;
+    <span class="org-keyword">private</span> <span class="org-type">int</span> <span class="org-variable-name">cnt</span>;
+
+    <span class="org-keyword">public</span> <span class="org-function-name">Book</span>() {
+    }
+
+    <span class="org-keyword">public</span> <span class="org-function-name">Book</span>(<span class="org-type">String</span> <span class="org-variable-name">name</span>, <span class="org-type">int</span> <span class="org-variable-name">cnt</span>) {
+        <span class="org-keyword">this</span>.name = name;
+        <span class="org-keyword">this</span>.cnt = cnt;
+    }
+
+    <span class="org-keyword">public</span> <span class="org-type">int</span> <span class="org-function-name">getBookid</span>() {
+        <span class="org-keyword">return</span> bookid;
+    }
+
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">setBookid</span>(<span class="org-type">int</span> <span class="org-variable-name">bookid</span>) {
+        <span class="org-keyword">this</span>.bookid = bookid;
+    }
+
+    <span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">getName</span>() {
+        <span class="org-keyword">return</span> name;
+    }
+
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">setName</span>(<span class="org-type">String</span> <span class="org-variable-name">name</span>) {
+        <span class="org-keyword">this</span>.name = name;
+    }
+
+    <span class="org-keyword">public</span> <span class="org-type">int</span> <span class="org-function-name">getCnt</span>() {
+        <span class="org-keyword">return</span> cnt;
+    }
+
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">setCnt</span>(<span class="org-type">int</span> <span class="org-variable-name">cnt</span>) {
+        <span class="org-keyword">this</span>.cnt = cnt;
+    }
+
+    <span class="org-c-annotation">@Override</span>
+    <span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">toString</span>() {
+        <span class="org-keyword">return</span> <span class="org-string">"Book{"</span> +
+                <span class="org-string">"bookid="</span> + bookid +
+                <span class="org-string">", name='"</span> + name + <span class="org-string">'\''</span> +
+                <span class="org-string">", cnt="</span> + cnt +
+                <span class="org-string">'}'</span>;
+    }
+}
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org06b1b46" class="outline-2">
+<h2 id="org06b1b46"><span class="section-number-2">7</span> 开始编码, dao 层示例</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+其创建 BookDAO 接口，实现数据库查询与操作:
 </p>
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">interface</span> <span class="org-type">BookDAO</span> {
@@ -421,8 +494,8 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
 </section>
 
 <section id="outline-container-org773dd78" class="outline-2">
-<h2 id="org773dd78"><span class="section-number-2">7</span> 开始编码, service 层示例</h2>
-<div class="outline-text-2" id="text-7">
+<h2 id="org773dd78"><span class="section-number-2">8</span> 开始编码, service 层示例</h2>
+<div class="outline-text-2" id="text-8">
 <p>
 需要有接口，有实现类，面向接口编程。
 </p>
@@ -438,8 +511,8 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
 </section>
 
 <section id="outline-container-orgbe915c7" class="outline-2">
-<h2 id="orgbe915c7"><span class="section-number-2">8</span> 开始编码, web 层示例</h2>
-<div class="outline-text-2" id="text-8">
+<h2 id="orgbe915c7"><span class="section-number-2">9</span> 开始编码, web 层示例</h2>
+<div class="outline-text-2" id="text-9">
 <p>
 简单示例:
 </p>
@@ -449,9 +522,6 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
 
     <span class="org-c-annotation">@Autowired</span>
     <span class="org-keyword">private</span> <span class="org-type">BookService</span> <span class="org-variable-name">bookService</span>;
-
-    <span class="org-c-annotation">@Autowired</span>
-    <span class="org-keyword">private</span> <span class="org-type">BookDAO</span> <span class="org-variable-name">bookDAO</span>;
 
     <span class="org-c-annotation">@RequestMapping</span>(<span class="org-string">"/book"</span>)
     <span class="org-keyword">public</span> <span class="org-type">ModelAndView</span> <span class="org-function-name">getBook</span>(<span class="org-type">int</span> <span class="org-variable-name">bookid</span>) {
@@ -464,7 +534,7 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
     <span class="org-c-annotation">@RequestMapping</span>(<span class="org-string">"/bookupdate"</span>)
     <span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">update</span>(<span class="org-type">int</span> <span class="org-variable-name">bookid</span>) {
         <span class="org-keyword">for</span> (<span class="org-type">int</span> <span class="org-variable-name">i</span> = 0; i &lt; 10000; i++) {
-            bookDAO.updateCnt(bookid);
+            bookService.updateCnt(bookid);
         }
         <span class="org-keyword">return</span> <span class="org-string">"book_detail"</span>;
     }
@@ -476,7 +546,7 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-26 周三 06:02</p>
+<p class="date">Created: 2018-09-26 周三 06:17</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

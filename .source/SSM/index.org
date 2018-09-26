@@ -248,9 +248,72 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
 
 之后就可以在 idea 里面创建应用服务器，将项目部署到上面，运行之。
 
+* 开始编码, 准备工作
+
+创建表:
+#+BEGIN_SRC sql
+  create table ssm_book (
+      bookid int auto_increment primary key,
+      name varchar(20) not null,
+      cnt int default 0
+  );
+#+END_SRC
+
+为其创建实现类:
+#+BEGIN_SRC java
+  package com.nf147.bookstore_ssm.entity;
+
+  public class Book {
+      private int bookid;
+      private String name;
+      private int cnt;
+
+      public Book() {
+      }
+
+      public Book(String name, int cnt) {
+          this.name = name;
+          this.cnt = cnt;
+      }
+
+      public int getBookid() {
+          return bookid;
+      }
+
+      public void setBookid(int bookid) {
+          this.bookid = bookid;
+      }
+
+      public String getName() {
+          return name;
+      }
+
+      public void setName(String name) {
+          this.name = name;
+      }
+
+      public int getCnt() {
+          return cnt;
+      }
+
+      public void setCnt(int cnt) {
+          this.cnt = cnt;
+      }
+
+      @Override
+      public String toString() {
+          return "Book{" +
+                  "bookid=" + bookid +
+                  ", name='" + name + '\'' +
+                  ", cnt=" + cnt +
+                  '}';
+      }
+  }
+#+END_SRC
+
 * 开始编码, dao 层示例
 
-实现 Book 类后，就可以为其创建 BookDAO 接口了:
+其创建 BookDAO 接口，实现数据库查询与操作:
 #+BEGIN_SRC java
   public interface BookDAO {
       /**
@@ -347,9 +410,6 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
       @Autowired
       private BookService bookService;
 
-      @Autowired
-      private BookDAO bookDAO;
-
       @RequestMapping("/book")
       public ModelAndView getBook(int bookid) {
           ModelAndView mv = new ModelAndView("book_detail");
@@ -361,7 +421,7 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
       @RequestMapping("/bookupdate")
       public String update(int bookid) {
           for (int i = 0; i < 10000; i++) {
-              bookDAO.updateCnt(bookid);
+              bookService.updateCnt(bookid);
           }
           return "book_detail";
       }
