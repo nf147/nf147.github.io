@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-26 周三 06:18 -->
+<!-- 2018-09-26 周三 07:53 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SSM 整合示例</title>
@@ -275,37 +275,37 @@ spring-web.xml 示例:
 web.xml 示例，用来驱动 spring 和 spring mvc:
 </p>
 <div class="org-src-container">
-<pre class="src src-sgml"><span class="org-string">&lt;!DOCTYPE web-app PUBLIC</span>
-<span class="org-string"> "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"</span>
-<span class="org-string"> "http://java.sun.com/dtd/web-app_2_3.dtd" &gt;</span>
+<pre class="src src-sgml"><span class="org-string">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+&lt;<span class="org-function-name">web-app</span> <span class="org-variable-name">xmlns</span>=<span class="org-string">"http://xmlns.jcp.org/xml/ns/javaee"</span>
+         <span class="org-sgml-namespace">xmlns</span>:<span class="org-variable-name">xsi</span>=<span class="org-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+         <span class="org-sgml-namespace">xsi</span>:<span class="org-variable-name">schemaLocation</span>=<span class="org-string">"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"</span>
+         <span class="org-variable-name">version</span>=<span class="org-string">"4.0"</span>&gt;
 
-&lt;<span class="org-function-name">web-app</span>&gt;
-  &lt;<span class="org-function-name">display-name</span>&gt;Archetype Created Web Application&lt;/<span class="org-function-name">display-name</span>&gt;
+    &lt;<span class="org-function-name">display-name</span>&gt;ssm demo&lt;/<span class="org-function-name">display-name</span>&gt;
 
-  <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#37197;&#32622; Spring &#30340;&#23481;&#22120;</span><span class="org-comment-delimiter">--&gt;</span>
-  &lt;<span class="org-function-name">context-param</span>&gt;
-    &lt;<span class="org-function-name">param-name</span>&gt;contextConfigLocation&lt;/<span class="org-function-name">param-name</span>&gt;
-    &lt;<span class="org-function-name">param-value</span>&gt;classpath:spring-root.xml&lt;/<span class="org-function-name">param-value</span>&gt;
-  &lt;/<span class="org-function-name">context-param</span>&gt;
-  &lt;<span class="org-function-name">listener</span>&gt;
-    &lt;<span class="org-function-name">listener-class</span>&gt;org.springframework.web.context.ContextLoaderListener&lt;/<span class="org-function-name">listener-class</span>&gt;
-  &lt;/<span class="org-function-name">listener</span>&gt;
+    <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#37197;&#32622; Spring &#30340;&#23481;&#22120;</span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-function-name">context-param</span>&gt;
+        &lt;<span class="org-function-name">param-name</span>&gt;contextConfigLocation&lt;/<span class="org-function-name">param-name</span>&gt;
+        &lt;<span class="org-function-name">param-value</span>&gt;classpath:spring-root.xml&lt;/<span class="org-function-name">param-value</span>&gt;
+    &lt;/<span class="org-function-name">context-param</span>&gt;
+    &lt;<span class="org-function-name">listener</span>&gt;
+        &lt;<span class="org-function-name">listener-class</span>&gt;org.springframework.web.context.ContextLoaderListener&lt;/<span class="org-function-name">listener-class</span>&gt;
+    &lt;/<span class="org-function-name">listener</span>&gt;
 
-  <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#37197;&#32622; MVC &#23481;&#22120;</span><span class="org-comment-delimiter">--&gt;</span>
-  <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#23558;&#25152;&#26377;&#30340;&#35831;&#27714;&#65292;&#37117;&#20132;&#32473; Spring MVC &#22788;&#29702;</span><span class="org-comment-delimiter">--&gt;</span>
-  &lt;<span class="org-function-name">servlet</span>&gt;
-    &lt;<span class="org-function-name">servlet-name</span>&gt;app&lt;/<span class="org-function-name">servlet-name</span>&gt;
-    &lt;<span class="org-function-name">servlet-class</span>&gt;org.springframework.web.servlet.DispatcherServlet&lt;/<span class="org-function-name">servlet-class</span>&gt;
-    &lt;<span class="org-function-name">init-param</span>&gt;
-      &lt;<span class="org-function-name">param-name</span>&gt;contextConfigLocation&lt;/<span class="org-function-name">param-name</span>&gt;
-      &lt;<span class="org-function-name">param-value</span>&gt;classpath:spring-web.xml&lt;/<span class="org-function-name">param-value</span>&gt;
-    &lt;/<span class="org-function-name">init-param</span>&gt;
-  &lt;/<span class="org-function-name">servlet</span>&gt;
-  &lt;<span class="org-function-name">servlet-mapping</span>&gt;
-    &lt;<span class="org-function-name">servlet-name</span>&gt;app&lt;/<span class="org-function-name">servlet-name</span>&gt;
-    &lt;<span class="org-function-name">url-pattern</span>&gt;/&lt;/<span class="org-function-name">url-pattern</span>&gt;
-  &lt;/<span class="org-function-name">servlet-mapping</span>&gt;
-
+    <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#37197;&#32622; MVC &#23481;&#22120;</span><span class="org-comment-delimiter">--&gt;</span>
+    <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#23558;&#25152;&#26377;&#30340;&#35831;&#27714;&#65292;&#37117;&#20132;&#32473; Spring MVC &#22788;&#29702;</span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-function-name">servlet</span>&gt;
+        &lt;<span class="org-function-name">servlet-name</span>&gt;app&lt;/<span class="org-function-name">servlet-name</span>&gt;
+        &lt;<span class="org-function-name">servlet-class</span>&gt;org.springframework.web.servlet.DispatcherServlet&lt;/<span class="org-function-name">servlet-class</span>&gt;
+        &lt;<span class="org-function-name">init-param</span>&gt;
+            &lt;<span class="org-function-name">param-name</span>&gt;contextConfigLocation&lt;/<span class="org-function-name">param-name</span>&gt;
+            &lt;<span class="org-function-name">param-value</span>&gt;classpath:spring-web.xml&lt;/<span class="org-function-name">param-value</span>&gt;
+        &lt;/<span class="org-function-name">init-param</span>&gt;
+    &lt;/<span class="org-function-name">servlet</span>&gt;
+    &lt;<span class="org-function-name">servlet-mapping</span>&gt;
+        &lt;<span class="org-function-name">servlet-name</span>&gt;app&lt;/<span class="org-function-name">servlet-name</span>&gt;
+        &lt;<span class="org-function-name">url-pattern</span>&gt;/&lt;/<span class="org-function-name">url-pattern</span>&gt;
+    &lt;/<span class="org-function-name">servlet-mapping</span>&gt;
 &lt;/<span class="org-function-name">web-app</span>&gt;
 </pre>
 </div>
@@ -546,7 +546,7 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-26 周三 06:18</p>
+<p class="date">Created: 2018-09-26 周三 07:53</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
