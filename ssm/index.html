@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-26 周三 03:35 -->
+<!-- 2018-09-26 周三 03:45 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SSM 整合示例</title>
@@ -96,19 +96,7 @@ Maven 的配置文件是 pom.xml，想为项目添加依赖，只需要向 pom.x
     <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">spring &#25152;&#38656;&#35201;&#30340; jar &#21253;</span><span class="org-comment-delimiter">--&gt;</span>
     &lt;<span class="org-function-name">dependency</span>&gt;
       &lt;<span class="org-function-name">groupId</span>&gt;org.springframework&lt;/<span class="org-function-name">groupId</span>&gt;
-      &lt;<span class="org-function-name">artifactId</span>&gt;spring-web&lt;/<span class="org-function-name">artifactId</span>&gt;
-      &lt;<span class="org-function-name">version</span>&gt;5.1.0.RELEASE&lt;/<span class="org-function-name">version</span>&gt;
-    &lt;/<span class="org-function-name">dependency</span>&gt;
-
-    &lt;<span class="org-function-name">dependency</span>&gt;
-      &lt;<span class="org-function-name">groupId</span>&gt;org.springframework&lt;/<span class="org-function-name">groupId</span>&gt;
       &lt;<span class="org-function-name">artifactId</span>&gt;spring-aop&lt;/<span class="org-function-name">artifactId</span>&gt;
-      &lt;<span class="org-function-name">version</span>&gt;5.1.0.RELEASE&lt;/<span class="org-function-name">version</span>&gt;
-    &lt;/<span class="org-function-name">dependency</span>&gt;
-
-    &lt;<span class="org-function-name">dependency</span>&gt;
-      &lt;<span class="org-function-name">groupId</span>&gt;org.springframework&lt;/<span class="org-function-name">groupId</span>&gt;
-      &lt;<span class="org-function-name">artifactId</span>&gt;spring-jdbc&lt;/<span class="org-function-name">artifactId</span>&gt;
       &lt;<span class="org-function-name">version</span>&gt;5.1.0.RELEASE&lt;/<span class="org-function-name">version</span>&gt;
     &lt;/<span class="org-function-name">dependency</span>&gt;
 
@@ -119,12 +107,23 @@ Maven 的配置文件是 pom.xml，想为项目添加依赖，只需要向 pom.x
     &lt;/<span class="org-function-name">dependency</span>&gt;
 
     &lt;<span class="org-function-name">dependency</span>&gt;
+      &lt;<span class="org-function-name">groupId</span>&gt;org.springframework&lt;/<span class="org-function-name">groupId</span>&gt;
+      &lt;<span class="org-function-name">artifactId</span>&gt;spring-jdbc&lt;/<span class="org-function-name">artifactId</span>&gt;
+      &lt;<span class="org-function-name">version</span>&gt;5.1.0.RELEASE&lt;/<span class="org-function-name">version</span>&gt;
+    &lt;/<span class="org-function-name">dependency</span>&gt;
+
+    &lt;<span class="org-function-name">dependency</span>&gt;
       &lt;<span class="org-function-name">groupId</span>&gt;com.fasterxml.jackson.core&lt;/<span class="org-function-name">groupId</span>&gt;
       &lt;<span class="org-function-name">artifactId</span>&gt;jackson-databind&lt;/<span class="org-function-name">artifactId</span>&gt;
       &lt;<span class="org-function-name">version</span>&gt;2.9.7&lt;/<span class="org-function-name">version</span>&gt;
     &lt;/<span class="org-function-name">dependency</span>&gt;
 
     <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">spring mvc &#30340;&#20381;&#36182;</span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-function-name">dependency</span>&gt;
+      &lt;<span class="org-function-name">groupId</span>&gt;org.springframework&lt;/<span class="org-function-name">groupId</span>&gt;
+      &lt;<span class="org-function-name">artifactId</span>&gt;spring-web&lt;/<span class="org-function-name">artifactId</span>&gt;
+      &lt;<span class="org-function-name">version</span>&gt;5.1.0.RELEASE&lt;/<span class="org-function-name">version</span>&gt;
+    &lt;/<span class="org-function-name">dependency</span>&gt;
     &lt;<span class="org-function-name">dependency</span>&gt;
       &lt;<span class="org-function-name">groupId</span>&gt;org.springframework&lt;/<span class="org-function-name">groupId</span>&gt;
       &lt;<span class="org-function-name">artifactId</span>&gt;spring-webmvc&lt;/<span class="org-function-name">artifactId</span>&gt;
@@ -373,7 +372,7 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-26 周三 03:35</p>
+<p class="date">Created: 2018-09-26 周三 03:45</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

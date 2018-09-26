@@ -45,19 +45,7 @@ Maven 的配置文件是 pom.xml，想为项目添加依赖，只需要向 pom.x
       <!--spring 所需要的 jar 包-->
       <dependency>
         <groupId>org.springframework</groupId>
-        <artifactId>spring-web</artifactId>
-        <version>5.1.0.RELEASE</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.springframework</groupId>
         <artifactId>spring-aop</artifactId>
-        <version>5.1.0.RELEASE</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-jdbc</artifactId>
         <version>5.1.0.RELEASE</version>
       </dependency>
 
@@ -68,12 +56,23 @@ Maven 的配置文件是 pom.xml，想为项目添加依赖，只需要向 pom.x
       </dependency>
 
       <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>5.1.0.RELEASE</version>
+      </dependency>
+
+      <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
         <version>2.9.7</version>
       </dependency>
 
       <!--spring mvc 的依赖-->
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>5.1.0.RELEASE</version>
+      </dependency>
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-webmvc</artifactId>
