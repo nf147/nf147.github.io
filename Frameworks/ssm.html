@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-27 Thu 01:42 -->
+<!-- 2018-09-27 Thu 07:22 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SSM 整合示例</title>
@@ -224,7 +224,8 @@ spring-root.xml 示例:
        <span class="org-sgml-namespace">xmlns</span>:<span class="org-variable-name">xsi</span>=<span class="org-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
        <span class="org-sgml-namespace">xmlns</span>:<span class="org-variable-name">context</span>=<span class="org-string">"http://www.springframework.org/schema/context"</span>
        <span class="org-sgml-namespace">xmlns</span>:<span class="org-variable-name">aop</span>=<span class="org-string">"http://www.springframework.org/schema/aop"</span>
-       <span class="org-sgml-namespace">xsi</span>:<span class="org-variable-name">schemaLocation</span>=<span class="org-string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"</span>&gt;
+       <span class="org-sgml-namespace">xmlns</span>:<span class="org-variable-name">tx</span>=<span class="org-string">"http://www.springframework.org/schema/tx"</span>
+       <span class="org-sgml-namespace">xsi</span>:<span class="org-variable-name">schemaLocation</span>=<span class="org-string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"</span>&gt;
 
     <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">@Component/@Service/@Repository/@Controller</span><span class="org-comment-delimiter">--&gt;</span>
     &lt;<span class="org-sgml-namespace">context</span>:<span class="org-function-name">component-scan</span> <span class="org-variable-name">base-package</span>=<span class="org-string">"com.nf147.bookstore_ssm.service"</span> /&gt;
@@ -253,8 +254,10 @@ spring-root.xml 示例:
     &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"transactionManager"</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;
         &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"dataSource"</span> <span class="org-variable-name">ref</span>=<span class="org-string">"dataSource"</span> /&gt;
     &lt;/<span class="org-function-name">bean</span>&gt;
-    &lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">aspectj-autoproxy</span> <span class="org-variable-name">proxy-target-class</span>=<span class="org-string">"true"</span> /&gt;
+    &lt;<span class="org-sgml-namespace">tx</span>:<span class="org-function-name">annotation-driven</span> <span class="org-variable-name">proxy-target-class</span>=<span class="org-string">"true"</span> /&gt;
 
+    <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">AspectJ </span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">aspectj-autoproxy</span> <span class="org-variable-name">proxy-target-class</span>=<span class="org-string">"true"</span> /&gt;
 &lt;/<span class="org-function-name">beans</span>&gt;
 </pre>
 </div>
@@ -266,12 +269,12 @@ spring-web.xml 示例:
 <pre class="src src-sgml"><span class="org-string">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
 &lt;<span class="org-function-name">beans</span> <span class="org-variable-name">xmlns</span>=<span class="org-string">"http://www.springframework.org/schema/beans"</span>
        <span class="org-sgml-namespace">xmlns</span>:<span class="org-variable-name">xsi</span>=<span class="org-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
-       <span class="org-sgml-namespace">xmlns</span>:<span class="org-variable-name">contxt</span>=<span class="org-string">"http://www.springframework.org/schema/context"</span>
+       <span class="org-sgml-namespace">xmlns</span>:<span class="org-variable-name">context</span>=<span class="org-string">"http://www.springframework.org/schema/context"</span>
        <span class="org-sgml-namespace">xmlns</span>:<span class="org-variable-name">mvc</span>=<span class="org-string">"http://www.springframework.org/schema/mvc"</span>
        <span class="org-sgml-namespace">xsi</span>:<span class="org-variable-name">schemaLocation</span>=<span class="org-string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd"</span>&gt;
 
     <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#25195;&#25551;&#21253;&#19979;&#38754;&#25152;&#26377;&#30340; @Controller &#27880;&#35299;&#30340;&#31867;&#65292;&#24182;&#23558;&#20854;&#23454;&#20363;&#21270;&#65292;&#25918;&#20837;&#23481;&#22120;</span><span class="org-comment-delimiter">--&gt;</span>
-    &lt;<span class="org-sgml-namespace">contxt</span>:<span class="org-function-name">component-scan</span> <span class="org-variable-name">base-package</span>=<span class="org-string">"com.nf147.bookstore_ssm.web"</span> /&gt;
+    &lt;<span class="org-sgml-namespace">context</span>:<span class="org-function-name">component-scan</span> <span class="org-variable-name">base-package</span>=<span class="org-string">"com.nf147.bookstore_ssm.web"</span> /&gt;
 
     <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#21551;&#29992; mvc &#30340;&#24120;&#29992;&#27880;&#35299;</span><span class="org-comment-delimiter">--&gt;</span>
     &lt;<span class="org-sgml-namespace">mvc</span>:<span class="org-function-name">annotation-driven</span> /&gt;
@@ -582,7 +585,7 @@ log4j.properties，用来配置日志:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-27 Thu 01:42</p>
+<p class="date">Created: 2018-09-27 Thu 07:22</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
