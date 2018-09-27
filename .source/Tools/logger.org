@@ -14,10 +14,9 @@
 4. 输出的目的地比较单一，只能输出在控制台
 
 
+比如，要对日志的输出与否做控制，可以做简单的封装:
 #+BEGIN_SRC java
-
   public class LogUtil {
-
       private static boolean logSwitch = true;
     
       public static void log(String msg) {
@@ -30,7 +29,30 @@
   // Logutil.log("ksdjksdjfjk");
 #+END_SRC
 
+对于更复杂的情况，需要进一步封装。
+
+对于一个通用的日志空间，至少需要以下概念:
+- ~logger~，日志对象，使用它产生日志记录
+- ~level~，日志级别，用来控制日志的显示与否
+- ~formatter/render/layout~，日志格式，用来控制日志输出的格式、样式
+- ~handler/appender~，处理器，用来将日志输出到相应目的地（屏幕？文件？数据库？）
+
 * java.util.logging
+
+Java 自带的日志框架。
+
+基本使用:
+#+BEGIN_SRC java
+  public static Logger logger = LogManager.getLogger(A.class);
+
+  public void test() {
+      logger.info("A.info");
+      logger.warning("A.warning");
+      logger.severe("A.servere");
+      logger.fine("A.fine");
+  }
+#+END_SRC
+
 * Apache Common-Logging 接口
 * SLF4j 接口
 * Log4j

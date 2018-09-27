@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-27 Thu 01:30 -->
+<!-- 2018-09-27 Thu 07:18 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>日志框架</title>
@@ -51,10 +51,11 @@
 </ol>
 
 
+<p>
+比如，要对日志的输出与否做控制，可以做简单的封装:
+</p>
 <div class="org-src-container">
-<pre class="src src-java">
-<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">LogUtil</span> {
-
+<pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">LogUtil</span> {
     <span class="org-keyword">private</span> <span class="org-keyword">static</span> <span class="org-type">boolean</span> <span class="org-variable-name">logSwitch</span> = <span class="org-constant">true</span>;
 
     <span class="org-keyword">public</span> <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">log</span>(<span class="org-type">String</span> <span class="org-variable-name">msg</span>) {
@@ -67,12 +68,47 @@
 <span class="org-comment-delimiter">// </span><span class="org-comment">Logutil.log("ksdjksdjfjk");</span>
 </pre>
 </div>
+
+<p>
+对于更复杂的情况，需要进一步封装。
+</p>
+
+<p>
+对于一个通用的日志空间，至少需要以下概念:
+</p>
+<ul class="org-ul">
+<li><code>logger</code>，日志对象，使用它产生日志记录</li>
+<li><code>level</code>，日志级别，用来控制日志的显示与否</li>
+<li><code>formatter/render/layout</code>，日志格式，用来控制日志输出的格式、样式</li>
+<li><code>handler/appender</code>，处理器，用来将日志输出到相应目的地（屏幕？文件？数据库？）</li>
+</ul>
 </div>
 </section>
 
 <section id="outline-container-orge8d6bd7" class="outline-2">
 <h2 id="orge8d6bd7"><span class="section-number-2">2</span> java.util.logging</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+Java 自带的日志框架。
+</p>
+
+<p>
+基本使用:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">static</span> <span class="org-type">Logger</span> <span class="org-variable-name">logger</span> = LogManager.getLogger(A.<span class="org-keyword">class</span>);
+
+<span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">test</span>() {
+    logger.info(<span class="org-string">"A.info"</span>);
+    logger.warning(<span class="org-string">"A.warning"</span>);
+    logger.severe(<span class="org-string">"A.servere"</span>);
+    logger.fine(<span class="org-string">"A.fine"</span>);
+}
+</pre>
+</div>
+</div>
 </section>
+
 <section id="outline-container-orgd223970" class="outline-2">
 <h2 id="orgd223970"><span class="section-number-2">3</span> Apache Common-Logging 接口</h2>
 </section>
@@ -88,7 +124,7 @@
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-27 Thu 01:30</p>
+<p class="date">Created: 2018-09-27 Thu 07:18</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
