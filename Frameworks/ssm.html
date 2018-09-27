@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-27 Thu 01:27 -->
+<!-- 2018-09-27 Thu 01:42 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SSM 整合示例</title>
@@ -240,6 +240,7 @@ spring-root.xml 示例:
     <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#37197;&#32622; mybatis</span><span class="org-comment-delimiter">--&gt;</span>
     &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"sqlSessionFactory"</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.mybatis.spring.SqlSessionFactoryBean"</span>&gt;
         &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"dataSource"</span> <span class="org-variable-name">ref</span>=<span class="org-string">"dataSource"</span> /&gt;
+        &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"configLocation"</span> <span class="org-variable-name">value</span>=<span class="org-string">"classpath:mybatis.xml"</span> /&gt;
         &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"mapperLocations"</span> <span class="org-variable-name">value</span>=<span class="org-string">"classpath:mapper/*.xml"</span> /&gt;
     &lt;/<span class="org-function-name">bean</span>&gt;
 
@@ -581,7 +582,7 @@ log4j.properties，用来配置日志:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-27 Thu 01:27</p>
+<p class="date">Created: 2018-09-27 Thu 01:42</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
