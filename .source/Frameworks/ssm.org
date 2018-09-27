@@ -131,10 +131,24 @@ Maven 的配置文件是 pom.xml，想为项目添加依赖，只需要向 pom.x
 
 * 之后，增加配置文件
 
-基本只需要三个配置文件:
-- resources/spring-root.xml, spring 的核心配置文件，可以将 mybatis 配置在里面
+基本只需要下面几个配置文件:
+- resources/mybatis.xml, mybatis 的核心配置文件
+- resources/spring-root.xml, spring 的核心配置文件
 - resources/spring-web.xml, spring mvc 的配置文件，可以配置 springmvc 相关的东西
 - web.xml, 因为是 web 项目，必须要配置 web.xml，让服务器启动的时候加载 spring 和 spring mvc
+- log4j.properties，用来定义日志输出
+
+mybatis.xml:
+#+BEGIN_SRC sgml
+  <?xml version="1.0" encoding="UTF-8" ?>
+  <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+  <configuration>
+      <settings>
+          <setting name="logImpl" value="LOG4J"/>
+      </settings>
+  </configuration>
+#+END_SRC
 
 spring-root.xml 示例:
 #+BEGIN_SRC sgml
@@ -239,10 +253,25 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
   </web-app>
 #+END_SRC
 
+log4j.properties，用来配置日志:
+#+BEGIN_SRC conf
+  # 全局配置: 只显示错误级别的日志，输出为名字为 stdou 的日志
+  log4j.rootLogger=ERROR, stdout
+
+  # MyBatis 的日志配置，只输出 com.nf147.bookstore_ssm.dao 包下产生 INFO 以及以上级别的日志
+  log4j.logger.com.nf147.bookstore_ssm.dao=INFO
+
+  # 定义名字为 stdout 的日志，将日志输出到控制台
+  log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+  log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+  log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n
+#+END_SRC
+
 然后，创建相关的目录结构，如图:
 
-#+DOWNLOADED: c:/Users/nf147/AppData/Local/Temp/clip.png @ 2018-09-25 03:40:36
-[[file:img/clip_2018-09-25_03-40-36.png]]
+
+#+DOWNLOADED: c:/Users/nf147/AppData/Local/Temp/clip.png @ 2018-09-27 01:24:07
+[[file:img/clip_2018-09-27_01-24-07.png]]
 
 * 然后就可以创建服务器，启动之了
 

@@ -1,0 +1,37 @@
+#+TITLE: 日志框架
+
+
+
+
+* 背景
+
+为了记录程序的运行信息，传统的方式，是使用 ~System.out.println~。
+
+但是这种方式，虽然简单，却有很多缺点:
+1. 无法对日志的输出，做有效的控制
+2. 效率不够高
+3. 功能不够强，比如无法对日志进行自动格式化输出
+4. 输出的目的地比较单一，只能输出在控制台
+
+
+#+BEGIN_SRC java
+
+  public class LogUtil {
+
+      private boolean logSwitch = true;
+    
+      public static void log(String msg) {
+          if (logSwitch) {
+              System.out.println(msg);
+          }
+      }
+  }
+
+  // Logutil.log("ksdjksdjfjk");
+#+END_SRC
+
+* java.util.logging
+* Apache Common-Logging 接口
+* SLF4j 接口
+* Log4j
+* Logback
