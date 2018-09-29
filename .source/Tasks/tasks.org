@@ -22,7 +22,7 @@
 #+END_QUOTE
 
 使用 TDD 的方式，实现一个 StringUtil 类，至少包括以下方法:
-- rotate, rot13加密解密
+- rotate, rot13加密解密。比如 StringUtil 加密后的结果为 FgevatHgvy，Hello 加密的结果为 Uryyb。
 - reverse, 翻转一个字符串
 - isEmpty, 检查一个字符串是否为空(包括 null 的判断)
 
