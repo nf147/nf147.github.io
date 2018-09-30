@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-30 周日 06:25 -->
+<!-- 2018-09-30 周日 06:36 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Test/JUnit</title>
@@ -22,6 +22,7 @@
 <ul>
 <li><a href="#org464878a">1. 单元测试</a></li>
 <li><a href="#orge89edab">2. JUnit 基本使用</a></li>
+<li><a href="#orgc5e4687">3. JUnit 高级</a></li>
 </ul>
 </div>
 </nav>
@@ -127,10 +128,72 @@
 </div>
 </div>
 </section>
+
+<section id="outline-container-orgc5e4687" class="outline-2">
+<h2 id="orgc5e4687"><span class="section-number-2">3</span> JUnit 高级</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+JUnit 提供了两种对功能进行扩展的手段:
+</p>
+<ol class="org-ol">
+<li>Rules</li>
+<li>Runners</li>
+</ol>
+
+<p>
+Runners 表示测试的方式:
+</p>
+<ol class="org-ol">
+<li>如果只是测试当前类中所有的方法，那么将采取 BlockJunit4ClassRunner 的 Runner 进行测试。<b>这是默认的 Runner，不需要配置即可使用</b>。</li>
+<li>如果想批量测试某一些类，那么可以采取名为 Suite 的 Runner 进行测试</li>
+<li>另外，JUnit 还内置了名为 Parameterize 和 Categories 的 Runner</li>
+<li>当然，我们也可以很方便实现自己的 Runner，从而指定自己的测试方案</li>
+</ol>
+
+<p>
+可以通过注解 <code>@RunWith</code> 配置要使用的 Runner，比如:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@RunWith</span>(Suite.<span class="org-keyword">class</span>)
+@<span class="org-constant">Suite</span>.SuiteClasses({
+     ATest.<span class="org-keyword">class</span>,
+     BTest.<span class="org-keyword">class</span>,
+     CTest.<span class="org-keyword">class</span>
+})
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> BatchTest {
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&#22914;&#26524;&#20351;&#29992; Suite Runner</span>
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&#37027;&#20040;&#20250;&#25209;&#37327;&#25191;&#34892;&#30456;&#20851;&#30340;&#27979;&#35797;&#31867;</span>
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&#20351;&#29992; Suiteclasses &#25351;&#23450;&#35201;&#25209;&#37327;&#27979;&#35797;&#30340;&#31867;&#21363;&#21487;&#12290;</span>
+
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&#26412;&#31867;&#65292;&#19981;&#38656;&#35201;&#20889;&#20219;&#20309;&#19996;&#35199;&#65292;&#30041;&#31354;&#21363;&#21487;&#12290;</span>
+}
+</pre>
+</div>
+
+<p>
+Spring 提供了单独的 jar 包，Spring-Test.jar，它实现了一个单独的 Runner，叫 SpringRunner，为 Spring 程序制定了单独的测试策略:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@RunWith</span>(SpringRunner.<span class="org-keyword">class</span>)
+<span class="org-c-annotation">@ContextConfiguration</span>(locations = <span class="org-string">"claspath:spring-root.xml"</span>)
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">SpringXXXTest</span> {
+
+    <span class="org-c-annotation">@Autowired</span>
+    <span class="org-type">BookService</span> <span class="org-variable-name">bookService</span>;
+
+    <span class="org-c-annotation">@Test</span>
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">testGetById</span>() {
+        System.out.println(bookService.getById(2));
+    }
+}
+</pre>
+</div>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-30 周日 06:25</p>
+<p class="date">Created: 2018-09-30 周日 06:36</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

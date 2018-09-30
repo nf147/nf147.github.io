@@ -86,4 +86,48 @@
   }
 #+END_SRC
 
+* JUnit 高级
 
+JUnit 提供了两种对功能进行扩展的手段:
+1. Rules
+2. Runners
+
+Runners 表示测试的方式:
+1. 如果只是测试当前类中所有的方法，那么将采取 BlockJunit4ClassRunner 的 Runner 进行测试。*这是默认的 Runner，不需要配置即可使用*。
+2. 如果想批量测试某一些类，那么可以采取名为 Suite 的 Runner 进行测试
+3. 另外，JUnit 还内置了名为 Parameterize 和 Categories 的 Runner
+4. 当然，我们也可以很方便实现自己的 Runner，从而指定自己的测试方案
+
+可以通过注解 ~@RunWith~ 配置要使用的 Runner，比如:
+#+BEGIN_SRC java
+  @RunWith(Suite.class)
+  @Suite.SuiteClasses({
+       ATest.class,
+       BTest.class,
+       CTest.class
+  })
+  public class BatchTest {
+      // 如果使用 Suite Runner
+      // 那么会批量执行相关的测试类
+      // 使用 Suiteclasses 指定要批量测试的类即可。
+    
+      // 本类，不需要写任何东西，留空即可。
+  }
+#+END_SRC
+
+Spring 提供了单独的 jar 包，Spring-Test.jar，它实现了一个单独的 Runner，叫 SpringRunner，
+为 Spring 程序制定了单独的测试策略:
+#+BEGIN_SRC java
+  @RunWith(SpringRunner.class)
+  @ContextConfiguration(locations = "claspath:spring-root.xml")
+  public class SpringXXXTest {
+
+      @Autowired
+      BookService bookService;
+
+      @Test
+      public void testGetById() {
+          System.out.println(bookService.getById(2));
+      }
+  }
+#+END_SRC
