@@ -115,8 +115,17 @@ Runners 表示测试的方式:
   }
 #+END_SRC
 
-Spring 提供了单独的 jar 包，Spring-Test.jar，它实现了一个单独的 Runner，叫 SpringRunner，
-为 Spring 程序制定了单独的测试策略:
+Spring 提供了单独的 jar 包，Spring-Test.jar:
+#+BEGIN_SRC sgml
+  <dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-test</artifactId>
+    <version>5.1.0.RELEASE</version>
+    <scope>test</scope>
+  </dependency>
+#+END_SRC
+
+SpringTest 实现了一个 Runner 叫 SpringRunner，可以针对 Spring 项目，简化测试:
 #+BEGIN_SRC java
   @RunWith(SpringRunner.class)
   @ContextConfiguration(locations = "claspath:spring-root.xml")

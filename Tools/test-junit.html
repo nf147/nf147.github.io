@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-30 周日 06:36 -->
+<!-- 2018-09-30 周日 06:38 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Test/JUnit</title>
@@ -171,7 +171,20 @@ Runners 表示测试的方式:
 </div>
 
 <p>
-Spring 提供了单独的 jar 包，Spring-Test.jar，它实现了一个单独的 Runner，叫 SpringRunner，为 Spring 程序制定了单独的测试策略:
+Spring 提供了单独的 jar 包，Spring-Test.jar:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">dependency</span>&gt;
+  &lt;<span class="org-function-name">groupId</span>&gt;org.springframework&lt;/<span class="org-function-name">groupId</span>&gt;
+  &lt;<span class="org-function-name">artifactId</span>&gt;spring-test&lt;/<span class="org-function-name">artifactId</span>&gt;
+  &lt;<span class="org-function-name">version</span>&gt;5.1.0.RELEASE&lt;/<span class="org-function-name">version</span>&gt;
+  &lt;<span class="org-function-name">scope</span>&gt;test&lt;/<span class="org-function-name">scope</span>&gt;
+&lt;/<span class="org-function-name">dependency</span>&gt;
+</pre>
+</div>
+
+<p>
+SpringTest 实现了一个 Runner 叫 SpringRunner，可以针对 Spring 项目，简化测试:
 </p>
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-c-annotation">@RunWith</span>(SpringRunner.<span class="org-keyword">class</span>)
@@ -193,7 +206,7 @@ Spring 提供了单独的 jar 包，Spring-Test.jar，它实现了一个单独�
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-30 周日 06:36</p>
+<p class="date">Created: 2018-09-30 周日 06:38</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
