@@ -11,4 +11,79 @@
 - 简述 JUnit 与 TestNG 区别
 - 什么是 TDD？它有哪些优点与缺点？
 
+* JUnit 基本使用
+
+首先，在项目中添加相关依赖:
+#+BEGIN_SRC sgml
+  <!-- 一般情况下，使用的是 JUnit4 -->
+  <!-- 注意，在 Maven 项目中，jar 包的 scope 设置为 test -->
+  <!--那么这些 jar 包将只会在测试的时候生效，并不会最终打包到 tomcat 服务器上 -->
+  <dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+    <version>4.12</version>
+    <scope>test</scope>
+  </dependency>
+#+END_SRC
+
+然后就可以使用了。基本的示例如下:
+#+BEGIN_SRC java
+  public class DemoTest {
+      // 如果需要输出日志信息的地方，尽量使用 logger，避免 System.out
+      static Logger logger = Logger.getLogger(DemoTest.class);
+
+      @BeforeClass
+      public static void setUp () {
+          logger.debug("@BeforeClass 注解的方法，会在测试类创建后首先被执行。它只会被执行一次。");
+          logger.debug("它经常用来对全局对象进行初始化，或者进行资源的加载等。");
+      }
+
+      @AfterClass
+      public static void tearDown() {
+          logger.debug("@AfterClass 用在所有测试都执行完之后");
+          logger.debug("它经常用来收拾残局。比如，释放数据库连接等");
+      }
+
+      @Before
+      public void everySetup() {
+          logger.debug("@Before 或 @After 会在每一个测试方法运行前后都会执行一次。");
+          logger.debug("它经常用来对属性进行赋值，初始化对象状态等");
+      }
+
+      @Test
+      public void first() {
+          logger.debug("@Test 标注的方法，就是要进行单元测试的方法。如果没被标志，那么将不会被自动测试。");
+
+          assert aaa == bbb;       // 通用的 assert 方法，用来对预期结果进行“断言”。测试通过的标志是，所有断言都是对的，即返回 true
+          Assert.assertTrue(aaa);  // 等同于 assert aaa == true; 在 Assert 类中，提供了很多类似的方法，用来简化断言语法
+
+          // Assert.assertEquals()
+          // Assert.assertFalse()
+          // Assert.assertNull()
+          // Assert.assertSame()
+          // Assert.assertThat()
+
+          // assertThat 非常灵活，可以结合 hamcrest.jar 一起使用，进行灵活匹配
+          import static  org.hamcrest.CoreMatchers.*;
+
+          assertThat(aaa, both(containsString("a")).and(containsString("b")));
+          assertThat(lst, hasItems("one", "three"));
+          assertThat(aaa, anyOf(equalTo("good"), startWith("good")));
+      }
+
+
+      @Test(timeout = 1000,                // 设置超时时间
+            expected = SqlException.class) // 预期测试方法会抛出这个异常
+      public void second() {
+          logger.debug("可以为 @Test 提供不同的参数");
+      }
+
+      @Test
+      @Ignore("理由")
+      public void third() {
+          logger.debug("@Ignore 用来将当前测试忽略掉");
+      }
+  }
+#+END_SRC
+
 

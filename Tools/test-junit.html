@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-09-30 周日 06:03 -->
+<!-- 2018-09-30 周日 06:25 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Test/JUnit</title>
@@ -21,6 +21,7 @@
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#org464878a">1. 单元测试</a></li>
+<li><a href="#orge89edab">2. JUnit 基本使用</a></li>
 </ul>
 </div>
 </nav>
@@ -42,10 +43,94 @@
 </ul>
 </div>
 </section>
+
+<section id="outline-container-orge89edab" class="outline-2">
+<h2 id="orge89edab"><span class="section-number-2">2</span> JUnit 基本使用</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+首先，在项目中添加相关依赖:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml"><span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#19968;&#33324;&#24773;&#20917;&#19979;&#65292;&#20351;&#29992;&#30340;&#26159; JUnit4 </span><span class="org-comment-delimiter">--&gt;</span>
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#27880;&#24847;&#65292;&#22312; Maven &#39033;&#30446;&#20013;&#65292;jar &#21253;&#30340; scope &#35774;&#32622;&#20026; test </span><span class="org-comment-delimiter">--&gt;</span>
+<span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#37027;&#20040;&#36825;&#20123; jar &#21253;&#23558;&#21482;&#20250;&#22312;&#27979;&#35797;&#30340;&#26102;&#20505;&#29983;&#25928;&#65292;&#24182;&#19981;&#20250;&#26368;&#32456;&#25171;&#21253;&#21040; tomcat &#26381;&#21153;&#22120;&#19978; </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">dependency</span>&gt;
+  &lt;<span class="org-function-name">groupId</span>&gt;junit&lt;/<span class="org-function-name">groupId</span>&gt;
+  &lt;<span class="org-function-name">artifactId</span>&gt;junit&lt;/<span class="org-function-name">artifactId</span>&gt;
+  &lt;<span class="org-function-name">version</span>&gt;4.12&lt;/<span class="org-function-name">version</span>&gt;
+  &lt;<span class="org-function-name">scope</span>&gt;test&lt;/<span class="org-function-name">scope</span>&gt;
+&lt;/<span class="org-function-name">dependency</span>&gt;
+</pre>
+</div>
+
+<p>
+然后就可以使用了。基本的示例如下:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">DemoTest</span> {
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&#22914;&#26524;&#38656;&#35201;&#36755;&#20986;&#26085;&#24535;&#20449;&#24687;&#30340;&#22320;&#26041;&#65292;&#23613;&#37327;&#20351;&#29992; logger&#65292;&#36991;&#20813; System.out</span>
+    <span class="org-keyword">static</span> <span class="org-type">Logger</span> <span class="org-variable-name">logger</span> = Logger.getLogger(DemoTest.<span class="org-keyword">class</span>);
+
+    <span class="org-c-annotation">@BeforeClass</span>
+    <span class="org-keyword">public</span> <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">setUp</span> () {
+        logger.debug(<span class="org-string">"@BeforeClass &#27880;&#35299;&#30340;&#26041;&#27861;&#65292;&#20250;&#22312;&#27979;&#35797;&#31867;&#21019;&#24314;&#21518;&#39318;&#20808;&#34987;&#25191;&#34892;&#12290;&#23427;&#21482;&#20250;&#34987;&#25191;&#34892;&#19968;&#27425;&#12290;"</span>);
+        logger.debug(<span class="org-string">"&#23427;&#32463;&#24120;&#29992;&#26469;&#23545;&#20840;&#23616;&#23545;&#35937;&#36827;&#34892;&#21021;&#22987;&#21270;&#65292;&#25110;&#32773;&#36827;&#34892;&#36164;&#28304;&#30340;&#21152;&#36733;&#31561;&#12290;"</span>);
+    }
+
+    <span class="org-c-annotation">@AfterClass</span>
+    <span class="org-keyword">public</span> <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">tearDown</span>() {
+        logger.debug(<span class="org-string">"@AfterClass &#29992;&#22312;&#25152;&#26377;&#27979;&#35797;&#37117;&#25191;&#34892;&#23436;&#20043;&#21518;"</span>);
+        logger.debug(<span class="org-string">"&#23427;&#32463;&#24120;&#29992;&#26469;&#25910;&#25342;&#27531;&#23616;&#12290;&#27604;&#22914;&#65292;&#37322;&#25918;&#25968;&#25454;&#24211;&#36830;&#25509;&#31561;"</span>);
+    }
+
+    <span class="org-c-annotation">@Before</span>
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">everySetup</span>() {
+        logger.debug(<span class="org-string">"@Before &#25110; @After &#20250;&#22312;&#27599;&#19968;&#20010;&#27979;&#35797;&#26041;&#27861;&#36816;&#34892;&#21069;&#21518;&#37117;&#20250;&#25191;&#34892;&#19968;&#27425;&#12290;"</span>);
+        logger.debug(<span class="org-string">"&#23427;&#32463;&#24120;&#29992;&#26469;&#23545;&#23646;&#24615;&#36827;&#34892;&#36171;&#20540;&#65292;&#21021;&#22987;&#21270;&#23545;&#35937;&#29366;&#24577;&#31561;"</span>);
+    }
+
+    <span class="org-c-annotation">@Test</span>
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">first</span>() {
+        logger.debug(<span class="org-string">"@Test &#26631;&#27880;&#30340;&#26041;&#27861;&#65292;&#23601;&#26159;&#35201;&#36827;&#34892;&#21333;&#20803;&#27979;&#35797;&#30340;&#26041;&#27861;&#12290;&#22914;&#26524;&#27809;&#34987;&#26631;&#24535;&#65292;&#37027;&#20040;&#23558;&#19981;&#20250;&#34987;&#33258;&#21160;&#27979;&#35797;&#12290;"</span>);
+
+        <span class="org-type">assert</span> <span class="org-variable-name">aaa</span> == bbb;       <span class="org-comment-delimiter">// </span><span class="org-comment">&#36890;&#29992;&#30340; assert &#26041;&#27861;&#65292;&#29992;&#26469;&#23545;&#39044;&#26399;&#32467;&#26524;&#36827;&#34892;&#8220;&#26029;&#35328;&#8221;&#12290;&#27979;&#35797;&#36890;&#36807;&#30340;&#26631;&#24535;&#26159;&#65292;&#25152;&#26377;&#26029;&#35328;&#37117;&#26159;&#23545;&#30340;&#65292;&#21363;&#36820;&#22238; true</span>
+        Assert.assertTrue(aaa);  <span class="org-comment-delimiter">// </span><span class="org-comment">&#31561;&#21516;&#20110; assert aaa == true; &#22312; Assert &#31867;&#20013;&#65292;&#25552;&#20379;&#20102;&#24456;&#22810;&#31867;&#20284;&#30340;&#26041;&#27861;&#65292;&#29992;&#26469;&#31616;&#21270;&#26029;&#35328;&#35821;&#27861;</span>
+
+        <span class="org-comment-delimiter">// </span><span class="org-comment">Assert.assertEquals()</span>
+        <span class="org-comment-delimiter">// </span><span class="org-comment">Assert.assertFalse()</span>
+        <span class="org-comment-delimiter">// </span><span class="org-comment">Assert.assertNull()</span>
+        <span class="org-comment-delimiter">// </span><span class="org-comment">Assert.assertSame()</span>
+        <span class="org-comment-delimiter">// </span><span class="org-comment">Assert.assertThat()</span>
+
+        <span class="org-comment-delimiter">// </span><span class="org-comment">assertThat &#38750;&#24120;&#28789;&#27963;&#65292;&#21487;&#20197;&#32467;&#21512; hamcrest.jar &#19968;&#36215;&#20351;&#29992;&#65292;&#36827;&#34892;&#28789;&#27963;&#21305;&#37197;</span>
+        <span class="org-keyword">import</span> <span class="org-keyword">static</span>  <span class="org-constant">org</span>.<span class="org-constant">hamcrest</span>.<span class="org-constant">CoreMatchers</span>.*;
+
+        assertThat(aaa, both(containsString(<span class="org-string">"a"</span>)).and(containsString(<span class="org-string">"b"</span>)));
+        assertThat(lst, hasItems(<span class="org-string">"one"</span>, <span class="org-string">"three"</span>));
+        assertThat(aaa, anyOf(equalTo(<span class="org-string">"good"</span>), startWith(<span class="org-string">"good"</span>)));
+    }
+
+
+    <span class="org-c-annotation">@Test</span>(timeout = 1000,                <span class="org-comment-delimiter">// </span><span class="org-comment">&#35774;&#32622;&#36229;&#26102;&#26102;&#38388;</span>
+          expected = SqlException.<span class="org-keyword">class</span>) <span class="org-comment-delimiter">// </span><span class="org-comment">&#39044;&#26399;&#27979;&#35797;&#26041;&#27861;&#20250;&#25243;&#20986;&#36825;&#20010;&#24322;&#24120;</span>
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">second</span>() {
+        logger.debug(<span class="org-string">"&#21487;&#20197;&#20026; @Test &#25552;&#20379;&#19981;&#21516;&#30340;&#21442;&#25968;"</span>);
+    }
+
+    <span class="org-c-annotation">@Test</span>
+    <span class="org-c-annotation">@Ignore</span>(<span class="org-string">"&#29702;&#30001;"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">third</span>() {
+        logger.debug(<span class="org-string">"@Ignore &#29992;&#26469;&#23558;&#24403;&#21069;&#27979;&#35797;&#24573;&#30053;&#25481;"</span>);
+    }
+}
+</pre>
+</div>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-09-30 周日 06:03</p>
+<p class="date">Created: 2018-09-30 周日 06:25</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
