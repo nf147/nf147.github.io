@@ -1,0 +1,40 @@
+#+TITLE: Maven
+
+
+
+* 生命周期(Lifecycle)
+
+包括以下三种
+1. default，默认，用于构建项目:
+2. clean，用于清理
+3. site，用于搭建网站
+
+default 是默认的声明周期(~Lifecycle~)，它包括很多步骤(~Phase~)，主要的有:
+| Order | Phase    | 默认绑定的 Plugin:Goal                                       |
+|-------+----------+--------------------------------------------------------------|
+|     1 | validate | 空                                                           |
+|     2 | compile  | resources:resources, compiler:compile                        |
+|     3 | test     | resources:testResources, compiler:testCompile, surefire:test |
+|     4 | package  | maven-war-plugin:3.2.0:war                                   |
+|     5 | verify   | 空                                                           |
+|     6 | install  | maven-install-plugin:2.5.2:install                           |
+|     7 | deploy   | maven-deploy-plugin:2.8.2:deploy                             |
+
+它的调用方式为:
+#+BEGIN_SRC sh
+  mvn install   # 将会依次调用 1-6 的 Phase，即执行每个 Phase 所绑定的 Goal
+  mvn compile   # 如果只想编译，并不想测试、打包、安装，那么只需要执行到 compile 即可
+#+END_SRC
+
+另外，clean 用于清理，包括以下 phase:
+- pre-clean
+- clean
+- post-clean
+
+site 生命周期的 phase 有:
+- pre-site
+- site
+- post-site
+- site-deploy
+
+
