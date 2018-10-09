@@ -1,0 +1,107 @@
+#+TITLE: Annotation(注解)
+
+
+
+
+* 注解的定义
+** 创建
+
+#+BEGIN_SRC java
+  @Target({ElementType.Type})
+  @Retention(RetentionPolicy.RUNTIME)
+  public @interface Fruit {
+      String value() default "";
+      String name() default "noname";
+      float price() default 0;
+  }
+
+  // 1. 创建的语法跟接口非常像
+  // 2. 可以通过 default 语句给与默认值
+#+END_SRC
+
+** @Target
+
+目标。
+
+表示这个注解可以放到哪些元素上面。如果不设定，那么注解可以放置到任何元素上。
+
+可以有很多选项，比如:
+- ElementType.TYPE，可以放到类、接口、枚举类上面
+- ElementType.METHOD，可以放到方法上面
+- ElementType.PARAMETER，可以放到参数上面
+
+更多，请查看 ElementType 的源码。
+
+** @Retention
+
+保留。
+
+有三种策略:
+- RetentionPolicy.SOURCE
+- RetentionPolicy.CLASS [默认]
+- RetentionPolicy.RUNTIME
+
+添加的注解会被保留到什么步骤。
+
+一个 Xxx.java 从产生到执行，会经历这样的步骤
+: Xxx.java --javac--> Xxx.class --java--> 机器码执行
+
+执行 javac 的过程，叫编译时(Compile)；
+
+执行 java 的过程，叫运行时(Runtime)；
+
+如果 @Retention 策略设置为:
+- SOURCE，那么在 javac 阶段注解会有效，编译之后注解将会被抛弃
+- CLASS，那么注解将会被编译到 class 文件中，但它不能在运行时通过反射获取
+- RUNTIME，那么注解将会被编译到 class 文件中，并能在运行时通过反射获取
+
+** @Documented
+
+表示是否允许 javadoc 或相关工具为这个注解生成文档
+
+** @Inherited
+
+表示注解是否可以被子类继承。
+
+
+
+* 注解的使用
+
+首先，在需要的地方，添加注解:
+#+BEGIN_SRC java
+  @Fruit(name = "apple", price = 33)
+  public class Apple {
+      // ...
+  }
+#+END_SRC
+
+三个重要的方法:
+- isAnnotationPresent()
+- getAnnotation()
+- getAnnotations()
+
+使用示例:
+#+BEGIN_SRC java
+  // 获取 Apple 的类对象
+  Class aClass = Apple.class;
+
+  if (aClass.isAnnotationPresent(Fruit.class)) {      // 判断 Apple 上面是否标注了 Fruit 注解
+      Fruit anno = aClass.getAnnotation(Fruit.class); // 通过反射的方式，获取 Apple 上面的 Fruit 注解的实例
+
+      String name = anno.name(); // 可以像调用普通方法一样调用，从而获取参数
+      float price = anno.price();
+
+      System.out.println(name + "的价格为" + price);
+  }
+
+#+END_SRC
+
+* 相关概念
+* JDK 内置注解
+
+- @Override, 重载
+- @SuppressWarnings, 抑制警告信息
+- @Deprecated, 标注方法已过时，那么在编译的时候，编译器会发出相关警告
+- @SafeVarargs
+- @FunctionInterface
+
