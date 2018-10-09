@@ -4,11 +4,23 @@
 
 
 
-
-* 2018年09月29日
+* 2018年10月09日
 :PROPERTIES:
 :CUSTOM_ID: active
 :END:
+
+- 复习今天所学内容
+- 预习 Maven，了解 Maven 中的基本概念，以及运行原理
+- 尝试使用 Maven 重构 bookstore 项目
+
+* 2018年10月08日
+
+- 使用 xml 的方式构建 BeanFactory
+- 使用 Annotation 的方式构建 BeanFactory
+- 完成项目单例模式的改造(静态内部类)
+- 了解 Spring 的基本实现原理
+
+* 2018年09月29日
 
 
 写一个方法，实现算法:
