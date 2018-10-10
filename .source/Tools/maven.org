@@ -181,7 +181,11 @@ https://maven.apache.org/pom.html#What_is_the_POM
     <pluginRepositories>...</pluginRepositories>
     <profiles>...</profiles>
   </project>
-  3.2 Build Configuration
+#+END_SRC
+
+** Build Configuration
+
+#+BEGIN_SRC sgml
   <build>
     <finalName>xxx</finalName>
 
