@@ -4,7 +4,57 @@
 
 * 安装与使用
 
+修改镜像源，增加 jar 包下载速度，比如使用阿里云的源，settings.xml:
+#+BEGIN_SRC sgml
+  <mirrors>
+    <mirror>
+      <id>alimaven</id>
+      <name>aliyun maven</name>
+      <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+      <mirrorOf>central</mirrorOf>        
+    </mirror>
+  </mirrors>
+#+END_SRC
 
+使用 archetype(原型) 插件，生成项目:
+#+BEGIN_SRC sh
+  mvn -h
+
+  mvn archetype:generate  # interactive
+
+  mvn -B archetype:generate
+    -DarchetypeGroupId=org.apache.maven.archetypes \
+    -DarchetypeArtifactId=maven-archetype-webapp \
+    -DgroupId=com.mycompany.app \
+    -DartifactId=my-app   # new project one line
+#+END_SRC
+
+执行命令示例:
+#+BEGIN_SRC sh
+  # run task with lifecycle's phase
+  mvn install
+  mvn clean
+  mvn clean install
+  mvn clean install -U   # force refresh
+
+  # run task with goal directly
+  mvn default:install
+  mvn archetype:help
+#+END_SRC
+
+依赖相关命令:
+#+BEGIN_SRC sh
+  mvn dependency:help
+
+  mvn dependency:list
+  mvn dependency:tree
+
+  mvn dependency:copy
+  mvn dependency:copy-dependencies
+  mvn dependency:copy-dependencies -DoutputDirectory=/tmp/xxx -DincludeScope=compile
+
+  # 坐标(coordinate): 'groupId:artifactId:version'
+#+END_SRC
 
 * 生命周期(Lifecycle)
 
@@ -43,8 +93,212 @@ site 生命周期的 phase 有:
 
 
 * POM 参考
+
+https://maven.apache.org/pom.html#What_is_the_POM
+
+** POM(Project Object Model) 示例
+
+#+BEGIN_SRC sgml
+  <project xmlns="http://maven.apache.org/POM/4.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- The Basics -->
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>my-project</artifactId>
+    <version>1.0</version>
+    <packaging>jar/war</packaging>
+
+    <parent>...</parent>
+    <dependencyManagement>...</dependencyManagement>
+
+    <!-- Project Settings -->
+    <modules>
+      <module>xxx</module>
+      <module>yyy</module>
+    </modules>
+
+    <properties>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <maven.compiler.source>1.8</maven.compiler.source>
+      <maven.compiler.target>1.8</maven.compiler.target>
+      <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+      <xxx.version>1.22222</xxx.version>
+    </properties>
+
+    <dependencies>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12 | [1.0] | (,1.2] | (,1.0],[1.2,) | LATEST | ${xxx.version}</version>
+        <type>jar</type>
+        <scope>compile/provided/runtime/test/system</scope>
+        <optional>true</optional>
+        <exclusions>
+          <exclusion>
+            <groupId>tgroupid</groupId>
+            <artifactId>af</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+    </dependencies>
+
+    <!-- Build Settings -->
+    <build>...</build>
+    <reporting>...</reporting>
+
+    <!-- More Project Information -->
+    <name>...</name>
+    <description>...</description>
+    <url>...</url>
+    <inceptionYear>...</inceptionYear>
+    <licenses>...</licenses>
+    <organization>...</organization>
+    <developers>...</developers>
+    <contributors>...</contributors>
+
+    <!-- Environment Settings -->
+    <repositories>
+      <repository>
+        <id>springsource-repo</id>
+        <name>SpringSource Repository</name>
+        <url>http://repo.springsource.org/release</url>
+      </repository>
+    </repositories>
+    <distributionManagement>
+      <repository>
+        <id>mycompany-repository</id>
+        <name>MyCompany Repository</name>
+        <url>scp://repository.mycompany.com/repository/maven2</url>
+      </repository>
+    </distributionManagement>
+    <issueManagement>...</issueManagement>
+    <ciManagement>...</ciManagement>
+    <mailingLists>...</mailingLists>
+    <scm>...</scm>
+    <prerequisites>...</prerequisites>
+    <pluginRepositories>...</pluginRepositories>
+    <profiles>...</profiles>
+  </project>
+  3.2 Build Configuration
+  <build>
+    <finalName>xxx</finalName>
+
+    <filters>
+      <filter>src/main/filters/filter.properties</filter>
+    </filters>
+
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.3</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+#+END_SRC
+
+** 插件配置示例
+
+插件分为两类:
+- build plugin
+- reporting plugin
+
+配置示例:
+#+BEGIN_SRC sgml
+  <plugins>
+    <plugin>
+      <artifactId>maven-myquery-plugin</artifactId>
+      <version>1.0</version>
+
+      <configuration>
+        <!-- 配置参数 -->
+      </configuration>
+
+      <dependencies>
+        <!-- 配置依赖 -->
+      </dependencies>
+
+      <executions>
+        <!-- 参与 lifecycle -->
+        <execution>
+          <id>execution1</id>
+          <phase>test</phase>
+          <goals>
+            <goal>query</goal>
+          </goals>
+          <configuration>
+            <url>http://www.foo.com/query</url>
+            <timeout>10</timeout>
+            <options><option>one</option><option>two</option><option>three</option></options>
+          </configuration>
+        </execution>
+
+        <execution>
+          <id>execution2</id>
+          <goals><goal>query</goal></goals>
+        </execution>
+
+      </executions>
+    </plugin>
+
+    <plugin>
+      <artifactId>maven-antrun-plugin</artifactId>
+      <version>1.1</version>
+      <executions>
+        <execution>
+          <id>echodir</id>
+          <goals>
+            <goal>run</goal>
+          </goals>
+          <phase>verify</phase>
+          <inherited>false</inherited>
+          <configuration>
+            <tasks>
+              <echo>Build Dir: ${project.build.directory}</echo>
+            </tasks>
+          </configuration>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+#+END_SRC
+
 * 插件
-** 常用插件
+** TOMCAT插件
+
+#+BEGIN_SRC sgml
+  <plugin>   
+    <groupId>org.apache.tomcat.maven</groupId>   
+    <artifactId>tomcat7-maven-plugin</artifactId>   
+    <version>2.2</version>   
+    <configuration>      
+      <hostName>localhost</hostName>    <!-- Default: localhost -->  
+      <port>8080</port>                 <!-- Default: 8080 --> 
+      <path>/ccc</path>                 <!-- Default: /${project.artifactId}-->  
+      <uriEncoding>UTF-8</uriEncoding>  <!-- Default: ISO-8859-1 -->
+    </configuration>
+  </plugin>
+#+END_SRC
+
+运行:
+#+BEGIN_SRC sh
+  mvn tomcat7:run
+  mvn tomcat7:help
+  mvn tomcat7:deploy/undeply/redeploy
+#+END_SRC
 
 ** 自定义插件
 

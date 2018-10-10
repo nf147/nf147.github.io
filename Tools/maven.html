@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-10-09 周二 07:02 -->
+<!-- 2018-10-10 周三 02:57 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Maven</title>
@@ -22,10 +22,15 @@
 <ul>
 <li><a href="#org67ecd08">1. 安装与使用</a></li>
 <li><a href="#org977f63d">2. 生命周期(Lifecycle)</a></li>
-<li><a href="#org9a664c1">3. POM 参考</a></li>
+<li><a href="#org9a664c1">3. POM 参考</a>
+<ul>
+<li><a href="#orga56275c">3.1. POM(Project Object Model) 示例</a></li>
+<li><a href="#org0c728ab">3.2. 插件配置示例</a></li>
+</ul>
+</li>
 <li><a href="#orgeb6322d">4. 插件</a>
 <ul>
-<li><a href="#orge5dc06e">4.1. 常用插件</a></li>
+<li><a href="#org430e35d">4.1. TOMCAT插件</a></li>
 <li><a href="#org90943ef">4.2. 自定义插件</a></li>
 </ul>
 </li>
@@ -37,9 +42,72 @@
 
 <section id="outline-container-org67ecd08" class="outline-2">
 <h2 id="org67ecd08"><span class="section-number-2">1</span> 安装与使用</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+修改镜像源，增加 jar 包下载速度，比如使用阿里云的源，settings.xml:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">mirrors</span>&gt;
+  &lt;<span class="org-function-name">mirror</span>&gt;
+    &lt;<span class="org-function-name">id</span>&gt;alimaven&lt;/<span class="org-function-name">id</span>&gt;
+    &lt;<span class="org-function-name">name</span>&gt;aliyun maven&lt;/<span class="org-function-name">name</span>&gt;
+    &lt;<span class="org-function-name">url</span>&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/<span class="org-function-name">url</span>&gt;
+    &lt;<span class="org-function-name">mirrorOf</span>&gt;central&lt;/<span class="org-function-name">mirrorOf</span>&gt;        
+  &lt;/<span class="org-function-name">mirror</span>&gt;
+&lt;/<span class="org-function-name">mirrors</span>&gt;
+</pre>
+</div>
+
+<p>
+使用 archetype(原型) 插件，生成项目:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">mvn -h
+
+mvn archetype:generate  <span class="org-comment-delimiter"># </span><span class="org-comment">interactive</span>
+
+mvn -B archetype:generate
+  -DarchetypeGroupId=org.apache.maven.archetypes <span class="org-sh-escaped-newline">\</span>
+  -DarchetypeArtifactId=maven-archetype-webapp <span class="org-sh-escaped-newline">\</span>
+  -DgroupId=com.mycompany.app <span class="org-sh-escaped-newline">\</span>
+  -DartifactId=my-app   <span class="org-comment-delimiter"># </span><span class="org-comment">new project one line</span>
+</pre>
+</div>
+
+<p>
+执行命令示例:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">run task with lifecycle's phase</span>
+mvn install
+mvn clean
+mvn clean install
+mvn clean install -U   <span class="org-comment-delimiter"># </span><span class="org-comment">force refresh</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">run task with goal directly</span>
+mvn default:install
+mvn archetype:help
+</pre>
+</div>
+
+<p>
+依赖相关命令:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">mvn dependency:help
+
+mvn dependency:list
+mvn dependency:tree
+
+mvn dependency:copy
+mvn dependency:copy-dependencies
+mvn dependency:copy-dependencies -DoutputDirectory=/tmp/xxx -DincludeScope=compile
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#22352;&#26631;(coordinate): 'groupId:artifactId:version'</span>
+</pre>
+</div>
+</div>
 </section>
-
-
 
 <section id="outline-container-org977f63d" class="outline-2">
 <h2 id="org977f63d"><span class="section-number-2">2</span> 生命周期(Lifecycle)</h2>
@@ -151,13 +219,239 @@ site 生命周期的 phase 有:
 
 <section id="outline-container-org9a664c1" class="outline-2">
 <h2 id="org9a664c1"><span class="section-number-2">3</span> POM 参考</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+<a href="https://maven.apache.org/pom.html#What_is_the_POM">https://maven.apache.org/pom.html#What_is_the_POM</a>
+</p>
+</div>
+
+<div id="outline-container-orga56275c" class="outline-3">
+<h3 id="orga56275c"><span class="section-number-3">3.1</span> POM(Project Object Model) 示例</h3>
+<div class="outline-text-3" id="text-3-1">
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">project</span> <span class="org-variable-name">xmlns</span>=<span class="org-string">"http://maven.apache.org/POM/4.0.0"</span>
+         <span class="org-sgml-namespace">xmlns</span>:<span class="org-variable-name">xsi</span>=<span class="org-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+         <span class="org-sgml-namespace">xsi</span>:<span class="org-variable-name">schemaLocation</span>=<span class="org-string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;
+  &lt;<span class="org-function-name">modelVersion</span>&gt;4.0.0&lt;/<span class="org-function-name">modelVersion</span>&gt;
+
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">The Basics </span><span class="org-comment-delimiter">--&gt;</span>
+  &lt;<span class="org-function-name">groupId</span>&gt;org.codehaus.mojo&lt;/<span class="org-function-name">groupId</span>&gt;
+  &lt;<span class="org-function-name">artifactId</span>&gt;my-project&lt;/<span class="org-function-name">artifactId</span>&gt;
+  &lt;<span class="org-function-name">version</span>&gt;1.0&lt;/<span class="org-function-name">version</span>&gt;
+  &lt;<span class="org-function-name">packaging</span>&gt;jar/war&lt;/<span class="org-function-name">packaging</span>&gt;
+
+  &lt;<span class="org-function-name">parent</span>&gt;...&lt;/<span class="org-function-name">parent</span>&gt;
+  &lt;<span class="org-function-name">dependencyManagement</span>&gt;...&lt;/<span class="org-function-name">dependencyManagement</span>&gt;
+
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">Project Settings </span><span class="org-comment-delimiter">--&gt;</span>
+  &lt;<span class="org-function-name">modules</span>&gt;
+    &lt;<span class="org-function-name">module</span>&gt;xxx&lt;/<span class="org-function-name">module</span>&gt;
+    &lt;<span class="org-function-name">module</span>&gt;yyy&lt;/<span class="org-function-name">module</span>&gt;
+  &lt;/<span class="org-function-name">modules</span>&gt;
+
+  &lt;<span class="org-function-name">properties</span>&gt;
+    &lt;<span class="org-function-name">project.build.sourceEncoding</span>&gt;UTF-8&lt;/<span class="org-function-name">project.build.sourceEncoding</span>&gt;
+    &lt;<span class="org-function-name">maven.compiler.source</span>&gt;1.8&lt;/<span class="org-function-name">maven.compiler.source</span>&gt;
+    &lt;<span class="org-function-name">maven.compiler.target</span>&gt;1.8&lt;/<span class="org-function-name">maven.compiler.target</span>&gt;
+    &lt;<span class="org-function-name">maven.compiler.compilerVersion</span>&gt;1.8&lt;/<span class="org-function-name">maven.compiler.compilerVersion</span>&gt;
+    &lt;<span class="org-function-name">xxx.version</span>&gt;1.22222&lt;/<span class="org-function-name">xxx.version</span>&gt;
+  &lt;/<span class="org-function-name">properties</span>&gt;
+
+  &lt;<span class="org-function-name">dependencies</span>&gt;
+    &lt;<span class="org-function-name">dependency</span>&gt;
+      &lt;<span class="org-function-name">groupId</span>&gt;junit&lt;/<span class="org-function-name">groupId</span>&gt;
+      &lt;<span class="org-function-name">artifactId</span>&gt;junit&lt;/<span class="org-function-name">artifactId</span>&gt;
+      &lt;<span class="org-function-name">version</span>&gt;4.12 | [1.0] | (,1.2] | (,1.0],[1.2,) | LATEST | ${xxx.version}&lt;/<span class="org-function-name">version</span>&gt;
+      &lt;<span class="org-function-name">type</span>&gt;jar&lt;/<span class="org-function-name">type</span>&gt;
+      &lt;<span class="org-function-name">scope</span>&gt;compile/provided/runtime/test/system&lt;/<span class="org-function-name">scope</span>&gt;
+      &lt;<span class="org-function-name">optional</span>&gt;true&lt;/<span class="org-function-name">optional</span>&gt;
+      &lt;<span class="org-function-name">exclusions</span>&gt;
+        &lt;<span class="org-function-name">exclusion</span>&gt;
+          &lt;<span class="org-function-name">groupId</span>&gt;tgroupid&lt;/<span class="org-function-name">groupId</span>&gt;
+          &lt;<span class="org-function-name">artifactId</span>&gt;af&lt;/<span class="org-function-name">artifactId</span>&gt;
+        &lt;/<span class="org-function-name">exclusion</span>&gt;
+      &lt;/<span class="org-function-name">exclusions</span>&gt;
+    &lt;/<span class="org-function-name">dependency</span>&gt;
+  &lt;/<span class="org-function-name">dependencies</span>&gt;
+
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">Build Settings </span><span class="org-comment-delimiter">--&gt;</span>
+  &lt;<span class="org-function-name">build</span>&gt;...&lt;/<span class="org-function-name">build</span>&gt;
+  &lt;<span class="org-function-name">reporting</span>&gt;...&lt;/<span class="org-function-name">reporting</span>&gt;
+
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">More Project Information </span><span class="org-comment-delimiter">--&gt;</span>
+  &lt;<span class="org-function-name">name</span>&gt;...&lt;/<span class="org-function-name">name</span>&gt;
+  &lt;<span class="org-function-name">description</span>&gt;...&lt;/<span class="org-function-name">description</span>&gt;
+  &lt;<span class="org-function-name">url</span>&gt;...&lt;/<span class="org-function-name">url</span>&gt;
+  &lt;<span class="org-function-name">inceptionYear</span>&gt;...&lt;/<span class="org-function-name">inceptionYear</span>&gt;
+  &lt;<span class="org-function-name">licenses</span>&gt;...&lt;/<span class="org-function-name">licenses</span>&gt;
+  &lt;<span class="org-function-name">organization</span>&gt;...&lt;/<span class="org-function-name">organization</span>&gt;
+  &lt;<span class="org-function-name">developers</span>&gt;...&lt;/<span class="org-function-name">developers</span>&gt;
+  &lt;<span class="org-function-name">contributors</span>&gt;...&lt;/<span class="org-function-name">contributors</span>&gt;
+
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">Environment Settings </span><span class="org-comment-delimiter">--&gt;</span>
+  &lt;<span class="org-function-name">repositories</span>&gt;
+    &lt;<span class="org-function-name">repository</span>&gt;
+      &lt;<span class="org-function-name">id</span>&gt;springsource-repo&lt;/<span class="org-function-name">id</span>&gt;
+      &lt;<span class="org-function-name">name</span>&gt;SpringSource Repository&lt;/<span class="org-function-name">name</span>&gt;
+      &lt;<span class="org-function-name">url</span>&gt;http://repo.springsource.org/release&lt;/<span class="org-function-name">url</span>&gt;
+    &lt;/<span class="org-function-name">repository</span>&gt;
+  &lt;/<span class="org-function-name">repositories</span>&gt;
+  &lt;<span class="org-function-name">distributionManagement</span>&gt;
+    &lt;<span class="org-function-name">repository</span>&gt;
+      &lt;<span class="org-function-name">id</span>&gt;mycompany-repository&lt;/<span class="org-function-name">id</span>&gt;
+      &lt;<span class="org-function-name">name</span>&gt;MyCompany Repository&lt;/<span class="org-function-name">name</span>&gt;
+      &lt;<span class="org-function-name">url</span>&gt;scp://repository.mycompany.com/repository/maven2&lt;/<span class="org-function-name">url</span>&gt;
+    &lt;/<span class="org-function-name">repository</span>&gt;
+  &lt;/<span class="org-function-name">distributionManagement</span>&gt;
+  &lt;<span class="org-function-name">issueManagement</span>&gt;...&lt;/<span class="org-function-name">issueManagement</span>&gt;
+  &lt;<span class="org-function-name">ciManagement</span>&gt;...&lt;/<span class="org-function-name">ciManagement</span>&gt;
+  &lt;<span class="org-function-name">mailingLists</span>&gt;...&lt;/<span class="org-function-name">mailingLists</span>&gt;
+  &lt;<span class="org-function-name">scm</span>&gt;...&lt;/<span class="org-function-name">scm</span>&gt;
+  &lt;<span class="org-function-name">prerequisites</span>&gt;...&lt;/<span class="org-function-name">prerequisites</span>&gt;
+  &lt;<span class="org-function-name">pluginRepositories</span>&gt;...&lt;/<span class="org-function-name">pluginRepositories</span>&gt;
+  &lt;<span class="org-function-name">profiles</span>&gt;...&lt;/<span class="org-function-name">profiles</span>&gt;
+&lt;/<span class="org-function-name">project</span>&gt;
+3.2 Build Configuration
+&lt;<span class="org-function-name">build</span>&gt;
+  &lt;<span class="org-function-name">finalName</span>&gt;xxx&lt;/<span class="org-function-name">finalName</span>&gt;
+
+  &lt;<span class="org-function-name">filters</span>&gt;
+    &lt;<span class="org-function-name">filter</span>&gt;src/main/filters/filter.properties&lt;/<span class="org-function-name">filter</span>&gt;
+  &lt;/<span class="org-function-name">filters</span>&gt;
+
+  &lt;<span class="org-function-name">resources</span>&gt;
+    &lt;<span class="org-function-name">resource</span>&gt;
+      &lt;<span class="org-function-name">directory</span>&gt;src/main/resources&lt;/<span class="org-function-name">directory</span>&gt;
+      &lt;<span class="org-function-name">filtering</span>&gt;true&lt;/<span class="org-function-name">filtering</span>&gt;
+    &lt;/<span class="org-function-name">resource</span>&gt;
+  &lt;/<span class="org-function-name">resources</span>&gt;
+
+  &lt;<span class="org-function-name">plugins</span>&gt;
+    &lt;<span class="org-function-name">plugin</span>&gt;
+      &lt;<span class="org-function-name">groupId</span>&gt;org.apache.maven.plugins&lt;/<span class="org-function-name">groupId</span>&gt;
+      &lt;<span class="org-function-name">artifactId</span>&gt;maven-compiler-plugin&lt;/<span class="org-function-name">artifactId</span>&gt;
+      &lt;<span class="org-function-name">version</span>&gt;3.3&lt;/<span class="org-function-name">version</span>&gt;
+      &lt;<span class="org-function-name">configuration</span>&gt;
+        &lt;<span class="org-function-name">source</span>&gt;1.8&lt;/<span class="org-function-name">source</span>&gt;
+        &lt;<span class="org-function-name">target</span>&gt;1.8&lt;/<span class="org-function-name">target</span>&gt;
+      &lt;/<span class="org-function-name">configuration</span>&gt;
+    &lt;/<span class="org-function-name">plugin</span>&gt;
+  &lt;/<span class="org-function-name">plugins</span>&gt;
+&lt;/<span class="org-function-name">build</span>&gt;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0c728ab" class="outline-3">
+<h3 id="org0c728ab"><span class="section-number-3">3.2</span> 插件配置示例</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+插件分为两类:
+</p>
+<ul class="org-ul">
+<li>build plugin</li>
+<li>reporting plugin</li>
+</ul>
+
+<p>
+配置示例:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">plugins</span>&gt;
+  &lt;<span class="org-function-name">plugin</span>&gt;
+    &lt;<span class="org-function-name">artifactId</span>&gt;maven-myquery-plugin&lt;/<span class="org-function-name">artifactId</span>&gt;
+    &lt;<span class="org-function-name">version</span>&gt;1.0&lt;/<span class="org-function-name">version</span>&gt;
+
+    &lt;<span class="org-function-name">configuration</span>&gt;
+      <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#37197;&#32622;&#21442;&#25968; </span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;/<span class="org-function-name">configuration</span>&gt;
+
+    &lt;<span class="org-function-name">dependencies</span>&gt;
+      <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#37197;&#32622;&#20381;&#36182; </span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;/<span class="org-function-name">dependencies</span>&gt;
+
+    &lt;<span class="org-function-name">executions</span>&gt;
+      <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#21442;&#19982; lifecycle </span><span class="org-comment-delimiter">--&gt;</span>
+      &lt;<span class="org-function-name">execution</span>&gt;
+        &lt;<span class="org-function-name">id</span>&gt;execution1&lt;/<span class="org-function-name">id</span>&gt;
+        &lt;<span class="org-function-name">phase</span>&gt;test&lt;/<span class="org-function-name">phase</span>&gt;
+        &lt;<span class="org-function-name">goals</span>&gt;
+          &lt;<span class="org-function-name">goal</span>&gt;query&lt;/<span class="org-function-name">goal</span>&gt;
+        &lt;/<span class="org-function-name">goals</span>&gt;
+        &lt;<span class="org-function-name">configuration</span>&gt;
+          &lt;<span class="org-function-name">url</span>&gt;http://www.foo.com/query&lt;/<span class="org-function-name">url</span>&gt;
+          &lt;<span class="org-function-name">timeout</span>&gt;10&lt;/<span class="org-function-name">timeout</span>&gt;
+          &lt;<span class="org-function-name">options</span>&gt;&lt;<span class="org-function-name">option</span>&gt;one&lt;/<span class="org-function-name">option</span>&gt;&lt;<span class="org-function-name">option</span>&gt;two&lt;/<span class="org-function-name">option</span>&gt;&lt;<span class="org-function-name">option</span>&gt;three&lt;/<span class="org-function-name">option</span>&gt;&lt;/<span class="org-function-name">options</span>&gt;
+        &lt;/<span class="org-function-name">configuration</span>&gt;
+      &lt;/<span class="org-function-name">execution</span>&gt;
+
+      &lt;<span class="org-function-name">execution</span>&gt;
+        &lt;<span class="org-function-name">id</span>&gt;execution2&lt;/<span class="org-function-name">id</span>&gt;
+        &lt;<span class="org-function-name">goals</span>&gt;&lt;<span class="org-function-name">goal</span>&gt;query&lt;/<span class="org-function-name">goal</span>&gt;&lt;/<span class="org-function-name">goals</span>&gt;
+      &lt;/<span class="org-function-name">execution</span>&gt;
+
+    &lt;/<span class="org-function-name">executions</span>&gt;
+  &lt;/<span class="org-function-name">plugin</span>&gt;
+
+  &lt;<span class="org-function-name">plugin</span>&gt;
+    &lt;<span class="org-function-name">artifactId</span>&gt;maven-antrun-plugin&lt;/<span class="org-function-name">artifactId</span>&gt;
+    &lt;<span class="org-function-name">version</span>&gt;1.1&lt;/<span class="org-function-name">version</span>&gt;
+    &lt;<span class="org-function-name">executions</span>&gt;
+      &lt;<span class="org-function-name">execution</span>&gt;
+        &lt;<span class="org-function-name">id</span>&gt;echodir&lt;/<span class="org-function-name">id</span>&gt;
+        &lt;<span class="org-function-name">goals</span>&gt;
+          &lt;<span class="org-function-name">goal</span>&gt;run&lt;/<span class="org-function-name">goal</span>&gt;
+        &lt;/<span class="org-function-name">goals</span>&gt;
+        &lt;<span class="org-function-name">phase</span>&gt;verify&lt;/<span class="org-function-name">phase</span>&gt;
+        &lt;<span class="org-function-name">inherited</span>&gt;false&lt;/<span class="org-function-name">inherited</span>&gt;
+        &lt;<span class="org-function-name">configuration</span>&gt;
+          &lt;<span class="org-function-name">tasks</span>&gt;
+            &lt;<span class="org-function-name">echo</span>&gt;Build Dir: ${project.build.directory}&lt;/<span class="org-function-name">echo</span>&gt;
+          &lt;/<span class="org-function-name">tasks</span>&gt;
+        &lt;/<span class="org-function-name">configuration</span>&gt;
+      &lt;/<span class="org-function-name">execution</span>&gt;
+    &lt;/<span class="org-function-name">executions</span>&gt;
+  &lt;/<span class="org-function-name">plugin</span>&gt;
+&lt;/<span class="org-function-name">plugins</span>&gt;
+</pre>
+</div>
+</div>
+</div>
 </section>
+
 <section id="outline-container-orgeb6322d" class="outline-2">
 <h2 id="orgeb6322d"><span class="section-number-2">4</span> 插件</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-orge5dc06e" class="outline-3">
-<h3 id="orge5dc06e"><span class="section-number-3">4.1</span> 常用插件</h3>
+<div id="outline-container-org430e35d" class="outline-3">
+<h3 id="org430e35d"><span class="section-number-3">4.1</span> TOMCAT插件</h3>
+<div class="outline-text-3" id="text-4-1">
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">plugin</span>&gt;   
+  &lt;<span class="org-function-name">groupId</span>&gt;org.apache.tomcat.maven&lt;/<span class="org-function-name">groupId</span>&gt;   
+  &lt;<span class="org-function-name">artifactId</span>&gt;tomcat7-maven-plugin&lt;/<span class="org-function-name">artifactId</span>&gt;   
+  &lt;<span class="org-function-name">version</span>&gt;2.2&lt;/<span class="org-function-name">version</span>&gt;   
+  &lt;<span class="org-function-name">configuration</span>&gt;      
+    &lt;<span class="org-function-name">hostName</span>&gt;localhost&lt;/<span class="org-function-name">hostName</span>&gt;    <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">Default: localhost </span><span class="org-comment-delimiter">--&gt;</span>  
+    &lt;<span class="org-function-name">port</span>&gt;8080&lt;/<span class="org-function-name">port</span>&gt;                 <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">Default: 8080 </span><span class="org-comment-delimiter">--&gt;</span> 
+    &lt;<span class="org-function-name">path</span>&gt;/ccc&lt;/<span class="org-function-name">path</span>&gt;                 <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">Default: /${project.artifactId}</span><span class="org-comment-delimiter">--&gt;</span>  
+    &lt;<span class="org-function-name">uriEncoding</span>&gt;UTF-8&lt;/<span class="org-function-name">uriEncoding</span>&gt;  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">Default: ISO-8859-1 </span><span class="org-comment-delimiter">--&gt;</span>
+  &lt;/<span class="org-function-name">configuration</span>&gt;
+&lt;/<span class="org-function-name">plugin</span>&gt;
+</pre>
+</div>
+
+<p>
+运行:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">mvn tomcat7:run
+mvn tomcat7:help
+mvn tomcat7:deploy/undeply/redeploy
+</pre>
+</div>
+</div>
 </div>
 
 <div id="outline-container-org90943ef" class="outline-3">
@@ -167,7 +461,7 @@ site 生命周期的 phase 有:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-10-09 周二 07:02</p>
+<p class="date">Created: 2018-10-10 周三 02:57</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
