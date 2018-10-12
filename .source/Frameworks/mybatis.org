@@ -2,4 +2,121 @@
 
 
 
+- SSH, Spring + Struts1,2 + Hibernate
+- SSM, Spring + SpringMVC + MyBatis
 
+dao, 数据库连接
+
+#+BEGIN_SRC sql
+  create table person (id int auto_increment primary key, name varchar(20), weixin varchar(20));
+  insert into person (name, weixin) values ('张学友', '110'), ('刘亦菲', '220');
+#+END_SRC
+
+jdbc:
+- 自行管理连接，语法比较繁琐
+- 容易写出不健壮的代码
+- 容易忽略业务逻辑
+
+ORM:
+- Object-Relational Mapping
+
+
+#+BEGIN_SRC java
+  public class Person {
+      private int id;
+      private String name;
+      private String weixin;
+
+      // getter..setter
+  }
+#+END_SRC
+
+
+** Hibernate
+
+想法:
+1. 助手，读取数据库，获取相关的类，建立一种映射关系。session
+2. 使用助手操作数据库:
+   #+BEGIN_SRC java
+     Book book = new Book("hhhh", 222);
+     session.save(book);
+
+     Book book1 = session.get(2L, Book.class);
+     System.out.println(book1.getName());
+   #+END_SRC
+
+示例，首先，在项目中添加依赖:
+#+BEGIN_SRC sgml
+  <dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>5.3.6.Final</version>
+  </dependency>
+
+  <dependency>
+    <groupId>org.mariadb.jdbc</groupId>
+    <artifactId>mariadb-java-client</artifactId>
+    <version>2.3.0</version>
+  </dependency>
+#+END_SRC
+
+其次，创建配置文件 hibernate.cfg.xml:
+#+BEGIN_SRC sgml
+  <?xml version='1.0' encoding='UTF-8'?>
+  <!DOCTYPE hibernate-configuration PUBLIC
+   "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+   "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+  <hibernate-configuration>
+    <session-factory>
+      <property name="hibernate.connection.driver_class">org.mariadb.jdbc.Driver</property>
+      <property name="hibernate.connection.url">jdbc:mariadb://localhost:3306/lagou</property>
+      <property name="hibernate.connection.username">vip</property>
+      <property name="hibernate.connection.password">vip</property>
+      <property name="hibernate.dialect">org.hibernate.dialect.MariaDB10Dialect</property>
+
+      <property name="hibernate.show_sql">true</property>
+
+      <mapping class="com.nf147.sss.entity.Person" />
+    </session-factory>
+  </hibernate-configuration>
+#+END_SRC
+
+然后，创建 entity:
+#+BEGIN_SRC java
+  @Entity
+  public class Person {
+      @Id
+      @GeneratedValue(strategy = GenerationType.IDENTITY)
+      private Long id;
+      private String name;
+      private String weixin;
+
+      // getter..setter
+  }
+#+END_SRC
+
+之后，就可以使用了:
+#+BEGIN_SRC java
+  public static void main( String[] args )
+  {
+      Configuration configuration = new Configuration();
+      Configuration configure = configuration.configure("hibernate.cfg.xml");
+      SessionFactory sessionFactory = configuration.buildSessionFactory();
+
+      Session session = sessionFactory.openSession();
+      Person person = session.get(Person.class, 1L);
+      System.out.println(person.getName());
+
+      System.out.println(session.get(Person.class, 2L).getName());
+
+      // 新增
+      Person fbb = new Person();
+      fbb.setName("fanbingbing");
+      fbb.setWeixin("80000000000");
+      session.save(fbb);
+
+      session.close();
+      sessionFactory.close();
+  }
+#+END_SRC
