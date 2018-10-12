@@ -1,6 +1,8 @@
 #+TITLE: MyBatis
 
 
+* 历史背景
+** 背景
 
 - SSH, Spring + Struts1,2 + Hibernate
 - SSM, Spring + SpringMVC + MyBatis
