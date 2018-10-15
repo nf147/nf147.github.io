@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-10-12 Fri 02:02 -->
+<!-- 2018-10-15 Mon 03:22 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MyBatis</title>
@@ -24,6 +24,16 @@
 <ul>
 <li><a href="#orgcfdcc5f">1.1. 背景</a></li>
 <li><a href="#orga2a5e72">1.2. Hibernate</a></li>
+<li><a href="#orgb70426b">1.3. MyBatis</a></li>
+</ul>
+</li>
+<li><a href="#org3fe004e">2. 核心配置文件 (mybatis-config.xml)</a>
+<ul>
+<li><a href="#org815386e">2.1. 配置文件示例</a></li>
+<li><a href="#orgc6f40cd">2.2. TypeHandler 示例</a></li>
+<li><a href="#orge0efe68">2.3. ObjectFactory 示例</a></li>
+<li><a href="#org38de6b2">2.4. DataSourceFactory 示例</a></li>
+<li><a href="#org2f3b0f4">2.5. Plugin 示例</a></li>
 </ul>
 </li>
 </ul>
@@ -194,11 +204,237 @@ System.out.println(book1.getName());
 </div>
 </div>
 </div>
+<div id="outline-container-orgb70426b" class="outline-3">
+<h3 id="orgb70426b"><span class="section-number-3">1.3</span> MyBatis</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>select id, name, wexin from person where ?</li>
+<li>delete from person where id = ?</li>
+<li>update person set..</li>
+</ul>
+
+<p>
+给常用的语句，每个语句，起个名字。
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">yujus</span>&gt;
+  &lt;<span class="org-function-name">yuju</span> <span class="org-variable-name">name</span>=<span class="org-string">"yuju1"</span>&gt;
+    select * from person
+  &lt;/<span class="org-function-name">yuju</span>&gt;
+
+  &lt;<span class="org-function-name">yuju</span> <span class="org-variable-name">name</span>=<span class="org-string">"yuju2"</span>&gt;
+    delete from person
+  &lt;/<span class="org-function-name">yuju</span>&gt;
+&lt;/<span class="org-function-name">juyus</span>&gt;
+</pre>
+</div>
+
+<p>
+使用一个帮手，帮我们做事情:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-type">Helper</span> <span class="org-variable-name">helper</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">&#36825;&#20010;&#23601;&#26159;&#25105;&#20204;&#35831;&#30340;&#24110;&#25163;&#65292;&#23427;&#33021;&#22815;&#24110;&#25105;&#20204;&#36830;&#25509;&#12289;&#20851;&#38381;&#25968;&#25454;&#24211;&#65292;&#33021;&#22815;&#24110;&#25105;&#20204;&#36827;&#34892;&#25968;&#25454;&#24211;&#30340;&#26597;&#35810;</span>
+
+<span class="org-type">Person</span> <span class="org-variable-name">person</span> = (<span class="org-type">Person</span>) helper.help(<span class="org-string">"yuju1"</span>);
+helper.help(<span class="org-string">"yuju2"</span>);
+</pre>
+</div>
+
+<p>
+三件事:
+</p>
+<ol class="org-ol">
+<li>语句</li>
+<li>传入参数</li>
+<li>返回值</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="outline-container-org3fe004e" class="outline-2">
+<h2 id="org3fe004e"><span class="section-number-2">2</span> 核心配置文件 (mybatis-config.xml)</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org815386e" class="outline-3">
+<h3 id="org815386e"><span class="section-number-3">2.1</span> 配置文件示例</h3>
+<div class="outline-text-3" id="text-2-1">
+<div class="org-src-container">
+<pre class="src src-sgml"><span class="org-string">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="org-string">&lt;!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd"&gt;</span>
+
+&lt;<span class="org-function-name">configuration</span>&gt;
+  <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#12304;&#23450;&#20041;&#21464;&#37327;&#65292;&#29992;&#20110;&#22797;&#29992;&#12305;</span><span class="org-comment-delimiter">--&gt;</span>
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#21487;&#20197;&#36890;&#36807;&#22806;&#37096;&#25991;&#20214;&#21152;&#36733;&#21464;&#37327;&#65292;&#20063;&#21487;&#20197;&#30452;&#25509;&#36890;&#36807; property &#23450;&#20041; </span><span class="org-comment-delimiter">--&gt;</span>
+  &lt;<span class="org-function-name">properties</span> <span class="org-variable-name">resource</span>=<span class="org-string">"jdbc.properties"</span>&gt;
+    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"password"</span> <span class="org-variable-name">value</span>=<span class="org-string">"vvvvvip"</span> /&gt;
+    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"hello"</span> <span class="org-variable-name">value</span>=<span class="org-string">"world"</span> /&gt;
+  &lt;/<span class="org-function-name">properties</span>&gt;
+
+  <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#12304;&#20869;&#37096;&#35774;&#32622;&#12305;</span><span class="org-comment-delimiter">--&gt;</span>
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#36890;&#36807;&#20462;&#25913;&#36825;&#20123;&#21442;&#25968;&#65292;&#26356;&#25913; Mybatis &#30340;&#20869;&#22312;&#34892;&#20026; </span><span class="org-comment-delimiter">--&gt;</span>
+  &lt;<span class="org-function-name">settings</span>&gt;
+    &lt;<span class="org-function-name">setting</span> <span class="org-variable-name">name</span>=<span class="org-string">"multipleResultSetsEnabled"</span> <span class="org-variable-name">value</span>=<span class="org-string">"true"</span>/&gt;
+    &lt;<span class="org-function-name">setting</span> <span class="org-variable-name">name</span>=<span class="org-string">"useColumnLabel"</span> <span class="org-variable-name">value</span>=<span class="org-string">"true"</span>/&gt;
+    &lt;<span class="org-function-name">setting</span> <span class="org-variable-name">name</span>=<span class="org-string">"useGeneratedKeys"</span> <span class="org-variable-name">value</span>=<span class="org-string">"false"</span>/&gt;
+    &lt;<span class="org-function-name">setting</span> <span class="org-variable-name">name</span>=<span class="org-string">"autoMappingBehavior"</span> <span class="org-variable-name">value</span>=<span class="org-string">"PARTIAL"</span>/&gt;
+    &lt;<span class="org-function-name">setting</span> <span class="org-variable-name">name</span>=<span class="org-string">"autoMappingUnknownColumnBehavior"</span> <span class="org-variable-name">value</span>=<span class="org-string">"WARNING"</span>/&gt;
+    &lt;<span class="org-function-name">setting</span> <span class="org-variable-name">name</span>=<span class="org-string">"defaultExecutorType"</span> <span class="org-variable-name">value</span>=<span class="org-string">"SIMPLE"</span>/&gt;
+    &lt;<span class="org-function-name">setting</span> <span class="org-variable-name">name</span>=<span class="org-string">"defaultStatementTimeout"</span> <span class="org-variable-name">value</span>=<span class="org-string">"25"</span>/&gt;
+    &lt;<span class="org-function-name">setting</span> <span class="org-variable-name">name</span>=<span class="org-string">"defaultFetchSize"</span> <span class="org-variable-name">value</span>=<span class="org-string">"100"</span>/&gt;
+    &lt;<span class="org-function-name">setting</span> <span class="org-variable-name">name</span>=<span class="org-string">"safeRowBoundsEnabled"</span> <span class="org-variable-name">value</span>=<span class="org-string">"false"</span>/&gt;
+    &lt;<span class="org-function-name">setting</span> <span class="org-variable-name">name</span>=<span class="org-string">"mapUnderscoreToCamelCase"</span> <span class="org-variable-name">value</span>=<span class="org-string">"false"</span>/&gt;
+    &lt;<span class="org-function-name">setting</span> <span class="org-variable-name">name</span>=<span class="org-string">"jdbcTypeForNull"</span> <span class="org-variable-name">value</span>=<span class="org-string">"OTHER"</span>/&gt;
+    &lt;<span class="org-function-name">setting</span> <span class="org-variable-name">name</span>=<span class="org-string">"cacheEnabled"</span> <span class="org-variable-name">value</span>=<span class="org-string">"true"</span>/&gt;
+    &lt;<span class="org-function-name">setting</span> <span class="org-variable-name">name</span>=<span class="org-string">"lazyLoadingEnabled"</span> <span class="org-variable-name">value</span>=<span class="org-string">"true"</span>/&gt;
+    &lt;<span class="org-function-name">setting</span> <span class="org-variable-name">name</span>=<span class="org-string">"localCacheScope"</span> <span class="org-variable-name">value</span>=<span class="org-string">"SESSION"</span>/&gt;
+    &lt;<span class="org-function-name">setting</span> <span class="org-variable-name">name</span>=<span class="org-string">"lazyLoadTriggerMethods"</span> <span class="org-variable-name">value</span>=<span class="org-string">"equals,clone,hashCode,toString"</span>/&gt;
+  &lt;/<span class="org-function-name">settings</span>&gt;
+
+  <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#12304;&#35774;&#32622;&#21035;&#21517;&#12305;&#21487;&#20197;&#31616;&#21270;&#22312; xml &#20013;&#30340;&#23436;&#20840;&#38480;&#23450;&#21517;&#30340;&#20351;&#29992; </span><span class="org-comment-delimiter">--&gt;</span>
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#36890;&#36807; package &#26041;&#24335;&#65292;&#21487;&#20197;&#31616;&#21270;&#20889;&#27861; </span><span class="org-comment-delimiter">--&gt;</span>
+  &lt;<span class="org-function-name">typeAliases</span>&gt;
+    <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&lt;typeAlias alias="Author" type="com.nf147.sss.entity.Author"/&gt;</span><span class="org-comment-delimiter">--&gt;</span>
+    <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&lt;typeAlias alias="Blog" type="com.nf147.sss.entity.Blog"/&gt;</span><span class="org-comment-delimiter">--&gt;</span>
+    <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&lt;typeAlias alias="Comment" type="com.nf147.sss.entity.Comment"/&gt;</span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-function-name">package</span> <span class="org-variable-name">name</span>=<span class="org-string">"com.nf147.sss.entity"</span> /&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#21487;&#20197;&#36319; @Alias &#32467;&#21512;&#20351;&#29992; </span><span class="org-comment-delimiter">--&gt;</span>
+  &lt;/<span class="org-function-name">typeAliases</span>&gt;
+
+  <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#12304;&#31867;&#22411;&#22788;&#29702;&#22120;&#12305;</span><span class="org-comment-delimiter">--&gt;</span>
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">MyBatis &#24050;&#32463;&#20869;&#32622;&#20102;&#22810;&#25968;&#30340;&#31867;&#22411;&#22788;&#29702;&#22120;&#65292;&#33021;&#24212;&#20184;&#32477;&#22823;&#22810;&#25968;&#30340;&#31867;&#22411;&#36716;&#25442; </span><span class="org-comment-delimiter">--&gt;</span>
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#22914;&#26524;&#25105;&#20204;&#26377;&#29305;&#23450;&#30340;&#38656;&#27714;&#65292;&#21487;&#20197;&#23450;&#20041;&#33258;&#24049;&#30340;&#22788;&#29702;&#22120;(&#23454;&#29616; TypeHandler &#25509;&#21475;&#25110;&#32487;&#25215;&#30456;&#20851;&#23454;&#29616;&#31867;) </span><span class="org-comment-delimiter">--&gt;</span>
+  &lt;<span class="org-function-name">typeHandlers</span>&gt;
+    <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&lt;typeHandler handler="com.nf147.sss.handler.FakeIntegerHandler" /&gt;</span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-function-name">package</span> <span class="org-variable-name">name</span>=<span class="org-string">"com.nf147.sss.handler"</span> /&gt;
+  &lt;/<span class="org-function-name">typeHandlers</span>&gt;
+
+  <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#12304;&#23454;&#20363;&#21270;&#32467;&#26524;&#23545;&#35937;&#12305;</span><span class="org-comment-delimiter">--&gt;</span>
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#40664;&#35748;&#20351;&#29992; DefaultObjectFactory &#26469;&#23454;&#20363;&#21270;&#32467;&#26524;&#23545;&#35937;&#65292;&#25105;&#20204;&#20063;&#21487;&#20197;&#23450;&#20041;&#33258;&#24049;&#30340;&#65292;&#35206;&#30422;&#21407;&#26469;&#30340; </span><span class="org-comment-delimiter">--&gt;</span>
+  &lt;<span class="org-function-name">objectFactory</span> <span class="org-variable-name">type</span>=<span class="org-string">"com.nf147.sss.handler.OurObjectFactory"</span>&gt;
+    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"someProperty"</span> <span class="org-variable-name">value</span>=<span class="org-string">"100"</span>/&gt;
+  &lt;/<span class="org-function-name">objectFactory</span>&gt;
+
+  <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#12304;&#25554;&#20214;&#12305;&#29992;&#26469;&#25318;&#25130;&#24182;&#25913;&#21464; MyBatis &#30340;&#24037;&#20316;&#27969; </span><span class="org-comment-delimiter">--&gt;</span>
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#23427;&#26412;&#36136;&#23601;&#26159;&#19968;&#20010;&#25318;&#25130;&#22120; </span><span class="org-comment-delimiter">--&gt;</span>
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#23450;&#20041;&#25554;&#20214;&#65292;&#38656;&#35201;&#23454;&#29616; Interceptor &#25509;&#21475;&#21363;&#21487; </span><span class="org-comment-delimiter">--&gt;</span>
+  &lt;<span class="org-function-name">plugins</span>&gt;
+    &lt;<span class="org-function-name">plugin</span> <span class="org-variable-name">interceptor</span>=<span class="org-string">"com.nf147.sss.plugin.MyPlugin"</span>&gt;
+      &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"msg"</span> <span class="org-variable-name">value</span>=<span class="org-string">"hello, world"</span>/&gt;
+      &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"dbtype"</span> <span class="org-variable-name">value</span>=<span class="org-string">"mysql"</span> /&gt;
+    &lt;/<span class="org-function-name">plugin</span>&gt;
+  &lt;/<span class="org-function-name">plugins</span>&gt;
+
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#12304;&#37197;&#32622;&#36830;&#25509;&#29615;&#22659;&#12305;</span><span class="org-comment-delimiter">--&gt;</span>
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#21487;&#20197;&#37197;&#32622;&#22810;&#20010;&#65292;&#27599;&#19968;&#20010;&#38656;&#35201;&#37197;&#32622;&#20004;&#37096;&#20998;: &#20107;&#21153; + &#25968;&#25454;&#28304; </span><span class="org-comment-delimiter">--&gt;</span>
+  &lt;<span class="org-function-name">environments</span> <span class="org-variable-name">default</span>=<span class="org-string">"prod"</span>&gt;
+    &lt;<span class="org-function-name">environment</span> <span class="org-variable-name">id</span>=<span class="org-string">"dev"</span>&gt;
+      &lt;<span class="org-function-name">transactionManager</span> <span class="org-variable-name">type</span>=<span class="org-string">"JDBC|MANAGED"</span> /&gt;
+      &lt;<span class="org-function-name">dataSource</span> <span class="org-variable-name">type</span>=<span class="org-string">"UNPOOLED|POOLED|JNDI|com.nf147.sss.ds.MyDataSource"</span>&gt;
+        &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"driver"</span> <span class="org-variable-name">value</span>=<span class="org-string">"${driver}"</span>/&gt;
+        &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"url"</span> <span class="org-variable-name">value</span>=<span class="org-string">"${url}"</span>/&gt;
+        &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"username"</span> <span class="org-variable-name">value</span>=<span class="org-string">"${username}"</span>/&gt;
+        &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"password"</span> <span class="org-variable-name">value</span>=<span class="org-string">"${password}"</span>/&gt;
+      &lt;/<span class="org-function-name">dataSource</span>&gt;
+    &lt;/<span class="org-function-name">environment</span>&gt;
+  &lt;/<span class="org-function-name">environments</span>&gt;
+
+  <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#12304;&#22810;&#25968;&#25454;&#26631;&#35782;&#12305;&#29992;&#20110;&#22312; MyBatis &#20013;&#20351;&#29992;&#22810;&#25968;&#25454;&#24211;&#35821;&#21477; </span><span class="org-comment-delimiter">--&gt;</span>
+  &lt;<span class="org-function-name">databaseIdProvider</span> <span class="org-variable-name">type</span>=<span class="org-string">"DB_VENDOR"</span>&gt;
+    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"MySQL"</span> <span class="org-variable-name">value</span>=<span class="org-string">"my"</span>/&gt;
+    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"SQL Server"</span> <span class="org-variable-name">value</span>=<span class="org-string">"sqlserver"</span>/&gt;
+    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"DB2"</span> <span class="org-variable-name">value</span>=<span class="org-string">"db2"</span>/&gt;
+    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"Oracle"</span> <span class="org-variable-name">value</span>=<span class="org-string">"oracle"</span> /&gt;
+  &lt;/<span class="org-function-name">databaseIdProvider</span>&gt;
+
+  <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#12304;&#25351;&#23450;&#26144;&#23556;&#22120;&#12305;</span><span class="org-comment-delimiter">--&gt;</span>
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#26377;&#22914;&#19979;&#22235;&#31181;&#20889;&#27861; </span><span class="org-comment-delimiter">--&gt;</span>
+  &lt;<span class="org-function-name">mappers</span>&gt;
+    &lt;<span class="org-function-name">mapper</span> <span class="org-variable-name">resource</span>=<span class="org-string">"PersonMapper.xml"</span> /&gt;
+    &lt;<span class="org-function-name">mapper</span> <span class="org-variable-name">url</span>=<span class="org-string">"d:/wenjian/de/weizhi/Person.xml"</span> /&gt;
+    &lt;<span class="org-function-name">mapper</span> <span class="org-variable-name">class</span>=<span class="org-string">"com.nf147.sss.dao.CommonDAO"</span> /&gt;
+    &lt;<span class="org-function-name">package</span> <span class="org-variable-name">name</span>=<span class="org-string">"mapper"</span> /&gt;
+  &lt;/<span class="org-function-name">mappers</span>&gt;
+&lt;/<span class="org-function-name">configuration</span>&gt;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc6f40cd" class="outline-3">
+<h3 id="orgc6f40cd"><span class="section-number-3">2.2</span> TypeHandler 示例</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@MappedJdbcTypes</span>(<span class="org-constant">JdbcType</span>.<span class="org-type">Integer</span>)
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">FakeIntegerHandler</span> <span class="org-keyword">extends</span> <span class="org-type">IntegerTypeHandler</span> {
+    <span class="org-c-annotation">@Override</span>
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">setNonNullParameter</span>(<span class="org-type">PreparedStatement</span> <span class="org-variable-name">ps</span>, <span class="org-type">int</span> <span class="org-variable-name">i</span>, <span class="org-type">Integer</span> <span class="org-variable-name">parameter</span>, <span class="org-type">JdbcType</span> <span class="org-variable-name">jdbcType</span>) <span class="org-keyword">throws</span> <span class="org-type">SQLException</span> {
+        ps.setInt(i, parameter * parameter);
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge0efe68" class="outline-3">
+<h3 id="orge0efe68"><span class="section-number-3">2.3</span> ObjectFactory 示例</h3>
+<div class="outline-text-3" id="text-2-3">
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">OurObjectFactory</span> <span class="org-keyword">extends</span> <span class="org-type">DefaultObjectFactory</span> {
+    <span class="org-c-annotation">@Override</span>
+    <span class="org-keyword">public</span> &lt;<span class="org-type">T</span>&gt; <span class="org-type">T</span> <span class="org-function-name">create</span>(<span class="org-type">Class</span>&lt;<span class="org-type">T</span>&gt; <span class="org-variable-name">type</span>) {
+        System.out.println(<span class="org-string">"&#25298;&#32477;&#37197;&#21512;"</span>);
+        <span class="org-keyword">return</span> <span class="org-constant">null</span>;
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org38de6b2" class="outline-3">
+<h3 id="org38de6b2"><span class="section-number-3">2.4</span> DataSourceFactory 示例</h3>
+<div class="outline-text-3" id="text-2-4">
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">MyDataSourceFactory</span> <span class="org-keyword">extends</span> <span class="org-type">UnpooledDataSourceFactory</span> {
+    <span class="org-keyword">public</span> <span class="org-function-name">MyDataSourceFactory</span>() {
+        <span class="org-keyword">this</span>.dataSource = <span class="org-keyword">new</span> <span class="org-type">ComboPooledDataSource</span>();
+        ((<span class="org-type">ComboPooledDataSource</span>) <span class="org-keyword">this</span>.dataSource).setCheckoutTimeout(30);
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2f3b0f4" class="outline-3">
+<h3 id="org2f3b0f4"><span class="section-number-3">2.5</span> Plugin 示例</h3>
+<div class="outline-text-3" id="text-2-5">
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Intercepts</span>({<span class="org-c-annotation">@Signature</span>(
+  type= Executor.<span class="org-keyword">class</span>,
+  method = <span class="org-string">"update"</span>,
+  args = {MappedStatement.<span class="org-keyword">class</span>,Object.<span class="org-keyword">class</span>})})
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">MyPlugin</span> <span class="org-keyword">implements</span> <span class="org-type">Interceptor</span> {
+      <span class="org-keyword">public</span> <span class="org-type">Object</span> <span class="org-function-name">intercept</span>(<span class="org-type">Invocation</span> <span class="org-variable-name">invocation</span>) <span class="org-keyword">throws</span> <span class="org-type">Throwable</span> {
+          System.out.println(<span class="org-string">"&#22312;&#36825;&#37324;&#65292;&#36827;&#34892;&#25318;&#25130;&#12289;&#20462;&#25913;"</span>);
+          <span class="org-keyword">return</span> invocation.proceed();
+      }
+      <span class="org-keyword">public</span> <span class="org-type">Object</span> <span class="org-function-name">plugin</span>(<span class="org-type">Object</span> <span class="org-variable-name">target</span>) {
+          <span class="org-keyword">return</span> Plugin.wrap(target, <span class="org-keyword">this</span>);
+      }
+      <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">setProperties</span>(<span class="org-type">Properties</span> <span class="org-variable-name">properties</span>) {
+          System.out.println(properties.getProperty(<span class="org-string">"hello"</span>));
+      }
+  }
+</pre>
+</div>
+</div>
+</div>
 </section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-10-12 Fri 02:02</p>
+<p class="date">Created: 2018-10-15 Mon 03:22</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

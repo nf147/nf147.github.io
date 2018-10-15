@@ -1,0 +1,36 @@
+#+TITLE: Java URI
+
+
+
+
+URI:
+- URL
+- URN
+
+#+BEGIN_SRC java
+  // 获取 ClassLoader
+  ClassLoader cl = Person.class.getClassLoader();
+  Thread.currentThread().getContextClassLoader();
+  ClassLoader.getSystemClassLoader();
+
+  // 通过 classloader 去获取类路径下面的文件
+  // 协议://路径:端口/具体位置
+  // http://localhost:80/b/meinv.jpg
+  // ftp://localhost:22/ksjdksjdf/yeshou.jpg
+  // file:/d:/ksjdfksjdfk/qi.jpg
+  // jdbc:mariadb://localhost:3306/vip
+  URL resource = Person.class.getClassLoader().getResource("hibernate.cfg.xml");
+  System.out.println(resource);
+  InputStream resourceAsStream = cl.getResourceAsStream("hibernate.cfg.xml");
+  Enumeration<URL> resources = cl.getResources("hibernate.cfg.xml");
+  while (resources.hasMoreElements()) resources.nextElement();
+
+  // 留作作业
+  App.class.getResourceAsStream("hibernate.cfg.xml");
+  URL resource1 = Person.class.getResource("/hibernate.cfg.xml");
+  System.out.println(resource1);
+
+
+  // urn:
+  // isbn:82738283-23778272387
+#+END_SRC

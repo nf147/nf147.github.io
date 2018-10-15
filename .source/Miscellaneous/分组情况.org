@@ -1,7 +1,0 @@
-#+TITLE: 分组情况
-
-
-* 分组情况(2018年8月7日)
-
-#+ATTR_HTML: :width 500px
-[[file:img/clip_2018-08-07_06-17-53.png]]

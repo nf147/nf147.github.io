@@ -122,3 +122,190 @@ ORM:
       sessionFactory.close();
   }
 #+END_SRC
+** MyBatis
+
+- select id, name, wexin from person where ?
+- delete from person where id = ?
+- update person set..
+
+给常用的语句，每个语句，起个名字。
+#+BEGIN_SRC sgml
+  <yujus>
+    <yuju name="yuju1">
+      select * from person
+    </yuju>
+
+    <yuju name="yuju2">
+      delete from person
+    </yuju>
+  </juyus>
+#+END_SRC
+
+使用一个帮手，帮我们做事情:
+#+BEGIN_SRC java
+  Helper helper; // 这个就是我们请的帮手，它能够帮我们连接、关闭数据库，能够帮我们进行数据库的查询
+
+  Person person = (Person) helper.help("yuju1");
+  helper.help("yuju2");
+#+END_SRC
+
+三件事:
+1. 语句
+2. 传入参数
+3. 返回值
+* 核心配置文件 (mybatis-config.xml)
+** 配置文件示例
+
+#+BEGIN_SRC sgml
+  <?xml version="1.0" encoding="UTF-8" ?>
+  <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+  <configuration>
+    <!--【定义变量，用于复用】-->
+    <!-- 可以通过外部文件加载变量，也可以直接通过 property 定义 -->
+    <properties resource="jdbc.properties">
+      <property name="password" value="vvvvvip" />
+      <property name="hello" value="world" />
+    </properties>
+
+    <!--【内部设置】-->
+    <!-- 通过修改这些参数，更改 Mybatis 的内在行为 -->
+    <settings>
+      <setting name="multipleResultSetsEnabled" value="true"/>
+      <setting name="useColumnLabel" value="true"/>
+      <setting name="useGeneratedKeys" value="false"/>
+      <setting name="autoMappingBehavior" value="PARTIAL"/>
+      <setting name="autoMappingUnknownColumnBehavior" value="WARNING"/>
+      <setting name="defaultExecutorType" value="SIMPLE"/>
+      <setting name="defaultStatementTimeout" value="25"/>
+      <setting name="defaultFetchSize" value="100"/>
+      <setting name="safeRowBoundsEnabled" value="false"/>
+      <setting name="mapUnderscoreToCamelCase" value="false"/>
+      <setting name="jdbcTypeForNull" value="OTHER"/>
+      <setting name="cacheEnabled" value="true"/>
+      <setting name="lazyLoadingEnabled" value="true"/>
+      <setting name="localCacheScope" value="SESSION"/>
+      <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
+    </settings>
+
+    <!--【设置别名】可以简化在 xml 中的完全限定名的使用 -->
+    <!-- 通过 package 方式，可以简化写法 -->
+    <typeAliases>
+      <!--<typeAlias alias="Author" type="com.nf147.sss.entity.Author"/>-->
+      <!--<typeAlias alias="Blog" type="com.nf147.sss.entity.Blog"/>-->
+      <!--<typeAlias alias="Comment" type="com.nf147.sss.entity.Comment"/>-->
+      <package name="com.nf147.sss.entity" /> <!-- 可以跟 @Alias 结合使用 -->
+    </typeAliases>
+
+    <!--【类型处理器】-->
+    <!-- MyBatis 已经内置了多数的类型处理器，能应付绝大多数的类型转换 -->
+    <!-- 如果我们有特定的需求，可以定义自己的处理器(实现 TypeHandler 接口或继承相关实现类) -->
+    <typeHandlers>
+      <!--<typeHandler handler="com.nf147.sss.handler.FakeIntegerHandler" />-->
+      <package name="com.nf147.sss.handler" />
+    </typeHandlers>
+
+    <!--【实例化结果对象】-->
+    <!-- 默认使用 DefaultObjectFactory 来实例化结果对象，我们也可以定义自己的，覆盖原来的 -->
+    <objectFactory type="com.nf147.sss.handler.OurObjectFactory">
+      <property name="someProperty" value="100"/>
+    </objectFactory>
+
+    <!--【插件】用来拦截并改变 MyBatis 的工作流 -->
+    <!-- 它本质就是一个拦截器 -->
+    <!-- 定义插件，需要实现 Interceptor 接口即可 -->
+    <plugins>
+      <plugin interceptor="com.nf147.sss.plugin.MyPlugin">
+        <property name="msg" value="hello, world"/>
+        <property name="dbtype" value="mysql" />
+      </plugin>
+    </plugins>
+
+    <!-- 【配置连接环境】-->
+    <!-- 可以配置多个，每一个需要配置两部分: 事务 + 数据源 -->
+    <environments default="prod">
+      <environment id="dev">
+        <transactionManager type="JDBC|MANAGED" />
+        <dataSource type="UNPOOLED|POOLED|JNDI|com.nf147.sss.ds.MyDataSource">
+          <property name="driver" value="${driver}"/>
+          <property name="url" value="${url}"/>
+          <property name="username" value="${username}"/>
+          <property name="password" value="${password}"/>
+        </dataSource>
+      </environment>
+    </environments>
+
+    <!--【多数据标识】用于在 MyBatis 中使用多数据库语句 -->
+    <databaseIdProvider type="DB_VENDOR">
+      <property name="MySQL" value="my"/>
+      <property name="SQL Server" value="sqlserver"/>
+      <property name="DB2" value="db2"/>
+      <property name="Oracle" value="oracle" />
+    </databaseIdProvider>
+
+    <!--【指定映射器】-->
+    <!-- 有如下四种写法 -->
+    <mappers>
+      <mapper resource="PersonMapper.xml" />
+      <mapper url="d:/wenjian/de/weizhi/Person.xml" />
+      <mapper class="com.nf147.sss.dao.CommonDAO" />
+      <package name="mapper" />
+    </mappers>
+  </configuration>
+#+END_SRC
+
+** TypeHandler 示例
+
+#+BEGIN_SRC java
+  @MappedJdbcTypes(JdbcType.Integer)
+  public class FakeIntegerHandler extends IntegerTypeHandler {
+      @Override
+      public void setNonNullParameter(PreparedStatement ps, int i, Integer parameter, JdbcType jdbcType) throws SQLException {
+          ps.setInt(i, parameter * parameter);
+      }
+  }
+#+END_SRC
+
+** ObjectFactory 示例
+
+#+BEGIN_SRC java
+  public class OurObjectFactory extends DefaultObjectFactory {
+      @Override
+      public <T> T create(Class<T> type) {
+          System.out.println("拒绝配合");
+          return null;
+      }
+  }
+#+END_SRC
+
+** DataSourceFactory 示例
+
+#+BEGIN_SRC java
+  public class MyDataSourceFactory extends UnpooledDataSourceFactory {
+      public MyDataSourceFactory() {
+          this.dataSource = new ComboPooledDataSource();
+          ((ComboPooledDataSource) this.dataSource).setCheckoutTimeout(30);
+      }
+  }
+#+END_SRC
+
+** Plugin 示例
+
+#+BEGIN_SRC java
+  @Intercepts({@Signature(
+    type= Executor.class,
+    method = "update",
+    args = {MappedStatement.class,Object.class})})
+  public class MyPlugin implements Interceptor {
+        public Object intercept(Invocation invocation) throws Throwable {
+            System.out.println("在这里，进行拦截、修改");
+            return invocation.proceed();
+        }
+        public Object plugin(Object target) {
+            return Plugin.wrap(target, this);
+        }
+        public void setProperties(Properties properties) {
+            System.out.println(properties.getProperty("hello"));
+        }
+    }
+#+END_SRC
