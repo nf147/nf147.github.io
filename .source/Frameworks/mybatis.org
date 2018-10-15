@@ -122,6 +122,7 @@ ORM:
       sessionFactory.close();
   }
 #+END_SRC
+
 ** MyBatis
 
 - select id, name, wexin from person where ?
@@ -153,6 +154,7 @@ ORM:
 1. 语句
 2. 传入参数
 3. 返回值
+
 * 核心配置文件 (mybatis-config.xml)
 ** 配置文件示例
 
@@ -308,4 +310,108 @@ ORM:
             System.out.println(properties.getProperty("hello"));
         }
     }
+#+END_SRC
+* 映射文件 (EntityMapper.xml)
+
+* 常用 API
+
+#+BEGIN_SRC java
+  public static void main(String[] args) throws Exception {
+      InputStream in = Resources.getResourceAsStream("mybatis-config.xml");
+      SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(in);
+      SqlSession session = factory.openSession();
+
+      // selectOne
+      // 重载有两个方法，第二个是条件参数
+      Object o = session.selectOne("xxx.findById");
+      Object o = session.selectOne("xxx.findById", 3);
+      Object o = session.selectOne("xxx.findByName", "毛%");
+      Object o = session.selectOne("xxx.findByNameAndCity", new HashMap<String, String>() {{
+          put("name", "郭敬明");
+          put("city", "上海");
+      }});
+      Object o = session.selectOne("xxx.findByNameAndCity", new Author("鲁迅", "浙江"));
+
+      // selectList
+      // 结果封装为 List
+      // 重载有三个方法
+      // 第三个参数，表示分页 (RowBounds)
+      List<Object> lst = session.selectList("findAll");
+      List<Object> lst = session.selectList("findAllLimit", 1);
+      RowBounds rowBounds = new RowBounds(2, 3);
+      List<Object> lst = session.selectList("findAll", null, rowBounds);
+      lst.forEach(System.out::println);
+
+      // 结果封装为 ResultMap
+      Map<Object, Object> map = session.selectMap("findAll", null, "name", new RowBounds(0, 2));
+      System.out.println(map);
+      System.out.println(map.get("鲁迅"));
+
+      // 结果封装为 Cursor，类似 ResultSet 遍历的语法
+      Cursor<Object> cs = session.selectCursor("findAll");
+      Iterator<Object> iterator = cs.iterator();
+      while (iterator.hasNext()) {
+          System.out.println(iterator.next());
+      }
+
+      // select，通过回调的方式，处理返回结果
+      session.select("findAll", new ResultHandler() {
+              @Override
+              public void handleResult(ResultContext resultContext) {
+                  if (resultContext.getResultCount() % 2 == 0)
+                      System.out.println(">>>> " + resultContext.getResultCount() + " : " + resultContext.getResultObject());
+              }
+          });
+
+      // Mapper，更通用，更方便的方式
+      CommonDAO mapper = session.getMapper(CommonDAO.class);
+      List<Author> authors = mapper.findAll(new RowBounds(1, 3));
+      authors.forEach(System.out::println);
+
+      // 可以通过注解的方式传入多参数
+      // 使用 RowBounds 类型的参数，表示分页
+      List<Author> authors1 = mapper.findAllIdBiggerThan(3, new RowBounds(1, 2));
+      authors1.forEach(System.out::println);
+  }
+#+END_SRC
+
+* 示例表
+
+#+BEGIN_SRC sql
+  create table sss_author (
+         id int auto_increment primary key,
+         name varchar(30),
+         city varchar(30));
+  create table sss_blog (
+         id int auto_increment primary key,
+         title varchar(30),
+         content text,
+         author_id int);
+  create table sss_comment (
+         id int auto_increment primary key,
+         body varchar(30),
+         blog_id int,
+         author_id int);
+
+  insert into sss_author (name, city) values
+         ('郭敬明', '上海'),
+         ('鲁迅', '浙江'),
+         ('毛泽东', '湖南'),
+         ('周立波', '上海'),
+         ('周恩来', '浙江'),
+         ('王阳明', '江西');
+
+  insert into sss_blog (title, content, author_id) values
+         ('呐喊','醒醒吧，孩子', 2),
+         ('朝花夕拾', '三味书屋', 2),
+         ('而已集', '苍蝇就是苍蝇', 2);
+
+  insert into sss_comment (body, blog_id, author_id) values
+         ('这是一本好书，我是写不出来', 1, 1),
+         ('很好，已阅。', 1, 2);
+
+  select * from sss_blog;
+  select * from sss_author;
+  select * from sss_comment;
+
 #+END_SRC
