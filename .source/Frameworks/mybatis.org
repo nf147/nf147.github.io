@@ -393,6 +393,9 @@ ORM:
       <select id="selectAuthorById" resultType="author">
           select id, name, city from sss_author where id=#{id}
       </select>
+      <select id="selectCommentsOfBlog" resultType="comment">
+          select id, body from sss_comment where blog_id = #{id}
+      </select>
 
       <!-- result map -->
       <select id="selectBlogs" resultMap="rmBlog">
@@ -411,6 +414,22 @@ ORM:
             left join sss_comment c on c.blog_id = b.id
       </select>
 
+      <select id="selectBlogsNestedSelect" resultMap="rmBlogNestedSelect">
+          select
+            id, title, content, author_id
+          from
+            sss_blog
+      </select>
+
+      <resultMap id="rmBlogNestedSelect" type="blog">
+          <id property="id" column="id" />
+          <result property="title" column="title" />
+          <result property="content" column="content" />
+          <association property="author" javaType="author"
+                       column="author_id" select="com.nf147.sss.dao.CommonDAO.selectAuthorById" />
+          <collection property="comments" ofType="comment"
+                      column="id" select="com.nf147.sss.dao.CommonDAO.selectCommentsOfBlog" />
+      </resultMap>
 
 
       <!-- DML 语句 -->

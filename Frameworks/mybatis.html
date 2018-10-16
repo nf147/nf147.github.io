@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-10-16 Tue 06:42 -->
+<!-- 2018-10-16 Tue 06:45 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MyBatis</title>
@@ -521,6 +521,9 @@ helper.help(<span class="org-string">"yuju2"</span>);
     &lt;<span class="org-function-name">select</span> <span class="org-variable-name">id</span>=<span class="org-string">"selectAuthorById"</span> <span class="org-variable-name">resultType</span>=<span class="org-string">"author"</span>&gt;
         select id, name, city from sss_author where id=#{id}
     &lt;/<span class="org-function-name">select</span>&gt;
+    &lt;<span class="org-function-name">select</span> <span class="org-variable-name">id</span>=<span class="org-string">"selectCommentsOfBlog"</span> <span class="org-variable-name">resultType</span>=<span class="org-string">"comment"</span>&gt;
+        select id, body from sss_comment where blog_id = #{id}
+    &lt;/<span class="org-function-name">select</span>&gt;
 
     <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">result map </span><span class="org-comment-delimiter">--&gt;</span>
     &lt;<span class="org-function-name">select</span> <span class="org-variable-name">id</span>=<span class="org-string">"selectBlogs"</span> <span class="org-variable-name">resultMap</span>=<span class="org-string">"rmBlog"</span>&gt;
@@ -539,6 +542,22 @@ helper.help(<span class="org-string">"yuju2"</span>);
           left join sss_comment c on c.blog_id = b.id
     &lt;/<span class="org-function-name">select</span>&gt;
 
+    &lt;<span class="org-function-name">select</span> <span class="org-variable-name">id</span>=<span class="org-string">"selectBlogsNestedSelect"</span> <span class="org-variable-name">resultMap</span>=<span class="org-string">"rmBlogNestedSelect"</span>&gt;
+        select
+          id, title, content, author_id
+        from
+          sss_blog
+    &lt;/<span class="org-function-name">select</span>&gt;
+
+    &lt;<span class="org-function-name">resultMap</span> <span class="org-variable-name">id</span>=<span class="org-string">"rmBlogNestedSelect"</span> <span class="org-variable-name">type</span>=<span class="org-string">"blog"</span>&gt;
+        &lt;<span class="org-function-name">id</span> <span class="org-variable-name">property</span>=<span class="org-string">"id"</span> <span class="org-variable-name">column</span>=<span class="org-string">"id"</span> /&gt;
+        &lt;<span class="org-function-name">result</span> <span class="org-variable-name">property</span>=<span class="org-string">"title"</span> <span class="org-variable-name">column</span>=<span class="org-string">"title"</span> /&gt;
+        &lt;<span class="org-function-name">result</span> <span class="org-variable-name">property</span>=<span class="org-string">"content"</span> <span class="org-variable-name">column</span>=<span class="org-string">"content"</span> /&gt;
+        &lt;<span class="org-function-name">association</span> <span class="org-variable-name">property</span>=<span class="org-string">"author"</span> <span class="org-variable-name">javaType</span>=<span class="org-string">"author"</span>
+                     <span class="org-variable-name">column</span>=<span class="org-string">"author_id"</span> <span class="org-variable-name">select</span>=<span class="org-string">"com.nf147.sss.dao.CommonDAO.selectAuthorById"</span> /&gt;
+        &lt;<span class="org-function-name">collection</span> <span class="org-variable-name">property</span>=<span class="org-string">"comments"</span> <span class="org-variable-name">ofType</span>=<span class="org-string">"comment"</span>
+                    <span class="org-variable-name">column</span>=<span class="org-string">"id"</span> <span class="org-variable-name">select</span>=<span class="org-string">"com.nf147.sss.dao.CommonDAO.selectCommentsOfBlog"</span> /&gt;
+    &lt;/<span class="org-function-name">resultMap</span>&gt;
 
 
     <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">DML &#35821;&#21477; </span><span class="org-comment-delimiter">--&gt;</span>
@@ -727,7 +746,7 @@ System.out.println(comments);
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-10-16 Tue 06:42</p>
+<p class="date">Created: 2018-10-16 Tue 06:45</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
