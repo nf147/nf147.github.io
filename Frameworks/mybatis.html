@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-10-16 Tue 03:40 -->
+<!-- 2018-10-16 Tue 06:42 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MyBatis</title>
@@ -470,6 +470,14 @@ helper.help(<span class="org-string">"yuju2"</span>);
         &lt;<span class="org-function-name">result</span> <span class="org-variable-name">property</span>=<span class="org-string">"title"</span> <span class="org-variable-name">column</span>=<span class="org-string">"title"</span> /&gt;
         &lt;<span class="org-function-name">result</span> <span class="org-variable-name">property</span>=<span class="org-string">"content"</span> <span class="org-variable-name">column</span>=<span class="org-string">"content"</span> /&gt;
 
+        <span class="org-comment-delimiter">&lt;!--</span>
+<span class="org-comment">        &lt;constructor&gt;</span>
+<span class="org-comment">            &lt;idArg column="id" javaType="int" /&gt;</span>
+<span class="org-comment">            &lt;arg column="title" javaType="string" /&gt;</span>
+<span class="org-comment">            &lt;arg column="content" javaType="string" /&gt;</span>
+<span class="org-comment">        &lt;/constructor&gt;</span>
+<span class="org-comment">        </span><span class="org-comment-delimiter">--&gt;</span>
+
         <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">association &#34920;&#31034;&#30340;&#26159; has One &#30340;&#20851;&#31995;</span><span class="org-comment-delimiter">--&gt;</span>
 
         <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#31532;&#19968;&#31181;&#26041;&#24335;&#65306;nested select</span><span class="org-comment-delimiter">--&gt;</span>
@@ -701,7 +709,8 @@ System.out.println(comments);
 <span class="org-keyword">insert</span> <span class="org-keyword">into</span> sss_blog (title, content, author_id) <span class="org-keyword">values</span>
        (<span class="org-string">'&#21584;&#21898;'</span>,<span class="org-string">'&#37266;&#37266;&#21543;&#65292;&#23401;&#23376;'</span>, 2),
        (<span class="org-string">'&#26397;&#33457;&#22805;&#25342;'</span>, <span class="org-string">'&#19977;&#21619;&#20070;&#23627;'</span>, 2),
-       (<span class="org-string">'&#32780;&#24050;&#38598;'</span>, <span class="org-string">'&#33485;&#34631;&#23601;&#26159;&#33485;&#34631;'</span>, 2);
+       (<span class="org-string">'&#32780;&#24050;&#38598;'</span>, <span class="org-string">'&#33485;&#34631;&#23601;&#26159;&#33485;&#34631;'</span>, 2),
+       (<span class="org-string">'&#23567;&#26102;&#20195;'</span>, <span class="org-string">'&#24754;&#20260;&#23612;&#31108;&#30475;&#35265;&#30475;&#35265;&#26694;&#26550;'</span>, 1);
 
 <span class="org-keyword">insert</span> <span class="org-keyword">into</span> sss_comment (body, blog_id, author_id) <span class="org-keyword">values</span>
        (<span class="org-string">'&#36825;&#26159;&#19968;&#26412;&#22909;&#20070;&#65292;&#25105;&#26159;&#20889;&#19981;&#20986;&#26469;'</span>, 1, 1),
@@ -718,7 +727,7 @@ System.out.println(comments);
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-10-16 Tue 03:40</p>
+<p class="date">Created: 2018-10-16 Tue 06:42</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

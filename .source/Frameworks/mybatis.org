@@ -342,6 +342,14 @@ ORM:
           <result property="title" column="title" />
           <result property="content" column="content" />
 
+          <!--
+          <constructor>
+              <idArg column="id" javaType="int" />
+              <arg column="title" javaType="string" />
+              <arg column="content" javaType="string" />
+          </constructor>
+          -->
+
           <!--association 表示的是 has One 的关系-->
 
           <!--第一种方式：nested select-->
@@ -562,7 +570,8 @@ ORM:
   insert into sss_blog (title, content, author_id) values
          ('呐喊','醒醒吧，孩子', 2),
          ('朝花夕拾', '三味书屋', 2),
-         ('而已集', '苍蝇就是苍蝇', 2);
+         ('而已集', '苍蝇就是苍蝇', 2),
+         ('小时代', '悲伤尼禄看见看见框架', 1);
 
   insert into sss_comment (body, blog_id, author_id) values
          ('这是一本好书，我是写不出来', 1, 1),
