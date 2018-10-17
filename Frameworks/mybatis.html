@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-10-16 Tue 06:45 -->
+<!-- 2018-10-17 周三 07:52 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MyBatis</title>
@@ -39,6 +39,16 @@
 <li><a href="#orgc49e1a0">3. 映射文件 (EntityMapper.xml)</a></li>
 <li><a href="#orga9abbb7">4. 常用 API</a></li>
 <li><a href="#orgedb8f02">5. 示例表</a></li>
+<li><a href="#org0d781ba">6. 任务直到手册 P58 答案参考</a>
+<ul>
+<li><a href="#org3bbd286">6.1. 首先，在数据库中创建表，并插入测试数据:</a></li>
+<li><a href="#orgdf022c2">6.2. 其次，为表创建相应实体类:</a></li>
+<li><a href="#org7dcda7a">6.3. 然后，创建接口。按照需求，我们要实现两个方法:</a></li>
+<li><a href="#org0c2f814">6.4. 为上述接口，写测试方法:</a></li>
+<li><a href="#orge93b520">6.5. Mapper 的第一种方式，Nested ResultSet:</a></li>
+<li><a href="#org894073d">6.6. Mapper 的第二种方式，Nested Select:</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </nav>
@@ -743,10 +753,206 @@ System.out.println(comments);
 </div>
 </div>
 </section>
+<section id="outline-container-org0d781ba" class="outline-2">
+<h2 id="org0d781ba"><span class="section-number-2">6</span> 任务直到手册 P58 答案参考</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+<div id="outline-container-org3bbd286" class="outline-3">
+<h3 id="org3bbd286"><span class="section-number-3">6.1</span> 首先，在数据库中创建表，并插入测试数据:</h3>
+<div class="outline-text-3" id="text-6-1">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">customer</span>(
+    customer_id <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>,
+    first_name <span class="org-type">varchar</span>(30),
+    last_name <span class="org-type">varchar</span>(10),
+    company <span class="org-type">varchar</span>(30),
+    address <span class="org-type">varchar</span>(30),
+    city <span class="org-type">varchar</span>(20),
+    <span class="org-keyword">state</span> <span class="org-type">varchar</span>(10),
+    county <span class="org-type">varchar</span>(10),
+    postal_code <span class="org-type">varchar</span>(30),
+    phone <span class="org-type">varchar</span>(20),
+    fax <span class="org-type">varchar</span>(20),
+    email <span class="org-type">varchar</span>(20),
+    support_repId <span class="org-type">int</span>
+);
+<span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">invoice</span>(
+    invoice_id <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>,
+    customer_id <span class="org-type">int</span> <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
+    invoice_date <span class="org-type">date</span>,
+    billing_address <span class="org-type">varchar</span>(20),
+    billing_city <span class="org-type">varchar</span>(20),
+    billing_state <span class="org-type">varchar</span>(10),
+    billing_country <span class="org-type">varchar</span>(20),
+    billing_postalCode <span class="org-type">varchar</span>(20),
+    total <span class="org-type">int</span>
+);
+
+<span class="org-keyword">insert</span> <span class="org-keyword">into</span> customer (first_name,last_name,company,address,city,<span class="org-keyword">state</span> ,county,postal_code,phone,fax,email,support_repId)
+   <span class="org-keyword">values</span>
+   (<span class="org-string">'&#24503;&#21326;'</span>,<span class="org-string">'&#21016;'</span>,<span class="org-string">'&#21271;&#24433;'</span>,<span class="org-string">'001&#21495;&#34903;'</span>,<span class="org-string">'&#39321;&#28207;'</span>,<span class="org-string">'&#20122;&#27954;'</span>,<span class="org-string">'&#20013;&#22269;'</span>,<span class="org-string">'999077'</span>,<span class="org-string">'13842344532'</span>,<span class="org-string">'13842344532'</span>,<span class="org-string">'4534123124@qq.com'</span>,0),
+   (<span class="org-string">'&#23500;&#22478;'</span>,<span class="org-string">'&#37101;'</span>,<span class="org-string">'&#21271;&#24433;'</span>,<span class="org-string">'002&#21495;&#34903;'</span>,<span class="org-string">'&#39321;&#28207;'</span>,<span class="org-string">'&#20122;&#27954;'</span>,<span class="org-string">'&#20013;&#22269;'</span>,<span class="org-string">'999077'</span>,<span class="org-string">'15072349132'</span>,<span class="org-string">'15072349132'</span>,<span class="org-string">'8937120154@qq.com'</span>,0),
+   (<span class="org-string">'&#40857;'</span>,<span class="org-string">'&#25104;'</span>,<span class="org-string">'&#21271;&#24433;'</span>,<span class="org-string">'003&#21495;&#34903;'</span>,<span class="org-string">'&#39321;&#28207;'</span>,<span class="org-string">'&#20122;&#27954;'</span>,<span class="org-string">'&#20013;&#22269;'</span>,<span class="org-string">'999077'</span>,<span class="org-string">'13389344576'</span>,<span class="org-string">'13389344576'</span>,<span class="org-string">'4534123124@qq.com'</span>,0);
+
+<span class="org-keyword">insert</span> <span class="org-keyword">into</span> invoice (customer_id,invoice_date,billing_address,billing_city, billing_state,billing_country,billing_postalCode,total)
+   <span class="org-keyword">values</span>
+   (1,<span class="org-string">'2018-10-13'</span>,<span class="org-string">'001&#34903;'</span>,<span class="org-string">'&#39321;&#28207;'</span>,<span class="org-string">'&#20122;&#27954;'</span>,<span class="org-string">'&#20013;&#22269;'</span>,<span class="org-string">'999077'</span>,1);
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdf022c2" class="outline-3">
+<h3 id="orgdf022c2"><span class="section-number-3">6.2</span> 其次，为表创建相应实体类:</h3>
+<div class="outline-text-3" id="text-6-2">
+<ul class="org-ul">
+<li>注意，处理好依赖关系</li>
+<li>注意命名规范</li>
+<li>要先确定好各种属性，再去生成 setters/getters</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org7dcda7a" class="outline-3">
+<h3 id="org7dcda7a"><span class="section-number-3">6.3</span> 然后，创建接口。按照需求，我们要实现两个方法:</h3>
+<div class="outline-text-3" id="text-6-3">
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">interface</span> <span class="org-type">InvoiceMapper</span> {
+    <span class="org-type">Invoice</span> <span class="org-function-name">getInvoiceById</span>(<span class="org-type">int</span> <span class="org-variable-name">id</span>);
+    <span class="org-type">Customer</span> <span class="org-function-name">getCustomerById</span>(<span class="org-type">int</span> <span class="org-variable-name">id</span>);
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0c2f814" class="outline-3">
+<h3 id="org0c2f814"><span class="section-number-3">6.4</span> 为上述接口，写测试方法:</h3>
+<div class="outline-text-3" id="text-6-4">
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">AppTest</span> {
+    <span class="org-keyword">static</span> <span class="org-type">SqlSessionFactory</span> <span class="org-variable-name">factory</span>;
+    <span class="org-keyword">static</span> <span class="org-type">SqlSession</span> <span class="org-variable-name">session</span>;
+
+    <span class="org-c-annotation">@Test</span>
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">testGetInvoiceById</span>() {
+        <span class="org-type">InvoiceMapper</span> <span class="org-variable-name">mapper</span> = session.getMapper(InvoiceMapper.<span class="org-keyword">class</span>);
+        <span class="org-type">Invoice</span> <span class="org-variable-name">invoice</span> = mapper.getInvoiceById(1);
+        System.out.println(invoice);
+    }
+
+    <span class="org-c-annotation">@Test</span>
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">testGetCustomerById</span>() {
+        <span class="org-type">InvoiceMapper</span> <span class="org-variable-name">mapper</span> = session.getMapper(InvoiceMapper.<span class="org-keyword">class</span>);
+        <span class="org-type">Customer</span> <span class="org-variable-name">customer</span> = mapper.getCustomerById(1);
+        System.out.println(customer.getInvoices());
+        System.out.println(customer);
+    }
+
+    <span class="org-c-annotation">@BeforeClass</span>
+    <span class="org-keyword">public</span> <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">init</span> () <span class="org-keyword">throws</span> <span class="org-type">IOException</span> {
+        <span class="org-type">InputStream</span> <span class="org-variable-name">in</span> = Resources.getResourceAsStream(<span class="org-string">"mybatis-config.xml"</span>);
+        factory = <span class="org-keyword">new</span> <span class="org-type">SqlSessionFactoryBuilder</span>().build(in);
+        session = factory.openSession();
+    }
+
+    <span class="org-c-annotation">@AfterClass</span>
+    <span class="org-keyword">public</span> <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">destroy</span>() {
+        session.close();
+    }
+}
+</pre>
+</div>
+
+<p>
+然后，就可以写接口实现了(Mapper.xml)。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge93b520" class="outline-3">
+<h3 id="orge93b520"><span class="section-number-3">6.5</span> Mapper 的第一种方式，Nested ResultSet:</h3>
+<div class="outline-text-3" id="text-6-5">
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">resultMap</span> <span class="org-variable-name">id</span>=<span class="org-string">"rmInvoice"</span> <span class="org-variable-name">type</span>=<span class="org-string">"invoice"</span> <span class="org-variable-name">autoMapping</span>=<span class="org-string">"true"</span>&gt;
+    &lt;<span class="org-function-name">association</span> <span class="org-variable-name">property</span>=<span class="org-string">"customer"</span> <span class="org-variable-name">resultMap</span>=<span class="org-string">"rmCustormer"</span> /&gt;
+    &lt;<span class="org-function-name">association</span> <span class="org-variable-name">property</span>=<span class="org-string">"billingInfo"</span> <span class="org-variable-name">javaType</span>=<span class="org-string">"billingInfo"</span> <span class="org-variable-name">autoMapping</span>=<span class="org-string">"true"</span> <span class="org-variable-name">columnPrefix</span>=<span class="org-string">"billing_"</span> /&gt;
+&lt;/<span class="org-function-name">resultMap</span>&gt;
+
+&lt;<span class="org-function-name">resultMap</span> <span class="org-variable-name">id</span>=<span class="org-string">"rmCustormer"</span> <span class="org-variable-name">type</span>=<span class="org-string">"customer"</span> <span class="org-variable-name">autoMapping</span>=<span class="org-string">"true"</span>&gt;
+    &lt;<span class="org-function-name">collection</span> <span class="org-variable-name">property</span>=<span class="org-string">"invoices"</span> <span class="org-variable-name">ofType</span>=<span class="org-string">"invoice"</span> <span class="org-variable-name">resultMap</span>=<span class="org-string">"rmInvoice"</span> /&gt;
+&lt;/<span class="org-function-name">resultMap</span>&gt;
+
+&lt;<span class="org-function-name">select</span> <span class="org-variable-name">id</span>=<span class="org-string">"getInvoiceById"</span> <span class="org-variable-name">resultMap</span>=<span class="org-string">"rmInvoice"</span>&gt;
+    select
+      i.invoice_id,
+      i.invoice_date,
+      i.billing_address,
+      i.billing_city,
+      i.billing_state,
+      i.billing_country,
+      i.billing_postalCode,
+      i.total,
+      c.*
+    from invoice i
+     left join customer c on i.customer_id = c.customer_id
+     where invoice_id = #{id}
+&lt;/<span class="org-function-name">select</span>&gt;
+
+&lt;<span class="org-function-name">select</span> <span class="org-variable-name">id</span>=<span class="org-string">"getCustomerById"</span> <span class="org-variable-name">resultMap</span>=<span class="org-string">"rmCustormer"</span>&gt;
+    select
+      c.*,
+      i.invoice_id,
+      i.invoice_date,
+      i.billing_address,
+      i.billing_city,
+      i.billing_state,
+      i.billing_country,
+      i.billing_postalcode,
+      i.total
+    from customer c
+    left join invoice i on i.customer_id = c.customer_id
+    where c.customer_id = #{id}
+&lt;/<span class="org-function-name">select</span>&gt;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org894073d" class="outline-3">
+<h3 id="org894073d"><span class="section-number-3">6.6</span> Mapper 的第二种方式，Nested Select:</h3>
+<div class="outline-text-3" id="text-6-6">
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">resultMap</span> <span class="org-variable-name">id</span>=<span class="org-string">"rmInvoice"</span> <span class="org-variable-name">type</span>=<span class="org-string">"invoice"</span> <span class="org-variable-name">autoMapping</span>=<span class="org-string">"true"</span>&gt;
+    &lt;<span class="org-function-name">association</span> <span class="org-variable-name">property</span>=<span class="org-string">"customer"</span> <span class="org-variable-name">column</span>=<span class="org-string">"customer_id"</span> <span class="org-variable-name">select</span>=<span class="org-string">"getCustomerById"</span> /&gt;
+    &lt;<span class="org-function-name">association</span> <span class="org-variable-name">property</span>=<span class="org-string">"billingInfo"</span> <span class="org-variable-name">javaType</span>=<span class="org-string">"billingInfo"</span> <span class="org-variable-name">columnPrefix</span>=<span class="org-string">"billing_"</span> <span class="org-variable-name">autoMapping</span>=<span class="org-string">"true"</span> /&gt;
+&lt;/<span class="org-function-name">resultMap</span>&gt;
+
+&lt;<span class="org-function-name">resultMap</span> <span class="org-variable-name">id</span>=<span class="org-string">"rmCustomer"</span> <span class="org-variable-name">type</span>=<span class="org-string">"customer"</span> <span class="org-variable-name">autoMapping</span>=<span class="org-string">"true"</span>&gt;
+    &lt;<span class="org-function-name">collection</span> <span class="org-variable-name">property</span>=<span class="org-string">"invoices"</span> <span class="org-variable-name">ofType</span>=<span class="org-string">"invoice"</span>
+                <span class="org-variable-name">column</span>=<span class="org-string">"customer_id"</span> <span class="org-variable-name">select</span>=<span class="org-string">"getInvoiceByCustomerId"</span> /&gt;
+&lt;/<span class="org-function-name">resultMap</span>&gt;
+
+&lt;<span class="org-function-name">select</span> <span class="org-variable-name">id</span>=<span class="org-string">"getInvoiceById"</span> <span class="org-variable-name">resultMap</span>=<span class="org-string">"rmInvoice"</span>&gt;
+    select * from invoice
+&lt;/<span class="org-function-name">select</span>&gt;
+
+&lt;<span class="org-function-name">select</span> <span class="org-variable-name">id</span>=<span class="org-string">"getCustomerById"</span> <span class="org-variable-name">resultMap</span>=<span class="org-string">"rmCustomer"</span>&gt;
+    select * from customer where customer_id = #{id}
+&lt;/<span class="org-function-name">select</span>&gt;
+
+&lt;<span class="org-function-name">select</span> <span class="org-variable-name">id</span>=<span class="org-string">"getInvoiceByCustomerId"</span> <span class="org-variable-name">resultMap</span>=<span class="org-string">"rmInvoice"</span>&gt;
+    select * from invoice where customer_id = #{id}
+&lt;/<span class="org-function-name">select</span>&gt;
+</pre>
+</div>
+</div>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-10-16 Tue 06:45</p>
+<p class="date">Created: 2018-10-17 周三 07:52</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

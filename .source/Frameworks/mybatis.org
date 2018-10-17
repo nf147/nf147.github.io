@@ -601,3 +601,168 @@ ORM:
   select * from sss_comment;
 
 #+END_SRC
+* 任务直到手册 P58 答案参考
+** 首先，在数据库中创建表，并插入测试数据:
+
+#+BEGIN_SRC sql
+  create table customer(
+      customer_id int auto_increment primary key,
+      first_name varchar(30),
+      last_name varchar(10),
+      company varchar(30),
+      address varchar(30),
+      city varchar(20),
+      state varchar(10),
+      county varchar(10),
+      postal_code varchar(30),
+      phone varchar(20),
+      fax varchar(20),
+      email varchar(20),
+      support_repId int
+  );
+  create table invoice(
+      invoice_id int auto_increment primary key,
+      customer_id int not null,
+      invoice_date date,
+      billing_address varchar(20),
+      billing_city varchar(20),
+      billing_state varchar(10),
+      billing_country varchar(20),
+      billing_postalCode varchar(20),
+      total int
+  );
+
+  insert into customer (first_name,last_name,company,address,city,state ,county,postal_code,phone,fax,email,support_repId)
+     values
+     ('德华','刘','北影','001号街','香港','亚洲','中国','999077','13842344532','13842344532','4534123124@qq.com',0),
+     ('富城','郭','北影','002号街','香港','亚洲','中国','999077','15072349132','15072349132','8937120154@qq.com',0),
+     ('龙','成','北影','003号街','香港','亚洲','中国','999077','13389344576','13389344576','4534123124@qq.com',0);
+
+  insert into invoice (customer_id,invoice_date,billing_address,billing_city, billing_state,billing_country,billing_postalCode,total)
+     values
+     (1,'2018-10-13','001街','香港','亚洲','中国','999077',1);
+#+END_SRC
+
+** 其次，为表创建相应实体类:
+
+- 注意，处理好依赖关系
+- 注意命名规范
+- 要先确定好各种属性，再去生成 setters/getters
+
+** 然后，创建接口。按照需求，我们要实现两个方法:
+
+#+BEGIN_SRC java
+  public interface InvoiceMapper {
+      Invoice getInvoiceById(int id);
+      Customer getCustomerById(int id);
+  }
+#+END_SRC
+
+** 为上述接口，写测试方法:
+
+#+BEGIN_SRC java
+  public class AppTest {
+      static SqlSessionFactory factory;
+      static SqlSession session;
+
+      @Test
+      public void testGetInvoiceById() {
+          InvoiceMapper mapper = session.getMapper(InvoiceMapper.class);
+          Invoice invoice = mapper.getInvoiceById(1);
+          System.out.println(invoice);
+      }
+
+      @Test
+      public void testGetCustomerById() {
+          InvoiceMapper mapper = session.getMapper(InvoiceMapper.class);
+          Customer customer = mapper.getCustomerById(1);
+          System.out.println(customer.getInvoices());
+          System.out.println(customer);
+      }
+
+      @BeforeClass
+      public static void init () throws IOException {
+          InputStream in = Resources.getResourceAsStream("mybatis-config.xml");
+          factory = new SqlSessionFactoryBuilder().build(in);
+          session = factory.openSession();
+      }
+
+      @AfterClass
+      public static void destroy() {
+          session.close();
+      }
+  }
+#+END_SRC
+
+然后，就可以写接口实现了(Mapper.xml)。
+
+** Mapper 的第一种方式，Nested ResultSet:
+
+#+BEGIN_SRC sgml
+  <resultMap id="rmInvoice" type="invoice" autoMapping="true">
+      <association property="customer" resultMap="rmCustormer" />
+      <association property="billingInfo" javaType="billingInfo" autoMapping="true" columnPrefix="billing_" />
+  </resultMap>
+
+  <resultMap id="rmCustormer" type="customer" autoMapping="true">
+      <collection property="invoices" ofType="invoice" resultMap="rmInvoice" />
+  </resultMap>
+
+  <select id="getInvoiceById" resultMap="rmInvoice">
+      select
+        i.invoice_id,
+        i.invoice_date,
+        i.billing_address,
+        i.billing_city,
+        i.billing_state,
+        i.billing_country,
+        i.billing_postalCode,
+        i.total,
+        c.*
+      from invoice i
+       left join customer c on i.customer_id = c.customer_id
+       where invoice_id = #{id}
+  </select>
+
+  <select id="getCustomerById" resultMap="rmCustormer">
+      select
+        c.*,
+        i.invoice_id,
+        i.invoice_date,
+        i.billing_address,
+        i.billing_city,
+        i.billing_state,
+        i.billing_country,
+        i.billing_postalcode,
+        i.total
+      from customer c
+      left join invoice i on i.customer_id = c.customer_id
+      where c.customer_id = #{id}
+  </select>
+#+END_SRC
+
+** Mapper 的第二种方式，Nested Select:
+
+#+BEGIN_SRC sgml
+  <resultMap id="rmInvoice" type="invoice" autoMapping="true">
+      <association property="customer" column="customer_id" select="getCustomerById" />
+      <association property="billingInfo" javaType="billingInfo" columnPrefix="billing_" autoMapping="true" />
+  </resultMap>
+
+  <resultMap id="rmCustomer" type="customer" autoMapping="true">
+      <collection property="invoices" ofType="invoice"
+                  column="customer_id" select="getInvoiceByCustomerId" />
+  </resultMap>
+
+  <select id="getInvoiceById" resultMap="rmInvoice">
+      select * from invoice
+  </select>
+
+  <select id="getCustomerById" resultMap="rmCustomer">
+      select * from customer where customer_id = #{id}
+  </select>
+
+  <select id="getInvoiceByCustomerId" resultMap="rmInvoice">
+      select * from invoice where customer_id = #{id}
+  </select>
+#+END_SRC
