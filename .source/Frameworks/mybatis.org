@@ -786,8 +786,26 @@ ORM:
       select * from invoice where customer_id = #{id}
   </select>
 #+END_SRC
+
 * 缓存 (Cache)
+
+缓存类型:
+- 一级缓存
+- 二级缓存
+
+缓存的配置与使用。
 
 * 分页 (Pagination)
 
+分页方式的分类:
+- 逻辑分页
+- 物理分页
+
+分页的实现原理。
+
+MyBatis-PageHelper 的使用:
+- https://github.com/pagehelper/Mybatis-PageHelper
+
 * MBG (MyBatis-Generator)
+
+http://www.mybatis.org/generator/
