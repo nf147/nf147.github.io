@@ -786,3 +786,8 @@ ORM:
       select * from invoice where customer_id = #{id}
   </select>
 #+END_SRC
+* 缓存 (Cache)
+
+* 分页 (Pagination)
+
+* MBG (MyBatis-Generator)
