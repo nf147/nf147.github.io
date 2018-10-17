@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-10-17 周三 07:55 -->
+<!-- 2018-10-17 周三 07:59 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MyBatis</title>
@@ -45,7 +45,7 @@
 <li><a href="#orgdf022c2">6.2. 其次，为表创建相应实体类:</a></li>
 <li><a href="#org7dcda7a">6.3. 然后，创建接口。按照需求，我们要实现两个方法:</a></li>
 <li><a href="#org0c2f814">6.4. 为上述接口，写测试方法:</a></li>
-<li><a href="#orge93b520">6.5. Mapper 的第一种方式，Nested ResultSet:</a></li>
+<li><a href="#orge9a53da">6.5. Mapper 的第一种方式，Nested ResultMap:</a></li>
 <li><a href="#org894073d">6.6. Mapper 的第二种方式，Nested Select:</a></li>
 </ul>
 </li>
@@ -870,9 +870,29 @@ System.out.println(comments);
 </div>
 </div>
 
-<div id="outline-container-orge93b520" class="outline-3">
-<h3 id="orge93b520"><span class="section-number-3">6.5</span> Mapper 的第一种方式，Nested ResultSet:</h3>
+<div id="outline-container-orge9a53da" class="outline-3">
+<h3 id="orge9a53da"><span class="section-number-3">6.5</span> Mapper 的第一种方式，Nested ResultMap:</h3>
 <div class="outline-text-3" id="text-6-5">
+<p>
+嵌套的 ResultMap。
+</p>
+
+<p>
+优点:
+</p>
+<ul class="org-ul">
+<li>xx</li>
+<li>yy</li>
+</ul>
+
+<p>
+缺点:
+</p>
+<ul class="org-ul">
+<li>aa</li>
+<li>bb</li>
+</ul>
+
 <div class="org-src-container">
 <pre class="src src-sgml">&lt;<span class="org-function-name">resultMap</span> <span class="org-variable-name">id</span>=<span class="org-string">"rmInvoice"</span> <span class="org-variable-name">type</span>=<span class="org-string">"invoice"</span> <span class="org-variable-name">autoMapping</span>=<span class="org-string">"true"</span>&gt;
     &lt;<span class="org-function-name">association</span> <span class="org-variable-name">property</span>=<span class="org-string">"customer"</span> <span class="org-variable-name">resultMap</span>=<span class="org-string">"rmCustormer"</span> /&gt;
@@ -922,6 +942,26 @@ System.out.println(comments);
 <div id="outline-container-org894073d" class="outline-3">
 <h3 id="org894073d"><span class="section-number-3">6.6</span> Mapper 的第二种方式，Nested Select:</h3>
 <div class="outline-text-3" id="text-6-6">
+<p>
+嵌套的 Select 查询。
+</p>
+
+<p>
+优点:
+</p>
+<ul class="org-ul">
+<li>xx</li>
+<li>yy</li>
+</ul>
+
+<p>
+缺点:
+</p>
+<ul class="org-ul">
+<li>aa</li>
+<li>bb</li>
+</ul>
+
 <div class="org-src-container">
 <pre class="src src-sgml">&lt;<span class="org-function-name">resultMap</span> <span class="org-variable-name">id</span>=<span class="org-string">"rmInvoice"</span> <span class="org-variable-name">type</span>=<span class="org-string">"invoice"</span> <span class="org-variable-name">autoMapping</span>=<span class="org-string">"true"</span>&gt;
     &lt;<span class="org-function-name">association</span> <span class="org-variable-name">property</span>=<span class="org-string">"customer"</span> <span class="org-variable-name">column</span>=<span class="org-string">"customer_id"</span> <span class="org-variable-name">select</span>=<span class="org-string">"getCustomerById"</span> /&gt;
@@ -952,7 +992,7 @@ System.out.println(comments);
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-10-17 周三 07:55</p>
+<p class="date">Created: 2018-10-17 周三 07:59</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

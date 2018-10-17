@@ -696,7 +696,17 @@ ORM:
 
 然后，就可以写接口实现了(Mapper.xml)。
 
-** Mapper 的第一种方式，Nested ResultSet:
+** Mapper 的第一种方式，Nested ResultMap:
+
+嵌套的 ResultMap。
+
+优点:
+- xx
+- yy
+
+缺点:
+- aa
+- bb
 
 #+BEGIN_SRC sgml
   <resultMap id="rmInvoice" type="invoice" autoMapping="true">
@@ -742,6 +752,16 @@ ORM:
 #+END_SRC
 
 ** Mapper 的第二种方式，Nested Select:
+
+嵌套的 Select 查询。
+
+优点:
+- xx
+- yy
+
+缺点:
+- aa
+- bb
 
 #+BEGIN_SRC sgml
   <resultMap id="rmInvoice" type="invoice" autoMapping="true">
