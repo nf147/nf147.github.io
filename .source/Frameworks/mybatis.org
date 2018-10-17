@@ -601,7 +601,7 @@ ORM:
   select * from sss_comment;
 
 #+END_SRC
-* 任务直到手册 P58 答案参考
+* 任务指导手册 P58 答案参考
 ** 首先，在数据库中创建表，并插入测试数据:
 
 #+BEGIN_SRC sql
