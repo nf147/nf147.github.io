@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-10-18 周四 02:28 -->
+<!-- 2018-10-18 周四 03:20 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MyBatis</title>
@@ -39,6 +39,8 @@
 <li><a href="#orgc49e1a0">3. 映射文件 (EntityMapper.xml)</a>
 <ul>
 <li><a href="#orgb5566c4">3.1. sql</a></li>
+<li><a href="#orgb276968">3.2. 动态语句之 if</a></li>
+<li><a href="#org62ca539">3.3. 动态语句之 trim/where/set</a></li>
 </ul>
 </li>
 <li><a href="#orga9abbb7">4. 常用 API</a></li>
@@ -652,10 +654,35 @@ System.out.println(comments);
 <h3 id="orgb5566c4"><span class="section-number-3">3.1</span> sql</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
-示例:
+用于在指定位置插入代码片段，这可以达到代码片段复用的目的。
+</p>
+
+<p>
+它的基本语法:
 </p>
 <div class="org-src-container">
-<pre class="src src-sgml">&lt;<span class="org-function-name">sql</span> <span class="org-variable-name">id</span>=<span class="org-string">"sometable"</span>&gt;
+<pre class="src src-sgml"><span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#23450;&#20041; </span><span class="org-comment-delimiter">--&gt;</span>
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#20854;&#20013;&#21487;&#20197;&#29992; ${} &#35821;&#27861;&#34920;&#31034;&#20256;&#36827;&#26469;&#30340;&#20540; </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">sql</span> <span class="org-variable-name">id</span>=<span class="org-string">"&#21517;&#23383;"</span>&gt;
+  xxx, yyy, ${aaa}.zzz
+&lt;/<span class="org-function-name">sql</span>&gt;
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#20351;&#29992; </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">include</span> <span class="org-variable-name">refid</span>=<span class="org-string">"&#21517;&#23383;"</span> /&gt;
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#21487;&#20197;&#20351;&#29992; property &#34920;&#31034;&#20256;&#20837;&#30340;&#20540; </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">include</span> <span class="org-variable-name">refid</span>=<span class="org-string">"&#21517;&#23383;"</span>&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"aaa"</span> <span class="org-variable-name">value</span>=<span class="org-string">"i"</span> /&gt;
+&lt;/<span class="org-function-name">include</span>&gt;
+</pre>
+</div>
+
+<p>
+这是一个示例:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml"><span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">origin </span><span class="org-comment-delimiter">--&gt;</span>
+
+&lt;<span class="org-function-name">sql</span> <span class="org-variable-name">id</span>=<span class="org-string">"sometable"</span>&gt;
   ${prefix}Table
 &lt;/<span class="org-function-name">sql</span>&gt;
 
@@ -673,7 +700,9 @@ System.out.println(comments);
   &lt;/<span class="org-function-name">include</span>&gt;
 &lt;/<span class="org-function-name">select</span>&gt;
 
-<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">Mybatis </span><span class="org-comment-delimiter">--&gt;</span>
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#31449;&#22312; Mybatis &#30340;&#35282;&#24230;&#65292;&#35201;&#35299;&#26512;&#19978;&#38754;&#30340;&#35821;&#21477; </span><span class="org-comment-delimiter">--&gt;</span>
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#39318;&#20808;&#65292;&#26367;&#25442; someinclude </span><span class="org-comment-delimiter">--&gt;</span>
+
 &lt;<span class="org-function-name">select</span> <span class="org-variable-name">id</span>=<span class="org-string">"select"</span> <span class="org-variable-name">resultType</span>=<span class="org-string">"map"</span>&gt;
   select
   field1, field2, field3
@@ -686,6 +715,9 @@ System.out.println(comments);
   from
   &lt;<span class="org-function-name">include</span> <span class="org-variable-name">refid</span>=<span class="org-string">"sometable"</span>/&gt;
 &lt;/<span class="org-function-name">select</span>&gt;
+
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#35299;&#26512;&#23436;&#30340;&#35821;&#21477;&#20013;&#65292;&#36824;&#23384;&#22312; include&#65292;&#37027;&#20040;&#32487;&#32493;&#35299;&#26512;&#65292;&#26367;&#25442; sometable </span><span class="org-comment-delimiter">--&gt;</span>
 
 &lt;<span class="org-function-name">select</span> <span class="org-variable-name">id</span>=<span class="org-string">"select"</span> <span class="org-variable-name">resultType</span>=<span class="org-string">"map"</span>&gt;
   select
@@ -703,6 +735,98 @@ System.out.println(comments);
 &lt;/<span class="org-function-name">select</span>&gt;
 </pre>
 </div>
+</div>
+</div>
+
+
+<div id="outline-container-orgb276968" class="outline-3">
+<h3 id="orgb276968"><span class="section-number-3">3.2</span> 动态语句之 if</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+基本语法是:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">if</span> <span class="org-variable-name">test</span>=<span class="org-string">"xxx != null"</span>&gt;
+  where id = #{xxx}
+&lt;/<span class="org-function-name">if</span>&gt;
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">test=xxx &#36825;&#37324;&#20351;&#29992;&#30340;&#26159; OGNL &#34920;&#36798;&#24335;&#30340;&#35821;&#27861; </span><span class="org-comment-delimiter">--&gt;</span>
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#19978;&#38754;&#30340;&#31561;&#20215;&#20110; </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">if</span> <span class="org-variable-name">test</span>=<span class="org-string">"_parameter.getXxx() != null"</span>&gt;
+  where id = #{xxx}
+&lt;/<span class="org-function-name">if</span>&gt;
+</pre>
+</div>
+
+<p>
+如果传入的参数是 int 等类型，使用 test= 语法会报 “getter 没有”的错误。解决方式:
+</p>
+<ol class="org-ol">
+<li>使用 Map 或 POJO 作为查询语句的入参</li>
+<li>使用 @Param 的方式，注入参数</li>
+<li>在 <code>test=id</code> 的地方，使用 <code>test=_parameter</code> 代替</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org62ca539" class="outline-3">
+<h3 id="org62ca539"><span class="section-number-3">3.3</span> 动态语句之 trim/where/set</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+这些都是结合 if 语句使用，防止拼接多个语句的时候，产生多余的前缀、后缀，是一种辅助语法。
+</p>
+
+<p>
+where 和 set 都可以用等价的 trim 来表示。
+</p>
+
+<p>
+比如 where:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">where</span>&gt;
+    <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&lt;trim prefix="WHERE" prefixOverrides="AND |OR "&gt;</span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-function-name">if</span> <span class="org-variable-name">test</span>=<span class="org-string">"_parameter.firstName != null"</span>&gt;
+      and first_name = #{firstName}
+    &lt;/<span class="org-function-name">if</span>&gt;
+    &lt;<span class="org-function-name">if</span> <span class="org-variable-name">test</span>=<span class="org-string">"city != null"</span>&gt;
+      and city = #{city}
+    &lt;/<span class="org-function-name">if</span>&gt;
+    &lt;<span class="org-function-name">if</span> <span class="org-variable-name">test</span>=<span class="org-string">"address != null"</span>&gt;
+      and address like #{address}
+    &lt;/<span class="org-function-name">if</span>&gt;
+    <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&lt;/trim&gt;</span><span class="org-comment-delimiter">--&gt;</span>
+&lt;/<span class="org-function-name">where</span>&gt;
+</pre>
+</div>
+
+<p>
+它的逻辑是:
+</p>
+<ol class="org-ol">
+<li><p>
+首先，按照条件判断，将所有符合条件的语句连接起来，比如:
+</p>
+<pre class="example">
+and city = #{city} and address like #{address}
+</pre></li>
+<li><p>
+第二步，将句首(prefix)的 and 或者 or 删除掉:
+</p>
+<pre class="example">
+city = #{city} and address like #{address}
+</pre></li>
+<li><p>
+最后，在语句前面，添加 where:
+</p>
+<pre class="example">
+where city = #{city} and address like #{address}
+</pre></li>
+</ol>
+
+<p>
+于是我们看到，通过这种方式就可以动态组合成可以正常执行的 sql 语句了。
+</p>
 </div>
 </div>
 </section>
@@ -1107,7 +1231,7 @@ MyBatis-PageHelper 的使用:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-10-18 周四 02:28</p>
+<p class="date">Created: 2018-10-18 周四 03:20</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

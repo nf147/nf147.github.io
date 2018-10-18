@@ -500,8 +500,28 @@ ORM:
 
 ** sql
 
-示例:
+用于在指定位置插入代码片段，这可以达到代码片段复用的目的。
+
+它的基本语法:
 #+BEGIN_SRC sgml
+  <!-- 定义 -->
+  <!-- 其中可以用 ${} 语法表示传进来的值 -->
+  <sql id="名字">
+    xxx, yyy, ${aaa}.zzz
+  </sql>
+
+  <!-- 使用 -->
+  <include refid="名字" />
+  <!-- 可以使用 property 表示传入的值 -->
+  <include refid="名字">
+    <property name="aaa" value="i" />
+  </include>
+#+END_SRC
+
+这是一个示例:
+#+BEGIN_SRC sgml
+  <!-- origin -->
+
   <sql id="sometable">
     ${prefix}Table
   </sql>
@@ -520,35 +540,95 @@ ORM:
     </include>
   </select>
 
-  <!-- Mybatis -->
-  <select id="select" resultType="map">
-    select
-    field1, field2, field3
-  
-    <!-- <include refid="someinclude"> -->
-    <!--   <property name="prefix" value="Some"/> -->
-    <!--   <property name="include_target" value="sometable"/> -->
-    <!-- </include> -->
-  
-    from
-    <include refid="sometable"/>
-  </select>
+  <!-- 站在 Mybatis 的角度，要解析上面的语句 -->
+  <!-- 首先，替换 someinclude -->
 
   <select id="select" resultType="map">
     select
     field1, field2, field3
-  
+
     <!-- <include refid="someinclude"> -->
     <!--   <property name="prefix" value="Some"/> -->
     <!--   <property name="include_target" value="sometable"/> -->
     <!-- </include> -->
-  
+
+    from
+    <include refid="sometable"/>
+  </select>
+
+
+  <!-- 解析完的语句中，还存在 include，那么继续解析，替换 sometable -->
+
+  <select id="select" resultType="map">
+    select
+    field1, field2, field3
+
+    <!-- <include refid="someinclude"> -->
+    <!--   <property name="prefix" value="Some"/> -->
+    <!--   <property name="include_target" value="sometable"/> -->
+    <!-- </include> -->
+
     from
     <!-- <include refid="sometable"/ -->
 
     SomeTable
   </select>
 #+END_SRC
+
+
+** 动态语句之 if
+
+基本语法是:
+#+BEGIN_SRC sgml
+  <if test="xxx != null">
+    where id = #{xxx}
+  </if>
+
+  <!-- test=xxx 这里使用的是 OGNL 表达式的语法 -->
+  <!-- 上面的等价于 -->
+  <if test="_parameter.getXxx() != null">
+    where id = #{xxx}
+  </if>
+#+END_SRC
+
+如果传入的参数是 int 等类型，使用 test= 语法会报 “getter 没有”的错误。
+解决方式:
+1. 使用 Map 或 POJO 作为查询语句的入参
+2. 使用 @Param 的方式，注入参数
+3. 在 ~test=id~ 的地方，使用 ~test=_parameter~ 代替
+
+** 动态语句之 trim/where/set
+
+这些都是结合 if 语句使用，防止拼接多个语句的时候，产生多余的前缀、后缀，是一种辅助语法。
+
+where 和 set 都可以用等价的 trim 来表示。
+
+比如 where:
+#+BEGIN_SRC sgml
+  <where>
+      <!--<trim prefix="WHERE" prefixOverrides="AND |OR ">-->
+      <if test="_parameter.firstName != null">
+        and first_name = #{firstName}
+      </if>
+      <if test="city != null">
+        and city = #{city}
+      </if>
+      <if test="address != null">
+        and address like #{address}
+      </if>
+      <!--</trim>-->
+  </where>
+#+END_SRC
+
+它的逻辑是:
+1. 首先，按照条件判断，将所有符合条件的语句连接起来，比如:
+   : and city = #{city} and address like #{address}
+2. 第二步，将句首(prefix)的 and 或者 or 删除掉:
+   : city = #{city} and address like #{address}
+3. 最后，在语句前面，添加 where:
+   : where city = #{city} and address like #{address}
+
+于是我们看到，通过这种方式就可以动态组合成可以正常执行的 sql 语句了。
 
 * 常用 API
 
