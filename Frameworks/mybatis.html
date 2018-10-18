@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-10-17 周三 08:03 -->
+<!-- 2018-10-18 周四 02:28 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MyBatis</title>
@@ -36,7 +36,11 @@
 <li><a href="#org2f3b0f4">2.5. Plugin 示例</a></li>
 </ul>
 </li>
-<li><a href="#orgc49e1a0">3. 映射文件 (EntityMapper.xml)</a></li>
+<li><a href="#orgc49e1a0">3. 映射文件 (EntityMapper.xml)</a>
+<ul>
+<li><a href="#orgb5566c4">3.1. sql</a></li>
+</ul>
+</li>
 <li><a href="#orga9abbb7">4. 常用 API</a></li>
 <li><a href="#orgedb8f02">5. 示例表</a></li>
 <li><a href="#org80db176">6. 任务指导手册 P58 答案参考</a>
@@ -643,6 +647,64 @@ System.out.println(comments);
 </pre>
 </div>
 </div>
+
+<div id="outline-container-orgb5566c4" class="outline-3">
+<h3 id="orgb5566c4"><span class="section-number-3">3.1</span> sql</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+示例:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">sql</span> <span class="org-variable-name">id</span>=<span class="org-string">"sometable"</span>&gt;
+  ${prefix}Table
+&lt;/<span class="org-function-name">sql</span>&gt;
+
+&lt;<span class="org-function-name">sql</span> <span class="org-variable-name">id</span>=<span class="org-string">"someinclude"</span>&gt;
+  from
+  &lt;<span class="org-function-name">include</span> <span class="org-variable-name">refid</span>=<span class="org-string">"${include_target}"</span>/&gt;
+&lt;/<span class="org-function-name">sql</span>&gt;
+
+&lt;<span class="org-function-name">select</span> <span class="org-variable-name">id</span>=<span class="org-string">"select"</span> <span class="org-variable-name">resultType</span>=<span class="org-string">"map"</span>&gt;
+  select
+  field1, field2, field3
+  &lt;<span class="org-function-name">include</span> <span class="org-variable-name">refid</span>=<span class="org-string">"someinclude"</span>&gt;
+    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"prefix"</span> <span class="org-variable-name">value</span>=<span class="org-string">"Some"</span>/&gt;
+    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"include_target"</span> <span class="org-variable-name">value</span>=<span class="org-string">"sometable"</span>/&gt;
+  &lt;/<span class="org-function-name">include</span>&gt;
+&lt;/<span class="org-function-name">select</span>&gt;
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">Mybatis </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">select</span> <span class="org-variable-name">id</span>=<span class="org-string">"select"</span> <span class="org-variable-name">resultType</span>=<span class="org-string">"map"</span>&gt;
+  select
+  field1, field2, field3
+
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&lt;include refid="someinclude"&gt; </span><span class="org-comment-delimiter">--&gt;</span>
+  <span class="org-comment-delimiter">&lt;!--   </span><span class="org-comment">&lt;property name="prefix" value="Some"/&gt; </span><span class="org-comment-delimiter">--&gt;</span>
+  <span class="org-comment-delimiter">&lt;!--   </span><span class="org-comment">&lt;property name="include_target" value="sometable"/&gt; </span><span class="org-comment-delimiter">--&gt;</span>
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&lt;/include&gt; </span><span class="org-comment-delimiter">--&gt;</span>
+
+  from
+  &lt;<span class="org-function-name">include</span> <span class="org-variable-name">refid</span>=<span class="org-string">"sometable"</span>/&gt;
+&lt;/<span class="org-function-name">select</span>&gt;
+
+&lt;<span class="org-function-name">select</span> <span class="org-variable-name">id</span>=<span class="org-string">"select"</span> <span class="org-variable-name">resultType</span>=<span class="org-string">"map"</span>&gt;
+  select
+  field1, field2, field3
+
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&lt;include refid="someinclude"&gt; </span><span class="org-comment-delimiter">--&gt;</span>
+  <span class="org-comment-delimiter">&lt;!--   </span><span class="org-comment">&lt;property name="prefix" value="Some"/&gt; </span><span class="org-comment-delimiter">--&gt;</span>
+  <span class="org-comment-delimiter">&lt;!--   </span><span class="org-comment">&lt;property name="include_target" value="sometable"/&gt; </span><span class="org-comment-delimiter">--&gt;</span>
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&lt;/include&gt; </span><span class="org-comment-delimiter">--&gt;</span>
+
+  from
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&lt;include refid="sometable"/ </span><span class="org-comment-delimiter">--&gt;</span>
+
+  SomeTable
+&lt;/<span class="org-function-name">select</span>&gt;
+</pre>
+</div>
+</div>
+</div>
 </section>
 
 <section id="outline-container-orga9abbb7" class="outline-2">
@@ -1045,7 +1107,7 @@ MyBatis-PageHelper 的使用:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-10-17 周三 08:03</p>
+<p class="date">Created: 2018-10-18 周四 02:28</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
