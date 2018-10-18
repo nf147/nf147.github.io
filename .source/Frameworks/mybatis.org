@@ -657,7 +657,7 @@ where 和 set 都可以用等价的 trim 来表示。
 对照，批量插入的写法:
 #+BEGIN_SRC sgml
   <insert id="insertSome">
-    insert into person (name, age)
+    insert into person (name, age) values
     <foreach collection="list" item="p" separator=",">
       (#{name}, #{age})
     </foreach>
