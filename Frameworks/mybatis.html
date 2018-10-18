@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-10-18 周四 03:28 -->
+<!-- 2018-10-18 周四 03:30 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MyBatis</title>
@@ -890,6 +890,21 @@ where city = #{city} and address like #{address}
 </div>
 
 <p>
+调用的方式:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-type">List</span>&lt;<span class="org-type">Person</span>&gt; <span class="org-variable-name">persons</span> = Arrays.asList(
+    <span class="org-keyword">new</span> <span class="org-type">Person</span>(<span class="org-string">"xxx"</span>, 22),
+    <span class="org-keyword">new</span> <span class="org-type">Person</span>(<span class="org-string">"yyy"</span>, 12),
+    <span class="org-keyword">new</span> <span class="org-type">Person</span>(<span class="org-string">"zzz"</span>, 18)
+);
+
+mapper.insertSome(persons);
+session.commit();
+</pre>
+</div>
+
+<p>
 可以测试下，最终生成的语句是不是我们所需要的。
 </p>
 </div>
@@ -1296,7 +1311,7 @@ MyBatis-PageHelper 的使用:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-10-18 周四 03:28</p>
+<p class="date">Created: 2018-10-18 周四 03:30</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

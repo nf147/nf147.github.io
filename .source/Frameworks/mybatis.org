@@ -669,6 +669,18 @@ where 和 set 都可以用等价的 trim 来表示。
   int insertSome(List<Person> persons);
 #+END_SRC
 
+调用的方式:
+#+BEGIN_SRC java
+  List<Person> persons = Arrays.asList(
+      new Person("xxx", 22),
+      new Person("yyy", 12),
+      new Person("zzz", 18)
+  );
+
+  mapper.insertSome(persons);
+  session.commit();
+#+END_SRC
+
 可以测试下，最终生成的语句是不是我们所需要的。
 
 * 常用 API
