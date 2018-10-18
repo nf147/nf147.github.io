@@ -312,6 +312,7 @@ ORM:
     }
 #+END_SRC
 * 映射文件 (EntityMapper.xml)
+** 配置文件
 
 示例 XML:
 #+BEGIN_SRC sgml
@@ -629,6 +630,46 @@ where 和 set 都可以用等价的 trim 来表示。
    : where city = #{city} and address like #{address}
 
 于是我们看到，通过这种方式就可以动态组合成可以正常执行的 sql 语句了。
+
+** 动态语句之 foreach
+
+比如，动态组合成 in (xxx, yyy) 语句，那么这么写:
+#+BEGIN_SRC sgml
+  <select id="selectPostIn" resultType="domain.blog.Post">
+    SELECT *
+    FROM POST P
+    WHERE ID in
+    <foreach
+      collection="list" <!-- 表示传入的参数 -->
+      item="item"       <!-- 代表集合里的每个元素 -->
+      index="index"     <!-- 代表元素的序号 -->
+      open="(" separator="," close=")"> <!-- 分别代表最后连接成的语句，前后用什么修饰，中间用什么拼接 -->
+          #{item}
+    </foreach>
+  </select>
+#+END_SRC
+
+对于 collection:
+- 如果定义为 ~selectPostIn(List<Integer> conds)~ 那么默认的名字为 list，如果入参类型是数组默认名字是 array，Map 类型的默认名字是 map
+- 如果定义为 ~selectPostIn(@Param("conds") List<Integer> conds)~ 那么名字为 conds
+- 如果定义为 ~selectPostIn(CondPojo conds)~ 那么 collection="xxx" 表示的是，从传入的 conds.getXxx() 的值
+
+对照，批量插入的写法:
+#+BEGIN_SRC sgml
+  <insert id="insertSome">
+    insert into person (name, age)
+    <foreach collection="list" item="p" separator=",">
+      (#{name}, #{age})
+    </foreach>
+  </insert>
+#+END_SRC
+
+接口方法示例:
+#+BEGIN_SRC java
+  int insertSome(List<Person> persons);
+#+END_SRC
+
+可以测试下，最终生成的语句是不是我们所需要的。
 
 * 常用 API
 
