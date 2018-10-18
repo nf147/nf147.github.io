@@ -875,7 +875,7 @@ where city = #{city} and address like #{address}
 <pre class="src src-sgml">&lt;<span class="org-function-name">insert</span> <span class="org-variable-name">id</span>=<span class="org-string">"insertSome"</span>&gt;
   insert into person (name, age) values
   &lt;<span class="org-function-name">foreach</span> <span class="org-variable-name">collection</span>=<span class="org-string">"list"</span> <span class="org-variable-name">item</span>=<span class="org-string">"p"</span> <span class="org-variable-name">separator</span>=<span class="org-string">","</span>&gt;
-    (#{name}, #{age})
+    (#{p.name}, #{p.age})
   &lt;/<span class="org-function-name">foreach</span>&gt;
 &lt;/<span class="org-function-name">insert</span>&gt;
 </pre>
