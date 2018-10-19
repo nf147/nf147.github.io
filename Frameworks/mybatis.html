@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-10-19 Fri 01:46 -->
+<!-- 2018-10-19 Fri 11:41 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MyBatis</title>
@@ -20,57 +20,62 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgc7e8118">1. 历史背景</a>
+<li><a href="#org496b089">1. 历史背景</a>
 <ul>
-<li><a href="#orgcfdcc5f">1.1. 背景</a></li>
-<li><a href="#orga2a5e72">1.2. Hibernate</a></li>
-<li><a href="#orgb70426b">1.3. MyBatis</a></li>
+<li><a href="#org99cf46a">1.1. 背景</a></li>
+<li><a href="#org1fe9d25">1.2. Hibernate</a></li>
+<li><a href="#org767bae7">1.3. MyBatis</a></li>
 </ul>
 </li>
-<li><a href="#org3fe004e">2. 核心配置文件 (mybatis-config.xml)</a>
+<li><a href="#org835cac3">2. 核心配置文件 (mybatis-config.xml)</a>
 <ul>
-<li><a href="#org815386e">2.1. 配置文件示例</a></li>
-<li><a href="#orgc6f40cd">2.2. TypeHandler 示例</a></li>
-<li><a href="#orge0efe68">2.3. ObjectFactory 示例</a></li>
-<li><a href="#org38de6b2">2.4. DataSourceFactory 示例</a></li>
-<li><a href="#org2f3b0f4">2.5. Plugin 示例</a></li>
+<li><a href="#orgc6a1056">2.1. 配置文件示例</a></li>
+<li><a href="#orgb973d46">2.2. TypeHandler 示例</a></li>
+<li><a href="#org40b7257">2.3. ObjectFactory 示例</a></li>
+<li><a href="#org2553f1b">2.4. DataSourceFactory 示例</a></li>
+<li><a href="#org2b3e279">2.5. Plugin 示例</a></li>
 </ul>
 </li>
-<li><a href="#orgc49e1a0">3. 映射文件 (EntityMapper.xml)</a>
+<li><a href="#org23b30ed">3. 映射文件 (EntityMapper.xml)</a>
 <ul>
-<li><a href="#org8ad5082">3.1. 配置文件</a></li>
-<li><a href="#orgb5566c4">3.2. sql</a></li>
-<li><a href="#orgb276968">3.3. 动态语句之 if</a></li>
-<li><a href="#org62ca539">3.4. 动态语句之 trim/where/set</a></li>
-<li><a href="#org8d88d13">3.5. 动态语句之 foreach</a></li>
+<li><a href="#orgb7c3679">3.1. 配置文件</a></li>
+<li><a href="#org9c83478">3.2. sql</a></li>
+<li><a href="#org460ece0">3.3. 动态语句之 if</a></li>
+<li><a href="#orgca1e0f4">3.4. 动态语句之 trim/where/set</a></li>
+<li><a href="#orga9c884b">3.5. 动态语句之 foreach</a></li>
 </ul>
 </li>
-<li><a href="#orga9abbb7">4. 常用 API</a></li>
-<li><a href="#orgedb8f02">5. 示例表</a></li>
-<li><a href="#org80db176">6. 任务指导手册 P58 答案参考</a>
+<li><a href="#org047d160">4. 常用 API</a></li>
+<li><a href="#orgf7199e9">5. 示例表</a></li>
+<li><a href="#org0d506d5">6. 任务指导手册 P58 答案参考</a>
 <ul>
-<li><a href="#org3bbd286">6.1. 首先，在数据库中创建表，并插入测试数据:</a></li>
-<li><a href="#orgdf022c2">6.2. 其次，为表创建相应实体类:</a></li>
-<li><a href="#org7dcda7a">6.3. 然后，创建接口。按照需求，我们要实现两个方法:</a></li>
-<li><a href="#org0c2f814">6.4. 为上述接口，写测试方法:</a></li>
-<li><a href="#orge9a53da">6.5. Mapper 的第一种方式，Nested ResultMap:</a></li>
-<li><a href="#org894073d">6.6. Mapper 的第二种方式，Nested Select:</a></li>
+<li><a href="#orgb703648">6.1. 首先，在数据库中创建表，并插入测试数据:</a></li>
+<li><a href="#org76e0e1b">6.2. 其次，为表创建相应实体类:</a></li>
+<li><a href="#orgee8461d">6.3. 然后，创建接口。按照需求，我们要实现两个方法:</a></li>
+<li><a href="#orgc8f28b8">6.4. 为上述接口，写测试方法:</a></li>
+<li><a href="#org61f199b">6.5. Mapper 的第一种方式，Nested ResultMap:</a></li>
+<li><a href="#org479bfa0">6.6. Mapper 的第二种方式，Nested Select:</a></li>
 </ul>
 </li>
-<li><a href="#org2070eee">7. 缓存 (Cache)</a></li>
-<li><a href="#org4851433">8. 分页 (Pagination)</a></li>
-<li><a href="#orgd61a2c2">9. MBG (MyBatis-Generator)</a></li>
+<li><a href="#org33006f6">7. 缓存 (Cache)</a></li>
+<li><a href="#org08d2d1f">8. 分页 (Pagination)</a></li>
+<li><a href="#org92422c1">9. MBG (MyBatis-Generator)</a>
+<ul>
+<li><a href="#org04683d0">9.1. Quick Start</a></li>
+<li><a href="#org84cc2ff">9.2. 配置文件总览</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </nav>
 
 
-<section id="outline-container-orgc7e8118" class="outline-2">
-<h2 id="orgc7e8118"><span class="section-number-2">1</span> 历史背景</h2>
+<section id="outline-container-org496b089" class="outline-2">
+<h2 id="org496b089"><span class="section-number-2">1</span> 历史背景</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orgcfdcc5f" class="outline-3">
-<h3 id="orgcfdcc5f"><span class="section-number-3">1.1</span> 背景</h3>
+<div id="outline-container-org99cf46a" class="outline-3">
+<h3 id="org99cf46a"><span class="section-number-3">1.1</span> 背景</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>SSH, Spring + Struts1,2 + Hibernate</li>
@@ -118,8 +123,8 @@ ORM:
 </div>
 
 
-<div id="outline-container-orga2a5e72" class="outline-3">
-<h3 id="orga2a5e72"><span class="section-number-3">1.2</span> Hibernate</h3>
+<div id="outline-container-org1fe9d25" class="outline-3">
+<h3 id="org1fe9d25"><span class="section-number-3">1.2</span> Hibernate</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 想法:
@@ -229,8 +234,8 @@ System.out.println(book1.getName());
 </div>
 </div>
 
-<div id="outline-container-orgb70426b" class="outline-3">
-<h3 id="orgb70426b"><span class="section-number-3">1.3</span> MyBatis</h3>
+<div id="outline-container-org767bae7" class="outline-3">
+<h3 id="org767bae7"><span class="section-number-3">1.3</span> MyBatis</h3>
 <div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
 <li>select id, name, wexin from person where ?</li>
@@ -277,12 +282,12 @@ helper.help(<span class="org-string">"yuju2"</span>);
 </div>
 </section>
 
-<section id="outline-container-org3fe004e" class="outline-2">
-<h2 id="org3fe004e"><span class="section-number-2">2</span> 核心配置文件 (mybatis-config.xml)</h2>
+<section id="outline-container-org835cac3" class="outline-2">
+<h2 id="org835cac3"><span class="section-number-2">2</span> 核心配置文件 (mybatis-config.xml)</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org815386e" class="outline-3">
-<h3 id="org815386e"><span class="section-number-3">2.1</span> 配置文件示例</h3>
+<div id="outline-container-orgc6a1056" class="outline-3">
+<h3 id="orgc6a1056"><span class="section-number-3">2.1</span> 配置文件示例</h3>
 <div class="outline-text-3" id="text-2-1">
 <div class="org-src-container">
 <pre class="src src-sgml"><span class="org-string">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
@@ -385,8 +390,8 @@ helper.help(<span class="org-string">"yuju2"</span>);
 </div>
 </div>
 
-<div id="outline-container-orgc6f40cd" class="outline-3">
-<h3 id="orgc6f40cd"><span class="section-number-3">2.2</span> TypeHandler 示例</h3>
+<div id="outline-container-orgb973d46" class="outline-3">
+<h3 id="orgb973d46"><span class="section-number-3">2.2</span> TypeHandler 示例</h3>
 <div class="outline-text-3" id="text-2-2">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-c-annotation">@MappedJdbcTypes</span>(<span class="org-constant">JdbcType</span>.<span class="org-type">Integer</span>)
@@ -401,8 +406,8 @@ helper.help(<span class="org-string">"yuju2"</span>);
 </div>
 </div>
 
-<div id="outline-container-orge0efe68" class="outline-3">
-<h3 id="orge0efe68"><span class="section-number-3">2.3</span> ObjectFactory 示例</h3>
+<div id="outline-container-org40b7257" class="outline-3">
+<h3 id="org40b7257"><span class="section-number-3">2.3</span> ObjectFactory 示例</h3>
 <div class="outline-text-3" id="text-2-3">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">OurObjectFactory</span> <span class="org-keyword">extends</span> <span class="org-type">DefaultObjectFactory</span> {
@@ -417,8 +422,8 @@ helper.help(<span class="org-string">"yuju2"</span>);
 </div>
 </div>
 
-<div id="outline-container-org38de6b2" class="outline-3">
-<h3 id="org38de6b2"><span class="section-number-3">2.4</span> DataSourceFactory 示例</h3>
+<div id="outline-container-org2553f1b" class="outline-3">
+<h3 id="org2553f1b"><span class="section-number-3">2.4</span> DataSourceFactory 示例</h3>
 <div class="outline-text-3" id="text-2-4">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">MyDataSourceFactory</span> <span class="org-keyword">extends</span> <span class="org-type">UnpooledDataSourceFactory</span> {
@@ -432,8 +437,8 @@ helper.help(<span class="org-string">"yuju2"</span>);
 </div>
 </div>
 
-<div id="outline-container-org2f3b0f4" class="outline-3">
-<h3 id="org2f3b0f4"><span class="section-number-3">2.5</span> Plugin 示例</h3>
+<div id="outline-container-org2b3e279" class="outline-3">
+<h3 id="org2b3e279"><span class="section-number-3">2.5</span> Plugin 示例</h3>
 <div class="outline-text-3" id="text-2-5">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-c-annotation">@Intercepts</span>({<span class="org-c-annotation">@Signature</span>(
@@ -457,12 +462,12 @@ helper.help(<span class="org-string">"yuju2"</span>);
 </div>
 </div>
 </section>
-<section id="outline-container-orgc49e1a0" class="outline-2">
-<h2 id="orgc49e1a0"><span class="section-number-2">3</span> 映射文件 (EntityMapper.xml)</h2>
+<section id="outline-container-org23b30ed" class="outline-2">
+<h2 id="org23b30ed"><span class="section-number-2">3</span> 映射文件 (EntityMapper.xml)</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org8ad5082" class="outline-3">
-<h3 id="org8ad5082"><span class="section-number-3">3.1</span> 配置文件</h3>
+<div id="outline-container-orgb7c3679" class="outline-3">
+<h3 id="orgb7c3679"><span class="section-number-3">3.1</span> 配置文件</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 示例 XML:
@@ -657,8 +662,8 @@ System.out.println(comments);
 </div>
 </div>
 
-<div id="outline-container-orgb5566c4" class="outline-3">
-<h3 id="orgb5566c4"><span class="section-number-3">3.2</span> sql</h3>
+<div id="outline-container-org9c83478" class="outline-3">
+<h3 id="org9c83478"><span class="section-number-3">3.2</span> sql</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 用于在指定位置插入代码片段，这可以达到代码片段复用的目的。
@@ -746,8 +751,8 @@ System.out.println(comments);
 </div>
 
 
-<div id="outline-container-orgb276968" class="outline-3">
-<h3 id="orgb276968"><span class="section-number-3">3.3</span> 动态语句之 if</h3>
+<div id="outline-container-org460ece0" class="outline-3">
+<h3 id="org460ece0"><span class="section-number-3">3.3</span> 动态语句之 if</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 基本语法是:
@@ -776,8 +781,8 @@ System.out.println(comments);
 </div>
 </div>
 
-<div id="outline-container-org62ca539" class="outline-3">
-<h3 id="org62ca539"><span class="section-number-3">3.4</span> 动态语句之 trim/where/set</h3>
+<div id="outline-container-orgca1e0f4" class="outline-3">
+<h3 id="orgca1e0f4"><span class="section-number-3">3.4</span> 动态语句之 trim/where/set</h3>
 <div class="outline-text-3" id="text-3-4">
 <p>
 这些都是结合 if 语句使用，防止拼接多个语句的时候，产生多余的前缀、后缀，是一种辅助语法。
@@ -837,8 +842,8 @@ where city = #{city} and address like #{address}
 </div>
 </div>
 
-<div id="outline-container-org8d88d13" class="outline-3">
-<h3 id="org8d88d13"><span class="section-number-3">3.5</span> 动态语句之 foreach</h3>
+<div id="outline-container-orga9c884b" class="outline-3">
+<h3 id="orga9c884b"><span class="section-number-3">3.5</span> 动态语句之 foreach</h3>
 <div class="outline-text-3" id="text-3-5">
 <p>
 比如，动态组合成 in (xxx, yyy) 语句，那么这么写:
@@ -911,8 +916,8 @@ session.commit();
 </div>
 </section>
 
-<section id="outline-container-orga9abbb7" class="outline-2">
-<h2 id="orga9abbb7"><span class="section-number-2">4</span> 常用 API</h2>
+<section id="outline-container-org047d160" class="outline-2">
+<h2 id="org047d160"><span class="section-number-2">4</span> 常用 API</h2>
 <div class="outline-text-2" id="text-4">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">main</span>(<span class="org-type">String</span>[] <span class="org-variable-name">args</span>) <span class="org-keyword">throws</span> <span class="org-type">Exception</span> {
@@ -977,8 +982,8 @@ session.commit();
 </div>
 </section>
 
-<section id="outline-container-orgedb8f02" class="outline-2">
-<h2 id="orgedb8f02"><span class="section-number-2">5</span> 示例表</h2>
+<section id="outline-container-orgf7199e9" class="outline-2">
+<h2 id="orgf7199e9"><span class="section-number-2">5</span> 示例表</h2>
 <div class="outline-text-2" id="text-5">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">sss_author</span> (
@@ -1022,12 +1027,12 @@ session.commit();
 </div>
 </div>
 </section>
-<section id="outline-container-org80db176" class="outline-2">
-<h2 id="org80db176"><span class="section-number-2">6</span> 任务指导手册 P58 答案参考</h2>
+<section id="outline-container-org0d506d5" class="outline-2">
+<h2 id="org0d506d5"><span class="section-number-2">6</span> 任务指导手册 P58 答案参考</h2>
 <div class="outline-text-2" id="text-6">
 </div>
-<div id="outline-container-org3bbd286" class="outline-3">
-<h3 id="org3bbd286"><span class="section-number-3">6.1</span> 首先，在数据库中创建表，并插入测试数据:</h3>
+<div id="outline-container-orgb703648" class="outline-3">
+<h3 id="orgb703648"><span class="section-number-3">6.1</span> 首先，在数据库中创建表，并插入测试数据:</h3>
 <div class="outline-text-3" id="text-6-1">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">customer</span>(
@@ -1071,8 +1076,8 @@ session.commit();
 </div>
 </div>
 
-<div id="outline-container-orgdf022c2" class="outline-3">
-<h3 id="orgdf022c2"><span class="section-number-3">6.2</span> 其次，为表创建相应实体类:</h3>
+<div id="outline-container-org76e0e1b" class="outline-3">
+<h3 id="org76e0e1b"><span class="section-number-3">6.2</span> 其次，为表创建相应实体类:</h3>
 <div class="outline-text-3" id="text-6-2">
 <ul class="org-ul">
 <li>注意，处理好依赖关系</li>
@@ -1082,8 +1087,8 @@ session.commit();
 </div>
 </div>
 
-<div id="outline-container-org7dcda7a" class="outline-3">
-<h3 id="org7dcda7a"><span class="section-number-3">6.3</span> 然后，创建接口。按照需求，我们要实现两个方法:</h3>
+<div id="outline-container-orgee8461d" class="outline-3">
+<h3 id="orgee8461d"><span class="section-number-3">6.3</span> 然后，创建接口。按照需求，我们要实现两个方法:</h3>
 <div class="outline-text-3" id="text-6-3">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">interface</span> <span class="org-type">InvoiceMapper</span> {
@@ -1095,8 +1100,8 @@ session.commit();
 </div>
 </div>
 
-<div id="outline-container-org0c2f814" class="outline-3">
-<h3 id="org0c2f814"><span class="section-number-3">6.4</span> 为上述接口，写测试方法:</h3>
+<div id="outline-container-orgc8f28b8" class="outline-3">
+<h3 id="orgc8f28b8"><span class="section-number-3">6.4</span> 为上述接口，写测试方法:</h3>
 <div class="outline-text-3" id="text-6-4">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">AppTest</span> {
@@ -1139,8 +1144,8 @@ session.commit();
 </div>
 </div>
 
-<div id="outline-container-orge9a53da" class="outline-3">
-<h3 id="orge9a53da"><span class="section-number-3">6.5</span> Mapper 的第一种方式，Nested ResultMap:</h3>
+<div id="outline-container-org61f199b" class="outline-3">
+<h3 id="org61f199b"><span class="section-number-3">6.5</span> Mapper 的第一种方式，Nested ResultMap:</h3>
 <div class="outline-text-3" id="text-6-5">
 <p>
 嵌套的 ResultMap。
@@ -1208,8 +1213,8 @@ session.commit();
 </div>
 </div>
 
-<div id="outline-container-org894073d" class="outline-3">
-<h3 id="org894073d"><span class="section-number-3">6.6</span> Mapper 的第二种方式，Nested Select:</h3>
+<div id="outline-container-org479bfa0" class="outline-3">
+<h3 id="org479bfa0"><span class="section-number-3">6.6</span> Mapper 的第二种方式，Nested Select:</h3>
 <div class="outline-text-3" id="text-6-6">
 <p>
 嵌套的 Select 查询。
@@ -1259,8 +1264,8 @@ session.commit();
 </div>
 </section>
 
-<section id="outline-container-org2070eee" class="outline-2">
-<h2 id="org2070eee"><span class="section-number-2">7</span> 缓存 (Cache)</h2>
+<section id="outline-container-org33006f6" class="outline-2">
+<h2 id="org33006f6"><span class="section-number-2">7</span> 缓存 (Cache)</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 缓存类型:
@@ -1270,9 +1275,6 @@ session.commit();
 <li>二级缓存</li>
 </ul>
 
-<p>
-缓存的配置与使用。
-</p>
 
 
 
@@ -1293,14 +1295,14 @@ session.commit();
 </pre>
 
 <p>
-首先，在 mbatis-config.xml 中配置:
+开启二级缓存，需要首先在 mbatis-config.xml 中配置:
 </p>
 <pre class="example">
 &lt;setting name="cacheEnabled" value="true" /&gt;
 </pre>
 
 <p>
-其次，在 mapper.xml 中配置:
+然后，在 mapper.xml 为本命名空间的语句开启缓存:
 </p>
 <div class="org-src-container">
 <pre class="src src-sgml">&lt;<span class="org-function-name">cache</span>
@@ -1317,8 +1319,8 @@ session.commit();
 </div>
 </section>
 
-<section id="outline-container-org4851433" class="outline-2">
-<h2 id="org4851433"><span class="section-number-2">8</span> 分页 (Pagination)</h2>
+<section id="outline-container-org08d2d1f" class="outline-2">
+<h2 id="org08d2d1f"><span class="section-number-2">8</span> 分页 (Pagination)</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 分页方式的分类:
@@ -1338,21 +1340,243 @@ MyBatis-PageHelper 的使用:
 <ul class="org-ul">
 <li><a href="https://github.com/pagehelper/Mybatis-PageHelper">https://github.com/pagehelper/Mybatis-PageHelper</a></li>
 </ul>
+
+
+<p>
+使用示例:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-comment-delimiter">// </span><span class="org-comment">Builtin RowBounds</span>
+<span class="org-type">List</span>&lt;<span class="org-type">Country</span>&gt; <span class="org-variable-name">list</span> = mapper.selectAll(<span class="org-keyword">new</span> <span class="org-type">RowBounds</span>(1, 10));
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">PageRowBounds</span>
+<span class="org-type">PageRowBounds</span> <span class="org-variable-name">pageRowBounds</span> = <span class="org-keyword">new</span> <span class="org-type">PageRowBounds</span>(1, 10);
+<span class="org-type">List</span>&lt;<span class="org-type">Country</span>&gt; <span class="org-variable-name">list</span> = mapper.selectAll(pageRowBounds);
+assertEquals(182, pageRowBounds.total);
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">PagerHelper</span>
+PageHelper.startPage(1, 10); <span class="org-comment-delimiter">// </span><span class="org-comment">1st page for 10</span>
+<span class="org-type">List</span>&lt;<span class="org-type">Country</span>&gt; <span class="org-variable-name">list</span> = mapper.selectIf(1); <span class="org-comment-delimiter">// </span><span class="org-comment">the follow select will be pagered</span>
+assertEquals(182, ((<span class="org-type">Page</span>) list).getTotal());
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">PagerInfo</span>
+PageHelper.startPage(1, 10);
+<span class="org-type">PageInfo</span> <span class="org-variable-name">page</span> = <span class="org-keyword">new</span> <span class="org-type">PageInfo</span>(mapper.selectAll());
+assertEquals(1,     page.getPageNum());
+assertEquals(10,    page.getPageSize());
+assertEquals(1,     page.getStartRow());
+assertEquals(10,    page.getEndRow());
+assertEquals(183,   page.getTotal());
+assertEquals(19,    page.getPages());
+assertEquals(1,     page.getFirstPage());
+assertEquals(8,     page.getLastPage());
+assertEquals(<span class="org-constant">true</span>,  page.isFirstPage());
+assertEquals(<span class="org-constant">false</span>, page.isLastPage());
+assertEquals(<span class="org-constant">false</span>, page.isHasPreviousPage());
+assertEquals(<span class="org-constant">true</span>,  page.isHasNextPage());
+</pre>
+</div>
 </div>
 </section>
 
-<section id="outline-container-orgd61a2c2" class="outline-2">
-<h2 id="orgd61a2c2"><span class="section-number-2">9</span> MBG (MyBatis-Generator)</h2>
+<section id="outline-container-org92422c1" class="outline-2">
+<h2 id="org92422c1"><span class="section-number-2">9</span> MBG (MyBatis-Generator)</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 <a href="http://www.mybatis.org/generator/">http://www.mybatis.org/generator/</a>
 </p>
 </div>
+
+<div id="outline-container-org04683d0" class="outline-3">
+<h3 id="org04683d0"><span class="section-number-3">9.1</span> Quick Start</h3>
+<div class="outline-text-3" id="text-9-1">
+<p>
+首先，创建配置文件 <code>generatorConfig.xml</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml"><span class="org-string">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="org-string">&lt;!DOCTYPE generatorConfiguration</span>
+<span class="org-string"> PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"</span>
+<span class="org-string"> "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"&gt;</span>
+
+&lt;<span class="org-function-name">generatorConfiguration</span>&gt;
+  &lt;<span class="org-function-name">context</span> <span class="org-variable-name">id</span>=<span class="org-string">"xxx"</span> <span class="org-variable-name">targetRuntime</span>=<span class="org-string">"MyBatis3Simple"</span>&gt;
+    &lt;<span class="org-function-name">commentGenerator</span>&gt;
+      &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"suppressDate"</span> <span class="org-variable-name">value</span>=<span class="org-string">"true"</span> /&gt;
+    &lt;/<span class="org-function-name">commentGenerator</span>&gt;
+
+    &lt;<span class="org-function-name">jdbcConnection</span> <span class="org-variable-name">driverClass</span>=<span class="org-string">"org.mariadb.jdbc.Driver"</span>
+                    <span class="org-variable-name">connectionURL</span>=<span class="org-string">"jdbc:mariadb://localhost/test"</span>
+                    <span class="org-variable-name">userId</span>=<span class="org-string">"vip"</span> <span class="org-variable-name">password</span>=<span class="org-string">"vip"</span>&gt;
+    &lt;/<span class="org-function-name">jdbcConnection</span>&gt;
+
+    &lt;<span class="org-function-name">javaModelGenerator</span> <span class="org-variable-name">targetPackage</span>=<span class="org-string">"test.model"</span> <span class="org-variable-name">targetProject</span>=<span class="org-string">"/home/vip/ddd111/src/main/java"</span>&gt;
+      &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"trimStrings"</span> <span class="org-variable-name">value</span>=<span class="org-string">"true"</span> /&gt;
+    &lt;/<span class="org-function-name">javaModelGenerator</span>&gt;
+
+    &lt;<span class="org-function-name">sqlMapGenerator</span> <span class="org-variable-name">targetPackage</span>=<span class="org-string">"test.xml"</span>  <span class="org-variable-name">targetProject</span>=<span class="org-string">"/home/vip/ddd111/src/main/resources"</span>/&gt;
+
+    &lt;<span class="org-function-name">javaClientGenerator</span> <span class="org-variable-name">type</span>=<span class="org-string">"XMLMAPPER"</span> <span class="org-variable-name">targetPackage</span>=<span class="org-string">"test.dao"</span>  <span class="org-variable-name">targetProject</span>=<span class="org-string">"/home/vip/ddd111/src/main/java"</span>/&gt;
+
+    &lt;<span class="org-function-name">table</span> <span class="org-variable-name">tableName</span>=<span class="org-string">"ecs_%"</span>&gt;
+      &lt;<span class="org-function-name">generatedKey</span> <span class="org-variable-name">column</span>=<span class="org-string">"id"</span> <span class="org-variable-name">sqlStatement</span>=<span class="org-string">"Mysql"</span>/&gt;
+    &lt;/<span class="org-function-name">table</span>&gt;
+  &lt;/<span class="org-function-name">context</span>&gt;
+&lt;/<span class="org-function-name">generatorConfiguration</span>&gt;
+</pre>
+</div>
+
+<p>
+然后，在 pom 中配置插件:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">plugin</span>&gt;
+  &lt;<span class="org-function-name">groupId</span>&gt;org.mybatis.generator&lt;/<span class="org-function-name">groupId</span>&gt;
+  &lt;<span class="org-function-name">artifactId</span>&gt;mybatis-generator-maven-plugin&lt;/<span class="org-function-name">artifactId</span>&gt;
+  &lt;<span class="org-function-name">version</span>&gt;1.3.7&lt;/<span class="org-function-name">version</span>&gt;
+
+  &lt;<span class="org-function-name">configuration</span>&gt;
+    &lt;<span class="org-function-name">configurationFile</span>&gt;${basedir}/src/main/resources/generatorConfig.xml&lt;/<span class="org-function-name">configurationFile</span>&gt;
+    &lt;<span class="org-function-name">overwrite</span>&gt;true&lt;/<span class="org-function-name">overwrite</span>&gt;
+  &lt;/<span class="org-function-name">configuration</span>&gt;
+
+  &lt;<span class="org-function-name">dependencies</span>&gt;
+    &lt;<span class="org-function-name">dependency</span>&gt;
+      &lt;<span class="org-function-name">groupId</span>&gt;org.mariadb.jdbc&lt;/<span class="org-function-name">groupId</span>&gt;
+      &lt;<span class="org-function-name">artifactId</span>&gt;mariadb-java-client&lt;/<span class="org-function-name">artifactId</span>&gt;
+      &lt;<span class="org-function-name">version</span>&gt;2.3.0&lt;/<span class="org-function-name">version</span>&gt;
+    &lt;/<span class="org-function-name">dependency</span>&gt;
+  &lt;/<span class="org-function-name">dependencies</span>&gt;
+&lt;/<span class="org-function-name">plugin</span>&gt;
+</pre>
+</div>
+
+<p>
+之后，执行 pom 任务即可:
+</p>
+<pre class="example">
+mvn mybatis-generator:generate
+mvn mybatis-generator:generate -Dmybatis.generator.overwrite=true  # 可以传入参数
+</pre>
+
+<p>
+还可以使用其他参数:
+</p>
+<ul class="org-ul">
+<li>configurationFile/contexts/outputDirectory</li>
+<li>jdbcDriver/jdbcUrl/jdbcPassword/jdbcUserId</li>
+<li>override/sqlScript/tableNames</li>
+<li>verbose/includeCompileDependencies/includeAllDependencies</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org84cc2ff" class="outline-3">
+<h3 id="org84cc2ff"><span class="section-number-3">9.2</span> 配置文件总览</h3>
+<div class="outline-text-3" id="text-9-2">
+<div class="org-src-container">
+<pre class="src src-sgml"><span class="org-string">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="org-string">&lt;!DOCTYPE generatorConfiguration</span>
+<span class="org-string"> PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"</span>
+<span class="org-string"> "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"&gt;</span>
+
+&lt;<span class="org-function-name">generatorConfiguration</span>&gt;
+  &lt;<span class="org-function-name">properties</span> <span class="org-variable-name">resource</span>=<span class="org-string">"xxx/yyy/zzz.properties"</span> /&gt;
+  &lt;<span class="org-function-name">classPathEntry</span> <span class="org-variable-name">location</span>=<span class="org-string">"/Program Files/IBM/SQLLIB/java/db2java.jar"</span> /&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#28155;&#21152;&#21040; classpath </span><span class="org-comment-delimiter">--&gt;</span>
+
+  &lt;<span class="org-function-name">context</span> <span class="org-variable-name">id</span>=<span class="org-string">"DB2Tables"</span> <span class="org-variable-name">introspectedColumnImpl</span>=<span class="org-string">"To Extend MBG"</span>
+           <span class="org-variable-name">targetRuntime</span>=<span class="org-string">"MyBatis3|MyBatis3Simple|MyBatis3DynamicSql"</span> <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">MyBatis3Simple &#27809; Example &#26377;&#23569;&#37327;&#21160;&#24577; SQL </span><span class="org-comment-delimiter">--&gt;</span>
+           <span class="org-variable-name">defaultModelType</span>=<span class="org-string">"conditional|flat|hierarchical"</span>&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">flat: one domain for one table </span><span class="org-comment-delimiter">--&gt;</span>
+
+    <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#28155;&#21152;&#25554;&#20214;&#25903;&#25345; </span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-function-name">plugin</span> <span class="org-variable-name">type</span>=<span class="org-string">"org.mybatis.generator.plugins.SerializablePlugin"</span>&gt;&lt;/<span class="org-function-name">plugin</span>&gt;
+    &lt;<span class="org-function-name">plugin</span> <span class="org-variable-name">type</span>=<span class="org-string">"com.nextlevel.fastlane.mybatis.plugins.SerializablePlugin"</span>&gt;&lt;/<span class="org-function-name">plugin</span>&gt;
+    &lt;<span class="org-function-name">plugin</span> <span class="org-variable-name">type</span>=<span class="org-string">"org.mybatis.generator.plugins.RowBoundsPlugin"</span>&gt;&lt;/<span class="org-function-name">plugin</span>&gt;
+    &lt;<span class="org-function-name">plugin</span> <span class="org-variable-name">type</span>=<span class="org-string">"org.mybatis.generator.plugins.EqualsHashCodePlugin"</span> /&gt;
+
+    <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#35774;&#32622;&#21442;&#25968; </span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"suppressTypeWarnings"</span> <span class="org-variable-name">value</span>=<span class="org-string">"true"</span>/&gt;
+    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"javaFileEncoding"</span> <span class="org-variable-name">value</span>=<span class="org-string">"UTF-8"</span>/&gt;
+    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"javaFormatter"</span> <span class="org-variable-name">value</span>=<span class="org-string">"org.mybatis.generator.api.dom.DefaultJavaFormatter"</span>/&gt;
+    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"xmlFormatter"</span> <span class="org-variable-name">value</span>=<span class="org-string">"org.mybatis.generator.api.dom.DefaultXmlFormatter"</span>/&gt;
+    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"autoDelimitKeywords"</span> <span class="org-variable-name">value</span>=<span class="org-string">"false"</span>/&gt;
+    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"beginningDelimiter"</span> <span class="org-variable-name">value</span>=<span class="org-string">"`"</span>/&gt;
+    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"endingDelimiter"</span> <span class="org-variable-name">value</span>=<span class="org-string">"`"</span>/&gt;
+
+    <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#25968;&#25454;&#24211;&#36830;&#25509; </span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-function-name">jdbcConnection</span>  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#20063;&#21487;&#20197;&#29992; connectionFactory </span><span class="org-comment-delimiter">--&gt;</span>
+                     <span class="org-variable-name">driverClass</span>=<span class="org-string">"com.ibm.db2.jdbc.app.DB2Driver"</span>
+                     <span class="org-variable-name">connectionURL</span>=<span class="org-string">"jdbc:db2:TEST"</span>
+                     <span class="org-variable-name">userId</span>=<span class="org-string">"${user}"</span>
+                     <span class="org-variable-name">password</span>=<span class="org-string">"${password}"</span>&gt;
+    &lt;/<span class="org-function-name">jdbcConnection</span>&gt;
+
+    <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#31867;&#22411;&#36716;&#21270;&#35268;&#21017; </span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-function-name">javaTypeResolver</span> type&gt;
+      &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"forceBigDecimals"</span> <span class="org-variable-name">value</span>=<span class="org-string">"false"</span> /&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#26159;&#21542;&#20351;&#29992; BigDecimal &#31867; </span><span class="org-comment-delimiter">--&gt;</span>
+      &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"useJSR310Types"</span> <span class="org-variable-name">value</span>=<span class="org-string">"true"</span> /&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#26159;&#21542;&#20351;&#29992; LocalDate/LocalTime &#31867; </span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;/<span class="org-function-name">javaTypeResolver</span>&gt;
+
+    <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#27880;&#37322;&#29983;&#25104;&#35268;&#21017; </span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-function-name">commentGenerator</span> type&gt;
+      &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"suppressDate"</span> <span class="org-variable-name">value</span>=<span class="org-string">"true"</span> /&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#21462;&#28040;&#26102;&#38388;&#25139; </span><span class="org-comment-delimiter">--&gt;</span>
+      &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"suppressAllComments|addRemarkComments|dateFormat"</span> /&gt;
+    &lt;/<span class="org-function-name">commentGenerator</span>&gt;
+
+    <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">Model&#29983;&#25104;&#35268;&#21017; </span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-function-name">javaModelGenerator</span> <span class="org-variable-name">targetPackage</span>=<span class="org-string">"test.model"</span> <span class="org-variable-name">targetProject</span>=<span class="org-string">"\MBGTestProject\src"</span>&gt;
+      &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"enableSubPackages"</span> <span class="org-variable-name">value</span>=<span class="org-string">"true"</span> /&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">true: will under test.model.schema.* </span><span class="org-comment-delimiter">--&gt;</span>
+      &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"trimStrings"</span> <span class="org-variable-name">value</span>=<span class="org-string">"true"</span> /&gt;
+      &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"constructorBased|immutable|rootClass"</span> /&gt;
+    &lt;/<span class="org-function-name">javaModelGenerator</span>&gt;
+
+    <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">Mapper.xml &#35268;&#21017; </span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-function-name">sqlMapGenerator</span> <span class="org-variable-name">targetPackage</span>=<span class="org-string">"test.xml"</span> <span class="org-variable-name">targetProject</span>=<span class="org-string">"\MBGTestProject\src"</span>&gt;
+      &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"enableSubPackages"</span> <span class="org-variable-name">value</span>=<span class="org-string">"true"</span> /&gt;
+    &lt;/<span class="org-function-name">sqlMapGenerator</span>&gt;
+
+    <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">dao &#35268;&#21017; </span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-function-name">javaClientGenerator</span> <span class="org-variable-name">type</span>=<span class="org-string">"XMLMAPPER|ANNOTATEDMAPPER"</span> <span class="org-variable-name">targetPackage</span>=<span class="org-string">"test.dao"</span> <span class="org-variable-name">targetProject</span>=<span class="org-string">"\MBGTestProject\src"</span>&gt;
+      &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"enableSubPackages"</span> <span class="org-variable-name">value</span>=<span class="org-string">"true"</span> /&gt;
+    &lt;/<span class="org-function-name">javaClientGenerator</span>&gt;
+
+    <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#23450;&#21046;&#35201;&#36716;&#21270;&#30340; table </span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-function-name">table</span> <span class="org-variable-name">schema</span>=<span class="org-string">"DB2ADMIN"</span> <span class="org-variable-name">tableName</span>=<span class="org-string">"ALLTYPES"</span> <span class="org-variable-name">domainObjectName</span>=<span class="org-string">"Customer"</span>
+           enableInsert|enableSelectByPrimaryKey|enableUpdateByPrimaryKey|enableDeleteByPrimaryKey|selectByPrimaryKeyQueryId
+           enableDeleteByExample|enableCountByExample|enableUpdateByExample|selectByExampleQueryId|enableSelectByExample
+           modelType|escapeWildcards|delimitIdentifiers|delimitAllColumns&gt;
+
+      &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"useActualColumnNames"</span> <span class="org-variable-name">value</span>=<span class="org-string">"true"</span>/&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#39548;&#23792; </span><span class="org-comment-delimiter">--&gt;</span>
+      &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"trimStrings|constructorBased|..."</span> /&gt;
+
+      &lt;<span class="org-function-name">generatedKey</span> <span class="org-variable-name">column</span>=<span class="org-string">"ID"</span> <span class="org-variable-name">sqlStatement</span>=<span class="org-string">"JDBC|DB2|MySql|SqlServer"</span> <span class="org-variable-name">identity</span>=<span class="org-string">"true"</span> /&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#20027;&#38190; </span><span class="org-comment-delimiter">--&gt;</span>
+
+      &lt;<span class="org-function-name">ignoreColumn</span> <span class="org-variable-name">column</span>=<span class="org-string">"FRED"</span> /&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#24573;&#30053; </span><span class="org-comment-delimiter">--&gt;</span>
+      &lt;<span class="org-function-name">ignoreColumnsByRegex</span> <span class="org-variable-name">pattern</span>=<span class="org-string">"(?i)col.*"</span>&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#25353;&#21305;&#37197;&#24573;&#30053; </span><span class="org-comment-delimiter">--&gt;</span>
+        &lt;<span class="org-function-name">except</span> <span class="org-variable-name">column</span>=<span class="org-string">"col01"</span>/&gt;
+        &lt;<span class="org-function-name">except</span> <span class="org-variable-name">column</span>=<span class="org-string">"col13"</span>/&gt;
+      &lt;/<span class="org-function-name">ignoreColumnsByRegex</span>&gt;
+
+      &lt;<span class="org-function-name">columnOverride</span> <span class="org-variable-name">column</span>=<span class="org-string">"DATE_FIELD"</span> <span class="org-variable-name">property</span>=<span class="org-string">"startDate"</span> /&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#23450;&#20041;&#36716;&#25442; </span><span class="org-comment-delimiter">--&gt;</span>
+      &lt;<span class="org-function-name">columnOverride</span> <span class="org-variable-name">column</span>=<span class="org-string">"LONG_VARCHAR_FIELD"</span> <span class="org-variable-name">jdbcType</span>=<span class="org-string">"VARCHAR"</span> /&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#23450;&#20041;&#31867;&#22411; </span><span class="org-comment-delimiter">--&gt;</span>
+      &lt;<span class="org-function-name">columnOverride</span> column|property|javaType|jdbcType|typeHandler|delimitedColumnName|isGeneratedAlways&gt;
+        &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"trimStrings"</span> <span class="org-variable-name">value</span>=<span class="org-string">"true"</span> /&gt;
+      &lt;/<span class="org-function-name">columnOverride</span>&gt;
+
+      &lt;<span class="org-function-name">columnRenamingRule</span> <span class="org-variable-name">searchString</span>=<span class="org-string">"^CUST_"</span> <span class="org-variable-name">replaceString</span>=<span class="org-string">""</span> /&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#38500;&#21435;&#23383;&#27573;&#21069;&#32512; </span><span class="org-comment-delimiter">--&gt;</span>
+      &lt;<span class="org-function-name">domainObjectRenamingRule</span> <span class="org-variable-name">searchString</span>=<span class="org-string">"^Sys"</span> <span class="org-variable-name">replaceString</span>=<span class="org-string">""</span> /&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#38500;&#21435;&#34920;&#21069;&#32512; </span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;/<span class="org-function-name">table</span>&gt;
+  &lt;/<span class="org-function-name">context</span>&gt;
+&lt;/<span class="org-function-name">generatorConfiguration</span>&gt;
+</pre>
+</div>
+</div>
+</div>
 </section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-10-19 Fri 01:46</p>
+<p class="date">Created: 2018-10-19 Fri 11:41</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

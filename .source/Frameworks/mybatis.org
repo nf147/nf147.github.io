@@ -978,7 +978,6 @@ where 和 set 都可以用等价的 trim 来表示。
 - 一级缓存
 - 二级缓存
 
-缓存的配置与使用。
 
 
 [[file:img/clip_2018-10-19_01-38-58.png]]
@@ -988,10 +987,10 @@ where 和 set 都可以用等价的 trim 来表示。
 一级缓存的范围可以通过参数设置:
 : <setting name="localCacheScope" value="SESSION|STATEMENT" />
 
-首先，在 mbatis-config.xml 中配置:
+开启二级缓存，需要首先在 mbatis-config.xml 中配置:
 : <setting name="cacheEnabled" value="true" />
 
-其次，在 mapper.xml 中配置:
+然后，在 mapper.xml 为本命名空间的语句开启缓存:
 #+BEGIN_SRC sgml
   <cache
     eviction="LRU|FIFO|SOFT|WEAK" <!-- 回收策略 -->
@@ -1013,6 +1012,204 @@ where 和 set 都可以用等价的 trim 来表示。
 MyBatis-PageHelper 的使用:
 - https://github.com/pagehelper/Mybatis-PageHelper
 
+
+使用示例:
+#+BEGIN_SRC java
+  // Builtin RowBounds
+  List<Country> list = mapper.selectAll(new RowBounds(1, 10));
+
+  // PageRowBounds
+  PageRowBounds pageRowBounds = new PageRowBounds(1, 10);
+  List<Country> list = mapper.selectAll(pageRowBounds);
+  assertEquals(182, pageRowBounds.total);
+
+  // PagerHelper
+  PageHelper.startPage(1, 10); // 1st page for 10
+  List<Country> list = mapper.selectIf(1); // the follow select will be pagered
+  assertEquals(182, ((Page) list).getTotal());
+
+  // PagerInfo
+  PageHelper.startPage(1, 10);
+  PageInfo page = new PageInfo(mapper.selectAll());
+  assertEquals(1,     page.getPageNum());
+  assertEquals(10,    page.getPageSize());
+  assertEquals(1,     page.getStartRow());
+  assertEquals(10,    page.getEndRow());
+  assertEquals(183,   page.getTotal());
+  assertEquals(19,    page.getPages());
+  assertEquals(1,     page.getFirstPage());
+  assertEquals(8,     page.getLastPage());
+  assertEquals(true,  page.isFirstPage());
+  assertEquals(false, page.isLastPage());
+  assertEquals(false, page.isHasPreviousPage());
+  assertEquals(true,  page.isHasNextPage());
+#+END_SRC
+
 * MBG (MyBatis-Generator)
 
 http://www.mybatis.org/generator/
+
+** Quick Start
+
+首先，创建配置文件 ~generatorConfig.xml~:
+#+BEGIN_SRC sgml
+  <?xml version="1.0" encoding="UTF-8"?>
+  <!DOCTYPE generatorConfiguration
+   PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+   "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+  <generatorConfiguration>
+    <context id="xxx" targetRuntime="MyBatis3Simple">
+      <commentGenerator>
+        <property name="suppressDate" value="true" />
+      </commentGenerator>
+
+      <jdbcConnection driverClass="org.mariadb.jdbc.Driver"
+                      connectionURL="jdbc:mariadb://localhost/test"
+                      userId="vip" password="vip">
+      </jdbcConnection>
+
+      <javaModelGenerator targetPackage="test.model" targetProject="/home/vip/ddd111/src/main/java">
+        <property name="trimStrings" value="true" />
+      </javaModelGenerator>
+
+      <sqlMapGenerator targetPackage="test.xml"  targetProject="/home/vip/ddd111/src/main/resources"/>
+
+      <javaClientGenerator type="XMLMAPPER" targetPackage="test.dao"  targetProject="/home/vip/ddd111/src/main/java"/>
+
+      <table tableName="ecs_%">
+        <generatedKey column="id" sqlStatement="Mysql"/>
+      </table>
+    </context>
+  </generatorConfiguration>
+#+END_SRC
+
+然后，在 pom 中配置插件:
+#+BEGIN_SRC sgml
+  <plugin>
+    <groupId>org.mybatis.generator</groupId>
+    <artifactId>mybatis-generator-maven-plugin</artifactId>
+    <version>1.3.7</version>
+  
+    <configuration>
+      <configurationFile>${basedir}/src/main/resources/generatorConfig.xml</configurationFile>
+      <overwrite>true</overwrite>
+    </configuration>
+
+    <dependencies>
+      <dependency>
+        <groupId>org.mariadb.jdbc</groupId>
+        <artifactId>mariadb-java-client</artifactId>
+        <version>2.3.0</version>
+      </dependency>
+    </dependencies>
+  </plugin>
+#+END_SRC
+
+之后，执行 pom 任务即可:
+: mvn mybatis-generator:generate
+: mvn mybatis-generator:generate -Dmybatis.generator.overwrite=true  # 可以传入参数
+
+还可以使用其他参数:
+- configurationFile/contexts/outputDirectory
+- jdbcDriver/jdbcUrl/jdbcPassword/jdbcUserId
+- override/sqlScript/tableNames
+- verbose/includeCompileDependencies/includeAllDependencies
+
+** 配置文件总览
+
+#+BEGIN_SRC sgml
+  <?xml version="1.0" encoding="UTF-8"?>
+  <!DOCTYPE generatorConfiguration
+   PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+   "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+  <generatorConfiguration>
+    <properties resource="xxx/yyy/zzz.properties" />
+    <classPathEntry location="/Program Files/IBM/SQLLIB/java/db2java.jar" /> <!-- 添加到 classpath -->
+
+    <context id="DB2Tables" introspectedColumnImpl="To Extend MBG"
+             targetRuntime="MyBatis3|MyBatis3Simple|MyBatis3DynamicSql" <!-- MyBatis3Simple 没 Example 有少量动态 SQL -->
+             defaultModelType="conditional|flat|hierarchical"> <!-- flat: one domain for one table -->
+
+      <!-- 添加插件支持 -->
+      <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+      <plugin type="com.nextlevel.fastlane.mybatis.plugins.SerializablePlugin"></plugin>
+      <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>
+      <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+
+      <!-- 设置参数 -->
+      <property name="suppressTypeWarnings" value="true"/>
+      <property name="javaFileEncoding" value="UTF-8"/>
+      <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+      <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+      <property name="autoDelimitKeywords" value="false"/>
+      <property name="beginningDelimiter" value="`"/>
+      <property name="endingDelimiter" value="`"/>
+
+      <!-- 数据库连接 -->
+      <jdbcConnection  <!-- 也可以用 connectionFactory -->
+                       driverClass="com.ibm.db2.jdbc.app.DB2Driver"
+                       connectionURL="jdbc:db2:TEST"
+                       userId="${user}"
+                       password="${password}">
+      </jdbcConnection>
+
+      <!-- 类型转化规则 -->
+      <javaTypeResolver type>
+        <property name="forceBigDecimals" value="false" /> <!-- 是否使用 BigDecimal 类 -->
+        <property name="useJSR310Types" value="true" /> <!-- 是否使用 LocalDate/LocalTime 类 -->
+      </javaTypeResolver>
+
+      <!-- 注释生成规则 -->
+      <commentGenerator type>
+        <property name="suppressDate" value="true" /> <!-- 取消时间戳 -->
+        <property name="suppressAllComments|addRemarkComments|dateFormat" />
+      </commentGenerator>
+
+      <!-- Model生成规则 -->
+      <javaModelGenerator targetPackage="test.model" targetProject="\MBGTestProject\src">
+        <property name="enableSubPackages" value="true" /> <!-- true: will under test.model.schema.* -->
+        <property name="trimStrings" value="true" />
+        <property name="constructorBased|immutable|rootClass" />
+      </javaModelGenerator>
+
+      <!-- Mapper.xml 规则 -->
+      <sqlMapGenerator targetPackage="test.xml" targetProject="\MBGTestProject\src">
+        <property name="enableSubPackages" value="true" />
+      </sqlMapGenerator>
+
+      <!-- dao 规则 -->
+      <javaClientGenerator type="XMLMAPPER|ANNOTATEDMAPPER" targetPackage="test.dao" targetProject="\MBGTestProject\src">
+        <property name="enableSubPackages" value="true" />
+      </javaClientGenerator>
+
+      <!-- 定制要转化的 table -->
+      <table schema="DB2ADMIN" tableName="ALLTYPES" domainObjectName="Customer"
+             enableInsert|enableSelectByPrimaryKey|enableUpdateByPrimaryKey|enableDeleteByPrimaryKey|selectByPrimaryKeyQueryId
+             enableDeleteByExample|enableCountByExample|enableUpdateByExample|selectByExampleQueryId|enableSelectByExample
+             modelType|escapeWildcards|delimitIdentifiers|delimitAllColumns>
+
+        <property name="useActualColumnNames" value="true"/> <!-- 驼峰 -->
+        <property name="trimStrings|constructorBased|..." />
+      
+        <generatedKey column="ID" sqlStatement="JDBC|DB2|MySql|SqlServer" identity="true" /> <!-- 主键 -->
+      
+        <ignoreColumn column="FRED" /> <!-- 忽略 -->
+        <ignoreColumnsByRegex pattern="(?i)col.*"> <!-- 按匹配忽略 -->
+          <except column="col01"/>
+          <except column="col13"/>
+        </ignoreColumnsByRegex>
+      
+        <columnOverride column="DATE_FIELD" property="startDate" /> <!-- 定义转换 -->
+        <columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" /> <!-- 定义类型 -->
+        <columnOverride column|property|javaType|jdbcType|typeHandler|delimitedColumnName|isGeneratedAlways>
+          <property name="trimStrings" value="true" />
+        </columnOverride>
+      
+        <columnRenamingRule searchString="^CUST_" replaceString="" /> <!-- 除去字段前缀 -->
+        <domainObjectRenamingRule searchString="^Sys" replaceString="" /> <!-- 除去表前缀 -->
+      </table>
+    </context>
+  </generatorConfiguration>
+#+END_SRC
