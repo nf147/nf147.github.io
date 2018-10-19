@@ -3,10 +3,27 @@
 
 
 
-* 2018年10月18日
+* 2018年10月19日
 :PROPERTIES:
 :CUSTOM_ID: active
 :END:
+
+根据文档 https://wenku.baidu.com/view/ee2c760f581b6bd97f19eac8.html 中介绍:
+- 了解物流配送的基本业务流程
+- 学习其数据库设计的方式
+- 按照介绍，创建表，插入必要测试数据
+- 创建 Maven 项目，使用 Mybatis Generator 为此数据库生成相应文件
+
+要求:
+- 将创建的项目放到自己的 github 上，起为 *distribution* ！
+- 将建库的脚本放到项目根目录
+- 使用 Maven 构建项目，单模块即可
+- 注意 *编码规范*
+- 周一上课前务必完成
+- *杜绝抄袭、应付*
+
+
+* 2018年10月18日
 
 - 预习 Mybatis-Generator
 - 预习 mybatis 的 pageHelper 插件
