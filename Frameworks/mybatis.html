@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-10-18 周四 03:36 -->
+<!-- 2018-10-19 Fri 01:46 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MyBatis</title>
@@ -1273,6 +1273,47 @@ session.commit();
 <p>
 缓存的配置与使用。
 </p>
+
+
+
+<figure>
+<img src="img/clip_2018-10-19_01-38-58.png" alt="clip_2018-10-19_01-38-58.png">
+
+</figure>
+
+<p>
+一级缓存是内置的，但是二级缓存需要手动开启。
+</p>
+
+<p>
+一级缓存的范围可以通过参数设置:
+</p>
+<pre class="example">
+&lt;setting name="localCacheScope" value="SESSION|STATEMENT" /&gt;
+</pre>
+
+<p>
+首先，在 mbatis-config.xml 中配置:
+</p>
+<pre class="example">
+&lt;setting name="cacheEnabled" value="true" /&gt;
+</pre>
+
+<p>
+其次，在 mapper.xml 中配置:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">cache</span>
+  <span class="org-variable-name">eviction</span>=<span class="org-string">"LRU|FIFO|SOFT|WEAK"</span> <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#22238;&#25910;&#31574;&#30053; </span><span class="org-comment-delimiter">--&gt;</span>
+  <span class="org-variable-name">flushInterval</span>=<span class="org-string">"60000"</span> <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#21047;&#26032;&#38388;&#38548; </span><span class="org-comment-delimiter">--&gt;</span>
+  <span class="org-variable-name">size</span>=<span class="org-string">"512"</span>            <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#23481;&#37327;&#38480;&#21046; </span><span class="org-comment-delimiter">--&gt;</span>
+  <span class="org-variable-name">readOnly</span>=<span class="org-string">"true"</span>/&gt;     <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#26159;&#21542;&#21482;&#35835; </span><span class="org-comment-delimiter">--&gt;</span>
+</pre>
+</div>
+
+<p>
+二级缓存也可以自己实现，Mybatis 提供了相应接口。
+</p>
 </div>
 </section>
 
@@ -1311,7 +1352,7 @@ MyBatis-PageHelper 的使用:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-10-18 周四 03:36</p>
+<p class="date">Created: 2018-10-19 Fri 01:46</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

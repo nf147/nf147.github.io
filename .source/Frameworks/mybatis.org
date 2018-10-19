@@ -980,6 +980,28 @@ where 和 set 都可以用等价的 trim 来表示。
 
 缓存的配置与使用。
 
+
+[[file:img/clip_2018-10-19_01-38-58.png]]
+
+一级缓存是内置的，但是二级缓存需要手动开启。
+
+一级缓存的范围可以通过参数设置:
+: <setting name="localCacheScope" value="SESSION|STATEMENT" />
+
+首先，在 mbatis-config.xml 中配置:
+: <setting name="cacheEnabled" value="true" />
+
+其次，在 mapper.xml 中配置:
+#+BEGIN_SRC sgml
+  <cache
+    eviction="LRU|FIFO|SOFT|WEAK" <!-- 回收策略 -->
+    flushInterval="60000" <!-- 刷新间隔 -->
+    size="512"            <!-- 容量限制 -->
+    readOnly="true"/>     <!-- 是否只读 -->
+#+END_SRC
+
+二级缓存也可以自己实现，Mybatis 提供了相应接口。
+
 * 分页 (Pagination)
 
 分页方式的分类:

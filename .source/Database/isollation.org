@@ -1,0 +1,22 @@
+#+TITLE: Isolation Level (隔离级别)
+
+
+
+
+* 图示
+
+
+[[file:img/clip_2018-10-19_01-44-18.png]]
+
+
+MySQL InnoDB 引擎默认的隔离级别是 RR(Repeatable Read):
+#+BEGIN_SRC sql
+  show variables like 'tx_is%';
+
+  -- 更改
+  set global tx_isolation='read-committed';
+  set global tx_isolation='repeatable-read';
+#+END_SRC
+
+Oracle/PostgreSQL 等数据库的默认隔离级别是 RC(Read Committed)。
+
