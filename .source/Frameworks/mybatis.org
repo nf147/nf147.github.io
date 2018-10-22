@@ -1012,6 +1012,20 @@ where 和 set 都可以用等价的 trim 来表示。
 MyBatis-PageHelper 的使用:
 - https://github.com/pagehelper/Mybatis-PageHelper
 
+配置:
+#+BEGIN_SRC sgml
+  <!-- pom -->
+  <dependency>
+    <groupId>com.github.pagehelper</groupId>
+    <artifactId>pagehelper</artifactId>
+    <version>5.1.7</version>
+  </dependency>
+
+  <!-- mybatis -->
+  <plugins>
+    <plugin interceptor="com.github.pagehelper.PageInterceptor" />
+  </plugins>
+#+END_SRC
 
 使用示例:
 #+BEGIN_SRC java
@@ -1030,7 +1044,8 @@ MyBatis-PageHelper 的使用:
 
   // PagerInfo
   PageHelper.startPage(1, 10);
-  PageInfo page = new PageInfo(mapper.selectAll());
+  List<Country> list = mapper.selectAll();
+  PageInfo page = new PageInfo(list);
   assertEquals(1,     page.getPageNum());
   assertEquals(10,    page.getPageSize());
   assertEquals(1,     page.getStartRow());

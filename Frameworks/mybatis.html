@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-10-19 Fri 07:35 -->
+<!-- 2018-10-22 Mon 06:34 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MyBatis</title>
@@ -1341,6 +1341,23 @@ MyBatis-PageHelper 的使用:
 <li><a href="https://github.com/pagehelper/Mybatis-PageHelper">https://github.com/pagehelper/Mybatis-PageHelper</a></li>
 </ul>
 
+<p>
+配置:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml"><span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">pom </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">dependency</span>&gt;
+  &lt;<span class="org-function-name">groupId</span>&gt;com.github.pagehelper&lt;/<span class="org-function-name">groupId</span>&gt;
+  &lt;<span class="org-function-name">artifactId</span>&gt;pagehelper&lt;/<span class="org-function-name">artifactId</span>&gt;
+  &lt;<span class="org-function-name">version</span>&gt;5.1.7&lt;/<span class="org-function-name">version</span>&gt;
+&lt;/<span class="org-function-name">dependency</span>&gt;
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">mybatis </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">plugins</span>&gt;
+  &lt;<span class="org-function-name">plugin</span> <span class="org-variable-name">interceptor</span>=<span class="org-string">"com.github.pagehelper.PageInterceptor"</span> /&gt;
+&lt;/<span class="org-function-name">plugins</span>&gt;
+</pre>
+</div>
 
 <p>
 使用示例:
@@ -1361,7 +1378,8 @@ assertEquals(182, ((<span class="org-type">Page</span>) list).getTotal());
 
 <span class="org-comment-delimiter">// </span><span class="org-comment">PagerInfo</span>
 PageHelper.startPage(1, 10);
-<span class="org-type">PageInfo</span> <span class="org-variable-name">page</span> = <span class="org-keyword">new</span> <span class="org-type">PageInfo</span>(mapper.selectAll());
+<span class="org-type">List</span>&lt;<span class="org-type">Country</span>&gt; <span class="org-variable-name">list</span> = mapper.selectAll();
+<span class="org-type">PageInfo</span> <span class="org-variable-name">page</span> = <span class="org-keyword">new</span> <span class="org-type">PageInfo</span>(list);
 assertEquals(1,     page.getPageNum());
 assertEquals(10,    page.getPageSize());
 assertEquals(1,     page.getStartRow());
@@ -1576,7 +1594,7 @@ mvn mybatis-generator:generate -Dmybatis.generator.overwrite=true  # 可以传�
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-10-19 Fri 07:35</p>
+<p class="date">Created: 2018-10-22 Mon 06:34</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

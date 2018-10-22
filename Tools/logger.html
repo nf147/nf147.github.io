@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-10-19 Fri 11:36 -->
+<!-- 2018-10-22 Mon 06:34 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>日志框架</title>
@@ -20,12 +20,12 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org6352582">1. 背景</a></li>
-<li><a href="#org058a888">2. java.util.logging</a></li>
-<li><a href="#org63b9d3d">3. Apache Common-Logging 接口</a></li>
-<li><a href="#org2344121">4. SLF4j 接口</a></li>
-<li><a href="#orgaca4310">5. Log4j</a></li>
-<li><a href="#orgaf3b514">6. Logback</a></li>
+<li><a href="#org66ba76c">1. 背景</a></li>
+<li><a href="#orge8d6bd7">2. java.util.logging</a></li>
+<li><a href="#orgd223970">3. Apache Common-Logging 接口</a></li>
+<li><a href="#org86beed6">4. SLF4j 接口</a></li>
+<li><a href="#org5b11fef">5. Log4j</a></li>
+<li><a href="#org8c0d850">6. SLF4j + Logback</a></li>
 </ul>
 </div>
 </nav>
@@ -33,8 +33,8 @@
 
 
 
-<section id="outline-container-org6352582" class="outline-2">
-<h2 id="org6352582"><span class="section-number-2">1</span> 背景</h2>
+<section id="outline-container-org66ba76c" class="outline-2">
+<h2 id="org66ba76c"><span class="section-number-2">1</span> 背景</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 为了记录程序的运行信息，传统的方式，是使用 <code>System.out.println</code>。
@@ -85,8 +85,8 @@
 </div>
 </section>
 
-<section id="outline-container-org058a888" class="outline-2">
-<h2 id="org058a888"><span class="section-number-2">2</span> java.util.logging</h2>
+<section id="outline-container-orge8d6bd7" class="outline-2">
+<h2 id="orge8d6bd7"><span class="section-number-2">2</span> java.util.logging</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Java 自带的日志框架。
@@ -109,22 +109,60 @@ Java 自带的日志框架。
 </div>
 </section>
 
-<section id="outline-container-org63b9d3d" class="outline-2">
-<h2 id="org63b9d3d"><span class="section-number-2">3</span> Apache Common-Logging 接口</h2>
+<section id="outline-container-orgd223970" class="outline-2">
+<h2 id="orgd223970"><span class="section-number-2">3</span> Apache Common-Logging 接口</h2>
 </section>
-<section id="outline-container-org2344121" class="outline-2">
-<h2 id="org2344121"><span class="section-number-2">4</span> SLF4j 接口</h2>
+<section id="outline-container-org86beed6" class="outline-2">
+<h2 id="org86beed6"><span class="section-number-2">4</span> SLF4j 接口</h2>
 </section>
-<section id="outline-container-orgaca4310" class="outline-2">
-<h2 id="orgaca4310"><span class="section-number-2">5</span> Log4j</h2>
+<section id="outline-container-org5b11fef" class="outline-2">
+<h2 id="org5b11fef"><span class="section-number-2">5</span> Log4j</h2>
 </section>
-<section id="outline-container-orgaf3b514" class="outline-2">
-<h2 id="orgaf3b514"><span class="section-number-2">6</span> Logback</h2>
+<section id="outline-container-org8c0d850" class="outline-2">
+<h2 id="org8c0d850"><span class="section-number-2">6</span> SLF4j + Logback</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+在 pom.xml 中添加:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">dependency</span>&gt;
+  &lt;<span class="org-function-name">groupId</span>&gt;ch.qos.logback&lt;/<span class="org-function-name">groupId</span>&gt;
+  &lt;<span class="org-function-name">artifactId</span>&gt;logback-classic&lt;/<span class="org-function-name">artifactId</span>&gt;
+  &lt;<span class="org-function-name">version</span>&gt;1.2.3&lt;/<span class="org-function-name">version</span>&gt;
+&lt;/<span class="org-function-name">dependency</span>&gt;
+</pre>
+</div>
+
+<p>
+在 classpath 下面添加 logback.xml:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml"><span class="org-string">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+&lt;<span class="org-function-name">configuration</span>&gt;
+  &lt;<span class="org-function-name">appender</span> <span class="org-variable-name">name</span>=<span class="org-string">"STDOUT"</span> <span class="org-variable-name">class</span>=<span class="org-string">"ch.qos.logback.core.ConsoleAppender"</span>&gt;
+    &lt;<span class="org-function-name">layout</span> <span class="org-variable-name">class</span>=<span class="org-string">"ch.qos.logback.classic.PatternLayout"</span>&gt;
+      &lt;<span class="org-function-name">Pattern</span>&gt;
+        <span class="org-variable-name">%msg%n</span>
+      &lt;/<span class="org-function-name">Pattern</span>&gt;
+    &lt;/<span class="org-function-name">layout</span>&gt;
+
+    <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">mybatis &#30340;&#35774;&#32622; </span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-function-name">logger</span> <span class="org-variable-name">name</span>=<span class="org-string">"com.nf147.sss.dao"</span> <span class="org-variable-name">level</span>=<span class="org-string">"debug"</span> <span class="org-variable-name">additivity</span>=<span class="org-string">"false"</span>&gt;
+      &lt;<span class="org-function-name">appender-ref</span> <span class="org-variable-name">ref</span>=<span class="org-string">"STDOUT"</span> /&gt;
+    &lt;/<span class="org-function-name">logger</span>&gt;
+
+    &lt;<span class="org-function-name">root</span> <span class="org-variable-name">level</span>=<span class="org-string">"error"</span>&gt;
+      &lt;<span class="org-function-name">appender-ref</span> <span class="org-variable-name">ref</span>=<span class="org-string">"STDOUT"</span> /&gt;
+    &lt;/<span class="org-function-name">root</span>&gt;
+&lt;/<span class="org-function-name">configuration</span>&gt;
+</pre>
+</div>
+</div>
 </section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-10-19 Fri 11:36</p>
+<p class="date">Created: 2018-10-22 Mon 06:34</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

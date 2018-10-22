@@ -56,4 +56,35 @@ Java 自带的日志框架。
 * Apache Common-Logging 接口
 * SLF4j 接口
 * Log4j
-* Logback
+* SLF4j + Logback
+
+在 pom.xml 中添加:
+#+BEGIN_SRC sgml
+  <dependency>
+    <groupId>ch.qos.logback</groupId>
+    <artifactId>logback-classic</artifactId>
+    <version>1.2.3</version>
+  </dependency>
+#+END_SRC
+
+在 classpath 下面添加 logback.xml:
+#+BEGIN_SRC sgml
+  <?xml version="1.0" encoding="UTF-8"?>
+  <configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+      <layout class="ch.qos.logback.classic.PatternLayout">
+        <Pattern>
+          %msg%n
+        </Pattern>
+      </layout>
+
+      <!-- mybatis 的设置 -->
+      <logger name="com.nf147.sss.dao" level="debug" additivity="false">
+        <appender-ref ref="STDOUT" />
+      </logger>
+
+      <root level="error">
+        <appender-ref ref="STDOUT" />
+      </root>
+  </configuration>
+#+END_SRC
