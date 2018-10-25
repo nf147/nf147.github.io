@@ -2,11 +2,17 @@
 
 
 
-
-* 2018年10月19日
+* 2018年10月25日
 :PROPERTIES:
 :CUSTOM_ID: active
 :END:
+
+- 复习
+- *认真* 筹划个人项目
+- 预习 RESTful
+- 预习 Spring MVC 如何返回 JSON
+
+* 2018年10月19日
 
 根据文档 https://wenku.baidu.com/view/ee2c760f581b6bd97f19eac8.html 中介绍:
 - 了解物流配送的基本业务流程

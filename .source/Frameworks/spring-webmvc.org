@@ -2,5 +2,67 @@
 
 
 
-* 加载顺序
+* 基本配置
 
+在 Web.xml 中配置前端控制器，让 Spring MVC 拦截处理所有的请求:
+#+BEGIN_SRC sgml
+  <servlet>
+    <servlet-name>web</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:spring/web-mvc.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>web</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+#+END_SRC
+
+Spring MVC 在启动的时候会初始化容器，所以需要通过 xml 配置其容器的初始化。Spring-Mvc.xml:
+#+BEGIN_SRC sgml
+  <!--启用注解扫描-->
+  <context:component-scan base-package="com.nf147.post.controller" />
+
+  <!--启用 mvc 的常用注解-->
+  <mvc:annotation-driven enable-matrix-variables="true" />
+
+  <!--将所有的静态资源交还 Servlet 处理-->
+  <mvc:default-servlet-handler />
+
+  <!--配置返回页面-->
+  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+    <property name="prefix" value="/WEB-INF/jsp/" />
+    <property name="suffix" value=".jsp" />
+  </bean>
+#+END_SRC
+
+* DispatcherServlet
+
+前端控制器，所有来自客户端的请求，都会交由它去处理。
+
+* Controller
+** RequestMapping
+
+** Handler 参数
+
+** Handler 返回值
+
+* Controller 相关
+** RedirectionAttributes
+
+** @ModelAttribute
+
+** 操作 HttpSession
+
+* View
+
+* Conversion (类型转换)
+* Validation (验证)
+* Exception (异常处理)
+* File Upload (文件上传)
+* I18N (国际化)
+* RESTful

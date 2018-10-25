@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-10-25 周四 02:13 -->
+<!-- 2018-10-25 Thu 06:38 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Web MVC</title>
@@ -20,20 +20,151 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org0331953">1. 加载顺序</a></li>
+<li><a href="#orge1e9c8c">1. 基本配置</a></li>
+<li><a href="#org8781caf">2. DispatcherServlet</a></li>
+<li><a href="#org7a9c2ef">3. Controller</a>
+<ul>
+<li><a href="#orgc634fc2">3.1. RequestMapping</a></li>
+<li><a href="#orgd3c04a6">3.2. Handler 参数</a></li>
+<li><a href="#orgd2089fd">3.3. Handler 返回值</a></li>
+</ul>
+</li>
+<li><a href="#orgd911126">4. Controller 相关</a>
+<ul>
+<li><a href="#org90ea1dc">4.1. RedirectionAttributes</a></li>
+<li><a href="#org3c70edb">4.2. @ModelAttribute</a></li>
+<li><a href="#org2af6a42">4.3. 操作 HttpSession</a></li>
+</ul>
+</li>
+<li><a href="#org450985c">5. View</a></li>
+<li><a href="#orgdb82f02">6. Conversion (类型转换)</a></li>
+<li><a href="#org1c07f70">7. Validation (验证)</a></li>
+<li><a href="#orge73402d">8. Exception (异常处理)</a></li>
+<li><a href="#orgbb67b3f">9. File Upload (文件上传)</a></li>
+<li><a href="#orgc1f20f2">10. I18N (国际化)</a></li>
+<li><a href="#orgebf81a0">11. RESTful</a></li>
 </ul>
 </div>
 </nav>
 
 
 
-<section id="outline-container-org0331953" class="outline-2">
-<h2 id="org0331953"><span class="section-number-2">1</span> 加载顺序</h2>
+<section id="outline-container-orge1e9c8c" class="outline-2">
+<h2 id="orge1e9c8c"><span class="section-number-2">1</span> 基本配置</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+在 Web.xml 中配置前端控制器，让 Spring MVC 拦截处理所有的请求:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">servlet</span>&gt;
+  &lt;<span class="org-function-name">servlet-name</span>&gt;web&lt;/<span class="org-function-name">servlet-name</span>&gt;
+  &lt;<span class="org-function-name">servlet-class</span>&gt;org.springframework.web.servlet.DispatcherServlet&lt;/<span class="org-function-name">servlet-class</span>&gt;
+  &lt;<span class="org-function-name">init-param</span>&gt;
+    &lt;<span class="org-function-name">param-name</span>&gt;contextConfigLocation&lt;/<span class="org-function-name">param-name</span>&gt;
+    &lt;<span class="org-function-name">param-value</span>&gt;classpath:spring/web-mvc.xml&lt;/<span class="org-function-name">param-value</span>&gt;
+  &lt;/<span class="org-function-name">init-param</span>&gt;
+  &lt;<span class="org-function-name">load-on-startup</span>&gt;1&lt;/<span class="org-function-name">load-on-startup</span>&gt;
+&lt;/<span class="org-function-name">servlet</span>&gt;
+&lt;<span class="org-function-name">servlet-mapping</span>&gt;
+  &lt;<span class="org-function-name">servlet-name</span>&gt;web&lt;/<span class="org-function-name">servlet-name</span>&gt;
+  &lt;<span class="org-function-name">url-pattern</span>&gt;/&lt;/<span class="org-function-name">url-pattern</span>&gt;
+&lt;/<span class="org-function-name">servlet-mapping</span>&gt;
+</pre>
+</div>
+
+<p>
+Spring MVC 在启动的时候会初始化容器，所以需要通过 xml 配置其容器的初始化。Spring-Mvc.xml:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml"><span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#21551;&#29992;&#27880;&#35299;&#25195;&#25551;</span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-sgml-namespace">context</span>:<span class="org-function-name">component-scan</span> <span class="org-variable-name">base-package</span>=<span class="org-string">"com.nf147.post.controller"</span> /&gt;
+
+<span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#21551;&#29992; mvc &#30340;&#24120;&#29992;&#27880;&#35299;</span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-sgml-namespace">mvc</span>:<span class="org-function-name">annotation-driven</span> <span class="org-variable-name">enable-matrix-variables</span>=<span class="org-string">"true"</span> /&gt;
+
+<span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#23558;&#25152;&#26377;&#30340;&#38745;&#24577;&#36164;&#28304;&#20132;&#36824; Servlet &#22788;&#29702;</span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-sgml-namespace">mvc</span>:<span class="org-function-name">default-servlet-handler</span> /&gt;
+
+<span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#37197;&#32622;&#36820;&#22238;&#39029;&#38754;</span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.springframework.web.servlet.view.InternalResourceViewResolver"</span>&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"viewClass"</span> <span class="org-variable-name">value</span>=<span class="org-string">"org.springframework.web.servlet.view.JstlView"</span> /&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"prefix"</span> <span class="org-variable-name">value</span>=<span class="org-string">"/WEB-INF/jsp/"</span> /&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"suffix"</span> <span class="org-variable-name">value</span>=<span class="org-string">".jsp"</span> /&gt;
+&lt;/<span class="org-function-name">bean</span>&gt;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org8781caf" class="outline-2">
+<h2 id="org8781caf"><span class="section-number-2">2</span> DispatcherServlet</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+前端控制器，所有来自客户端的请求，都会交由它去处理。
+</p>
+</div>
+</section>
+
+<section id="outline-container-org7a9c2ef" class="outline-2">
+<h2 id="org7a9c2ef"><span class="section-number-2">3</span> Controller</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-orgc634fc2" class="outline-3">
+<h3 id="orgc634fc2"><span class="section-number-3">3.1</span> RequestMapping</h3>
+</div>
+
+<div id="outline-container-orgd3c04a6" class="outline-3">
+<h3 id="orgd3c04a6"><span class="section-number-3">3.2</span> Handler 参数</h3>
+</div>
+
+<div id="outline-container-orgd2089fd" class="outline-3">
+<h3 id="orgd2089fd"><span class="section-number-3">3.3</span> Handler 返回值</h3>
+</div>
+</section>
+
+<section id="outline-container-orgd911126" class="outline-2">
+<h2 id="orgd911126"><span class="section-number-2">4</span> Controller 相关</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-org90ea1dc" class="outline-3">
+<h3 id="org90ea1dc"><span class="section-number-3">4.1</span> RedirectionAttributes</h3>
+</div>
+
+<div id="outline-container-org3c70edb" class="outline-3">
+<h3 id="org3c70edb"><span class="section-number-3">4.2</span> @ModelAttribute</h3>
+</div>
+
+<div id="outline-container-org2af6a42" class="outline-3">
+<h3 id="org2af6a42"><span class="section-number-3">4.3</span> 操作 HttpSession</h3>
+</div>
+</section>
+
+<section id="outline-container-org450985c" class="outline-2">
+<h2 id="org450985c"><span class="section-number-2">5</span> View</h2>
+</section>
+
+<section id="outline-container-orgdb82f02" class="outline-2">
+<h2 id="orgdb82f02"><span class="section-number-2">6</span> Conversion (类型转换)</h2>
+</section>
+<section id="outline-container-org1c07f70" class="outline-2">
+<h2 id="org1c07f70"><span class="section-number-2">7</span> Validation (验证)</h2>
+</section>
+<section id="outline-container-orge73402d" class="outline-2">
+<h2 id="orge73402d"><span class="section-number-2">8</span> Exception (异常处理)</h2>
+</section>
+<section id="outline-container-orgbb67b3f" class="outline-2">
+<h2 id="orgbb67b3f"><span class="section-number-2">9</span> File Upload (文件上传)</h2>
+</section>
+<section id="outline-container-orgc1f20f2" class="outline-2">
+<h2 id="orgc1f20f2"><span class="section-number-2">10</span> I18N (国际化)</h2>
+</section>
+<section id="outline-container-orgebf81a0" class="outline-2">
+<h2 id="orgebf81a0"><span class="section-number-2">11</span> RESTful</h2>
 </section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-10-25 周四 02:13</p>
+<p class="date">Created: 2018-10-25 Thu 06:38</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
