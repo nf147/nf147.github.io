@@ -48,9 +48,58 @@ Spring MVC 在启动的时候会初始化容器，所以需要通过 xml 配置�
 - 
 
 * Controller
+** hello, world
+
+传统的方式：
+#+BEGIN_SRC java
+  // 1. 实现 Controller 接口
+  // 2. 重写 handleRequest 方法
+  // 注意，方法的返回值是 ModelAndView
+  public class DemoController implements Controller {
+      @Override
+      public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+          return new ModelAndView("demo", "msg", "hello, world");  // 返回 demo 页面，会在 request 里保存一个 msg 的变量，值为 hello, world
+      }
+  }
+
+  // 然后，在 spring-mvc.xml 中添加:
+  //   <bean name="/hello" value="xxx.DemoController" />
+  //
+  // 随后，就可以在浏览器中访问了
+  //   http://localhost:8080/hello
+#+END_SRC
+
+可以使用相关注解简化其操作:
+#+BEGIN_SRC java
+  @Controller
+  public class DemoController {
+      @RequestMapping("/")
+      public String handleRequest(Model model) {
+          model.addAttribute("msg", "hello, world");
+          return "demo";
+      }
+  }
+
+  // 这种写法跟上面是等价的，不过更简单清爽。并且一个 Controller 类里面可以放置多个 handler
+  // 另外，注意，在配置文件中要开启注解扫描 <context:component-scan .. />
+#+END_SRC
+
 ** RequestMapping
 
+- @RequestMapping
+- @GetMapping
+- @PostMapping
+- @XxxMapping
+
+参数:
+- name
+- required
+
 ** Handler 参数
+
+特殊含义的参数:
+- 
+
 
 ** Handler 返回值
 

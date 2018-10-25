@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-10-25 Thu 06:39 -->
+<!-- 2018-10-25 Thu 06:49 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Web MVC</title>
@@ -24,9 +24,10 @@
 <li><a href="#org8781caf">2. DispatcherServlet</a></li>
 <li><a href="#org7a9c2ef">3. Controller</a>
 <ul>
-<li><a href="#orgc634fc2">3.1. RequestMapping</a></li>
-<li><a href="#orgd3c04a6">3.2. Handler 参数</a></li>
-<li><a href="#orgd2089fd">3.3. Handler 返回值</a></li>
+<li><a href="#orgd88fcb8">3.1. hello, world</a></li>
+<li><a href="#orgc634fc2">3.2. RequestMapping</a></li>
+<li><a href="#orgd3c04a6">3.3. Handler 参数</a></li>
+<li><a href="#orgd2089fd">3.4. Handler 返回值</a></li>
 </ul>
 </li>
 <li><a href="#orgd911126">4. Controller 相关</a>
@@ -116,16 +117,86 @@ Spring MVC 在启动的时候会初始化容器，所以需要通过 xml 配置�
 <h2 id="org7a9c2ef"><span class="section-number-2">3</span> Controller</h2>
 <div class="outline-text-2" id="text-3">
 </div>
+<div id="outline-container-orgd88fcb8" class="outline-3">
+<h3 id="orgd88fcb8"><span class="section-number-3">3.1</span> hello, world</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+传统的方式：
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-comment-delimiter">// </span><span class="org-comment">1. &#23454;&#29616; Controller &#25509;&#21475;</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">2. &#37325;&#20889; handleRequest &#26041;&#27861;</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#27880;&#24847;&#65292;&#26041;&#27861;&#30340;&#36820;&#22238;&#20540;&#26159; ModelAndView</span>
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">DemoController</span> <span class="org-keyword">implements</span> <span class="org-type">Controller</span> {
+    <span class="org-c-annotation">@Override</span>
+    <span class="org-keyword">public</span> <span class="org-type">ModelAndView</span> <span class="org-function-name">handleRequest</span>(<span class="org-type">HttpServletRequest</span> <span class="org-variable-name">request</span>, <span class="org-type">HttpServletResponse</span> <span class="org-variable-name">response</span>) <span class="org-keyword">throws</span> <span class="org-type">Exception</span> {
+        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">ModelAndView</span>(<span class="org-string">"demo"</span>, <span class="org-string">"msg"</span>, <span class="org-string">"hello, world"</span>);  <span class="org-comment-delimiter">// </span><span class="org-comment">&#36820;&#22238; demo &#39029;&#38754;&#65292;&#20250;&#22312; request &#37324;&#20445;&#23384;&#19968;&#20010; msg &#30340;&#21464;&#37327;&#65292;&#20540;&#20026; hello, world</span>
+    }
+}
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#28982;&#21518;&#65292;&#22312; spring-mvc.xml &#20013;&#28155;&#21152;:</span>
+<span class="org-comment-delimiter">//   </span><span class="org-comment">&lt;bean name="/hello" value="xxx.DemoController" /&gt;</span>
+<span class="org-comment-delimiter">//</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#38543;&#21518;&#65292;&#23601;&#21487;&#20197;&#22312;&#27983;&#35272;&#22120;&#20013;&#35775;&#38382;&#20102;</span>
+<span class="org-comment-delimiter">//   </span><span class="org-comment">http://localhost:8080/hello</span>
+</pre>
+</div>
+
+<p>
+可以使用相关注解简化其操作:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Controller</span>
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">DemoController</span> {
+    <span class="org-c-annotation">@RequestMapping</span>(<span class="org-string">"/"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">handleRequest</span>(<span class="org-type">Model</span> <span class="org-variable-name">model</span>) {
+        model.addAttribute(<span class="org-string">"msg"</span>, <span class="org-string">"hello, world"</span>);
+        <span class="org-keyword">return</span> <span class="org-string">"demo"</span>;
+    }
+}
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#36825;&#31181;&#20889;&#27861;&#36319;&#19978;&#38754;&#26159;&#31561;&#20215;&#30340;&#65292;&#19981;&#36807;&#26356;&#31616;&#21333;&#28165;&#29245;&#12290;&#24182;&#19988;&#19968;&#20010; Controller &#31867;&#37324;&#38754;&#21487;&#20197;&#25918;&#32622;&#22810;&#20010; handler</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#21478;&#22806;&#65292;&#27880;&#24847;&#65292;&#22312;&#37197;&#32622;&#25991;&#20214;&#20013;&#35201;&#24320;&#21551;&#27880;&#35299;&#25195;&#25551; &lt;context:component-scan .. /&gt;</span>
+</pre>
+</div>
+</div>
+</div>
+
 <div id="outline-container-orgc634fc2" class="outline-3">
-<h3 id="orgc634fc2"><span class="section-number-3">3.1</span> RequestMapping</h3>
+<h3 id="orgc634fc2"><span class="section-number-3">3.2</span> RequestMapping</h3>
+<div class="outline-text-3" id="text-3-2">
+<ul class="org-ul">
+<li>@RequestMapping</li>
+<li>@GetMapping</li>
+<li>@PostMapping</li>
+<li>@XxxMapping</li>
+</ul>
+
+<p>
+参数:
+</p>
+<ul class="org-ul">
+<li>name</li>
+<li>required</li>
+</ul>
+</div>
 </div>
 
 <div id="outline-container-orgd3c04a6" class="outline-3">
-<h3 id="orgd3c04a6"><span class="section-number-3">3.2</span> Handler 参数</h3>
+<h3 id="orgd3c04a6"><span class="section-number-3">3.3</span> Handler 参数</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+特殊含义的参数:
+</p>
+<ul class="org-ul">
+<li></li>
+</ul>
+</div>
 </div>
 
+
 <div id="outline-container-orgd2089fd" class="outline-3">
-<h3 id="orgd2089fd"><span class="section-number-3">3.3</span> Handler 返回值</h3>
+<h3 id="orgd2089fd"><span class="section-number-3">3.4</span> Handler 返回值</h3>
 </div>
 </section>
 
@@ -171,7 +242,7 @@ Spring MVC 在启动的时候会初始化容器，所以需要通过 xml 配置�
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 某某人</p>
-<p class="date">Created: 2018-10-25 Thu 06:39</p>
+<p class="date">Created: 2018-10-25 Thu 06:49</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
