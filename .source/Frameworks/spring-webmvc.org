@@ -44,6 +44,9 @@ Spring MVC 在启动的时候会初始化容器，所以需要通过 xml 配置�
 
 前端控制器，所有来自客户端的请求，都会交由它去处理。
 
+基本工作机制:
+- 
+
 * Controller
 ** RequestMapping
 
