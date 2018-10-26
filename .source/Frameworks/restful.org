@@ -1,0 +1,74 @@
+#+TITLE: RESTful
+
+
+*Representational Status Transform*，表现层状态转移。
+
+
+
+
+* 背景
+** URL
+
+*首先第一个问题，是 URL 概念的滥用。*
+
+#+BEGIN_QUOTE
+
+URL，是一个名词，它代表一个资源，位于网络上，一个 url 对应一个唯一的资源。
+#+END_QUOTE
+
+但实际运用中，url 滥用严重，它中间基本会包含大量元素，有描述、有动作，很混乱。
+
+比如，要删除编号为 1 的学生，一般的 url 可能是这样的:
+: http://localhost:8080/student.do?action=del&id=1
+
+上述方式:
+- 一个 url 不能表示唯一的资源
+- 通过参数的形式确定资源
+- url 中包含很多动作，行为难以确定
+- url ~/student.do~ 职能过大
+- 还有很多缺点
+
+** HTTP Methods
+
+*另外一个问题在于，HTTP 协议没有被充分挖掘利用。*
+
+由于历史原因，一般我们常用的 http method 只是 GET 和 POST，
+很多浏览器的设计，也是对这两种方法支持比较好。
+
+造成一种结果，就是其他的 HTTP 方法形同虚设。
+
+以前这样做没问题，但随着网络上资源越来越多，操作越来越频繁，
+对资源的描述问题逐渐成为一个大的问题。
+
+这时候，很多人才把目光转回 HTTP 协议本身。
+
+能不能借助 HTTP 本身提供的 methods 为资源描述提供一种更好的方式呢？
+
+** RESTful
+
+*然后，就是 REST 概念的提出。*
+
+六大约束:
+1. 统一接口
+2. 客户端服务器
+3. 无状态
+4. 缓存 HashMap<String, Object> , /stu/1
+5. 分层
+6. 按需 xml/json/kskdfjskdjf
+
+
+* 结论
+
+基于上述原因，结果:
+
+GET/POST/PUT/DELETE http://localhost:8080/sudent/1 [唯一资源]
+
+: http://localhost:8080/sudent/2
+: http://localhost:8080/sudent/3434
+
+#+BEGIN_SRC html
+  <form action="/pet" method="post">
+    <input name="body" />
+  </form>
+#+END_SRC
+
