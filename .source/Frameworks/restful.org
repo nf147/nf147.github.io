@@ -1,7 +1,7 @@
 #+TITLE: RESTful
 
 
-*Representational Status Transform*，表现层状态转移。
+*Representational State Transfer*，表现层状态转移。
 
 
 
