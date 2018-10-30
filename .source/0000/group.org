@@ -64,7 +64,6 @@
 
 #+BEGIN_EXPORT html
 <script>
-
     const comparer = (idx, asc) => (a, b) => {
         const getCellValue = (tr, idx) => tr.children[idx].innerText;
         const v1 = getCellValue(asc ? a : b, idx), v2 = getCellValue(asc ? b : a, idx);
@@ -74,9 +73,10 @@
     const bindSortEvent = th => {
         th.addEventListener('click', () => {
             const table = th.closest('table');
-            Array.from(table.querySelectorAll('tr:nth-child(n+1)'))
+            const tbody = table.querySelector('tbody');
+            Array.from(table.querySelectorAll('tbody tr'))
                 .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
-                .forEach(tr => table.appendChild(tr));
+                .forEach(tr => tbody.appendChild(tr));
         });
     };
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-10-30 Tue 19:31 -->
+<!-- 2018-10-30 Tue 19:41 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>分组情况(Groups)</title>
@@ -419,7 +419,6 @@
 
 
 <script>
-
     const comparer = (idx, asc) => (a, b) => {
         const getCellValue = (tr, idx) => tr.children[idx].innerText;
         const v1 = getCellValue(asc ? a : b, idx), v2 = getCellValue(asc ? b : a, idx);
@@ -429,9 +428,10 @@
     const bindSortEvent = th => {
         th.addEventListener('click', () => {
             const table = th.closest('table');
-            Array.from(table.querySelectorAll('tr:nth-child(n+1)'))
+            const tbody = table.querySelector('tbody');
+            Array.from(table.querySelectorAll('tbody tr'))
                 .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
-                .forEach(tr => table.appendChild(tr));
+                .forEach(tr => tbody.appendChild(tr));
         });
     };
 
@@ -444,7 +444,7 @@
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-10-30 Tue 19:31</p>
+<p class="date">Created: 2018-10-30 Tue 19:41</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
