@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2018-10-30 Tue 13:38 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RESTful</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="孙悟空">
+<link rel='stylesheet' href='/asset/common.css' />
+<script src='https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+<script src='/asset/common.js'></script>
+</head>
+<body>
+<div id="content">
+<header>
+<h1 class="title">RESTful</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org4ff432f">1. 背景</a>
+<ul>
+<li><a href="#org121a522">1.1. URL</a></li>
+<li><a href="#org17e18a9">1.2. HTTP Methods</a></li>
+<li><a href="#orgefdb68b">1.3. RESTful</a></li>
+</ul>
+</li>
+<li><a href="#org6ad338d">2. 结论</a></li>
+</ul>
+</div>
+</nav>
+<p>
+<b>Representational State Transfer</b>，表现层状态转移。
+</p>
+
+
+
+
+<section id="outline-container-org4ff432f" class="outline-2">
+<h2 id="org4ff432f"><span class="section-number-2">1</span> 背景</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org121a522" class="outline-3">
+<h3 id="org121a522"><span class="section-number-3">1.1</span> URL</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+<b>首先第一个问题，是 URL 概念的滥用。</b>
+</p>
+
+<blockquote>
+<p>
+
+</p>
+
+<p>
+URL，是一个名词，它代表一个资源，位于网络上，一个 url 对应一个唯一的资源。
+</p>
+</blockquote>
+
+<p>
+但实际运用中，url 滥用严重，它中间基本会包含大量元素，有描述、有动作，很混乱。
+</p>
+
+<p>
+比如，要删除编号为 1 的学生，一般的 url 可能是这样的:
+</p>
+<pre class="example">
+http://localhost:8080/student.do?action=del&amp;id=1
+</pre>
+
+<p>
+上述方式:
+</p>
+<ul class="org-ul">
+<li>一个 url 不能表示唯一的资源</li>
+<li>通过参数的形式确定资源</li>
+<li>url 中包含很多动作，行为难以确定</li>
+<li>url <code>/student.do</code> 职能过大</li>
+<li>还有很多缺点</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org17e18a9" class="outline-3">
+<h3 id="org17e18a9"><span class="section-number-3">1.2</span> HTTP Methods</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+<b>另外一个问题在于，HTTP 协议没有被充分挖掘利用。</b>
+</p>
+
+<p>
+由于历史原因，一般我们常用的 http method 只是 GET 和 POST，很多浏览器的设计，也是对这两种方法支持比较好。
+</p>
+
+<p>
+造成一种结果，就是其他的 HTTP 方法形同虚设。
+</p>
+
+<p>
+以前这样做没问题，但随着网络上资源越来越多，操作越来越频繁，对资源的描述问题逐渐成为一个大的问题。
+</p>
+
+<p>
+这时候，很多人才把目光转回 HTTP 协议本身。
+</p>
+
+<p>
+能不能借助 HTTP 本身提供的 methods 为资源描述提供一种更好的方式呢？
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgefdb68b" class="outline-3">
+<h3 id="orgefdb68b"><span class="section-number-3">1.3</span> RESTful</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+<b>然后，就是 REST 概念的提出。</b>
+</p>
+
+<p>
+六大约束:
+</p>
+<ol class="org-ol">
+<li>统一接口</li>
+<li>客户端服务器</li>
+<li>无状态</li>
+<li>缓存 HashMap&lt;String, Object&gt; , /stu/1</li>
+<li>分层</li>
+<li>按需 xml/json/kskdfjskdjf</li>
+</ol>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-org6ad338d" class="outline-2">
+<h2 id="org6ad338d"><span class="section-number-2">2</span> 结论</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+基于上述原因，结果:
+</p>
+
+<p>
+GET/POST/PUT/DELETE <a href="http://localhost:8080/sudent/1">http://localhost:8080/sudent/1</a> [唯一资源]
+</p>
+
+<pre class="example">
+http://localhost:8080/sudent/2
+http://localhost:8080/sudent/3434
+</pre>
+
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span class="org-function-name">form</span> <span class="org-variable-name">action</span>=<span class="org-string">"/pet"</span> <span class="org-variable-name">method</span>=<span class="org-string">"post"</span>&gt;
+  &lt;<span class="org-function-name">input</span> <span class="org-variable-name">name</span>=<span class="org-string">"body"</span> /&gt;
+&lt;/<span class="org-function-name">form</span>&gt;
+</pre>
+</div>
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: 孙悟空</p>
+<p class="date">Created: 2018-10-30 Tue 13:38</p>
+<p class="validation">Go ahead, never stop.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2018-10-30 Tue 13:38 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spring Web MVC</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="孙悟空">
+<link rel='stylesheet' href='/asset/common.css' />
+<script src='https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+<script src='/asset/common.js'></script>
+</head>
+<body>
+<div id="content">
+<header>
+<h1 class="title">Spring Web MVC</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orged2803f">1. 基本配置</a></li>
+<li><a href="#org171ed1f">2. DispatcherServlet</a></li>
+<li><a href="#org7225409">3. Controller</a>
+<ul>
+<li><a href="#org8cfb0bb">3.1. Hello, World</a></li>
+<li><a href="#org5251aef">3.2. RequestMapping</a></li>
+<li><a href="#orgc73e4df">3.3. Handler 参数</a></li>
+<li><a href="#orgce2b5ae">3.4. Handler 返回</a></li>
+<li><a href="#org7d1cada">3.5. reqeust data bind to Collection</a>
+<ul>
+<li><a href="#org49c310d">3.5.1. via FormBean</a></li>
+<li><a href="#org1b64c1c">3.5.2. via FormBean with Validation</a></li>
+<li><a href="#orgb4e71e6">3.5.3. via Ajax and RequestBody</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org57391f3">4. Conversion (类型转换)</a>
+<ul>
+<li><a href="#orge217ce3">4.1. 第一种方法：利用内置的 CustomDateEditor</a></li>
+<li><a href="#org68747f7">4.2. 第二种方法：实现自定义 Converter</a></li>
+<li><a href="#org69321b2">4.3. 第三种方法：使用 @DateTimeFormat 注解</a></li>
+</ul>
+</li>
+<li><a href="#orge5bbe17">5. Validation (验证)</a>
+<ul>
+<li><a href="#org6b11145">5.1. JSR-303</a></li>
+</ul>
+</li>
+<li><a href="#org92694b3">6. Exception (异常处理)</a></li>
+<li><a href="#orgd9ccd23">7. View</a></li>
+<li><a href="#org0cefcd3">8. File Upload (文件上传)</a></li>
+<li><a href="#org719286f">9. I18N (国际化)</a></li>
+<li><a href="#org9fcacad">10. RESTful</a></li>
+</ul>
+</div>
+</nav>
+
+
+
+<section id="outline-container-orged2803f" class="outline-2">
+<h2 id="orged2803f"><span class="section-number-2">1</span> 基本配置</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+在 Web.xml 中配置前端控制器，让 Spring MVC 拦截处理所有的请求:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">servlet</span>&gt;
+  &lt;<span class="org-function-name">servlet-name</span>&gt;web&lt;/<span class="org-function-name">servlet-name</span>&gt;
+  &lt;<span class="org-function-name">servlet-class</span>&gt;org.springframework.web.servlet.DispatcherServlet&lt;/<span class="org-function-name">servlet-class</span>&gt;
+  &lt;<span class="org-function-name">init-param</span>&gt;
+    &lt;<span class="org-function-name">param-name</span>&gt;contextConfigLocation&lt;/<span class="org-function-name">param-name</span>&gt;
+    &lt;<span class="org-function-name">param-value</span>&gt;classpath:spring/web-mvc.xml&lt;/<span class="org-function-name">param-value</span>&gt;
+  &lt;/<span class="org-function-name">init-param</span>&gt;
+  &lt;<span class="org-function-name">load-on-startup</span>&gt;1&lt;/<span class="org-function-name">load-on-startup</span>&gt;
+&lt;/<span class="org-function-name">servlet</span>&gt;
+&lt;<span class="org-function-name">servlet-mapping</span>&gt;
+  &lt;<span class="org-function-name">servlet-name</span>&gt;web&lt;/<span class="org-function-name">servlet-name</span>&gt;
+  &lt;<span class="org-function-name">url-pattern</span>&gt;/&lt;/<span class="org-function-name">url-pattern</span>&gt;
+&lt;/<span class="org-function-name">servlet-mapping</span>&gt;
+</pre>
+</div>
+
+<p>
+Spring MVC 在启动的时候会初始化容器，所以需要通过 xml 配置其容器的初始化。Spring-Mvc.xml:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml"><span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#21551;&#29992;&#27880;&#35299;&#25195;&#25551;</span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-sgml-namespace">context</span>:<span class="org-function-name">component-scan</span> <span class="org-variable-name">base-package</span>=<span class="org-string">"com.nf147.post.controller"</span> /&gt;
+
+<span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#21551;&#29992; mvc &#30340;&#24120;&#29992;&#27880;&#35299;</span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-sgml-namespace">mvc</span>:<span class="org-function-name">annotation-driven</span> <span class="org-variable-name">enable-matrix-variables</span>=<span class="org-string">"true"</span> /&gt;
+
+<span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#23558;&#25152;&#26377;&#30340;&#38745;&#24577;&#36164;&#28304;&#20132;&#36824; Servlet &#22788;&#29702;</span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-sgml-namespace">mvc</span>:<span class="org-function-name">default-servlet-handler</span> /&gt;
+
+<span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#37197;&#32622;&#36820;&#22238;&#39029;&#38754;</span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.springframework.web.servlet.view.InternalResourceViewResolver"</span>&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"viewClass"</span> <span class="org-variable-name">value</span>=<span class="org-string">"org.springframework.web.servlet.view.JstlView"</span> /&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"prefix"</span> <span class="org-variable-name">value</span>=<span class="org-string">"/WEB-INF/jsp/"</span> /&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"suffix"</span> <span class="org-variable-name">value</span>=<span class="org-string">".jsp"</span> /&gt;
+&lt;/<span class="org-function-name">bean</span>&gt;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org171ed1f" class="outline-2">
+<h2 id="org171ed1f"><span class="section-number-2">2</span> DispatcherServlet</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+前端控制器，所有来自客户端的请求，都会交由它去处理。
+</p>
+
+<p>
+基本工作机制:
+</p>
+<ul class="org-ul">
+<li></li>
+</ul>
+</div>
+</section>
+
+<section id="outline-container-org7225409" class="outline-2">
+<h2 id="org7225409"><span class="section-number-2">3</span> Controller</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org8cfb0bb" class="outline-3">
+<h3 id="org8cfb0bb"><span class="section-number-3">3.1</span> Hello, World</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+<b>传统方式</b>，使用 Controller 接口:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-comment-delimiter">// </span><span class="org-comment">1. &#23454;&#29616; Controller &#25509;&#21475;&#65292;&#24403;&#28982;&#20063;&#21487;&#20197;&#30452;&#25509;&#20351;&#29992;&#20854;&#20869;&#32622;&#30340;&#23454;&#29616;&#31867;</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">2. &#37325;&#20889; handleRequest &#26041;&#27861;</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#27880;&#24847;&#65292;&#26041;&#27861;&#30340;&#36820;&#22238;&#20540;&#26159; ModelAndView</span>
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">FooController</span> <span class="org-keyword">implements</span> <span class="org-type">Controller</span> {
+    <span class="org-c-annotation">@Override</span>
+    <span class="org-keyword">public</span> <span class="org-type">ModelAndView</span> <span class="org-function-name">handlerRequest</span>(<span class="org-type">HttpServletRequest</span> <span class="org-variable-name">request</span>, <span class="org-type">HttpServletResponse</span> <span class="org-variable-name">response</span>) <span class="org-keyword">throws</span> <span class="org-type">Exception</span> {
+        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">ModelAndView</span>(<span class="org-string">"home"</span>, <span class="org-string">"msg"</span>, <span class="org-string">"hello, this is from Controller interface"</span>); <span class="org-comment-delimiter">// </span><span class="org-comment">&#36820;&#22238; home &#39029;&#38754;&#65292;&#25658;&#24102; ${msg} &#25968;&#25454;</span>
+    }
+}
+<span class="org-comment-delimiter">// </span><span class="org-comment">&lt;bean name="/foo" class="imdemo.controllers.FooController" /&gt;</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">curl http://localhost:8888/foo</span>
+</pre>
+</div>
+
+<p>
+<b>注解方式</b>，可让定义变得简单:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Controller</span>
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">FooController</span> {
+    <span class="org-c-annotation">@RequestMapping</span>(<span class="org-string">"/a"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">ModelAndView</span> <span class="org-function-name">aaa</span>() {
+        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">ModelAndView</span>(<span class="org-string">"home"</span>, <span class="org-string">"msg"</span>, <span class="org-string">"hello, this is from Controller interface"</span>);
+    }
+    <span class="org-c-annotation">@RequestMapping</span>(<span class="org-string">"/b"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">bbb</span>(<span class="org-type">Model</span> <span class="org-variable-name">model</span>) {
+        model.addAttribute(<span class="org-string">"msg"</span>, <span class="org-string">"hello, this is from Controller interface"</span>);
+        <span class="org-keyword">return</span> <span class="org-string">"home"</span>;
+    }
+}
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#19981;&#38656;&#35201;&#23454;&#29616;&#25509;&#21475;&#65292;&#31616;&#21333;&#65292;&#35299;&#32806;&#21512;&#65307;&#19968;&#20010; Controller &#31867;&#21487;&#20197;&#26377;&#22810;&#20010; handler</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#21478;&#27880;&#24847;&#65292;&#38656;&#35201;&#22312;&#37197;&#32622;&#20013;&#21551;&#29992; Component-Scan</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5251aef" class="outline-3">
+<h3 id="org5251aef"><span class="section-number-3">3.2</span> RequestMapping</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+使用 @RequestMapping 来为 handler 绑定映射:
+</p>
+<pre class="example">
+@RequestMapping(value='/foo', method='GET‘, headers=, params=,)
+</pre>
+
+<p>
+示例:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Controller</span>
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">BookController</span> {
+    <span class="org-c-annotation">@Autowired</span> <span class="org-keyword">private</span> <span class="org-type">BookService</span> <span class="org-variable-name">bookService</span>;
+
+    <span class="org-c-annotation">@RequestMapping</span>(value=<span class="org-string">"/books"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">ModelAndView</span> <span class="org-function-name">books</span> () {
+        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">ModelAndView</span>(<span class="org-string">"home"</span>, <span class="org-string">"books"</span>, bookService.findAll());
+    }
+
+    <span class="org-c-annotation">@RequestMapping</span>(value = <span class="org-string">"/book/{publishDate}"</span>, method = <span class="org-constant">RequestMethod</span>.GET)
+    <span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">getId</span>(<span class="org-c-annotation">@RequestParam</span> <span class="org-c-annotation">@DateTimeFormat</span>(iso = <span class="org-constant">DateTimeFormat</span>.<span class="org-constant">ISO</span>.DATE) <span class="org-type">Date</span> <span class="org-variable-name">publishDate</span>, <span class="org-type">Model</span> <span class="org-variable-name">model</span>) {
+        model.addAttribute(<span class="org-string">"books"</span>, bookService.findByPublishDate(publishDate));
+        <span class="org-keyword">return</span> <span class="org-string">"home"</span>;
+    }
+
+    <span class="org-c-annotation">@PostMapping</span>(value = <span class="org-string">"/book"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">insert</span>(<span class="org-c-annotation">@Valid</span> <span class="org-type">Book</span> <span class="org-variable-name">book</span>, <span class="org-type">BindingResult</span> <span class="org-variable-name">result</span>, <span class="org-type">RedirectAttributes</span> <span class="org-variable-name">attributes</span>) {
+        <span class="org-keyword">if</span> (result.hasErrors()) {
+            <span class="org-keyword">return</span> <span class="org-string">"input"</span>;
+        }
+        attributes.addAttribute(<span class="org-string">"book"</span>, bookService.createBook(book));
+        <span class="org-keyword">return</span> <span class="org-string">"redirect: /books"</span>;
+    }
+
+    <span class="org-c-annotation">@DeleteMapping</span>(value = <span class="org-string">"/book/{id}"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">delete</span>(<span class="org-type">int</span> <span class="org-variable-name">id</span>) {
+        bookService.deleteById(id);
+        <span class="org-keyword">return</span> <span class="org-string">"home"</span>;
+    }
+
+    <span class="org-c-annotation">@GetMapping</span>(<span class="org-string">"/book/{p1}/{p2}"</span>)
+    <span class="org-c-annotation">@ResponseBody</span>
+    <span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">bookPV</span>(<span class="org-c-annotation">@PathVariable</span> <span class="org-type">int</span> <span class="org-variable-name">p1</span>, <span class="org-c-annotation">@PathVariable</span> <span class="org-type">int</span> <span class="org-variable-name">p2</span>, <span class="org-type">ModelMap</span> <span class="org-variable-name">map</span>) {
+        <span class="org-keyword">return</span> String.valueOf(p1 + p2);
+    }
+
+    <span class="org-c-annotation">@GetMapping</span>(value = <span class="org-string">"/book/{id:\\d{6}}-{name:[a-z]{3}}"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">bookWildcard</span>(<span class="org-c-annotation">@PathVariable</span> <span class="org-type">int</span> <span class="org-variable-name">id</span>, <span class="org-c-annotation">@PathVariable</span> <span class="org-type">String</span> <span class="org-variable-name">name</span>, <span class="org-type">Model</span> <span class="org-variable-name">model</span>) {
+        model.addAttribute(<span class="org-string">"message"</span>, <span class="org-string">"id: "</span> + id + <span class="org-string">" name:"</span> + name);
+        <span class="org-keyword">return</span> <span class="org-string">"debug"</span>;
+    }
+
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&#27880;&#24847;&#65292;&#27492;&#21151;&#33021;&#38656;&#35201;&#22312;&#37197;&#32622;&#25991;&#20214;&#20013;&#21551;&#29992;</span>
+    <span class="org-c-annotation">@GetMapping</span>(value = <span class="org-string">"/books/{id}"</span>) <span class="org-comment-delimiter">// </span><span class="org-comment">GET /books/42;q=11;r=22</span>
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">findBook</span>(<span class="org-c-annotation">@PathVariable</span> <span class="org-type">String</span> <span class="org-variable-name">id</span>, <span class="org-c-annotation">@MatrixVariable</span> <span class="org-type">int</span> <span class="org-variable-name">q</span>) {
+        <span class="org-comment-delimiter">// </span><span class="org-comment">id == 42</span>
+        <span class="org-comment-delimiter">// </span><span class="org-comment">q == 11</span>
+    }
+}
+<span class="org-comment-delimiter">// </span><span class="org-comment">@GetMapping/@PostMapping/@PutMapping/@DeleteMapping/@PatchMapping</span>
+</pre>
+</div>
+
+<p>
+另外，可以使用 @RequestMapping 的参数对请求、响应进行控制:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-comment-delimiter">// </span><span class="org-comment">&#35831;&#27714;&#20869;&#23481;&#31867;&#22411;&#24517;&#39035;&#20026; text/html</span>
+<span class="org-c-annotation">@RequestMapping</span>(value=<span class="org-string">"/aaa"</span>, consumes=<span class="org-string">"text/html"</span>);
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#23458;&#25143;&#31471;&#25509;&#25910; json &#19988;&#32534;&#30721;&#20026; utf-8</span>
+<span class="org-c-annotation">@RequestMapping</span>(value=<span class="org-string">"/bbb"</span>, produces=<span class="org-string">"application/json; charset=UTF-8"</span>);
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#35831;&#27714;&#30340;&#21442;&#25968;&#24517;&#39035;&#21253;&#21547; id=215 &#19982; name &#19981;&#31561;&#20110; abc</span>
+<span class="org-c-annotation">@RequestMapping</span>(value=<span class="org-string">"/ccc"</span>, params={<span class="org-string">"id=215"</span>, <span class="org-string">"name!=abc"</span>});
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#35831;&#27714;&#22836;&#37096;&#20449;&#24687;&#20013;&#24517;&#39035;&#21253;&#21547; Host=localhost:8888</span>
+<span class="org-c-annotation">@RequestMapping</span>(value=<span class="org-string">"/ddd"</span>, headers=<span class="org-string">"Host=localhost:8888"</span>);
+</pre>
+</div>
+
+<p>
+本身浏览器支持 GET/POST 方法，为了能使用 DELETE 等请求，需要配置 web.xml:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">filter</span>&gt;
+  &lt;<span class="org-function-name">filter-name</span>&gt;hmf&lt;/<span class="org-function-name">filter-name</span>&gt;
+  &lt;<span class="org-function-name">filter-class</span>&gt;org.springframework.web.filter.HiddenHttpMethodFilter&lt;/<span class="org-function-name">filter-class</span>&gt;
+&lt;/<span class="org-function-name">filter</span>&gt;
+&lt;<span class="org-function-name">filter-mapping</span>&gt;
+  &lt;<span class="org-function-name">filter-name</span>&gt;hmf&lt;/<span class="org-function-name">filter-name</span>&gt;
+  &lt;<span class="org-function-name">url-pattern</span>&gt;/*&lt;/<span class="org-function-name">url-pattern</span>&gt;
+&lt;/<span class="org-function-name">filter-mapping</span>&gt;
+</pre>
+</div>
+
+<p>
+然后在 form 表单中添加一个隐藏域 _method="delete"，就可以通过 post 方法模拟 delete 请求了。也可以通过 form:form 标签简化此操作。
+</p>
+
+<p>
+当然，ajax 提交自身支持各种 http 方法，就不需要这个过滤器了。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc73e4df" class="outline-3">
+<h3 id="orgc73e4df"><span class="section-number-3">3.3</span> Handler 参数</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+Spring 会根据 handler 参数的类型签名创建并注入相应实例:
+</p>
+<ul class="org-ul">
+<li><code>ServletRequest/ServletResponse/HttpSession/InputStream/OutputStream</code> / <code>Locale/TimeZone/Principal</code></li>
+<li><code>WebRequest/NativeWebRequest/HttpMethod/HttpEntity/UriComponentsBuilder/MultipartFile</code></li>
+<li><code>Map/Model/ModelMap/RedirectAttributes</code> / <code>Errors/BindingResult</code></li>
+</ul>
+
+<p>
+对于添加了相关注解的参数，会按照定义进行相关的 Data Binding:
+</p>
+<ul class="org-ul">
+<li><code>@RequestHeader/@CookieValue/@RequestPart</code></li>
+<li><code>@ModelAttribute/@SessionAttribute/@RequestAttribute</code></li>
+<li><code>@RequestParam/@PathVariable/@MatrixVariable</code></li>
+</ul>
+
+<p>
+如果参数跟上述的任何一种都不匹配，那么它会根据 <code>BeanUtils#isSimpleProperty</code> 判断:
+</p>
+<ul class="org-ul">
+<li>如果是简单类型，那么它会被解析为 @RequestParam</li>
+<li>如果是复杂类型，那么它会被解析为 @ModelAttribute</li>
+</ul>
+
+<p>
+数据绑定的基本规则，示例如下:
+</p>
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">类型</th>
+<th scope="col" class="org-left">描述</th>
+<th scope="col" class="org-left">示例</th>
+<th scope="col" class="org-left">测试</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><b>基本类型</b></td>
+<td class="org-left">按名字进行匹配</td>
+<td class="org-left"><code>handler(int id, String title)</code></td>
+<td class="org-left">GET /x?id=3&amp;title=hello</td>
+</tr>
+
+<tr>
+<td class="org-left"><b>普通对象</b></td>
+<td class="org-left">通过反射赋值</td>
+<td class="org-left"><code>handler(Post post)</code></td>
+<td class="org-left">GET /x?id=3&amp;title=hello</td>
+</tr>
+
+<tr>
+<td class="org-left"><b>复杂对象</b></td>
+<td class="org-left">对象里包含对象</td>
+<td class="org-left"><code>handler(Post post)</code></td>
+<td class="org-left">GET /x?id=3&amp;author.name=luxun</td>
+</tr>
+
+<tr>
+<td class="org-left"><b>List集合</b></td>
+<td class="org-left">使用 [n]</td>
+<td class="org-left"><code>handler(FormBean posts)</code></td>
+<td class="org-left">POST /x?y[0].id=3&amp;y[1].title=hello</td>
+</tr>
+
+<tr>
+<td class="org-left"><b>Map集合</b></td>
+<td class="org-left">使用 [key]</td>
+<td class="org-left"><code>handler(FormBean posts)</code></td>
+<td class="org-left">POST /x?y[i].id=3&amp;y[i].title=hello</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<p>
+<b>@ModelAttribute</b>:
+</p>
+
+<p>
+可以把注解 @ModelAttribute 作用于函数的参数（或者函数上），将其强制转换为 ModelAttribute:
+</p>
+<ul class="org-ul">
+<li>如果在 Model 中已经存在此实例，直接使用</li>
+<li>如果在 Model 中没有此实例，那么先在 Model 里创建一个新的，再使用</li>
+</ul>
+
+<p>
+如果将 @ModelAttribute 放置到方法上:
+</p>
+<ul class="org-ul">
+<li>这个方法将会在 Controller 的任何 handler 调用前都会被执行。[复用]</li>
+<li>方法的返回结果，将会被放入到 Model 中。[可用来预备数据]</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgce2b5ae" class="outline-3">
+<h3 id="orgce2b5ae"><span class="section-number-3">3.4</span> Handler 返回</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+主要的返回方式有:
+</p>
+<ul class="org-ul">
+<li><code>ModelAndView/Model/Map/View/String/void</code> / <code>DeferredResult/Callable/ListenableFuture</code></li>
+<li><code>@ResponseBody/@ResponseStatus/ResponseEntity</code> / <code>ResponseBodyEmitter/SseEmitter/StreamingResponseBody</code></li>
+</ul>
+
+<p>
+Spring 提供了两种方法将资源转换为发送给客户端的表述形式:
+</p>
+<ol class="org-ol">
+<li><code>Content Negotiation</code>，选择一个视图，将模型渲染为呈现给客户端的表述形式；</li>
+<li><code>Message Conversion</code>，通过一个消息转换器将返回的对象转换为呈现给客户端的表述形式</li>
+</ol>
+
+<p>
+默认情况下，使用的是第一种方式进行结果渲染:
+</p>
+<ul class="org-ul">
+<li>如果不指定视图，那么将会用请求 url 作为默认视图名</li>
+<li>返回结果都会统一被合并为一个 ModelAndView 对象，之后通过 viewResolver 进行选择性渲染</li>
+</ul>
+
+<hr>
+
+<p>
+重定向与转发:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">RedirectView</span>(<span class="org-string">"xxx"</span>);
+<span class="org-keyword">return</span> <span class="org-string">"redirect: /xxx"</span>;
+<span class="org-keyword">return</span> <span class="org-string">"forward: /xxx"</span>;
+</pre>
+</div>
+
+<p>
+重定向后，如果想让一些数据在下一次请求中有效，则需要使用 RedirectAttributes:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@RequestMapping</span>(<span class="org-string">"/"</span>)
+<span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">aaa</span> (<span class="org-type">RedirectAttributes</span> <span class="org-variable-name">attributes</span>) {
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&#23558;&#20250;&#20351;&#29992; url &#37325;&#20889;&#26041;&#24335;&#12290;&#22312;&#19979;&#19968;&#20010;&#39029;&#38754;&#20013;&#65292;&#20351;&#29992; ${param.msg} &#35775;&#38382;</span>
+    attributes.addAttribute(<span class="org-string">"msg"</span>, <span class="org-string">"url parameter"</span>);
+
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&#23558;&#20250;&#23558;&#25968;&#25454;&#20445;&#23384;&#22312; session &#20013;&#65292;&#19979;&#19968;&#27425;&#35831;&#27714;&#21518;&#28165;&#38500;&#25481;&#65292;&#20351;&#29992; ${gsm} &#35775;&#38382;</span>
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&#27880;&#24847;&#65292;&#36825;&#31181;&#26041;&#24335;&#65292;&#38656;&#35201;&#36716;&#21457;&#21040;&#19968;&#20010;&#26032;&#30340; handler &#35831;&#27714;&#65292;&#19981;&#33021;&#26159;&#19968;&#20010; jsp</span>
+    attributes.addFlashAttribute(<span class="org-string">"gsm"</span>, <span class="org-string">"session parameter"</span>);
+
+    <span class="org-keyword">return</span> <span class="org-string">"redirect: /xxx"</span>;
+}
+</pre>
+</div>
+
+<hr>
+
+<p>
+如果想使用第二种方式，即直接响应内容而非渲染视图，手段有很多:
+</p>
+<ol class="org-ol">
+<li>在 handler 上添加 <code>@ResponseBody</code> 注解</li>
+<li>在 Controller 上添加 <code>@RestController</code> 注解</li>
+<li>让 handler 直接返回一个 <code>HttpEntity</code> 对象</li>
+<li>当然，如果在 handler 里调用了输出流，也可以导致第一种方式失效</li>
+</ol>
+
+<p>
+然后，<code>MessageConversion</code> 会根据请求的 Accept 头以及路径中的 jar 包，选择合适的转换器对数据进行转换，比如 <code>MappingJacksonHttpMessageConverter</code>。
+</p>
+
+<p>
+可以使用这种方式，结合 ajax+json 实现 RESTful 风格的编程，实现前后端的分离。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7d1cada" class="outline-3">
+<h3 id="org7d1cada"><span class="section-number-3">3.5</span> reqeust data bind to Collection</h3>
+<div class="outline-text-3" id="text-3-5">
+</div>
+<div id="outline-container-org49c310d" class="outline-4">
+<h4 id="org49c310d"><span class="section-number-4">3.5.1</span> via FormBean</h4>
+<div class="outline-text-4" id="text-3-5-1">
+<p>
+客户端:
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span class="org-function-name">form</span> <span class="org-variable-name">action</span>=<span class="org-string">"/book"</span> <span class="org-variable-name">method</span>=<span class="org-string">"post"</span>&gt;
+  &lt;<span class="org-function-name">div</span>&gt;
+    &lt;<span class="org-function-name">input</span> <span class="org-variable-name">name</span>=<span class="org-string">"books[0].name"</span>&gt;
+    &lt;<span class="org-function-name">input</span> <span class="org-variable-name">name</span>=<span class="org-string">"books[0].price"</span>&gt;
+  &lt;/<span class="org-function-name">div</span>&gt;
+  &lt;<span class="org-function-name">div</span>&gt;
+    &lt;<span class="org-function-name">input</span> <span class="org-variable-name">name</span>=<span class="org-string">"books[1].name"</span>&gt;
+    &lt;<span class="org-function-name">input</span> <span class="org-variable-name">name</span>=<span class="org-string">"books[1].price"</span>&gt;
+  &lt;/<span class="org-function-name">div</span>&gt;
+  &lt;<span class="org-function-name">input</span> <span class="org-variable-name">type</span>=<span class="org-string">"submit"</span>&gt;
+&lt;/<span class="org-function-name">form</span>&gt;
+</pre>
+</div>
+
+<p>
+服务端:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@GetMapping</span>(value = <span class="org-string">"/book"</span>)
+<span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">input</span>() {
+    <span class="org-keyword">return</span> <span class="org-string">"input"</span>;
+}
+
+<span class="org-c-annotation">@PostMapping</span>(value = <span class="org-string">"/book"</span>)
+<span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">add</span>(<span class="org-type">FormBean</span> <span class="org-variable-name">fb</span>) {
+    <span class="org-keyword">return</span> <span class="org-string">"home"</span>;
+}
+</pre>
+</div>
+
+<p>
+必须一个 FormBean 作为中间数据载体，FormBean 又称 VO
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1b64c1c" class="outline-4">
+<h4 id="org1b64c1c"><span class="section-number-4">3.5.2</span> via FormBean with Validation</h4>
+<div class="outline-text-4" id="text-3-5-2">
+<p>
+如果想要捕获错误，并回显，需要改造。
+</p>
+
+<p>
+客户端:
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span class="org-sgml-namespace">form</span>:<span class="org-function-name">form</span> <span class="org-variable-name">action</span>=<span class="org-string">"/book"</span> <span class="org-variable-name">method</span>=<span class="org-string">"post"</span> <span class="org-variable-name">modelAttribute</span>=<span class="org-string">"formBean"</span>&gt;
+  &lt;<span class="org-function-name">div</span>&gt;
+    &lt;<span class="org-sgml-namespace">form</span>:<span class="org-function-name">input</span> <span class="org-variable-name">path</span>=<span class="org-string">"books[0].name"</span> /&gt;
+    &lt;<span class="org-sgml-namespace">form</span>:<span class="org-function-name">input</span> <span class="org-variable-name">path</span>=<span class="org-string">"books[0].price"</span> /&gt;
+    &lt;<span class="org-sgml-namespace">form</span>:<span class="org-function-name">errors</span> <span class="org-variable-name">path</span>=<span class="org-string">"books[0]*"</span> <span class="org-variable-name">element</span>=<span class="org-string">"footer"</span> /&gt;
+  &lt;/<span class="org-function-name">div</span>&gt;
+  &lt;<span class="org-function-name">div</span>&gt;
+    &lt;<span class="org-sgml-namespace">form</span>:<span class="org-function-name">input</span> <span class="org-variable-name">path</span>=<span class="org-string">"books[1].name"</span> /&gt;
+    &lt;<span class="org-sgml-namespace">form</span>:<span class="org-function-name">input</span> <span class="org-variable-name">path</span>=<span class="org-string">"books[1].price"</span> /&gt;
+    &lt;<span class="org-sgml-namespace">form</span>:<span class="org-function-name">errors</span> <span class="org-variable-name">path</span>=<span class="org-string">"books[1]*"</span> <span class="org-variable-name">element</span>=<span class="org-string">"footer"</span> /&gt;
+  &lt;/<span class="org-function-name">div</span>&gt;
+  &lt;<span class="org-function-name">input</span> <span class="org-variable-name">type</span>=<span class="org-string">"submit"</span>&gt;
+&lt;/<span class="org-sgml-namespace">form</span>:<span class="org-function-name">form</span>&gt;
+</pre>
+</div>
+
+<p>
+服务端:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@GetMapping</span>(value = <span class="org-string">"/book"</span>)
+<span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">input</span>(<span class="org-type">FormBean</span> <span class="org-variable-name">fb</span>) {
+    <span class="org-keyword">return</span> <span class="org-string">"input"</span>;
+}
+
+<span class="org-c-annotation">@PostMapping</span>(value = <span class="org-string">"/book"</span>)
+<span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">add</span>(<span class="org-type">FormBean</span> <span class="org-variable-name">fb</span>, <span class="org-type">BindingResult</span> <span class="org-variable-name">result</span>) {
+    <span class="org-keyword">return</span> result.hasErrors() ? <span class="org-string">"input"</span> : <span class="org-string">"home"</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb4e71e6" class="outline-4">
+<h4 id="orgb4e71e6"><span class="section-number-4">3.5.3</span> via Ajax and RequestBody</h4>
+<div class="outline-text-4" id="text-3-5-3">
+<p>
+客户端:
+</p>
+<div class="org-src-container">
+<pre class="src src-js">fetch(<span class="org-string">'/book'</span>, {
+    method:<span class="org-string">'POST'</span>,
+    headers: { <span class="org-string">"Content-Type"</span>: <span class="org-string">"application/json"</span> },
+    body: JSON.stringify([{<span class="org-string">"name"</span>: <span class="org-string">"peace"</span>, <span class="org-string">"price"</span>: <span class="org-string">"32"</span>},{<span class="org-string">"name"</span>: <span class="org-string">"kkkk"</span>, <span class="org-string">"price"</span>: <span class="org-string">"21"</span>}])
+}).then(resp =&gt; resp.text()).then(console.log).<span class="org-keyword">catch</span>(console.error);
+</pre>
+</div>
+
+<p>
+服务端:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@ResponseBody</span>
+<span class="org-c-annotation">@PostMapping</span>(<span class="org-string">"/book"</span>)
+<span class="org-keyword">public</span> <span class="org-type">int</span> <span class="org-function-name">add</span>(<span class="org-c-annotation">@RequestBody</span> <span class="org-type">List</span>&lt;<span class="org-type">Book</span>&gt; <span class="org-variable-name">books</span>) {
+    dao.save(books);
+    <span class="org-keyword">return</span> 1;
+}
+</pre>
+</div>
+
+<p>
+注意，这种方式，不能使用 BindingResult 的方式捕获异常（因为不是 Modelattribute..），所以，只能靠捕获异常，比如捕获 <code>HttpMessageNotReadableException</code> 等。
+</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org57391f3" class="outline-2">
+<h2 id="org57391f3"><span class="section-number-2">4</span> Conversion (类型转换)</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+三种方式:
+</p>
+<ol class="org-ol">
+<li>PropertyEditor</li>
+<li>Convertor</li>
+<li>Formatter</li>
+</ol>
+
+<p>
+日期转换为例。
+</p>
+</div>
+
+<div id="outline-container-orge217ce3" class="outline-3">
+<h3 id="orge217ce3"><span class="section-number-3">4.1</span> 第一种方法：利用内置的 CustomDateEditor</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+首先，在我们的 Controller 的 InitBinder 里面，注册 CustomEditor
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@InitBinder</span>
+<span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">init</span> (<span class="org-type">WebDataBinder</span> <span class="org-variable-name">binder</span>) {
+    <span class="org-type">CustomDateEditor</span> <span class="org-variable-name">dateEditor</span> = <span class="org-keyword">new</span> <span class="org-type">CustomDateEditor</span>(<span class="org-keyword">new</span> <span class="org-type">SimpleDateFormat</span>(<span class="org-string">"yyyy-MM-dd"</span>), <span class="org-constant">true</span>);
+    binder.registerCustomEditor(Date.<span class="org-keyword">class</span>, dateEditor);
+}
+</pre>
+</div>
+
+<p>
+然后，就可以正常转换了。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org68747f7" class="outline-3">
+<h3 id="org68747f7"><span class="section-number-3">4.2</span> 第二种方法：实现自定义 Converter</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+定义:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">MyDateConverter</span> <span class="org-keyword">implements</span> <span class="org-type">Converter</span>&lt;<span class="org-type">String</span>, <span class="org-type">Date</span>&gt; {
+    <span class="org-keyword">public</span> <span class="org-type">Date</span> <span class="org-function-name">convert</span>(<span class="org-type">String</span> <span class="org-variable-name">datestr</span>) {
+        <span class="org-comment-delimiter">// </span><span class="org-comment">&#21482;&#26159;&#31034;&#20363;&#65292;&#23454;&#38469;&#35201;&#32771;&#34385;&#26356;&#22810;&#65292;&#27604;&#22914;&#24322;&#24120;&#22788;&#29702;&#31561;</span>
+        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">SimpleDateFormat</span>(<span class="org-string">"yyyy-MM-dd"</span>).parse(<span class="org-string">"2011-10-23"</span>);
+    }
+}
+</pre>
+</div>
+
+<p>
+然后配置并注册 ConversionService:
+</p>
+<div class="org-src-container">
+<pre class="src src-xml"><span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">bean</span> <span class="org-nxml-attribute-local-name">name</span>=<span class="org-string">"conversionService"</span> <span class="org-nxml-attribute-local-name">class</span>=<span class="org-string">"org.springframework.context.support.ConversionServiceFactoryBean"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">property</span> <span class="org-nxml-attribute-local-name">name</span>=<span class="org-string">"converters"</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">set</span><span class="org-nxml-tag-delimiter">&gt;</span>
+      <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-local-name">bean</span> <span class="org-nxml-attribute-local-name">class</span>=<span class="org-string">"imdemo.converter.MyDateConverter"</span> <span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+    <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">set</span><span class="org-nxml-tag-delimiter">&gt;</span>
+  <span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">property</span><span class="org-nxml-tag-delimiter">&gt;</span>
+<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-tag-slash">/</span><span class="org-nxml-element-local-name">bean</span><span class="org-nxml-tag-delimiter">&gt;</span>
+
+<span class="org-nxml-tag-delimiter">&lt;</span><span class="org-nxml-element-prefix">mvc</span><span class="org-nxml-element-colon">:</span><span class="org-nxml-element-local-name">annotation-driven</span> <span class="org-nxml-attribute-local-name">conversion-service</span>=<span class="org-string">"conversionService"</span> <span class="org-nxml-tag-slash">/</span><span class="org-nxml-tag-delimiter">&gt;</span>
+</pre>
+</div>
+
+<p>
+这样就可以了。所有的 yyyy-MM-yy 之类的字符串就可以正常自动转换成 Date 对象了。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org69321b2" class="outline-3">
+<h3 id="org69321b2"><span class="section-number-3">4.3</span> 第三种方法：使用 @DateTimeFormat 注解</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+在 model 上，增加相应注解：
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">class</span> <span class="org-type">Book</span> {
+  <span class="org-c-annotation">@DateTimeFormat</span>(pattern = <span class="org-string">"yyyy-MM-dd"</span>)
+  <span class="org-keyword">private</span> <span class="org-type">Date</span> <span class="org-variable-name">created_at</span>;
+}
+</pre>
+</div>
+
+<p>
+就可以了。
+</p>
+
+<p>
+另外，如果想让返回的 JSON 对象中能够准确处理时间类型，需要用到 @JsonFormat 注解
+</p>
+</div>
+</div>
+</section>
+<section id="outline-container-orge5bbe17" class="outline-2">
+<h2 id="orge5bbe17"><span class="section-number-2">5</span> Validation (验证)</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-org6b11145" class="outline-3">
+<h3 id="org6b11145"><span class="section-number-3">5.1</span> JSR-303</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+JSR-303 是 java 官方推出的一套 Validation 接口。
+</p>
+
+<p>
+hibernate 给出了一个完整实现:
+</p>
+<pre class="example">
+complie "org.hibernate:hibernate-validator:5.4.0.Final"
+</pre>
+
+<p>
+引入 jar 包后，添加验证逻辑，它使用的是一系列注解:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">book</span> {
+    <span class="org-c-annotation">@notnull</span>
+    <span class="org-c-annotation">@size</span>(min = 3, max = 10)
+    <span class="org-keyword">private</span> <span class="org-type">string</span> <span class="org-variable-name">name</span>;
+
+    <span class="org-c-annotation">@range</span>(min = 10, max = 100)
+    <span class="org-keyword">private</span> <span class="org-type">int</span> <span class="org-variable-name">count</span>;
+}
+</pre>
+</div>
+
+<p>
+最后，只要在 Controller 的相关字段上添加 <code>@Valid</code> 注解即可启用验证:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">submit</span>(<span class="org-c-annotation">@Valid</span> <span class="org-type">Book</span> <span class="org-variable-name">book</span>, <span class="org-type">Errors</span> <span class="org-variable-name">errors</span>) {
+    <span class="org-keyword">if</span> (errors.hasErrors()) {
+        <span class="org-keyword">return</span> <span class="org-string">"input"</span>;
+    }
+    System.out.println(<span class="org-string">"normal flow"</span>);
+    <span class="org-keyword">return</span> <span class="org-string">"home"</span>;
+}
+</pre>
+</div>
+
+<p>
+Bean Validation 中内置的 constraint:
+</p>
+<ul class="org-ul">
+<li><code>@Null</code>   被注释的元素必须为 null</li>
+<li><code>@NotNull</code>    被注释的元素必须不为 null</li>
+<li><code>@AssertTrue</code>     被注释的元素必须为 true</li>
+<li><code>@AssertFalse</code>    被注释的元素必须为 false</li>
+<li><code>@Min(value)</code>     被注释的元素必须是一个数字，其值必须大于等于指定的最小值</li>
+<li><code>@Max(value)</code>     被注释的元素必须是一个数字，其值必须小于等于指定的最大值</li>
+<li><code>@DecimalMin(value)</code>  被注释的元素必须是一个数字，其值必须大于等于指定的最小值</li>
+<li><code>@DecimalMax(value)</code>  被注释的元素必须是一个数字，其值必须小于等于指定的最大值</li>
+<li><code>@Size(max=, min=)</code>   被注释的元素的大小必须在指定的范围内</li>
+<li><code>@Digits(integer, fraction)</code>     被注释的元素必须是一个数字，其值必须在可接受的范围内</li>
+<li><code>@Past</code>   被注释的元素必须是一个过去的日期</li>
+<li><code>@Future</code>     被注释的元素必须是一个将来的日期</li>
+<li><code>@Pattern(regex=,flag=)</code>  被注释的元素必须符合指定的正则表达式</li>
+</ul>
+
+<p>
+Hibernate Validator 附加的 constraint:
+</p>
+<ul class="org-ul">
+<li><code>@NotBlank</code>   验证字符串非null，且长度必须大于0</li>
+<li><code>@Email</code>  被注释的元素必须是电子邮箱地址</li>
+<li><code>@Length(min=,max=)</code>  被注释的字符串的大小必须在指定的范围内</li>
+<li><code>@NotEmpty</code>   被注释的字符串的必须非空</li>
+<li><code>@Range(min=,max=,message=)</code>  被注释的元素必须在合适的范围内</li>
+</ul>
+
+<p>
+另，自定义 JSR303 验证器，只需要:
+</p>
+<ol class="org-ol">
+<li>定义验证注解</li>
+<li>增加验证器(ConstraintValidator)</li>
+<li>正常使用</li>
+</ol>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org92694b3" class="outline-2">
+<h2 id="org92694b3"><span class="section-number-2">6</span> Exception (异常处理)</h2>
+</section>
+<section id="outline-container-orgd9ccd23" class="outline-2">
+<h2 id="orgd9ccd23"><span class="section-number-2">7</span> View</h2>
+</section>
+
+<section id="outline-container-org0cefcd3" class="outline-2">
+<h2 id="org0cefcd3"><span class="section-number-2">8</span> File Upload (文件上传)</h2>
+</section>
+<section id="outline-container-org719286f" class="outline-2">
+<h2 id="org719286f"><span class="section-number-2">9</span> I18N (国际化)</h2>
+</section>
+<section id="outline-container-org9fcacad" class="outline-2">
+<h2 id="org9fcacad"><span class="section-number-2">10</span> RESTful</h2>
+</section>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: 孙悟空</p>
+<p class="date">Created: 2018-10-30 Tue 13:38</p>
+<p class="validation">Go ahead, never stop.</p>
+</div>
+</body>
+</html>

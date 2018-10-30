@@ -1,8 +1,6 @@
 #+TITLE: Intellij Idea
 
 
-
-
 * 快捷方式
 
 最常用，务必要记住系列:

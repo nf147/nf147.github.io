@@ -17,7 +17,7 @@
     :with-toc 3
     :html-preamble t
     :auto-sitemap t
-    :author "某某人"
+    :author "孙悟空"
     :sitemap-filename ".sitemap.org")
    ("_assets"
     :base-directory "./"

@@ -25,7 +25,7 @@
 #+HTML: <h4 style='color: red;'>纪律、勤奋、进取心</h4>
 
 #+HTML: <h3>当前任务</h3>
-#+INCLUDE: "Tasks/tasks.org::#active" :only-contents t
+#+INCLUDE: "0000/tasks.org::#active" :only-contents t
 
 #+HTML: <div><br>
 #+HTML: <h3>笔记目录</h3>
@@ -35,7 +35,7 @@
 #+HTML: </section>
 
 #+HTML: <aside>
-#+INCLUDE: "Miscellaneous/.group.org"
+#+INCLUDE: "0000/.group.org"
 #+HTML: </aside>
 
 #+HTML: </div>
