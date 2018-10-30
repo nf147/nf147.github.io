@@ -48,70 +48,427 @@ Spring MVC 在启动的时候会初始化容器，所以需要通过 xml 配置�
 - 
 
 * Controller
-** hello, world
+** Hello, World
 
-传统的方式：
+*传统方式*，使用 Controller 接口:
 #+BEGIN_SRC java
-  // 1. 实现 Controller 接口
+  // 1. 实现 Controller 接口，当然也可以直接使用其内置的实现类
   // 2. 重写 handleRequest 方法
   // 注意，方法的返回值是 ModelAndView
-  public class DemoController implements Controller {
+  public class FooController implements Controller {
       @Override
-      public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-          return new ModelAndView("demo", "msg", "hello, world");  // 返回 demo 页面，会在 request 里保存一个 msg 的变量，值为 hello, world
+      public ModelAndView handlerRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+          return new ModelAndView("home", "msg", "hello, this is from Controller interface"); // 返回 home 页面，携带 ${msg} 数据
       }
   }
-
-  // 然后，在 spring-mvc.xml 中添加:
-  //   <bean name="/hello" value="xxx.DemoController" />
-  //
-  // 随后，就可以在浏览器中访问了
-  //   http://localhost:8080/hello
+  // <bean name="/foo" class="imdemo.controllers.FooController" />
+  // curl http://localhost:8888/foo
 #+END_SRC
-
-可以使用相关注解简化其操作:
+  
+*注解方式*，可让定义变得简单:
 #+BEGIN_SRC java
   @Controller
-  public class DemoController {
-      @RequestMapping("/")
-      public String handleRequest(Model model) {
-          model.addAttribute("msg", "hello, world");
-          return "demo";
+  public class FooController {
+      @RequestMapping("/a")
+      public ModelAndView aaa() {
+          return new ModelAndView("home", "msg", "hello, this is from Controller interface");
+      }
+      @RequestMapping("/b")
+      public String bbb(Model model) {
+          model.addAttribute("msg", "hello, this is from Controller interface");
+          return "home";
       }
   }
-
-  // 这种写法跟上面是等价的，不过更简单清爽。并且一个 Controller 类里面可以放置多个 handler
-  // 另外，注意，在配置文件中要开启注解扫描 <context:component-scan .. />
+  // 不需要实现接口，简单，解耦合；一个 Controller 类可以有多个 handler
+  // 另注意，需要在配置中启用 Component-Scan
 #+END_SRC
 
 ** RequestMapping
 
-- @RequestMapping
-- @GetMapping
-- @PostMapping
-- @XxxMapping
+使用 @RequestMapping 来为 handler 绑定映射:
+: @RequestMapping(value='/foo', method='GET‘, headers=, params=,)
 
-参数:
-- name
-- required
+示例:
+#+BEGIN_SRC java
+  @Controller
+  public class BookController {
+      @Autowired private BookService bookService;
+
+      @RequestMapping(value="/books")
+      public ModelAndView books () {
+          return new ModelAndView("home", "books", bookService.findAll());
+      }
+
+      @RequestMapping(value = "/book/{publishDate}", method = RequestMethod.GET)
+      public String getId(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date publishDate, Model model) {
+          model.addAttribute("books", bookService.findByPublishDate(publishDate));
+          return "home";
+      }
+
+      @PostMapping(value = "/book")
+      public String insert(@Valid Book book, BindingResult result, RedirectAttributes attributes) {
+          if (result.hasErrors()) {
+              return "input";
+          }
+          attributes.addAttribute("book", bookService.createBook(book));
+          return "redirect: /books";
+      }
+
+      @DeleteMapping(value = "/book/{id}")
+      public String delete(int id) {
+          bookService.deleteById(id);
+          return "home";
+      }
+
+      @GetMapping("/book/{p1}/{p2}")
+      @ResponseBody
+      public String bookPV(@PathVariable int p1, @PathVariable int p2, ModelMap map) {
+          return String.valueOf(p1 + p2);
+      }
+
+      @GetMapping(value = "/book/{id:\\d{6}}-{name:[a-z]{3}}")
+      public String bookWildcard(@PathVariable int id, @PathVariable String name, Model model) {
+          model.addAttribute("message", "id: " + id + " name:" + name);
+          return "debug";
+      }
+
+      // 注意，此功能需要在配置文件中启用
+      @GetMapping(value = "/books/{id}") // GET /books/42;q=11;r=22
+      public void findBook(@PathVariable String id, @MatrixVariable int q) {
+          // id == 42
+          // q == 11
+      }
+  }
+  // @GetMapping/@PostMapping/@PutMapping/@DeleteMapping/@PatchMapping
+#+END_SRC
+
+另外，可以使用 @RequestMapping 的参数对请求、响应进行控制:
+#+BEGIN_SRC java
+  // 请求内容类型必须为 text/html
+  @RequestMapping(value="/aaa", consumes="text/html");
+  // 客户端接收 json 且编码为 utf-8
+  @RequestMapping(value="/bbb", produces="application/json; charset=UTF-8");
+  // 请求的参数必须包含 id=215 与 name 不等于 abc
+  @RequestMapping(value="/ccc", params={"id=215", "name!=abc"});
+  // 请求头部信息中必须包含 Host=localhost:8888
+  @RequestMapping(value="/ddd", headers="Host=localhost:8888");
+#+END_SRC
+
+本身浏览器支持 GET/POST 方法，为了能使用 DELETE 等请求，需要配置 web.xml:
+#+BEGIN_SRC sgml
+  <filter>
+    <filter-name>hmf</filter-name>
+    <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>hmf</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+#+END_SRC
+
+然后在 form 表单中添加一个隐藏域 _method="delete"，就可以通过 post 方法模拟 delete 请求了。
+也可以通过 form:form 标签简化此操作。
+
+当然，ajax 提交自身支持各种 http 方法，就不需要这个过滤器了。
 
 ** Handler 参数
 
-特殊含义的参数:
-- 
+Spring 会根据 handler 参数的类型签名创建并注入相应实例:
+- ~ServletRequest/ServletResponse/HttpSession/InputStream/OutputStream~ / ~Locale/TimeZone/Principal~
+- ~WebRequest/NativeWebRequest/HttpMethod/HttpEntity/UriComponentsBuilder/MultipartFile~
+- ~Map/Model/ModelMap/RedirectAttributes~ / ~Errors/BindingResult~
 
+对于添加了相关注解的参数，会按照定义进行相关的 Data Binding:
+- ~@RequestHeader/@CookieValue/@RequestPart~
+- ~@ModelAttribute/@SessionAttribute/@RequestAttribute~
+- ~@RequestParam/@PathVariable/@MatrixVariable~
 
-** Handler 返回值
+如果参数跟上述的任何一种都不匹配，那么它会根据 ~BeanUtils#isSimpleProperty~ 判断:
+- 如果是简单类型，那么它会被解析为 @RequestParam
+- 如果是复杂类型，那么它会被解析为 @ModelAttribute
 
-* Controller 相关
-** RedirectionAttributes
+数据绑定的基本规则，示例如下:
+| 类型       | 描述           | 示例                            | 测试                               |
+|------------+----------------+---------------------------------+------------------------------------|
+| *基本类型* | 按名字进行匹配 | ~handler(int id, String title)~ | GET /x?id=3&title=hello            |
+| *普通对象* | 通过反射赋值   | ~handler(Post post)~            | GET /x?id=3&title=hello            |
+| *复杂对象* | 对象里包含对象 | ~handler(Post post)~            | GET /x?id=3&author.name=luxun      |
+| *List集合* | 使用 [n]       | ~handler(FormBean posts)~       | POST /x?y[0].id=3&y[1].title=hello |
+| *Map集合*  | 使用 [key]     | ~handler(FormBean posts)~       | POST /x?y[i].id=3&y[i].title=hello |
 
-** @ModelAttribute
+-------------
 
-** 操作 HttpSession
+*@ModelAttribute*:
+
+可以把注解 @ModelAttribute 作用于函数的参数（或者函数上），将其强制转换为 ModelAttribute:
+- 如果在 Model 中已经存在此实例，直接使用
+- 如果在 Model 中没有此实例，那么先在 Model 里创建一个新的，再使用
+
+如果将 @ModelAttribute 放置到方法上:
+- 这个方法将会在 Controller 的任何 handler 调用前都会被执行。[复用]
+- 方法的返回结果，将会被放入到 Model 中。[可用来预备数据]
+
+** Handler 返回
+
+主要的返回方式有:
+- ~ModelAndView/Model/Map/View/String/void~ / ~DeferredResult/Callable/ListenableFuture~
+- ~@ResponseBody/@ResponseStatus/ResponseEntity~ / ~ResponseBodyEmitter/SseEmitter/StreamingResponseBody~
+
+Spring 提供了两种方法将资源转换为发送给客户端的表述形式:
+1. ~Content Negotiation~，选择一个视图，将模型渲染为呈现给客户端的表述形式；
+2. ~Message Conversion~，通过一个消息转换器将返回的对象转换为呈现给客户端的表述形式
+
+默认情况下，使用的是第一种方式进行结果渲染:
+- 如果不指定视图，那么将会用请求 url 作为默认视图名
+- 返回结果都会统一被合并为一个 ModelAndView 对象，之后通过 viewResolver 进行选择性渲染
+
+-------------------
+
+重定向与转发:
+#+BEGIN_SRC java
+  return new RedirectView("xxx");
+  return "redirect: /xxx";
+  return "forward: /xxx";
+#+END_SRC
+
+重定向后，如果想让一些数据在下一次请求中有效，则需要使用 RedirectAttributes:
+#+BEGIN_SRC java
+  @RequestMapping("/")
+  public String aaa (RedirectAttributes attributes) {
+      // 将会使用 url 重写方式。在下一个页面中，使用 ${param.msg} 访问
+      attributes.addAttribute("msg", "url parameter");
+
+      // 将会将数据保存在 session 中，下一次请求后清除掉，使用 ${gsm} 访问
+      // 注意，这种方式，需要转发到一个新的 handler 请求，不能是一个 jsp
+      attributes.addFlashAttribute("gsm", "session parameter");
+
+      return "redirect: /xxx";
+  }
+#+END_SRC
+
+-------------------
+
+如果想使用第二种方式，即直接响应内容而非渲染视图，手段有很多:
+1. 在 handler 上添加 ~@ResponseBody~ 注解
+2. 在 Controller 上添加 ~@RestController~ 注解
+3. 让 handler 直接返回一个 ~HttpEntity~ 对象
+4. 当然，如果在 handler 里调用了输出流，也可以导致第一种方式失效
+
+然后，~MessageConversion~ 会根据请求的 Accept 头以及路径中的 jar 包，选择合适的转换器对数据进行转换，比如 ~MappingJacksonHttpMessageConverter~。
+
+可以使用这种方式，结合 ajax+json 实现 RESTful 风格的编程，实现前后端的分离。
+
+** reqeust data bind to Collection
+*** via FormBean
+
+客户端:
+#+BEGIN_SRC html
+  <form action="/book" method="post">
+    <div>
+      <input name="books[0].name">
+      <input name="books[0].price">
+    </div>
+    <div>
+      <input name="books[1].name">
+      <input name="books[1].price">
+    </div>
+    <input type="submit">
+  </form>
+#+END_SRC
+
+服务端:
+#+BEGIN_SRC java
+  @GetMapping(value = "/book")
+  public String input() {
+      return "input";
+  }
+
+  @PostMapping(value = "/book")
+  public String add(FormBean fb) {
+      return "home";
+  }
+#+END_SRC
+
+必须一个 FormBean 作为中间数据载体，FormBean 又称 VO
+
+*** via FormBean with Validation
+
+如果想要捕获错误，并回显，需要改造。
+
+客户端:
+#+BEGIN_SRC html
+  <form:form action="/book" method="post" modelAttribute="formBean">
+    <div>
+      <form:input path="books[0].name" />
+      <form:input path="books[0].price" />
+      <form:errors path="books[0]*" element="footer" />
+    </div>
+    <div>
+      <form:input path="books[1].name" />
+      <form:input path="books[1].price" />
+      <form:errors path="books[1]*" element="footer" />
+    </div>
+    <input type="submit">
+  </form:form>
+#+END_SRC
+
+服务端:
+#+BEGIN_SRC java
+  @GetMapping(value = "/book")
+  public String input(FormBean fb) {
+      return "input";
+  }
+
+  @PostMapping(value = "/book")
+  public String add(FormBean fb, BindingResult result) {
+      return result.hasErrors() ? "input" : "home";
+  }
+#+END_SRC
+
+*** via Ajax and RequestBody
+
+客户端:
+#+BEGIN_SRC js
+  fetch('/book', {
+      method:'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify([{"name": "peace", "price": "32"},{"name": "kkkk", "price": "21"}])
+  }).then(resp => resp.text()).then(console.log).catch(console.error);
+#+END_SRC
+
+服务端:
+#+BEGIN_SRC java
+  @ResponseBody
+  @PostMapping("/book")
+  public int add(@RequestBody List<Book> books) {
+      dao.save(books);
+      return 1;
+  }
+#+END_SRC
+
+注意，这种方式，不能使用 BindingResult 的方式捕获异常（因为不是 Modelattribute..），所以，只能靠捕获异常，比如捕获 ~HttpMessageNotReadableException~ 等。
 
 * Conversion (类型转换)
+
+三种方式:
+1. PropertyEditor
+2. Convertor
+3. Formatter
+
+日期转换为例。
+
+** 第一种方法：利用内置的 CustomDateEditor
+
+首先，在我们的 Controller 的 InitBinder 里面，注册 CustomEditor
+
+#+BEGIN_SRC java
+  @InitBinder
+  public void init (WebDataBinder binder) {
+      CustomDateEditor dateEditor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
+      binder.registerCustomEditor(Date.class, dateEditor);
+  }
+#+END_SRC
+
+然后，就可以正常转换了。
+
+** 第二种方法：实现自定义 Converter
+
+定义:
+#+BEGIN_SRC java
+  public class MyDateConverter implements Converter<String, Date> {
+      public Date convert(String datestr) {
+          // 只是示例，实际要考虑更多，比如异常处理等
+          return new SimpleDateFormat("yyyy-MM-dd").parse("2011-10-23");
+      }
+  }
+#+END_SRC
+
+然后配置并注册 ConversionService:
+#+BEGIN_SRC xml
+  <bean name="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+    <property name="converters">
+      <set>
+        <bean class="imdemo.converter.MyDateConverter" />
+      </set>
+    </property>
+  </bean>
+
+  <mvc:annotation-driven conversion-service="conversionService" />
+#+END_SRC
+
+这样就可以了。所有的 yyyy-MM-yy 之类的字符串就可以正常自动转换成 Date 对象了。
+
+** 第三种方法：使用 @DateTimeFormat 注解
+
+在 model 上，增加相应注解：
+#+BEGIN_SRC java
+  class Book {
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date created_at;
+  }
+#+END_SRC
+
+就可以了。
+
+另外，如果想让返回的 JSON 对象中能够准确处理时间类型，需要用到 @JsonFormat 注解
 * Validation (验证)
+** JSR-303
+
+JSR-303 是 java 官方推出的一套 Validation 接口。
+
+hibernate 给出了一个完整实现:
+: complie "org.hibernate:hibernate-validator:5.4.0.Final"
+
+引入 jar 包后，添加验证逻辑，它使用的是一系列注解:
+#+begin_src java
+  public class book {
+      @notnull
+      @size(min = 3, max = 10)
+      private string name;
+
+      @range(min = 10, max = 100)
+      private int count;
+  }
+#+end_src
+
+最后，只要在 Controller 的相关字段上添加 ~@Valid~ 注解即可启用验证:
+#+BEGIN_SRC java
+  public String submit(@Valid Book book, Errors errors) {
+      if (errors.hasErrors()) {
+          return "input";
+      }
+      System.out.println("normal flow");
+      return "home";
+  }
+#+END_SRC
+
+Bean Validation 中内置的 constraint:
+- ~@Null~   被注释的元素必须为 null
+- ~@NotNull~    被注释的元素必须不为 null
+- ~@AssertTrue~     被注释的元素必须为 true
+- ~@AssertFalse~    被注释的元素必须为 false
+- ~@Min(value)~     被注释的元素必须是一个数字，其值必须大于等于指定的最小值
+- ~@Max(value)~     被注释的元素必须是一个数字，其值必须小于等于指定的最大值
+- ~@DecimalMin(value)~  被注释的元素必须是一个数字，其值必须大于等于指定的最小值
+- ~@DecimalMax(value)~  被注释的元素必须是一个数字，其值必须小于等于指定的最大值
+- ~@Size(max=, min=)~   被注释的元素的大小必须在指定的范围内
+- ~@Digits(integer, fraction)~     被注释的元素必须是一个数字，其值必须在可接受的范围内
+- ~@Past~   被注释的元素必须是一个过去的日期
+- ~@Future~     被注释的元素必须是一个将来的日期
+- ~@Pattern(regex=,flag=)~  被注释的元素必须符合指定的正则表达式
+
+Hibernate Validator 附加的 constraint:
+- ~@NotBlank~   验证字符串非null，且长度必须大于0
+- ~@Email~  被注释的元素必须是电子邮箱地址
+- ~@Length(min=,max=)~  被注释的字符串的大小必须在指定的范围内
+- ~@NotEmpty~   被注释的字符串的必须非空
+- ~@Range(min=,max=,message=)~  被注释的元素必须在合适的范围内
+
+另，自定义 JSR303 验证器，只需要:
+1. 定义验证注解
+2. 增加验证器(ConstraintValidator)
+3. 正常使用
+
 * Exception (异常处理)
 * View
 
