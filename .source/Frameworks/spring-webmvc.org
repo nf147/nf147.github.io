@@ -110,11 +110,11 @@ Spring MVC 在启动的时候会初始化容器，所以需要通过 xml 配置�
 
 ** 操作 HttpSession
 
-* View
-
 * Conversion (类型转换)
 * Validation (验证)
 * Exception (异常处理)
+* View
+
 * File Upload (文件上传)
 * I18N (国际化)
 * RESTful
