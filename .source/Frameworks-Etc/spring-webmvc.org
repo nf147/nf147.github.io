@@ -44,9 +44,6 @@ Spring MVC 在启动的时候会初始化容器，所以需要通过 xml 配置�
 
 前端控制器，所有来自客户端的请求，都会交由它去处理。
 
-基本工作机制:
-- 
-
 * Controller
 ** Hello, World
 
@@ -348,7 +345,7 @@ Spring 提供了两种方法将资源转换为发送给客户端的表述形式:
 
 注意，这种方式，不能使用 BindingResult 的方式捕获异常（因为不是 Modelattribute..），所以，只能靠捕获异常，比如捕获 ~HttpMessageNotReadableException~ 等。
 
-* Conversion (类型转换)
+* DataBinding/Conversion (类型转换)
 
 三种方式:
 1. PropertyEditor
@@ -411,7 +408,7 @@ Spring 提供了两种方法将资源转换为发送给客户端的表述形式:
 就可以了。
 
 另外，如果想让返回的 JSON 对象中能够准确处理时间类型，需要用到 @JsonFormat 注解
-* Validation (验证)
+* DataBinding/Validation (验证)
 ** JSR-303
 
 JSR-303 是 java 官方推出的一套 Validation 接口。
@@ -472,6 +469,6 @@ Hibernate Validator 附加的 constraint:
 * Exception (异常处理)
 * View
 
-* File Upload (文件上传)
 * I18N (国际化)
-* RESTful
+* File Upload/Download (文件上传、下载)
+
