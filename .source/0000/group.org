@@ -60,3 +60,28 @@
 
 #+ATTR_HTML: :width 500px
 [[file:img/clip_2018-08-07_06-17-53.png]]
+
+
+#+BEGIN_EXPORT html
+<script>
+
+    const comparer = (idx, asc) => (a, b) => {
+        const getCellValue = (tr, idx) => tr.children[idx].innerText;
+        const v1 = getCellValue(asc ? a : b, idx), v2 = getCellValue(asc ? b : a, idx);
+        return v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2);
+    };
+
+    const bindSortEvent = th => {
+        th.addEventListener('click', () => {
+            const table = th.closest('table');
+            Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
+                .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+                .forEach(tr => table.appendChild(tr));
+        });
+    };
+
+    // do the work...
+    document.querySelectorAll('th').forEach(bindSortEvent);
+
+</script>
+#+END_EXPORT
