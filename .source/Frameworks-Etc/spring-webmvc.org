@@ -467,6 +467,7 @@ Hibernate Validator 附加的 constraint:
 3. 正常使用
 
 ** JSR303 例子
+*** 一个订单类
 
 #+BEGIN_SRC java
   public class Order {
@@ -552,6 +553,113 @@ Hibernate Validator 附加的 constraint:
       .catch(console.error);
 
 #+END_SRC
+
+*** 也可以自定义验证器
+
+最简单的，组合已有的验证器:
+#+BEGIN_SRC java
+  @Min(100)
+  @Max(10000)
+  @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE_USE })
+  @Retention(RUNTIME)
+  @Documented
+  @Constraint(validatedBy = { })
+  public @interface Price {
+      Class<?>[] groups() default { };
+      Class<? extends Payload>[] payload() default { };
+  }
+#+END_SRC
+
+也可以自己实现相同逻辑:
+#+BEGIN_SRC java
+  @Target({ElementType.ANNOTATION_TYPE, ElementType.METHOD, ElementType.FIELD})
+  @Retention(RetentionPolicy.RUNTIME)
+  @Constraint(validatedBy =  PriceRangeValidator.class )
+  public @interface PriceRange {
+      String message() default "价格不合理";
+      float min() default 0;
+      float max() default 10000;
+
+      Class<?>[] groups() default { };
+      Class<? extends Payload>[] payload() default { };
+  }
+
+  class PriceRangeValidator implements ConstraintValidator<PriceRange, Float> {
+      private float min, max;
+
+      @Override
+      public void initialize(PriceRange constraintAnnotation) {
+          min = constraintAnnotation.min();
+          max = constraintAnnotation.max();
+      }
+
+      @Override
+      public boolean isValid(Float price, ConstraintValidatorContext context) {
+          // 记载数据库，外部 xml
+          return price >= min && price <= max;
+      }
+  }
+#+END_SRC
+
+@CellPhone:
+#+BEGIN_SRC java
+  @Target({ElementType.ANNOTATION_TYPE, ElementType.METHOD, ElementType.FIELD})
+  @Retention(RetentionPolicy.RUNTIME)
+  @Constraint(validatedBy = CellPhoneValidator.class)
+  public @interface CellPhone {
+      String message() default "不是合法的手机编号，应该是11位";
+
+      Class<?>[] groups() default {};
+
+      Class<? extends Payload>[] payload() default {};
+  }
+
+  class CellPhoneValidator implements ConstraintValidator<CellPhone, String> {
+      @Override
+      public void initialize(CellPhone constraintAnnotation) {
+      }
+
+      @Override
+      public boolean isValid(String value, ConstraintValidatorContext context) {
+          return value != null && Pattern.matches("^[0-9]{11}$", value);
+      }
+  }
+#+END_SRC
+
+@OrderStatus:
+#+BEGIN_SRC java
+  Target({ElementType.ANNOTATION_TYPE, ElementType.METHOD, ElementType.FIELD})
+  @Retention(RetentionPolicy.RUNTIME)
+  @NotEmpty
+  @Constraint(validatedBy =  OrderStatusValidator.class )
+  public @interface OrderStatus {
+      String message() default "不是合法的状态，只能是 created/paid/shipped/closed 中的一个";
+
+      Class<?>[] groups() default { };
+      Class<? extends Payload>[] payload() default { };
+  }
+
+  class OrderStatusValidator implements ConstraintValidator<OrderStatus, String> {
+      @Override
+      public void initialize(OrderStatus constraintAnnotation) {
+      }
+
+      @Override
+      public boolean isValid(String status, ConstraintValidatorContext context) {
+          return Arrays.asList("created", "paid22", "shipped", "closed").contains(status);
+      }
+  }
+#+END_SRC
+
+** Spring Validator 接口
+
+这是 Spring 验证的标准接口。使用分 *3* 步:
+1. 定义实现类
+2. 注册(配置到 Controller 或通过配置文件配置到全局)
+3. 配合 @Validated 注解使用
+
+基本过程: 
+#+HTML: <span style="font-size:4em;">略</span>
 
 * Exception (异常处理)
 * View

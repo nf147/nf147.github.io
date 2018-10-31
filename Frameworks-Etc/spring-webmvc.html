@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-10-31 周三 01:56 -->
+<!-- 2018-10-31 周三 06:40 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Web MVC</title>
@@ -47,7 +47,13 @@
 <li><a href="#org8f4a562">5. DataBinding/Validation (验证)</a>
 <ul>
 <li><a href="#org036753f">5.1. JSR-303</a></li>
-<li><a href="#org3b41237">5.2. JSR303 例子</a></li>
+<li><a href="#org3b41237">5.2. JSR303 例子</a>
+<ul>
+<li><a href="#orgfbdb41b">5.2.1. 一个订单类</a></li>
+<li><a href="#org26f449d">5.2.2. 也可以自定义验证器</a></li>
+</ul>
+</li>
+<li><a href="#org956845d">5.3. Spring Validator 接口</a></li>
 </ul>
 </li>
 <li><a href="#org1c40d2b">6. Exception (异常处理)</a></li>
@@ -784,6 +790,10 @@ Hibernate Validator 附加的 constraint:
 <div id="outline-container-org3b41237" class="outline-3">
 <h3 id="org3b41237"><span class="section-number-3">5.2</span> JSR303 例子</h3>
 <div class="outline-text-3" id="text-5-2">
+</div>
+<div id="outline-container-orgfbdb41b" class="outline-4">
+<h4 id="orgfbdb41b"><span class="section-number-4">5.2.1</span> 一个订单类</h4>
+<div class="outline-text-4" id="text-5-2-1">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">Order</span> {
 
@@ -874,6 +884,138 @@ Hibernate Validator 附加的 constraint:
 </div>
 </div>
 </div>
+
+<div id="outline-container-org26f449d" class="outline-4">
+<h4 id="org26f449d"><span class="section-number-4">5.2.2</span> 也可以自定义验证器</h4>
+<div class="outline-text-4" id="text-5-2-2">
+<p>
+最简单的，组合已有的验证器:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Min</span>(100)
+<span class="org-c-annotation">@Max</span>(10000)
+<span class="org-c-annotation">@Target</span>({ METHOD, <span class="org-type">FIELD</span>, <span class="org-type">ANNOTATION_TYPE</span>, <span class="org-type">CONSTRUCTOR</span>, <span class="org-type">PARAMETER</span>, TYPE_USE })
+<span class="org-c-annotation">@Retention</span>(<span class="org-type">RUNTIME</span>)
+<span class="org-c-annotation">@Documented</span>
+<span class="org-c-annotation">@Constraint</span>(validatedBy = { })
+<span class="org-keyword">public</span> <span class="org-keyword">@interface</span> <span class="org-type">Price</span> {
+    <span class="org-type">Class</span>&lt;?&gt;[] <span class="org-function-name">groups</span>() <span class="org-keyword">default</span> { };
+    <span class="org-type">Class</span>&lt;? <span class="org-keyword">extends</span> <span class="org-type">Payload</span>&gt;[] <span class="org-function-name">payload</span>() <span class="org-keyword">default</span> { };
+}
+</pre>
+</div>
+
+<p>
+也可以自己实现相同逻辑:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Target</span>({<span class="org-constant">ElementType</span>.ANNOTATION_TYPE, <span class="org-constant">ElementType</span>.<span class="org-type">METHOD</span>, <span class="org-constant">ElementType</span>.FIELD})
+<span class="org-c-annotation">@Retention</span>(<span class="org-constant">RetentionPolicy</span>.<span class="org-type">RUNTIME</span>)
+<span class="org-c-annotation">@Constraint</span>(validatedBy =  PriceRangeValidator.<span class="org-keyword">class</span> )
+<span class="org-keyword">public</span> <span class="org-keyword">@interface</span> <span class="org-type">PriceRange</span> {
+    <span class="org-type">String</span> <span class="org-function-name">message</span>() <span class="org-keyword">default</span> <span class="org-string">"&#20215;&#26684;&#19981;&#21512;&#29702;"</span>;
+    <span class="org-type">float</span> <span class="org-function-name">min</span>() <span class="org-keyword">default</span> 0;
+    <span class="org-type">float</span> <span class="org-function-name">max</span>() <span class="org-keyword">default</span> 10000;
+
+    <span class="org-type">Class</span>&lt;?&gt;[] <span class="org-function-name">groups</span>() <span class="org-keyword">default</span> { };
+    <span class="org-type">Class</span>&lt;? <span class="org-keyword">extends</span> <span class="org-type">Payload</span>&gt;[] <span class="org-function-name">payload</span>() <span class="org-keyword">default</span> { };
+}
+
+<span class="org-keyword">class</span> <span class="org-type">PriceRangeValidator</span> <span class="org-keyword">implements</span> <span class="org-type">ConstraintValidator</span>&lt;<span class="org-type">PriceRange</span>, <span class="org-type">Float</span>&gt; {
+    <span class="org-keyword">private</span> <span class="org-type">float</span> <span class="org-variable-name">min</span>, <span class="org-variable-name">max</span>;
+
+    <span class="org-c-annotation">@Override</span>
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">initialize</span>(<span class="org-type">PriceRange</span> <span class="org-variable-name">constraintAnnotation</span>) {
+        min = constraintAnnotation.min();
+        max = constraintAnnotation.max();
+    }
+
+    <span class="org-c-annotation">@Override</span>
+    <span class="org-keyword">public</span> <span class="org-type">boolean</span> <span class="org-function-name">isValid</span>(<span class="org-type">Float</span> <span class="org-variable-name">price</span>, <span class="org-type">ConstraintValidatorContext</span> <span class="org-variable-name">context</span>) {
+        <span class="org-comment-delimiter">// </span><span class="org-comment">&#35760;&#36733;&#25968;&#25454;&#24211;&#65292;&#22806;&#37096; xml</span>
+        <span class="org-keyword">return</span> price &gt;= min &amp;&amp; price &lt;= max;
+    }
+}
+</pre>
+</div>
+
+<p>
+@CellPhone:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Target</span>({<span class="org-constant">ElementType</span>.ANNOTATION_TYPE, <span class="org-constant">ElementType</span>.<span class="org-type">METHOD</span>, <span class="org-constant">ElementType</span>.FIELD})
+<span class="org-c-annotation">@Retention</span>(<span class="org-constant">RetentionPolicy</span>.<span class="org-type">RUNTIME</span>)
+<span class="org-c-annotation">@Constraint</span>(validatedBy = CellPhoneValidator.<span class="org-keyword">class</span>)
+<span class="org-keyword">public</span> <span class="org-keyword">@interface</span> <span class="org-type">CellPhone</span> {
+    <span class="org-type">String</span> <span class="org-function-name">message</span>() <span class="org-keyword">default</span> <span class="org-string">"&#19981;&#26159;&#21512;&#27861;&#30340;&#25163;&#26426;&#32534;&#21495;&#65292;&#24212;&#35813;&#26159;11&#20301;"</span>;
+
+    <span class="org-type">Class</span>&lt;?&gt;[] <span class="org-function-name">groups</span>() <span class="org-keyword">default</span> {};
+
+    <span class="org-type">Class</span>&lt;? <span class="org-keyword">extends</span> <span class="org-type">Payload</span>&gt;[] <span class="org-function-name">payload</span>() <span class="org-keyword">default</span> {};
+}
+
+<span class="org-keyword">class</span> <span class="org-type">CellPhoneValidator</span> <span class="org-keyword">implements</span> <span class="org-type">ConstraintValidator</span>&lt;<span class="org-type">CellPhone</span>, <span class="org-type">String</span>&gt; {
+    <span class="org-c-annotation">@Override</span>
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">initialize</span>(<span class="org-type">CellPhone</span> <span class="org-variable-name">constraintAnnotation</span>) {
+    }
+
+    <span class="org-c-annotation">@Override</span>
+    <span class="org-keyword">public</span> <span class="org-type">boolean</span> <span class="org-function-name">isValid</span>(<span class="org-type">String</span> <span class="org-variable-name">value</span>, <span class="org-type">ConstraintValidatorContext</span> <span class="org-variable-name">context</span>) {
+        <span class="org-keyword">return</span> value != <span class="org-constant">null</span> &amp;&amp; Pattern.matches(<span class="org-string">"^[0-9]{11}$"</span>, value);
+    }
+}
+</pre>
+</div>
+
+<p>
+@OrderStatus:
+</p>
+<div class="org-src-container">
+<pre class="src src-java">Target({<span class="org-constant">ElementType</span>.ANNOTATION_TYPE, <span class="org-constant">ElementType</span>.METHOD, <span class="org-constant">ElementType</span>.FIELD})
+<span class="org-c-annotation">@Retention</span>(<span class="org-constant">RetentionPolicy</span>.RUNTIME)
+<span class="org-c-annotation">@NotEmpty</span>
+<span class="org-c-annotation">@Constraint</span>(validatedBy =  OrderStatusValidator.<span class="org-keyword">class</span> )
+<span class="org-keyword">public</span> <span class="org-keyword">@interface</span> OrderStatus {
+    <span class="org-type">String</span> <span class="org-function-name">message</span>() <span class="org-keyword">default</span> <span class="org-string">"&#19981;&#26159;&#21512;&#27861;&#30340;&#29366;&#24577;&#65292;&#21482;&#33021;&#26159; created/paid/shipped/closed &#20013;&#30340;&#19968;&#20010;"</span>;
+
+    <span class="org-type">Class</span>&lt;?&gt;[] <span class="org-function-name">groups</span>() <span class="org-keyword">default</span> { };
+    <span class="org-type">Class</span>&lt;? <span class="org-keyword">extends</span> <span class="org-type">Payload</span>&gt;[] <span class="org-function-name">payload</span>() <span class="org-keyword">default</span> { };
+}
+
+<span class="org-keyword">class</span> <span class="org-type">OrderStatusValidator</span> <span class="org-keyword">implements</span> <span class="org-type">ConstraintValidator</span>&lt;<span class="org-type">OrderStatus</span>, <span class="org-type">String</span>&gt; {
+    <span class="org-c-annotation">@Override</span>
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">initialize</span>(<span class="org-type">OrderStatus</span> <span class="org-variable-name">constraintAnnotation</span>) {
+    }
+
+    <span class="org-c-annotation">@Override</span>
+    <span class="org-keyword">public</span> <span class="org-type">boolean</span> <span class="org-function-name">isValid</span>(<span class="org-type">String</span> <span class="org-variable-name">status</span>, <span class="org-type">ConstraintValidatorContext</span> <span class="org-variable-name">context</span>) {
+        <span class="org-keyword">return</span> Arrays.asList(<span class="org-string">"created"</span>, <span class="org-string">"paid22"</span>, <span class="org-string">"shipped"</span>, <span class="org-string">"closed"</span>).contains(status);
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org956845d" class="outline-3">
+<h3 id="org956845d"><span class="section-number-3">5.3</span> Spring Validator 接口</h3>
+<div class="outline-text-3" id="text-5-3">
+<p>
+这是 Spring 验证的标准接口。使用分 <b>3</b> 步:
+</p>
+<ol class="org-ol">
+<li>定义实现类</li>
+<li>注册(配置到 Controller 或通过配置文件配置到全局)</li>
+<li>配合 @Validated 注解使用</li>
+</ol>
+
+<p>
+基本过程: 
+</p>
+<span style="font-size:4em;">略</span>
+</div>
+</div>
 </section>
 
 <section id="outline-container-org1c40d2b" class="outline-2">
@@ -892,7 +1034,7 @@ Hibernate Validator 附加的 constraint:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-10-31 周三 01:56</p>
+<p class="date">Created: 2018-10-31 周三 06:40</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
