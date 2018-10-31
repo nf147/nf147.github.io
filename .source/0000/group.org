@@ -3,58 +3,58 @@
 
 * 分数情况
 
-|   组 | 姓名     | 总分 |    日常 | 2018-10-29 | 2018-10-30 |
-|------+----------+------+---------+------------+------------|
-|    1 | *[[https://fcl147.github.io][方成龙]]* |    5 |       0 |          4 |          1 |
-|    1 | [[https://wd216.github.io][陈子寒]]   |    4 |       0 |          4 |          0 |
-|    1 | [[https://AimeJava.github.io][陈震泓]]   |    5 |       0 |          4 |          1 |
-|    1 | [[https://DTZ1211.github.io][欧阳涛]]   |    5 |       0 |          4 |          1 |
-|    1 | [[https://ycy1119.github.io][余采营]]   |    4 |       0 |          4 |          0 |
-|    1 | [[https://liuhailon.github.io][刘海龙]]   |    4 |       0 |          4 |          0 |
-|------+----------+------+---------+------------+------------|
-|    2 | *[[https://clearLove77777777.github.io][韦凇耀]]* |    5 |       0 |          4 |          1 |
-|    2 | [[https://lintsGitHub.github.io][梁钧淋]]   |    5 |       0 |          4 |          1 |
-|    2 | [[https://hjb-jc.github.io][黄京霸]]   |    5 |       0 |          4 |          1 |
-|    2 | [[https://wgc00.github.io][王国聪]]   |    5 |       0 |          4 |          1 |
-|    2 | [[https://ZhouYNF.github.io][周勇]]     |    5 |       0 |          4 |          1 |
-|    2 | [[https://lhy549.github.io][兰华艳]]   |    4 |       0 |          4 |          0 |
-|------+----------+------+---------+------------+------------|
-|    3 | *[[https://oukele.github.io][欧一乐]]* |    6 |       0 |          5 |          1 |
-|    3 | [[https://weibanggang.github.io][韦邦杠]]   |    6 |       0 |          5 |          1 |
-|    3 | [[https://ldl326308.github.io][刘地林]]   |    6 |       0 |          5 |          1 |
-|    3 | [[https://Xiaobai1007.github.io][郭世棋]]   |    6 |       0 |          5 |          1 |
-|    3 | [[https://WhaleGuang.github.io][唐玉棋]]   |  4.5 |       0 |        4.5 |          0 |
-|    3 | [[https://chensheng1005.github.io][陈胜]]     |    6 |       0 |          5 |          1 |
-|------+----------+------+---------+------------+------------|
-|    4 | *[[https://Sky-meow.github.io][李玉聪]]* |    6 |       0 |          5 |          1 |
-|    4 | [[https://csj147.github.io][陈绍基]]   |    4 |       0 |          3 |          1 |
-|    4 | [[https://1164596522.github.io][王伟鸿]]   |    6 |       0 |          5 |          1 |
-|    4 | [[https://StormBegins.github.io][田军山]]   |    6 |       0 |          5 |          1 |
-|    4 | [[https://jialongZou.github.io][邹家龙]]   |    4 |       0 |          3 |          1 |
-|    4 | [[https://javaprogcs.github.io][成胜文]]   |    5 |       0 |          4 |          1 |
-|------+----------+------+---------+------------+------------|
-|    5 | *[[https://lxmlxmlxmlxm.github.io][李迅敏]]* |    5 |       0 |          4 |          1 |
-|    5 | [[https://wfhKing.github.io][韦奉豪]]   |    6 |       0 |          5 |          1 |
-|    5 | [[https://guapishuo.github.io][谭烁]]     |    5 |       0 |          4 |          1 |
-|    5 | [[https://CJKyros.github.io][蔡俊康]]   |    5 |       0 |          4 |          1 |
-|    5 | [[https://Jiekun.github.io][李杰焜]]   |    5 |       0 |          4 |          1 |
-|    5 | [[https://lxl66.github.io][李醒亮]]   |    4 |       0 |          3 |          1 |
-|------+----------+------+---------+------------+------------|
-|    6 | *[[https://Lnchy.github.io][罗毅]]*   |    6 |       0 |          5 |          1 |
-|    6 | [[https://jaydeny.github.io][朱茂琛]]   |    6 |       0 |          5 |          1 |
-|    6 | [[https://jack06.github.io][曾洋]]     |  4.5 |       0 |        4.5 |          0 |
-|    6 | [[https://KeaNoel.github.io][罗政委]]   |  4.5 |       0 |        4.5 |          0 |
-|    6 | [[https://nongzihong.github.io][农梓鸿]]   |    6 |       0 |          5 |          1 |
-|    6 | [[https://obbz.github.io][欧健平]]   |    5 |       0 |          5 |          0 |
-|------+----------+------+---------+------------+------------|
-|    7 | *[[https://Black1499.github.io][刘志翔]]* |  7.6 |     1.6 |          5 |          1 |
-|    7 | [[https://dz147.github.io][张东明]]   |  6.9 |       1 |        4.9 |          1 |
-|    7 | [[https://YueLineMe.github.io][陈卓悦]]   |    7 |       1 |          5 |          1 |
-|    7 | [[https://1247819023.github.io][梁光健]]   |  6.8 |       1 |        4.8 |          1 |
-|    7 | [[https://JiangnanYi.github.io][黎军基]]   |  6.9 |       1 |        4.9 |          1 |
-|    7 | [[https://perfectGod.github.io][彭远东]]   |  5.5 |       1 |        4.5 |          0 |
-|------+----------+------+---------+------------+------------|
-| zzzz | zzzz     | 5.34 | 0.2 (7) |  4.4 (185) |   0.0 (33) |
+|   组 | 姓名     | 总分 |     日常 | 2018-10-29 | 2018-10-30 |
+|------+----------+------+----------+------------+------------|
+|    1 | *[[https://fcl147.github.io][方成龙]]* |    5 |        0 |          4 |          1 |
+|    1 | [[https://wd216.github.io][陈子寒]]   |    4 |        0 |          4 |          0 |
+|    1 | [[https://AimeJava.github.io][陈震泓]]   |    5 |        0 |          4 |          1 |
+|    1 | [[https://DTZ1211.github.io][欧阳涛]]   |    5 |        0 |          4 |          1 |
+|    1 | [[https://ycy1119.github.io][余采营]]   |    4 |        0 |          4 |          0 |
+|    1 | [[https://liuhailon.github.io][刘海龙]]   |    4 |        0 |          4 |          0 |
+|------+----------+------+----------+------------+------------|
+|    2 | *[[https://clearLove77777777.github.io][韦凇耀]]* |    5 |        0 |          4 |          1 |
+|    2 | [[https://lintsGitHub.github.io][梁钧淋]]   |    5 |        0 |          4 |          1 |
+|    2 | [[https://hjb-jc.github.io][黄京霸]]   |    5 |        0 |          4 |          1 |
+|    2 | [[https://wgc00.github.io][王国聪]]   |    5 |        0 |          4 |          1 |
+|    2 | [[https://ZhouYNF.github.io][周勇]]     |    5 |        0 |          4 |          1 |
+|    2 | [[https://lhy549.github.io][兰华艳]]   |    4 |        0 |          4 |          0 |
+|------+----------+------+----------+------------+------------|
+|    3 | *[[https://oukele.github.io][欧一乐]]* |    6 |        0 |          5 |          1 |
+|    3 | [[https://weibanggang.github.io][韦邦杠]]   |    6 |        0 |          5 |          1 |
+|    3 | [[https://ldl326308.github.io][刘地林]]   |    6 |        0 |          5 |          1 |
+|    3 | [[https://Xiaobai1007.github.io][郭世棋]]   |    6 |        0 |          5 |          1 |
+|    3 | [[https://WhaleGuang.github.io][唐玉棋]]   |  4.5 |        0 |        4.5 |          0 |
+|    3 | [[https://chensheng1005.github.io][陈胜]]     |    6 |        0 |          5 |          1 |
+|------+----------+------+----------+------------+------------|
+|    4 | *[[https://Sky-meow.github.io][李玉聪]]* |    6 |        0 |          5 |          1 |
+|    4 | [[https://csj147.github.io][陈绍基]]   |    4 |        0 |          3 |          1 |
+|    4 | [[https://1164596522.github.io][王伟鸿]]   |    6 |        0 |          5 |          1 |
+|    4 | [[https://StormBegins.github.io][田军山]]   |    6 |        0 |          5 |          1 |
+|    4 | [[https://jialongZou.github.io][邹家龙]]   |    4 |        0 |          3 |          1 |
+|    4 | [[https://javaprogcs.github.io][成胜文]]   |    5 |        0 |          4 |          1 |
+|------+----------+------+----------+------------+------------|
+|    5 | *[[https://lxmlxmlxmlxm.github.io][李迅敏]]* |    5 |        0 |          4 |          1 |
+|    5 | [[https://wfhKing.github.io][韦奉豪]]   |    6 |        0 |          5 |          1 |
+|    5 | [[https://guapishuo.github.io][谭烁]]     |    5 |        0 |          4 |          1 |
+|    5 | [[https://CJKyros.github.io][蔡俊康]]   |    5 |        0 |          4 |          1 |
+|    5 | [[https://Jiekun.github.io][李杰焜]]   |    5 |        0 |          4 |          1 |
+|    5 | [[https://lxl66.github.io][李醒亮]]   |    4 |        0 |          3 |          1 |
+|------+----------+------+----------+------------+------------|
+|    6 | *[[https://Lnchy.github.io][罗毅]]*   |    6 |        0 |          5 |          1 |
+|    6 | [[https://jaydeny.github.io][朱茂琛]]   |    6 |        0 |          5 |          1 |
+|    6 | [[https://jack06.github.io][曾洋]]     |  4.5 |        0 |        4.5 |          0 |
+|    6 | [[https://KeaNoel.github.io][罗政委]]   |  4.5 |        0 |        4.5 |          0 |
+|    6 | [[https://nongzihong.github.io][农梓鸿]]   |    6 |        0 |          5 |          1 |
+|    6 | [[https://obbz.github.io][欧健平]]   |    5 |        0 |          5 |          0 |
+|------+----------+------+----------+------------+------------|
+|    7 | *[[https://Black1499.github.io][刘志翔]]* |  9.4 |      3.4 |          5 |          1 |
+|    7 | [[https://dz147.github.io][张东明]]   |  7.9 |        2 |        4.9 |          1 |
+|    7 | [[https://YueLineMe.github.io][陈卓悦]]   |    8 |        2 |          5 |          1 |
+|    7 | [[https://1247819023.github.io][梁光健]]   |  7.8 |        2 |        4.8 |          1 |
+|    7 | [[https://JiangnanYi.github.io][黎军基]]   |  7.9 |        2 |        4.9 |          1 |
+|    7 | [[https://perfectGod.github.io][彭远东]]   |  6.5 |        2 |        4.5 |          0 |
+|------+----------+------+----------+------------+------------|
+| zzzz | zzzz     | 5.50 | 0.3 (13) |  4.4 (185) |   0.0 (33) |
 #+TBLFM: $3=vsum($4..$>)::@>='(let ((s (+ @2..@-1))) (cond ((< $# 3) "zzzz") ((= $# 3) (format "%.2f" (/ s 42))) (t (format "%.1f (%.0f)" (/ s 42) s))));N
 
 * 分组情况
