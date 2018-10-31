@@ -659,7 +659,7 @@ Hibernate Validator 附加的 constraint:
 3. 配合 @Validated 注解使用
 
 基本过程: 
-#+HTML: <span style="font-size:4em;">略</span>
+#+HTML: <span style="font-size:4em;color:red;">略</span><br><br><br>
 
 * Exception (异常处理)
 * View
