@@ -466,6 +466,93 @@ Hibernate Validator 附加的 constraint:
 2. 增加验证器(ConstraintValidator)
 3. 正常使用
 
+** JSR303 例子
+
+#+BEGIN_SRC java
+  public class Order {
+
+      // 必须是 10 位
+      @NotBlank
+      @Size(min = 10, max = 10)
+      private String orderId;
+
+      @NotBlank
+      private String customer;
+
+      @Email
+      private String email;
+
+      @Pattern(regexp = "^[0-9]{11}$") //?
+      private String telephone;
+
+      @NotBlank
+      private String address;
+
+      // created paid shipped closed
+      @NotEmpty
+      @Pattern(regexp = "^(created|paid|shipped|closed)$")
+      private String status;
+
+      @DateTimeFormat(pattern = "yyyy-MM-dd")
+      @NotNull
+      @Past
+      private Date createDate;
+
+      @NotNull
+      @Valid
+      private Product product;
+  }
+
+  public class Product {
+      @NotBlank
+      private String name;
+
+      //@Range(max = 100000, min = 10)
+      @Min(100)
+      @Max(10000)
+      private Float price;
+
+      public String getName() {
+          return name;
+      }
+  }
+
+  ///////////////////////////////////////
+
+  @Controller
+  public class OrderController {
+      @RequestMapping(value = "/order", method = RequestMethod.POST)
+      @ResponseBody
+      public Order order (@Valid @RequestBody Order order, BindingResult result) {
+          return order;
+      }
+  }
+#+END_SRC
+
+客户端调用测试:
+#+BEGIN_SRC js
+  fetch('/order', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+          orderId: '1234567888',
+          customer: 'tom',
+          telephone: '10000000000',
+          address: 'hello, zhuhai',
+          email: '232@ksdjfk.com',
+          createDate: '2014-12-11',
+          status: 'paid',
+          product: {
+              name: 'ipone',
+              price: 9000
+          }
+      })
+  }).then(resp => resp.json())
+      .then(console.log)
+      .catch(console.error);
+
+#+END_SRC
+
 * Exception (异常处理)
 * View
 
