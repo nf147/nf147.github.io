@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-01 Thu 03:32 -->
+<!-- 2018-11-01 Thu 03:34 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Web MVC</title>
@@ -1173,6 +1173,7 @@ Spring 中可以根据不同情况加载不同主题。它的实现方式跟 i18
 <div class="org-src-container">
 <pre class="src src-conf"><span class="org-variable-name">style</span>=/css/pink.css
 <span class="org-variable-name">body.color</span>=red
+<span class="org-variable-name">footer.bg.image</span>=/image/background.png
 </pre>
 </div>
 
@@ -1185,12 +1186,16 @@ Spring 中可以根据不同情况加载不同主题。它的实现方式跟 i18
     &lt;<span class="org-function-name">style</span> <span class="org-variable-name">rel</span>=<span class="org-string">"stylesheet"</span> <span class="org-variable-name">src</span>=<span class="org-string">"&lt;spring:theme code="</span>style<span class="org-string">" /&gt;"</span>&gt;
   &lt;/<span class="org-function-name">head</span>&gt;
 
-  &lt;<span class="org-function-name">body</span> <span class="org-variable-name">style</span>=<span class="org-string">"color: &lt;spring:theme code="</span>body.red<span class="org-string">" /&gt;"</span>&gt;
+  &lt;<span class="org-function-name">body</span> <span class="org-variable-name">style</span>=<span class="org-string">"color: &lt;spring:theme code="</span>body.color<span class="org-string">" /&gt;"</span>&gt;
     &#27491;&#25991;&#20869;&#23481;
   &lt;/<span class="org-function-name">body</span>&gt;
 &lt;/<span class="org-function-name">html</span>&gt;
 </pre>
 </div>
+
+<p>
+所以如果使用不同的主题文件，页面上的 css 元素就不会相同，就能得到不同渲染效果的页面。
+</p>
 
 <p>
 就这么简单。
@@ -1208,7 +1213,7 @@ Spring 中可以根据不同情况加载不同主题。它的实现方式跟 i18
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-01 Thu 03:32</p>
+<p class="date">Created: 2018-11-01 Thu 03:34</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

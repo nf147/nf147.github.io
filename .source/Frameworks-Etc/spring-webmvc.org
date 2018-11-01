@@ -767,6 +767,7 @@ Spring 中可以根据不同情况加载不同主题。它的实现方式跟 i18
 #+BEGIN_SRC conf
   style=/css/pink.css
   body.color=red
+  footer.bg.image=/image/background.png
 #+END_SRC
 
 随后，就可以在 jsp 文件中使用上面配置的这些资源信息了:
@@ -776,11 +777,13 @@ Spring 中可以根据不同情况加载不同主题。它的实现方式跟 i18
       <style rel="stylesheet" src="<spring:theme code="style" />">
     </head>
 
-    <body style="color: <spring:theme code="body.red" />">
+    <body style="color: <spring:theme code="body.color" />">
       正文内容
     </body>
   </html>
 #+END_SRC
+
+所以如果使用不同的主题文件，页面上的 css 元素就不会相同，就能得到不同渲染效果的页面。
 
 就这么简单。
 
