@@ -665,5 +665,60 @@ Hibernate Validator 附加的 constraint:
 * View
 
 * I18N (国际化)
+
+*Internationalization* 的缩写。
+
+Spring 提供了两个接口用于国际化文件处理:
+1. ~MessageSource~，用于加载资源文件
+2. ~MessageResolver~，用于解析用户所处的位置(Locale)
+
+如果想使用资源文件，只需要在容器里注册一个 MessageSource 的实例即可。
+一般情况下，使用 Spring 内置的 ReloadableResourceBundleMessageSource 实现:
+#+BEGIN_SRC sgml
+  <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+    <property name="basename" value="classpath:messages" />
+    <property name="defaultEncoding" value="GBK" />
+  </bean>
+#+END_SRC
+
+然后在 classpath 下面创建 *messages[_zh].properties* 文件:
+#+BEGIN_SRC conf
+  xxx=23232323
+  yyy.xxx=ksdjfk
+  err.aaa=ksdfjjjjj
+#+END_SRC
+
+接下来就可以使用了:
+- 在 JSP 中: ~<spring:message code="xxx" />~
+- 在验证器中: ~errors.reject("err.aaa");~
+
+
+默认情况下，Spring 使用 AcceptHeaderLocaleResolver 来解析用户的区域。
+它本质是调用 ~request.getLocale()~ 方法，通过 ~Accept-Language~ 来获取的区域。
+
+如果，这种自动确定区域的方式不适合你，那么你需要亲自注册一个 LocaleResolver 来制定 Locale 策略。
+可选的策略有 ~SessionLocaleResolver/CookieLocaleResolver/FixedLocaleResolver~:
+#+BEGIN_SRC sgml
+  <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+    <property name="defaultLocale" value="zh"/>
+  </bean>
+#+END_SRC
+
+就这样就可以了。下面是一键切换语言的示例:
+#+BEGIN_SRC java
+  @Autowired
+  private LocaleResolver localeResolver;
+
+  @GetMapping("/change-locale/{loc}")
+  @ResponseBody
+  public String changeLocale (@PathVariable("loc") String localeStr, HttpServletRequest req, HttpServletResponse resp) {
+      Locale locale = new Locale(localeStr);
+      localeResolver.setLocale(req, resp, locale);
+      return "success";
+  }
+
+  // http://localhost:8080/change-locale/zh
+#+END_SRC
+
 * File Upload/Download (文件上传、下载)
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-10-31 周三 06:41 -->
+<!-- 2018-11-01 周四 02:46 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Web MVC</title>
@@ -1027,14 +1027,91 @@ Hibernate Validator 附加的 constraint:
 
 <section id="outline-container-org54b965f" class="outline-2">
 <h2 id="org54b965f"><span class="section-number-2">8</span> I18N (国际化)</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+<b>Internationalization</b> 的缩写。
+</p>
+
+<p>
+Spring 提供了两个接口用于国际化文件处理:
+</p>
+<ol class="org-ol">
+<li><code>MessageSource</code>，用于加载资源文件</li>
+<li><code>MessageResolver</code>，用于解析用户所处的位置(Locale)</li>
+</ol>
+
+<p>
+如果想使用资源文件，只需要在容器里注册一个 MessageSource 的实例即可。一般情况下，使用 Spring 内置的 ReloadableResourceBundleMessageSource 实现:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"messageSource"</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.springframework.context.support.ReloadableResourceBundleMessageSource"</span>&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"basename"</span> <span class="org-variable-name">value</span>=<span class="org-string">"classpath:messages"</span> /&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"defaultEncoding"</span> <span class="org-variable-name">value</span>=<span class="org-string">"GBK"</span> /&gt;
+&lt;/<span class="org-function-name">bean</span>&gt;
+</pre>
+</div>
+
+<p>
+然后在 classpath 下面创建 <b>messages[_zh].properties</b> 文件:
+</p>
+<div class="org-src-container">
+<pre class="src src-conf"><span class="org-variable-name">xxx</span>=23232323
+<span class="org-variable-name">yyy.xxx</span>=ksdjfk
+<span class="org-variable-name">err.aaa</span>=ksdfjjjjj
+</pre>
+</div>
+
+<p>
+接下来就可以使用了:
+</p>
+<ul class="org-ul">
+<li>在 JSP 中: <code>&lt;spring:message code="xxx" /&gt;</code></li>
+<li>在验证器中: <code>errors.reject("err.aaa");</code></li>
+</ul>
+
+
+<p>
+默认情况下，Spring 使用 AcceptHeaderLocaleResolver 来解析用户的区域。它本质是调用 <code>request.getLocale()</code> 方法，通过 <code>Accept-Language</code> 来获取的区域。
+</p>
+
+<p>
+如果，这种自动确定区域的方式不适合你，那么你需要亲自注册一个 LocaleResolver 来制定 Locale 策略。可选的策略有 <code>SessionLocaleResolver/CookieLocaleResolver/FixedLocaleResolver</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"localeResolver"</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.springframework.web.servlet.i18n.SessionLocaleResolver"</span>&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"defaultLocale"</span> <span class="org-variable-name">value</span>=<span class="org-string">"zh"</span>/&gt;
+&lt;/<span class="org-function-name">bean</span>&gt;
+</pre>
+</div>
+
+<p>
+就这样就可以了。下面是一键切换语言的示例:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Autowired</span>
+<span class="org-keyword">private</span> <span class="org-type">LocaleResolver</span> <span class="org-variable-name">localeResolver</span>;
+
+<span class="org-c-annotation">@GetMapping</span>(<span class="org-string">"/change-locale/{loc}"</span>)
+<span class="org-c-annotation">@ResponseBody</span>
+<span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">changeLocale</span> (<span class="org-c-annotation">@PathVariable</span>(<span class="org-string">"loc"</span>) <span class="org-type">String</span> <span class="org-variable-name">localeStr</span>, <span class="org-type">HttpServletRequest</span> <span class="org-variable-name">req</span>, <span class="org-type">HttpServletResponse</span> <span class="org-variable-name">resp</span>) {
+    <span class="org-type">Locale</span> <span class="org-variable-name">locale</span> = <span class="org-keyword">new</span> <span class="org-type">Locale</span>(localeStr);
+    localeResolver.setLocale(req, resp, locale);
+    <span class="org-keyword">return</span> <span class="org-string">"success"</span>;
+}
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">http://localhost:8080/change-locale/zh</span>
+</pre>
+</div>
+</div>
 </section>
+
 <section id="outline-container-org534651a" class="outline-2">
 <h2 id="org534651a"><span class="section-number-2">9</span> File Upload/Download (文件上传、下载)</h2>
 </section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-10-31 周三 06:41</p>
+<p class="date">Created: 2018-11-01 周四 02:46</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
