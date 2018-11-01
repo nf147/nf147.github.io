@@ -739,5 +739,52 @@ Spring 提供了两个接口用于国际化文件处理:
   // http://localhost:8080/change-locale/zh
 #+END_SRC
 
+* Theme (主题)
+
+主题值得是一系列的 css 以及影响页面显示效果的图片等资源的集合。
+
+Spring 中可以根据不同情况加载不同主题。它的实现方式跟 i18n *绝对雷同*。
+
+两个主要接口:
+- ~ThemeResolver~ 用于确定要使用的主题的名字(theme name)
+- ~ThemeSource~ 用于加载主题文件(通过 theme name)
+
+所以，要启用主题，只需要注入一个 ThemeSource 的实现，比如，内置的 ~ResouceBundleThemeSource~:
+#+BEGIN_SRC sgml
+  <bean id="themeSource" class="org.springframework.ui.context.support.ResourceBundleThemeSource">
+    <property name="basenamePrefix" value="classpath:theme/" /> <!-- 哪个文件夹里 -->
+  </bean>
+
+  <!-- 【可选】 -->
+  <!-- 默认情况下，使用的是 FixedThemeResolver 来确定主题名字，默认名字为 theme -->
+  <!-- 可以根据实际情况配置为 SessionThemeResovler/CookieThemeResolver -->
+  <bean id="themeResolver" class="org.springframework.web.servlet.theme.SessionThemeResolver">
+    <property name="defaultThemeName" value="lovely_pink" /> <!-- 默认主题文件的名字是 "可爱的小粉红"，如果不设置，名为 theme -->
+  </bean>
+#+END_SRC
+
+然后，在 classpath 下面的 theme 文件夹下添加 theme.properties 或 lovely_pink.properties 文件:
+#+BEGIN_SRC conf
+  style=/css/pink.css
+  body.color=red
+#+END_SRC
+
+随后，就可以在 jsp 文件中使用上面配置的这些资源信息了:
+#+BEGIN_SRC html
+  <html>
+    <head>
+      <style rel="stylesheet" src="<spring:theme code="style" />">
+    </head>
+
+    <body style="color: <spring:theme code="body.red" />">
+      正文内容
+    </body>
+  </html>
+#+END_SRC
+
+就这么简单。
+
+如果想在页面上一键切换主题，那么跟上面一键切换语言是同样的逻辑。略。
+
 * File Upload/Download (文件上传、下载)
 
