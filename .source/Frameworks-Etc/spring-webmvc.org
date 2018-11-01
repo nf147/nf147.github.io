@@ -692,6 +692,25 @@ Spring 提供了两个接口用于国际化文件处理:
 - 在 JSP 中: ~<spring:message code="xxx" />~
 - 在验证器中: ~errors.reject("err.aaa");~
 
+------------------------------
+
+如果想在 JSR303 验证中使用 message 文件加载错误信息，那么就需要额外配置下内置验证器了:
+#+BEGIN_SRC sgml
+  <mvc:annotation-driven validator="myValidator" />
+
+  <bean id="myValidator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+    <property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+    <property name="validationMessageSource" ref="messageSource" />
+  </bean>
+#+END_SRC
+
+然后就可以了:
+#+BEGIN_SRC java
+  @Range(min = 10, max = 100, message = {err.xxx})
+  Float price;
+#+END_SRC
+
+------------------------------
 
 默认情况下，Spring 使用 AcceptHeaderLocaleResolver 来解析用户的区域。
 它本质是调用 ~request.getLocale()~ 方法，通过 ~Accept-Language~ 来获取的区域。

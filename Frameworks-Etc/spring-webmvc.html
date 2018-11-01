@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-01 周四 02:46 -->
+<!-- 2018-11-01 周四 02:48 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Web MVC</title>
@@ -1069,6 +1069,31 @@ Spring 提供了两个接口用于国际化文件处理:
 <li>在验证器中: <code>errors.reject("err.aaa");</code></li>
 </ul>
 
+<hr>
+
+<p>
+如果想在 JSR303 验证中使用 message 文件加载错误信息，那么就需要额外配置下内置验证器了:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-sgml-namespace">mvc</span>:<span class="org-function-name">annotation-driven</span> <span class="org-variable-name">validator</span>=<span class="org-string">"myValidator"</span> /&gt;
+
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"myValidator"</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"</span>&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"providerClass"</span> <span class="org-variable-name">value</span>=<span class="org-string">"org.hibernate.validator.HibernateValidator"</span> /&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"validationMessageSource"</span> <span class="org-variable-name">ref</span>=<span class="org-string">"messageSource"</span> /&gt;
+&lt;/<span class="org-function-name">bean</span>&gt;
+</pre>
+</div>
+
+<p>
+然后就可以了:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Range</span>(min = 10, max = 100, message = {err.xxx})
+<span class="org-type">Float</span> <span class="org-variable-name">price</span>;
+</pre>
+</div>
+
+<hr>
 
 <p>
 默认情况下，Spring 使用 AcceptHeaderLocaleResolver 来解析用户的区域。它本质是调用 <code>request.getLocale()</code> 方法，通过 <code>Accept-Language</code> 来获取的区域。
@@ -1111,7 +1136,7 @@ Spring 提供了两个接口用于国际化文件处理:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-01 周四 02:46</p>
+<p class="date">Created: 2018-11-01 周四 02:48</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
