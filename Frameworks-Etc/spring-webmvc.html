@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-02 Fri 07:34 -->
+<!-- 2018-11-02 Fri 07:36 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Web MVC</title>
@@ -62,7 +62,9 @@
 <li><a href="#org20a7ef9">9. Theme (主题)</a></li>
 <li><a href="#org534651a">10. File Upload/Download (文件上传、下载)</a>
 <ul>
-<li><a href="#org1210ff9">10.1. 示例</a></li>
+<li><a href="#orgf592996">10.1. Upload</a></li>
+<li><a href="#orgc75cfc7">10.2. Download</a></li>
+<li><a href="#org1210ff9">10.3. 示例</a></li>
 </ul>
 </li>
 </ul>
@@ -1159,25 +1161,26 @@ Spring 中可以根据不同情况加载不同主题。它的实现方式跟 i18
 </p>
 <div class="org-src-container">
 <pre class="src src-sgml">&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"themeSource"</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.springframework.ui.context.support.ResourceBundleThemeSource"</span>&gt;
-  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"basenamePrefix"</span> <span class="org-variable-name">value</span>=<span class="org-string">"classpath:theme/"</span> /&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#21738;&#20010;&#25991;&#20214;&#22841;&#37324; </span><span class="org-comment-delimiter">--&gt;</span>
-&lt;/<span class="org-function-name">bean</span>&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"basenamePrefix"</span> <span class="org-variable-name">value</span>=<span class="org-string">"themes."</span> /&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#21738;&#20010;&#21253;&#19979;&#65292;&#40664;&#35748;&#26159; classpath &#26681;&#30446;&#24405;&#65292;&#27880;&#24847;&#65292;&#26159;&#21253;&#21517;&#30340;&#20889;&#27861;-&gt;</span>
+<span class="org-comment">&lt;/bean&gt;</span>
 
-<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#12304;&#21487;&#36873;&#12305; </span><span class="org-comment-delimiter">--&gt;</span>
+<span class="org-comment">&lt;!-- &#12304;&#21487;&#36873;&#12305; </span><span class="org-comment-delimiter">--&gt;</span>
 <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#40664;&#35748;&#24773;&#20917;&#19979;&#65292;&#20351;&#29992;&#30340;&#26159; FixedThemeResolver &#26469;&#30830;&#23450;&#20027;&#39064;&#21517;&#23383;&#65292;&#40664;&#35748;&#21517;&#23383;&#20026; theme </span><span class="org-comment-delimiter">--&gt;</span>
 <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#21487;&#20197;&#26681;&#25454;&#23454;&#38469;&#24773;&#20917;&#37197;&#32622;&#20026; SessionThemeResovler/CookieThemeResolver </span><span class="org-comment-delimiter">--&gt;</span>
 &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"themeResolver"</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.springframework.web.servlet.theme.SessionThemeResolver"</span>&gt;
-  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"defaultThemeName"</span> <span class="org-variable-name">value</span>=<span class="org-string">"lovely_pink"</span> /&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#40664;&#35748;&#20027;&#39064;&#25991;&#20214;&#30340;&#21517;&#23383;&#26159; "&#21487;&#29233;&#30340;&#23567;&#31881;&#32418;"&#65292;&#22914;&#26524;&#19981;&#35774;&#32622;&#65292;&#21517;&#20026; theme </span><span class="org-comment-delimiter">--&gt;</span>
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"defaultThemeName"</span> <span class="org-variable-name">value</span>=<span class="org-string">"girl"</span> /&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#40664;&#35748;&#20027;&#39064;&#25991;&#20214;&#30340;&#21517;&#23383;&#26159; "girl"&#65292;&#22914;&#26524;&#19981;&#35774;&#32622;&#65292;&#21517;&#20026; 'theme' </span><span class="org-comment-delimiter">--&gt;</span>
 &lt;/<span class="org-function-name">bean</span>&gt;
 </pre>
 </div>
 
 <p>
-然后，在 classpath 下面的 theme 文件夹下添加 theme.properties 或 lovely_pink.properties 文件:
+然后，在 classpath 下面的 themes 文件夹下添加 theme.properties 或 girl.properties 文件:
 </p>
 <div class="org-src-container">
 <pre class="src src-conf"><span class="org-variable-name">style</span>=/css/pink.css
 <span class="org-variable-name">body.color</span>=red
 <span class="org-variable-name">footer.bg.image</span>=/image/background.png
+<span class="org-variable-name">global.font.family</span>=&#23435;&#20307;
 </pre>
 </div>
 
@@ -1187,7 +1190,7 @@ Spring 中可以根据不同情况加载不同主题。它的实现方式跟 i18
 <div class="org-src-container">
 <pre class="src src-html">&lt;<span class="org-function-name">html</span>&gt;
   &lt;<span class="org-function-name">head</span>&gt;
-    &lt;<span class="org-function-name">style</span> <span class="org-variable-name">rel</span>=<span class="org-string">"stylesheet"</span> <span class="org-variable-name">src</span>=<span class="org-string">"&lt;spring:theme code="</span>style<span class="org-string">" /&gt;"</span>&gt;
+    &lt;<span class="org-function-name">link</span> <span class="org-variable-name">rel</span>=<span class="org-string">"stylesheet"</span> <span class="org-variable-name">href</span>=<span class="org-string">"&lt;spring:theme code="</span>style<span class="org-string">" /&gt;"</span>&gt;
   &lt;/<span class="org-function-name">head</span>&gt;
 
   &lt;<span class="org-function-name">body</span> <span class="org-variable-name">style</span>=<span class="org-string">"color: &lt;spring:theme code="</span>body.color<span class="org-string">" /&gt;"</span>&gt;
@@ -1214,6 +1217,108 @@ Spring 中可以根据不同情况加载不同主题。它的实现方式跟 i18
 <section id="outline-container-org534651a" class="outline-2">
 <h2 id="org534651a"><span class="section-number-2">10</span> File Upload/Download (文件上传、下载)</h2>
 <div class="outline-text-2" id="text-10">
+</div>
+<div id="outline-container-orgf592996" class="outline-3">
+<h3 id="orgf592996"><span class="section-number-3">10.1</span> Upload</h3>
+<div class="outline-text-3" id="text-10-1">
+<p>
+SpringMVC 中，文件的上传是通过 <code>MultipartResolver</code> 实现的，所以要实现上传，只要注册相应的 MultipartResolver 即可。
+</p>
+
+<p>
+MultipartResolver 的实现类有两个：
+</p>
+<ol class="org-ol">
+<li><code>CommonsMultipartResolver</code> (需要 Apache 的 commons-fileupload 支持，它能在比较旧的 servlet 版本中使用，兼容性好)</li>
+<li><code>StandardServletMultipartResolver</code> (不需要第三方 jar 包支持，它使用 servlet 内置的上传功能，但是只能在 Servlet 3 以上的版本使用)</li>
+</ol>
+
+<p>
+<b>以 StandardServletMultipartResolver 为例，使用步骤如下。</b>
+</p>
+
+<p>
+首先，在 web.xml 中为 DispatcherServlet 配置 Multipart:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">servlet</span>&gt;
+  &lt;<span class="org-function-name">servlet-name</span>&gt;mvc&lt;/<span class="org-function-name">servlet-name</span>&gt;
+  &lt;<span class="org-function-name">servlet-class</span>&gt;org.springframework.web.servlet.DispatcherServlet&lt;/<span class="org-function-name">servlet-class</span>&gt;
+
+  &lt;<span class="org-function-name">multipart-config</span>&gt;
+    &lt;<span class="org-function-name">max-file-size</span>&gt;5242880&lt;/<span class="org-function-name">max-file-size</span>&gt;        <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#19978;&#20256;&#25991;&#20214;&#30340;&#22823;&#23567;&#38480;&#21046;&#65292;&#27604;&#22914;&#19979;&#38754;&#34920;&#31034; 5 M </span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-function-name">max-request-size</span>&gt;10485760&lt;/<span class="org-function-name">max-request-size</span>&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#19968;&#27425;&#34920;&#21333;&#25552;&#20132;&#20013;&#25991;&#20214;&#30340;&#22823;&#23567;&#38480;&#21046;&#65292;&#24517;&#39035;&#19979;&#38754;&#20195;&#34920; 10 M </span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-function-name">file-size-threshold</span>&gt;0&lt;/<span class="org-function-name">file-size-threshold</span>&gt;  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#22810;&#22823;&#30340;&#25991;&#20214;&#20250;&#34987;&#33258;&#21160;&#20445;&#23384;&#21040;&#30828;&#30424;&#19978;&#12290;0 &#20195;&#34920;&#25152;&#26377; </span><span class="org-comment-delimiter">--&gt;</span>
+  &lt;/<span class="org-function-name">multipart-config</span>&gt;
+&lt;/<span class="org-function-name">servlet</span>&gt;
+</pre>
+</div>
+
+<p>
+其次，在 spring 中注册 MultipartResolver:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"multipartResolver"</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.springframework.web.multipart.support.StandardServletMultipartResolver"</span> /&gt;
+</pre>
+</div>
+
+<p>
+然后，就可以使用了，比如，表单:
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span class="org-sgml-namespace">form</span>:<span class="org-function-name">form</span> <span class="org-variable-name">action</span>=<span class="org-string">"/file/upload"</span> <span class="org-variable-name">method</span>=<span class="org-string">"post"</span> <span class="org-variable-name">enctype</span>=<span class="org-string">"multipart/form-data"</span>&gt;
+  &lt;<span class="org-function-name">input</span> <span class="org-variable-name">type</span>=<span class="org-string">"file"</span> <span class="org-variable-name">name</span>=<span class="org-string">"mfile"</span> /&gt;
+  &lt;<span class="org-function-name">input</span> <span class="org-variable-name">name</span>=<span class="org-string">"desc"</span> <span class="org-variable-name">placeholder</span>=<span class="org-string">"&#25991;&#20214;&#25551;&#36848;"</span> /&gt;
+  &lt;<span class="org-function-name">input</span> <span class="org-variable-name">type</span>=<span class="org-string">"submit"</span> <span class="org-variable-name">value</span>=<span class="org-string">"&#19978;&#20256;"</span> /&gt;
+&lt;/<span class="org-sgml-namespace">form</span>:<span class="org-function-name">form</span>&gt;
+</pre>
+</div>
+
+<p>
+提交后，就可以在 Controller 里这样处理了：
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@PostMapping</span>(<span class="org-string">"/upload"</span>)
+<span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">upload</span>(<span class="org-type">MultipartFile</span> <span class="org-variable-name">mfile</span>) <span class="org-keyword">throws</span> <span class="org-type">Exception</span> {
+    <span class="org-type">String</span> <span class="org-variable-name">savePath</span> = <span class="org-string">"xxx"</span>;
+    <span class="org-keyword">if</span>(<span class="org-negation-char">!</span>mfile.isEmpty()) {
+        mfile.transferTo(<span class="org-keyword">new</span> <span class="org-type">File</span>(savePath + mfile.getOriginalFilename()));
+    }
+    <span class="org-keyword">return</span> <span class="org-string">"file/index"</span>;
+}
+</pre>
+</div>
+
+<p>
+另外可以用 @RequestPart/@RequestParam 注解 MultipartFile 参数。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc75cfc7" class="outline-3">
+<h3 id="orgc75cfc7"><span class="section-number-3">10.2</span> Download</h3>
+<div class="outline-text-3" id="text-10-2">
+<p>
+使用 ResponseEntity 可以让下载变得简单:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@GetMapping</span>(value = <span class="org-string">"/download"</span>)
+<span class="org-type">ResponseEntity</span>&lt;<span class="org-type">InputStreamResource</span>&gt; <span class="org-function-name">downloadFile</span>() <span class="org-keyword">throws</span> <span class="org-type">IOException</span> {
+    <span class="org-type">FileSystemResource</span> <span class="org-variable-name">file</span> = <span class="org-keyword">new</span> <span class="org-type">FileSystemResource</span>(<span class="org-string">"/home/vip/logo.png"</span>);
+
+    <span class="org-type">HttpHeaders</span> <span class="org-variable-name">headers</span> = <span class="org-keyword">new</span> <span class="org-type">HttpHeaders</span>();
+    headers.setCacheControl(<span class="org-string">"no-cache, no-store, must-revalidate"</span>);
+    headers.setContentType(<span class="org-constant">MediaType</span>.APPLICATION_OCTET_STREAM);
+    headers.setContentLength(file.contentLength());
+    headers.setContentDispositionFormData(<span class="org-string">"attachment"</span>, file.getFilename());
+
+    <span class="org-keyword">return</span> ResponseEntity.ok().headers(headers).body(<span class="org-keyword">new</span> <span class="org-type">InputStreamResource</span>(file.getInputStream()));
+}
+</pre>
+</div>
+
+
+
 <p>
 0.1 代码规范
 0.1 异常处理
@@ -1222,10 +1327,11 @@ Spring 中可以根据不同情况加载不同主题。它的实现方式跟 i18
 0.1 审题不仔细
 </p>
 </div>
+</div>
 
 <div id="outline-container-org1210ff9" class="outline-3">
-<h3 id="org1210ff9"><span class="section-number-3">10.1</span> 示例</h3>
-<div class="outline-text-3" id="text-10-1">
+<h3 id="org1210ff9"><span class="section-number-3">10.3</span> 示例</h3>
+<div class="outline-text-3" id="text-10-3">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-c-annotation">@PostMapping</span>(<span class="org-string">"/book"</span>)
 <span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">imageshangchuan</span>(<span class="org-type">MultipartFile</span> <span class="org-variable-name">ufile</span>, <span class="org-type">Model</span> <span class="org-variable-name">model</span>, <span class="org-type">HttpServletRequest</span> <span class="org-variable-name">request</span>, <span class="org-c-annotation">@Valid</span> <span class="org-type">Book</span> <span class="org-variable-name">book</span>, <span class="org-type">BindingResult</span> <span class="org-variable-name">bookResult</span>) {
@@ -1298,7 +1404,7 @@ Spring 中可以根据不同情况加载不同主题。它的实现方式跟 i18
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-02 Fri 07:34</p>
+<p class="date">Created: 2018-11-02 Fri 07:36</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

@@ -752,29 +752,30 @@ Spring 中可以根据不同情况加载不同主题。它的实现方式跟 i18
 所以，要启用主题，只需要注入一个 ThemeSource 的实现，比如，内置的 ~ResouceBundleThemeSource~:
 #+BEGIN_SRC sgml
   <bean id="themeSource" class="org.springframework.ui.context.support.ResourceBundleThemeSource">
-    <property name="basenamePrefix" value="classpath:theme/" /> <!-- 哪个文件夹里 -->
+    <property name="basenamePrefix" value="themes." /> <!-- 哪个包下，默认是 classpath 根目录，注意，是包名的写法->
   </bean>
 
   <!-- 【可选】 -->
   <!-- 默认情况下，使用的是 FixedThemeResolver 来确定主题名字，默认名字为 theme -->
   <!-- 可以根据实际情况配置为 SessionThemeResovler/CookieThemeResolver -->
   <bean id="themeResolver" class="org.springframework.web.servlet.theme.SessionThemeResolver">
-    <property name="defaultThemeName" value="lovely_pink" /> <!-- 默认主题文件的名字是 "可爱的小粉红"，如果不设置，名为 theme -->
+    <property name="defaultThemeName" value="girl" /> <!-- 默认主题文件的名字是 "girl"，如果不设置，名为 'theme' -->
   </bean>
 #+END_SRC
 
-然后，在 classpath 下面的 theme 文件夹下添加 theme.properties 或 lovely_pink.properties 文件:
+然后，在 classpath 下面的 themes 文件夹下添加 theme.properties 或 girl.properties 文件:
 #+BEGIN_SRC conf
   style=/css/pink.css
   body.color=red
   footer.bg.image=/image/background.png
+  global.font.family=宋体
 #+END_SRC
 
 随后，就可以在 jsp 文件中使用上面配置的这些资源信息了:
 #+BEGIN_SRC html
   <html>
     <head>
-      <style rel="stylesheet" src="<spring:theme code="style" />">
+      <link rel="stylesheet" href="<spring:theme code="style" />">
     </head>
 
     <body style="color: <spring:theme code="body.color" />">
@@ -790,6 +791,77 @@ Spring 中可以根据不同情况加载不同主题。它的实现方式跟 i18
 如果想在页面上一键切换主题，那么跟上面一键切换语言是同样的逻辑。略。
 
 * File Upload/Download (文件上传、下载)
+** Upload
+
+SpringMVC 中，文件的上传是通过 ~MultipartResolver~ 实现的，所以要实现上传，只要注册相应的 MultipartResolver 即可。
+
+MultipartResolver 的实现类有两个：
+1. ~CommonsMultipartResolver~ (需要 Apache 的 commons-fileupload 支持，它能在比较旧的 servlet 版本中使用，兼容性好)
+2. ~StandardServletMultipartResolver~ (不需要第三方 jar 包支持，它使用 servlet 内置的上传功能，但是只能在 Servlet 3 以上的版本使用)
+
+*以 StandardServletMultipartResolver 为例，使用步骤如下。*
+
+首先，在 web.xml 中为 DispatcherServlet 配置 Multipart:
+#+BEGIN_SRC sgml
+  <servlet>
+    <servlet-name>mvc</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+    <multipart-config>
+      <max-file-size>5242880</max-file-size>        <!-- 上传文件的大小限制，比如下面表示 5 M -->
+      <max-request-size>10485760</max-request-size> <!-- 一次表单提交中文件的大小限制，必须下面代表 10 M -->
+      <file-size-threshold>0</file-size-threshold>  <!-- 多大的文件会被自动保存到硬盘上。0 代表所有 -->
+    </multipart-config>
+  </servlet>
+#+END_SRC
+
+其次，在 spring 中注册 MultipartResolver:
+#+BEGIN_SRC sgml
+  <bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
+#+END_SRC
+
+然后，就可以使用了，比如，表单:
+#+BEGIN_SRC html
+  <form:form action="/file/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="mfile" />
+    <input name="desc" placeholder="文件描述" />
+    <input type="submit" value="上传" />
+  </form:form>
+#+END_SRC
+
+提交后，就可以在 Controller 里这样处理了：
+#+BEGIN_SRC java
+  @PostMapping("/upload")
+  public String upload(MultipartFile mfile) throws Exception {
+      String savePath = "xxx";
+      if(!mfile.isEmpty()) {
+          mfile.transferTo(new File(savePath + mfile.getOriginalFilename()));
+      }
+      return "file/index";
+  }
+#+END_SRC
+
+另外可以用 @RequestPart/@RequestParam 注解 MultipartFile 参数。
+
+** Download
+
+使用 ResponseEntity 可以让下载变得简单:
+#+BEGIN_SRC java
+  @GetMapping(value = "/download")
+  ResponseEntity<InputStreamResource> downloadFile() throws IOException {
+      FileSystemResource file = new FileSystemResource("/home/vip/logo.png");
+
+      HttpHeaders headers = new HttpHeaders();
+      headers.setCacheControl("no-cache, no-store, must-revalidate");
+      headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+      headers.setContentLength(file.contentLength());
+      headers.setContentDispositionFormData("attachment", file.getFilename());
+
+      return ResponseEntity.ok().headers(headers).body(new InputStreamResource(file.getInputStream()));
+  }
+#+END_SRC
+
+
 
 0.1 代码规范
 0.1 异常处理
