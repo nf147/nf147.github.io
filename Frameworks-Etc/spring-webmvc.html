@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-02 Fri 03:49 -->
+<!-- 2018-11-02 Fri 07:34 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Web MVC</title>
@@ -60,7 +60,11 @@
 <li><a href="#org8ba0b67">7. View</a></li>
 <li><a href="#org54b965f">8. I18N (国际化)</a></li>
 <li><a href="#org20a7ef9">9. Theme (主题)</a></li>
-<li><a href="#org534651a">10. File Upload/Download (文件上传、下载)</a></li>
+<li><a href="#org534651a">10. File Upload/Download (文件上传、下载)</a>
+<ul>
+<li><a href="#org1210ff9">10.1. 示例</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </nav>
@@ -1218,11 +1222,83 @@ Spring 中可以根据不同情况加载不同主题。它的实现方式跟 i18
 0.1 审题不仔细
 </p>
 </div>
+
+<div id="outline-container-org1210ff9" class="outline-3">
+<h3 id="org1210ff9"><span class="section-number-3">10.1</span> 示例</h3>
+<div class="outline-text-3" id="text-10-1">
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@PostMapping</span>(<span class="org-string">"/book"</span>)
+<span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">imageshangchuan</span>(<span class="org-type">MultipartFile</span> <span class="org-variable-name">ufile</span>, <span class="org-type">Model</span> <span class="org-variable-name">model</span>, <span class="org-type">HttpServletRequest</span> <span class="org-variable-name">request</span>, <span class="org-c-annotation">@Valid</span> <span class="org-type">Book</span> <span class="org-variable-name">book</span>, <span class="org-type">BindingResult</span> <span class="org-variable-name">bookResult</span>) {
+    <span class="org-keyword">if</span> (bookResult.hasErrors()) {
+        <span class="org-keyword">return</span> <span class="org-string">"book_input"</span>;
+    }
+
+    <span class="org-type">List</span>&lt;<span class="org-type">String</span>&gt; <span class="org-variable-name">errors</span> = <span class="org-keyword">new</span> <span class="org-type">ArrayList</span>&lt;&gt;();
+    <span class="org-keyword">if</span> (ufile.isEmpty()) {
+        errors.add(<span class="org-string">"&#25991;&#20214;&#20026;&#31354;&#38169;&#35823;"</span>);
+    }
+    <span class="org-keyword">if</span> (ufile.getSize() &gt; 1024 * 1024 * 5) {
+        errors.add(<span class="org-string">"&#25991;&#20214;&#36229;&#20986;&#22823;&#23567;&#65292;&#35831;&#37325;&#26032;&#36873;&#25321;&#65281;"</span>);
+    }
+    <span class="org-keyword">if</span> (<span class="org-negation-char">!</span>ufile.getContentType().contains(<span class="org-string">"image/"</span>)) {
+        errors.add(<span class="org-string">"&#21482;&#20801;&#35768;&#19978;&#20256;&#22270;&#29255;&#25991;&#20214;&#65281;"</span>);
+    }
+    <span class="org-keyword">if</span> (<span class="org-negation-char">!</span>errors.isEmpty()) {
+        model.addAttribute(<span class="org-string">"errs"</span>, errors);
+        <span class="org-keyword">return</span> <span class="org-string">"book_input"</span>;
+    }
+
+    <span class="org-type">String</span> <span class="org-variable-name">basePath</span> = request.getServletContext().getRealPath(<span class="org-string">"/img"</span>);
+    <span class="org-type">String</span> <span class="org-variable-name">relativePath</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">&#22270;&#29255;&#30340;&#20445;&#23384;&#36335;&#24452;</span>
+    <span class="org-keyword">try</span> {
+        relativePath = makeRelativePath(ufile.getOriginalFilename());
+        <span class="org-type">File</span> <span class="org-variable-name">target</span> = <span class="org-keyword">new</span> <span class="org-type">File</span>(basePath + relativePath);
+        target.getParentFile().mkdir();
+        ufile.transferTo(target);
+    } <span class="org-keyword">catch</span> (<span class="org-type">IOException</span> <span class="org-variable-name">e</span>) {
+        model.addAttribute(<span class="org-string">"err"</span>, <span class="org-string">"&#25991;&#20214;&#19978;&#20256;&#22833;&#36133;&#65292;&#35831;&#37325;&#35797;&#65281;"</span>);
+        <span class="org-keyword">return</span> <span class="org-string">"book_input"</span>;
+    }
+
+    book.setCover(relativePath);
+    <span class="org-keyword">try</span> {
+        System.out.println(<span class="org-string">"&#23545;"</span> + book + <span class="org-string">"&#36827;&#34892;&#20445;&#23384;&#31561;&#25805;&#20316;"</span>);
+    } <span class="org-keyword">catch</span> (<span class="org-type">Exception</span> <span class="org-variable-name">e</span>) {
+        <span class="org-comment-delimiter">// </span><span class="org-comment">&#23454;&#38469;&#19994;&#21153;&#20013;&#65292;&#35201;&#32771;&#34385;&#24322;&#24120;&#30340;&#22788;&#29702;</span>
+        model.addAttribute(<span class="org-string">"err"</span>, <span class="org-string">"something"</span>);
+        <span class="org-keyword">return</span> <span class="org-string">"book_input"</span>;
+    }
+    <span class="org-keyword">return</span> <span class="org-string">"book_home"</span>;
+}
+
+<span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">makeRelativePath</span>(<span class="org-type">String</span> <span class="org-variable-name">fileName</span>) {
+    <span class="org-type">Date</span> <span class="org-variable-name">now</span> = <span class="org-keyword">new</span> <span class="org-type">Date</span>();
+    <span class="org-type">String</span>[] <span class="org-variable-name">fileNames</span> = splitFileString(fileName);
+    <span class="org-keyword">return</span> String.format(<span class="org-string">"%s%s%supload_%s_%s.%s"</span>,
+                         File.separator,
+                         <span class="org-keyword">new</span> <span class="org-type">SimpleDateFormat</span>(<span class="org-string">"yyyyMMdd"</span>).format(now),
+                         File.separator,
+                         fileNames[0],
+                         <span class="org-keyword">new</span> <span class="org-type">SimpleDateFormat</span>(<span class="org-string">"hhmmss"</span>).format(now),
+                         fileNames[1]
+                         );
+}
+
+<span class="org-keyword">public</span> <span class="org-type">String</span>[] <span class="org-function-name">splitFileString</span>(<span class="org-type">String</span> <span class="org-variable-name">fileName</span>) {
+    <span class="org-type">int</span> <span class="org-variable-name">dotPos</span> = fileName.lastIndexOf(<span class="org-string">"."</span>);
+    <span class="org-type">String</span> <span class="org-variable-name">ext</span> = fileName.substring(dotPos + 1);
+    <span class="org-type">String</span> <span class="org-variable-name">name</span> = fileName.substring(0, dotPos);
+    <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">String</span>[]{name, ext};
+}
+</pre>
+</div>
+</div>
+</div>
 </section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-02 Fri 03:49</p>
+<p class="date">Created: 2018-11-02 Fri 07:34</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

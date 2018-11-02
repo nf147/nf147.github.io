@@ -797,3 +797,71 @@ Spring 中可以根据不同情况加载不同主题。它的实现方式跟 i18
 0.1 对于过去学习内容的遗忘
 0.1 审题不仔细
 
+** 示例
+
+#+BEGIN_SRC java
+  @PostMapping("/book")
+  public String imageshangchuan(MultipartFile ufile, Model model, HttpServletRequest request, @Valid Book book, BindingResult bookResult) {
+      if (bookResult.hasErrors()) {
+          return "book_input";
+      }
+
+      List<String> errors = new ArrayList<>();
+      if (ufile.isEmpty()) {
+          errors.add("文件为空错误");
+      }
+      if (ufile.getSize() > 1024 * 1024 * 5) {
+          errors.add("文件超出大小，请重新选择！");
+      }
+      if (!ufile.getContentType().contains("image/")) {
+          errors.add("只允许上传图片文件！");
+      }
+      if (!errors.isEmpty()) {
+          model.addAttribute("errs", errors);
+          return "book_input";
+      }
+
+      String basePath = request.getServletContext().getRealPath("/img");
+      String relativePath; // 图片的保存路径
+      try {
+          relativePath = makeRelativePath(ufile.getOriginalFilename());
+          File target = new File(basePath + relativePath);
+          target.getParentFile().mkdir();
+          ufile.transferTo(target);
+      } catch (IOException e) {
+          model.addAttribute("err", "文件上传失败，请重试！");
+          return "book_input";
+      }
+
+      book.setCover(relativePath);
+      try {
+          System.out.println("对" + book + "进行保存等操作");
+      } catch (Exception e) {
+          // 实际业务中，要考虑异常的处理
+          model.addAttribute("err", "something");
+          return "book_input";
+      }
+      return "book_home";
+  }
+
+  public String makeRelativePath(String fileName) {
+      Date now = new Date();
+      String[] fileNames = splitFileString(fileName);
+      return String.format("%s%s%supload_%s_%s.%s",
+                           File.separator,
+                           new SimpleDateFormat("yyyyMMdd").format(now),
+                           File.separator,
+                           fileNames[0],
+                           new SimpleDateFormat("hhmmss").format(now),
+                           fileNames[1]
+                           );
+  }
+
+  public String[] splitFileString(String fileName) {
+      int dotPos = fileName.lastIndexOf(".");
+      String ext = fileName.substring(dotPos + 1);
+      String name = fileName.substring(0, dotPos);
+      return new String[]{name, ext};
+  }
+#+END_SRC
+
