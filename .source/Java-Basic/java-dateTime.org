@@ -1,0 +1,40 @@
+#+TITLE: Java DateTime API
+
+
+
+
+* Date/SimpleDateFormat
+
+#+BEGIN_SRC java
+  Date now = new Date();
+
+  DateFormat df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+  String nowStr = df.parse(now);
+
+  Date then = df.format("2001-12-31 11:33:44");
+#+END_SRC
+
+* Calender
+
+#+BEGIN_SRC java
+  Calender c = Calender.getInstance(); // GregorianCalendar
+  Calender c = new GregorianCalendar();
+
+  Date d = c.getTime();
+#+END_SRC
+
+* JodaTime
+
+#+BEGIN_SRC sgml
+  <!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+  <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+      <version>2.10.1</version>
+  </dependency>
+#+END_SRC
+
+* LocalTime/LocalDate/LocalDateTime
+
+jdk8
+
