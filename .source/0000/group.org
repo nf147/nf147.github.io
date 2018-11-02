@@ -12,12 +12,12 @@
 |    1 | [[https://ycy1119.github.io][余采营]]   |    4 |        0 |          4 |          0 |
 |    1 | [[https://liuhailon.github.io][刘海龙]]   |    4 |        0 |          4 |          0 |
 |------+----------+------+----------+------------+------------|
-|    2 | *[[https://clearLove77777777.github.io][韦凇耀]]* |    6 |        1 |          4 |          1 |
-|    2 | [[https://lintsGitHub.github.io][梁钧淋]]   |    6 |        1 |          4 |          1 |
-|    2 | [[https://hjb-jc.github.io][黄京霸]]   |    6 |        1 |          4 |          1 |
-|    2 | [[https://wgc00.github.io][王国聪]]   |    6 |        1 |          4 |          1 |
-|    2 | [[https://ZhouYNF.github.io][周勇]]     |    6 |        1 |          4 |          1 |
-|    2 | [[https://lhy549.github.io][兰华艳]]   |    5 |        1 |          4 |          0 |
+|    2 | *[[https://clearLove77777777.github.io][韦凇耀]]* |  6.8 |      1.8 |          4 |          1 |
+|    2 | [[https://lintsGitHub.github.io][梁钧淋]]   |  6.8 |      1.8 |          4 |          1 |
+|    2 | [[https://hjb-jc.github.io][黄京霸]]   |  6.8 |      1.8 |          4 |          1 |
+|    2 | [[https://wgc00.github.io][王国聪]]   |  9.5 |      4.5 |          4 |          1 |
+|    2 | [[https://ZhouYNF.github.io][周勇]]     |  6.8 |      1.8 |          4 |          1 |
+|    2 | [[https://lhy549.github.io][兰华艳]]   |  5.8 |      1.8 |          4 |          0 |
 |------+----------+------+----------+------------+------------|
 |    3 | *[[https://oukele.github.io][欧一乐]]* |    7 |        1 |          5 |          1 |
 |    3 | [[https://weibanggang.github.io][韦邦杠]]   |    7 |        1 |          5 |          1 |
@@ -54,7 +54,7 @@
 |    7 | [[https://JiangnanYi.github.io][黎军基]]   |  7.9 |        2 |        4.9 |          1 |
 |    7 | [[https://perfectGod.github.io][彭远东]]   |  6.5 |        2 |        4.5 |          0 |
 |------+----------+------+----------+------------+------------|
-| zzzz | zzzz     | 6.21 | 1.0 (43) |  4.4 (185) |   0.0 (33) |
+| zzzz | zzzz     | 6.39 | 1.2 (51) |  4.4 (185) |   0.0 (33) |
 #+TBLFM: $3=vsum($4..$>)::@>='(let ((s (+ @2..@-1))) (cond ((< $# 3) "zzzz") ((= $# 3) (format "%.2f" (/ s 42))) (t (format "%.1f (%.0f)" (/ s 42) s))));N
 
 * 分组情况
