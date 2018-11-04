@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-01 Thu 16:24 -->
+<!-- 2018-11-05 Mon 00:56 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MySQL</title>
@@ -20,58 +20,58 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgbf9f745">1. 安装与配置</a></li>
-<li><a href="#org9ea9f3d">2. 数据库与账户</a></li>
-<li><a href="#orgd277a21">3. 用户跟权限</a></li>
-<li><a href="#org26978ef">4. 常用命令</a></li>
-<li><a href="#org032f6b7">5. 表的创建</a></li>
-<li><a href="#org1072b51">6. 数据类型</a></li>
-<li><a href="#org5494709">7. 主键约束</a></li>
-<li><a href="#org80a8b26">8. 表的修改</a></li>
-<li><a href="#org7ad672a">9. 引擎(Engine)</a></li>
-<li><a href="#orgbb29c7c">10. 存储过程</a>
+<li><a href="#orgfd73b5c">1. 安装与配置</a></li>
+<li><a href="#orga22c8b3">2. 数据库与账户</a></li>
+<li><a href="#org2ad1c22">3. 用户跟权限</a></li>
+<li><a href="#orga7b1571">4. 常用命令</a></li>
+<li><a href="#org261ab39">5. 表的创建</a></li>
+<li><a href="#org99d0526">6. 数据类型</a></li>
+<li><a href="#org2c63aa4">7. 主键约束</a></li>
+<li><a href="#org4fc38f3">8. 表的修改</a></li>
+<li><a href="#orgee513d6">9. 引擎(Engine)</a></li>
+<li><a href="#org6c3516e">10. 存储过程</a>
 <ul>
-<li><a href="#org8836c4c">10.1. 基本语句</a></li>
-<li><a href="#orgf26bc64">10.2. 变量定义</a></li>
-<li><a href="#orgeaa9d40">10.3. 参数与游标</a></li>
-<li><a href="#org239fee5">10.4. JDBC 操作存储过程示例</a></li>
+<li><a href="#org8498452">10.1. 基本语句</a></li>
+<li><a href="#org4df11de">10.2. 变量定义</a></li>
+<li><a href="#org2a69212">10.3. 参数与游标</a></li>
+<li><a href="#org41e981b">10.4. JDBC 操作存储过程示例</a></li>
 </ul>
 </li>
-<li><a href="#org9af713e">11. 优化(Optimization)</a>
+<li><a href="#org281659a">11. 优化(Optimization)</a>
 <ul>
-<li><a href="#org77dabb5">11.1. 解释计划(Explain)</a></li>
-<li><a href="#orgac46e82">11.2. 索引</a></li>
+<li><a href="#org7a2fe4d">11.1. 解释计划(Explain)</a></li>
+<li><a href="#org1fc5557">11.2. 索引</a></li>
 </ul>
 </li>
-<li><a href="#org2590135">12. UseCases</a>
+<li><a href="#org3862653">12. UseCases</a>
 <ul>
-<li><a href="#org1ec1b63">12.1. 使用存储过程批量插入数据</a></li>
-<li><a href="#org115a2e0">12.2. 行列转换</a></li>
+<li><a href="#org22fa5d8">12.1. 使用存储过程批量插入数据</a></li>
+<li><a href="#orgeb7e897">12.2. 行列转换</a></li>
 </ul>
 </li>
-<li><a href="#org9430299">13. 备份与恢复</a></li>
-<li><a href="#org708dcc4">14. 数据迁移示例</a>
+<li><a href="#org99825dd">13. 备份与恢复</a></li>
+<li><a href="#org689065e">14. 数据迁移示例</a>
 <ul>
-<li><a href="#orge531106">14.1. 命令行的方式</a></li>
-<li><a href="#org14be7c6">14.2. JDBC 的方式</a></li>
+<li><a href="#org4d27304">14.1. 命令行的方式</a></li>
+<li><a href="#org841e496">14.2. JDBC 的方式</a></li>
 </ul>
 </li>
-<li><a href="#orga4ff5aa">15. 数据处理示例</a>
+<li><a href="#org11fa8e2">15. 数据处理示例</a>
 <ul>
-<li><a href="#org00b3c07">15.1. 数据清理</a></li>
-<li><a href="#org471c283">15.2. 表的分离</a></li>
+<li><a href="#orgafb31c4">15.1. 数据清理</a></li>
+<li><a href="#orga50d17d">15.2. 表的分离</a></li>
 </ul>
 </li>
-<li><a href="#orged779aa">16. 省市县模式数据库设计</a></li>
-<li><a href="#org424bbd7">17. 查询练习</a></li>
+<li><a href="#org79dda33">16. 省市县模式数据库设计</a></li>
+<li><a href="#orgaf757ad">17. 查询练习</a></li>
 </ul>
 </div>
 </nav>
 
 
 
-<section id="outline-container-orgbf9f745" class="outline-2">
-<h2 id="orgbf9f745"><span class="section-number-2">1</span> 安装与配置</h2>
+<section id="outline-container-orgfd73b5c" class="outline-2">
+<h2 id="orgfd73b5c"><span class="section-number-2">1</span> 安装与配置</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 MySQL/MariaDB:
@@ -130,8 +130,8 @@ mysql -h 45.42.32.1 -P 9999 -uroot -p
 </div>
 </section>
 
-<section id="outline-container-org9ea9f3d" class="outline-2">
-<h2 id="org9ea9f3d"><span class="section-number-2">2</span> 数据库与账户</h2>
+<section id="outline-container-orga22c8b3" class="outline-2">
+<h2 id="orga22c8b3"><span class="section-number-2">2</span> 数据库与账户</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 MySQL 在用户登录后（默认使用 root 用户登录），需要切换到一个 <b>database</b> 才能进行表的创建等操作。所有的表和数据都隶属于某个数据库。
@@ -158,8 +158,8 @@ use mysql
 我们可以为自己的业务创建单独的数据库，比如，为我们的书店项目我们创建一个单独的数据库:
 </p>
 <div class="org-src-container">
-<pre class="src src-sql"><span class="org-keyword">create</span> database bookstore;
-<span class="org-keyword">create</span> database bookstore <span class="org-type">character</span> <span class="org-keyword">set</span> UTF8; <span class="org-comment">-- &#21019;&#24314;&#26102;&#21487;&#20197;&#25351;&#23450;&#23383;&#31526;&#38598;</span>
+<pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-builtin">database</span> bookstore;
+<span class="org-keyword">create</span> <span class="org-builtin">database</span> bookstore <span class="org-type">character</span> <span class="org-builtin">set</span> UTF8; <span class="org-comment">-- &#21019;&#24314;&#26102;&#21487;&#20197;&#25351;&#23450;&#23383;&#31526;&#38598;</span>
 use bookstore;  <span class="org-comment">-- &#20999;&#25442;&#21040;&#25968;&#25454;&#24211;&#19979;</span>
 </pre>
 </div>
@@ -174,9 +174,9 @@ use bookstore;  <span class="org-comment">-- &#20999;&#25442;&#21040;&#25968;&#2
 <span class="org-comment">-- &#21363;&#20351; user &#30456;&#21516;&#65292;&#21482;&#35201; host &#19981;&#21516;&#65292;&#20063;&#20250;&#34987;&#35748;&#20026;&#26159;&#19981;&#21516;&#36134;&#21495;&#12290;</span>
 <span class="org-comment">-- &#36825;&#26679;&#21487;&#20197;&#38750;&#24120;&#26041;&#20415;&#23545;&#26469;&#33258;&#19981;&#21516; ip &#22320;&#22336;&#30340;&#35775;&#38382;&#36827;&#34892;&#31934;&#32454;&#30340;&#26435;&#38480;&#25511;&#21046;&#12290;</span>
 <span class="org-comment">-- &#40664;&#35748;&#24773;&#20917;&#19979;&#65292;&#21019;&#24314;&#30340;&#29992;&#25143; host &#20026; '%'&#65292;&#36825;&#26159;&#19968;&#20010;&#21305;&#37197;&#31526;&#65292;&#36319;&#27169;&#31946;&#26597;&#35810;&#37324;&#30340;&#24847;&#24605;&#19968;&#26679;&#65292;&#34920;&#31034;&#21305;&#37197;&#25152;&#26377;</span>
-<span class="org-keyword">create</span> <span class="org-builtin">user</span> vip identified <span class="org-keyword">by</span> <span class="org-string">'vippp'</span>;             <span class="org-comment">-- &#25152;&#26377;&#36830;&#25509;</span>
-<span class="org-keyword">create</span> <span class="org-builtin">user</span> vip@<span class="org-string">'127.0.0.1'</span> identified <span class="org-keyword">by</span> <span class="org-string">'xxx'</span>;   <span class="org-comment">-- &#26412;&#22320;&#36830;&#25509;</span>
-<span class="org-keyword">create</span> <span class="org-builtin">user</span> vip@<span class="org-string">'192.168.%'</span> identified <span class="org-keyword">by</span> <span class="org-string">'yyy'</span>;   <span class="org-comment">-- 192.168 &#32593;&#27573;&#30340;&#36830;&#25509;</span>
+<span class="org-keyword">create</span> <span class="org-keyword">user</span> vip identified <span class="org-builtin">by</span> <span class="org-string">'vippp'</span>;             <span class="org-comment">-- &#25152;&#26377;&#36830;&#25509;</span>
+<span class="org-keyword">create</span> <span class="org-keyword">user</span> vip@<span class="org-string">'127.0.0.1'</span> identified <span class="org-builtin">by</span> <span class="org-string">'xxx'</span>;   <span class="org-comment">-- &#26412;&#22320;&#36830;&#25509;</span>
+<span class="org-keyword">create</span> <span class="org-keyword">user</span> vip@<span class="org-string">'192.168.%'</span> identified <span class="org-builtin">by</span> <span class="org-string">'yyy'</span>;   <span class="org-comment">-- 192.168 &#32593;&#27573;&#30340;&#36830;&#25509;</span>
 </pre>
 </div>
 
@@ -185,8 +185,8 @@ use bookstore;  <span class="org-comment">-- &#20999;&#25442;&#21040;&#25968;&#2
 </p>
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">grant</span> <span class="org-keyword">all</span> <span class="org-keyword">on</span> *.* <span class="org-keyword">to</span> vip@<span class="org-string">'127.0.0.1'</span>;        <span class="org-comment">-- &#23558;&#25152;&#26377;&#25968;&#25454;&#24211;&#19978;&#30340;&#25152;&#26377;&#26435;&#21033;&#37117;&#25480;&#20104;&#36890;&#36807;&#26412;&#26426;&#36830;&#25509;&#30340; vip &#29992;&#25143;&#65281;</span>
-<span class="org-keyword">grant</span> <span class="org-keyword">all</span> <span class="org-keyword">privileges</span> <span class="org-keyword">on</span> lagou.* <span class="org-keyword">to</span> vip@<span class="org-string">'%'</span>; <span class="org-comment">-- &#23558;&#25968;&#25454;&#24211; lagou &#19978;&#30340;&#25152;&#26377;&#26435;&#21033;&#37117;&#25480;&#20104;&#25152;&#26377;&#36830;&#25509;&#30340; vip &#29992;&#25143;!</span>
-<span class="org-keyword">grant</span> <span class="org-keyword">select</span> <span class="org-keyword">on</span> lagou.<span class="org-keyword">position</span> <span class="org-keyword">to</span> vip@<span class="org-string">'%'</span>;  <span class="org-comment">-- &#23558; lagou &#25968;&#25454;&#24211;&#19978;&#30340; position &#34920;&#30340;&#35775;&#38382;&#26435;&#38480;&#24320;&#25918;&#32473;&#25152;&#26377; vip &#29992;&#25143;&#12290;</span>
+<span class="org-keyword">grant</span> <span class="org-keyword">all</span> <span class="org-builtin">privileges</span> <span class="org-keyword">on</span> lagou.* <span class="org-keyword">to</span> vip@<span class="org-string">'%'</span>; <span class="org-comment">-- &#23558;&#25968;&#25454;&#24211; lagou &#19978;&#30340;&#25152;&#26377;&#26435;&#21033;&#37117;&#25480;&#20104;&#25152;&#26377;&#36830;&#25509;&#30340; vip &#29992;&#25143;!</span>
+<span class="org-keyword">grant</span> <span class="org-keyword">select</span> <span class="org-keyword">on</span> lagou.<span class="org-builtin">position</span> <span class="org-keyword">to</span> vip@<span class="org-string">'%'</span>;  <span class="org-comment">-- &#23558; lagou &#25968;&#25454;&#24211;&#19978;&#30340; position &#34920;&#30340;&#35775;&#38382;&#26435;&#38480;&#24320;&#25918;&#32473;&#25152;&#26377; vip &#29992;&#25143;&#12290;</span>
 </pre>
 </div>
 
@@ -194,14 +194,14 @@ use bookstore;  <span class="org-comment">-- &#20999;&#25442;&#21040;&#25968;&#2
 如果想查看某个用户拥有的权限，只需要:
 </p>
 <div class="org-src-container">
-<pre class="src src-sql">show grants <span class="org-keyword">for</span> vip@<span class="org-string">'%'</span>;
+<pre class="src src-sql"><span class="org-builtin">show</span> grants <span class="org-keyword">for</span> vip@<span class="org-string">'%'</span>;
 </pre>
 </div>
 </div>
 </section>
 
-<section id="outline-container-orgd277a21" class="outline-2">
-<h2 id="orgd277a21"><span class="section-number-2">3</span> 用户跟权限</h2>
+<section id="outline-container-org2ad1c22" class="outline-2">
+<h2 id="org2ad1c22"><span class="section-number-2">3</span> 用户跟权限</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 用户跟权限的相关信息，都是保存在下面表中：
@@ -228,25 +228,25 @@ use bookstore;  <span class="org-comment">-- &#20999;&#25442;&#21040;&#25968;&#2
 </p>
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-comment">-- &#26597;&#30475;&#29992;&#25143;</span>
-<span class="org-keyword">select</span> <span class="org-builtin">current_user</span>(), <span class="org-builtin">user</span>();
-<span class="org-keyword">select</span> * <span class="org-keyword">from</span> mysql.<span class="org-builtin">user</span>;
+<span class="org-keyword">select</span> <span class="org-keyword">current_user</span>(), <span class="org-keyword">user</span>();
+<span class="org-keyword">select</span> * <span class="org-keyword">from</span> mysql.<span class="org-keyword">user</span>;
 
 <span class="org-comment">-- &#21019;&#24314;&#19982;&#25480;&#26435;</span>
-<span class="org-keyword">create</span> <span class="org-builtin">user</span> <span class="org-string">'xxx'</span>@<span class="org-string">'host'</span> identified <span class="org-keyword">by</span> <span class="org-string">'&#23494;&#30721;'</span>;
-<span class="org-keyword">grant</span> <span class="org-keyword">all</span> <span class="org-keyword">on</span> ttt.* <span class="org-keyword">to</span> <span class="org-string">'user'</span>@<span class="org-string">'host'</span> <span class="org-keyword">with</span> <span class="org-keyword">grant</span> <span class="org-keyword">options</span>;
+<span class="org-keyword">create</span> <span class="org-keyword">user</span> <span class="org-string">'xxx'</span>@<span class="org-string">'host'</span> identified <span class="org-builtin">by</span> <span class="org-string">'&#23494;&#30721;'</span>;
+<span class="org-keyword">grant</span> <span class="org-keyword">all</span> <span class="org-keyword">on</span> ttt.* <span class="org-keyword">to</span> <span class="org-string">'user'</span>@<span class="org-string">'host'</span> <span class="org-keyword">with</span> <span class="org-keyword">grant</span> <span class="org-builtin">options</span>;
 
 <span class="org-comment">-- &#26597;&#30475;&#25480;&#26435;&#24773;&#20917;</span>
-show grants <span class="org-keyword">for</span> <span class="org-string">'user'</span>@<span class="org-string">'host'</span>;
+<span class="org-builtin">show</span> grants <span class="org-keyword">for</span> <span class="org-string">'user'</span>@<span class="org-string">'host'</span>;
 
 <span class="org-comment">-- &#29992;&#25143;&#30340;&#31649;&#29702;&#65292;&#21024;&#38500;&#23494;&#30721;&#31561;</span>
-<span class="org-keyword">set</span> password <span class="org-keyword">for</span> <span class="org-string">'user'</span>@<span class="org-string">'host'</span> = password(<span class="org-string">'&#26032;&#23494;&#30721;'</span>);
-<span class="org-keyword">drop</span> <span class="org-builtin">user</span> vip;
+<span class="org-builtin">set</span> <span class="org-builtin">password</span> <span class="org-keyword">for</span> <span class="org-string">'user'</span>@<span class="org-string">'host'</span> = <span class="org-builtin">password</span>(<span class="org-string">'&#26032;&#23494;&#30721;'</span>);
+<span class="org-builtin">drop</span> <span class="org-keyword">user</span> vip;
 
 <span class="org-comment">-- &#25480;&#26435;&#30340;&#30456;&#23545;&#23436;&#25972;&#35821;&#27861;&#20026;:</span>
-<span class="org-keyword">grant</span> <span class="org-keyword">all</span>/<span class="org-keyword">alter</span>/<span class="org-keyword">create</span>/<span class="org-keyword">drop</span>/<span class="org-keyword">select</span>/<span class="org-keyword">update</span>/<span class="org-keyword">delete</span>
+<span class="org-keyword">grant</span> <span class="org-keyword">all</span>/<span class="org-builtin">alter</span>/<span class="org-keyword">create</span>/<span class="org-builtin">drop</span>/<span class="org-keyword">select</span>/<span class="org-builtin">update</span>/<span class="org-builtin">delete</span>
       <span class="org-keyword">on</span> *.* <span class="org-comment">-- db.*/db.table</span>
       <span class="org-keyword">to</span> <span class="org-string">'user'</span>@<span class="org-string">'host'</span>
-      identified <span class="org-keyword">by</span> <span class="org-string">'&#23494;&#30721;'</span>
+      identified <span class="org-builtin">by</span> <span class="org-string">'&#23494;&#30721;'</span>
       <span class="org-keyword">with</span> max_user_connections 2
            max_connections_pser_hour 5;
 </pre>
@@ -258,35 +258,35 @@ show grants <span class="org-keyword">for</span> <span class="org-string">'user'
 </p>
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-comment">-- &#22686;&#21152;&#29992;&#25143;</span>
-<span class="org-keyword">insert</span> <span class="org-keyword">into</span> mysql.<span class="org-builtin">user</span>(<span class="org-keyword">host</span>, <span class="org-builtin">user</span>, password) <span class="org-keyword">values</span> (xx, yy, zz);
+<span class="org-builtin">insert</span> <span class="org-keyword">into</span> mysql.<span class="org-keyword">user</span>(<span class="org-builtin">host</span>, <span class="org-keyword">user</span>, <span class="org-builtin">password</span>) <span class="org-builtin">values</span> (xx, yy, zz);
 
 <span class="org-comment">-- &#20462;&#25913;&#23494;&#30721;</span>
-<span class="org-keyword">update</span> mysql.<span class="org-builtin">user</span> <span class="org-keyword">set</span> password=password(<span class="org-string">'&#26032;&#23494;&#30721;'</span>) <span class="org-keyword">where</span> <span class="org-builtin">user</span>=<span class="org-string">'vip'</span> <span class="org-keyword">and</span> <span class="org-keyword">host</span>=<span class="org-string">'%'</span>;
+<span class="org-builtin">update</span> mysql.<span class="org-keyword">user</span> <span class="org-builtin">set</span> <span class="org-builtin">password</span>=<span class="org-builtin">password</span>(<span class="org-string">'&#26032;&#23494;&#30721;'</span>) <span class="org-keyword">where</span> <span class="org-keyword">user</span>=<span class="org-string">'vip'</span> <span class="org-keyword">and</span> <span class="org-builtin">host</span>=<span class="org-string">'%'</span>;
 
 <span class="org-comment">-- &#20462;&#25913;&#26435;&#38480;</span>
-<span class="org-keyword">update</span> mysql.<span class="org-builtin">user</span> <span class="org-keyword">set</span> event_priv=<span class="org-string">'Y'</span> <span class="org-keyword">where</span> <span class="org-builtin">user</span>=<span class="org-string">'vip'</span> <span class="org-keyword">and</span> <span class="org-keyword">host</span>=<span class="org-string">'%'</span>;
+<span class="org-builtin">update</span> mysql.<span class="org-keyword">user</span> <span class="org-builtin">set</span> event_priv=<span class="org-string">'Y'</span> <span class="org-keyword">where</span> <span class="org-keyword">user</span>=<span class="org-string">'vip'</span> <span class="org-keyword">and</span> <span class="org-builtin">host</span>=<span class="org-string">'%'</span>;
 
 <span class="org-comment">-- &#27880;&#24847;&#65292;&#20351;&#29992; sql &#35821;&#21477;&#20462;&#25913;&#29992;&#25143;&#36319;&#26435;&#38480;&#20043;&#21518;&#65292;&#38656;&#35201;&#25163;&#21160;&#21047;&#26032;&#26435;&#38480;&#34920;</span>
-flush <span class="org-keyword">privileges</span>;
+flush <span class="org-builtin">privileges</span>;
 </pre>
 </div>
 </div>
 </section>
-<section id="outline-container-org26978ef" class="outline-2">
-<h2 id="org26978ef"><span class="section-number-2">4</span> 常用命令</h2>
+<section id="outline-container-orga7b1571" class="outline-2">
+<h2 id="orga7b1571"><span class="section-number-2">4</span> 常用命令</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 基本命令:
 </p>
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-comment">-- &#26597;&#35810;&#24403;&#21069;&#26085;&#26399;</span>
-<span class="org-keyword">select</span> now(), <span class="org-builtin">current_date</span>, <span class="org-builtin">current_time</span>;
+<span class="org-keyword">select</span> now(), <span class="org-keyword">current_date</span>, <span class="org-keyword">current_time</span>;
 
 <span class="org-comment">-- &#26597;&#35810;&#24403;&#21069;&#29992;&#25143;</span>
-<span class="org-keyword">select</span> <span class="org-builtin">user</span>(), <span class="org-builtin">current_user</span>();
+<span class="org-keyword">select</span> <span class="org-keyword">user</span>(), <span class="org-keyword">current_user</span>();
 
 <span class="org-comment">-- &#25968;&#25454;&#24211;</span>
-show databases;
+<span class="org-builtin">show</span> databases;
 use test;
 </pre>
 </div>
@@ -295,104 +295,104 @@ use test;
 更多命令：
 </p>
 <div class="org-src-container">
-<pre class="src src-sql">show engines; <span class="org-comment">-- &#25152;&#26377;&#24341;&#25806;</span>
-show plugins; <span class="org-comment">-- &#25152;&#26377;&#25554;&#20214;</span>
-show variables; <span class="org-comment">-- &#25152;&#26377;&#31995;&#32479;&#21464;&#37327;</span>
-show variables <span class="org-keyword">like</span> <span class="org-string">'%char%'</span>; <span class="org-comment">-- &#21487;&#20197;&#20351;&#29992; like &#36827;&#34892;&#36807;&#28388;, &#27880;&#24847; % _ &#30340;&#20351;&#29992;</span>
-<span class="org-keyword">set</span> <span class="org-keyword">names</span> utf8; <span class="org-comment">-- &#19968;&#20010;&#24555;&#25463;&#26041;&#24335;&#65292;&#29992;&#26469;&#24555;&#36895;&#25209;&#37327;&#35774;&#32622;&#23383;&#31526;&#38598;</span>
+<pre class="src src-sql"><span class="org-builtin">show</span> engines; <span class="org-comment">-- &#25152;&#26377;&#24341;&#25806;</span>
+<span class="org-builtin">show</span> plugins; <span class="org-comment">-- &#25152;&#26377;&#25554;&#20214;</span>
+<span class="org-builtin">show</span> variables; <span class="org-comment">-- &#25152;&#26377;&#31995;&#32479;&#21464;&#37327;</span>
+<span class="org-builtin">show</span> variables <span class="org-keyword">like</span> <span class="org-string">'%char%'</span>; <span class="org-comment">-- &#21487;&#20197;&#20351;&#29992; like &#36827;&#34892;&#36807;&#28388;, &#27880;&#24847; % _ &#30340;&#20351;&#29992;</span>
+<span class="org-builtin">set</span> <span class="org-builtin">names</span> utf8; <span class="org-comment">-- &#19968;&#20010;&#24555;&#25463;&#26041;&#24335;&#65292;&#29992;&#26469;&#24555;&#36895;&#25209;&#37327;&#35774;&#32622;&#23383;&#31526;&#38598;</span>
 
-show <span class="org-keyword">full</span> processlist;
+<span class="org-builtin">show</span> <span class="org-keyword">full</span> processlist;
 kill 109;
 </pre>
 </div>
 </div>
 </section>
 
-<section id="outline-container-org032f6b7" class="outline-2">
-<h2 id="org032f6b7"><span class="section-number-2">5</span> 表的创建</h2>
+<section id="outline-container-org261ab39" class="outline-2">
+<h2 id="org261ab39"><span class="section-number-2">5</span> 表的创建</h2>
 <div class="outline-text-2" id="text-5">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">book1</span> (
-   bookid <span class="org-type">int</span> <span class="org-keyword">primary</span> <span class="org-keyword">key</span>
+   bookid <span class="org-type">int</span> <span class="org-keyword">primary</span> <span class="org-builtin">key</span>
 );
 <span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">book2</span> (
    bookid <span class="org-type">int</span>,
-   <span class="org-keyword">primary</span> <span class="org-keyword">key</span> (bookid)
+   <span class="org-keyword">primary</span> <span class="org-builtin">key</span> (bookid)
 );
 <span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">book3</span> (
-   bookid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>
+   bookid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>
 );
 <span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">book4</span> (
-   bookid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>,
-   <span class="org-keyword">name</span> <span class="org-type">varchar</span>(30) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
-   price <span class="org-type">float</span> <span class="org-keyword">check</span> (price &gt;= 0)
+   bookid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>,
+   <span class="org-type">name</span> <span class="org-type">varchar</span>(30) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
+   price <span class="org-builtin">float</span> <span class="org-keyword">check</span> (price &gt;= 0)
 );
 <span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">book5</span> (
-   bookid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>,
-   <span class="org-keyword">name</span> <span class="org-type">varchar</span>(30) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
-   price <span class="org-type">float</span> <span class="org-keyword">check</span> (price &gt;= 0),
+   bookid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>,
+   <span class="org-type">name</span> <span class="org-type">varchar</span>(30) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
+   price <span class="org-builtin">float</span> <span class="org-keyword">check</span> (price &gt;= 0),
    press <span class="org-type">varchar</span>(50),
    authorid <span class="org-type">int</span> <span class="org-keyword">references</span> author (authorid)
    <span class="org-comment">-- foreign  key(author) references author(authorid),</span>
 );
 <span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">book6</span> (
    bookid <span class="org-type">int</span> auto_increment,
-   <span class="org-keyword">name</span> <span class="org-type">varchar</span>(30) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
-   price <span class="org-type">float</span> <span class="org-keyword">check</span> (price &gt;= 0),
+   <span class="org-type">name</span> <span class="org-type">varchar</span>(30) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
+   price <span class="org-builtin">float</span> <span class="org-keyword">check</span> (price &gt;= 0),
    press <span class="org-type">varchar</span>(50),
    authorid <span class="org-type">int</span>,
 
-   <span class="org-keyword">primary</span> <span class="org-keyword">key</span> (bookid),
-   <span class="org-keyword">foreign</span> <span class="org-keyword">key</span> (authorid) <span class="org-keyword">references</span> author (authorid)
+   <span class="org-keyword">primary</span> <span class="org-builtin">key</span> (bookid),
+   <span class="org-keyword">foreign</span> <span class="org-builtin">key</span> (authorid) <span class="org-keyword">references</span> author (authorid)
 );
 <span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">book7</span> (
-   bookid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>,
-   <span class="org-keyword">name</span> <span class="org-type">varchar</span>(30) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
-   price <span class="org-type">float</span> <span class="org-keyword">check</span> (price &gt;= 0),
+   bookid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>,
+   <span class="org-type">name</span> <span class="org-type">varchar</span>(30) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
+   price <span class="org-builtin">float</span> <span class="org-keyword">check</span> (price &gt;= 0),
    press <span class="org-type">varchar</span>(50),
    authorid <span class="org-type">int</span>
 );
 
 <span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">author</span> (
   authorid <span class="org-type">int</span> auto_increment,
-  <span class="org-keyword">name</span> <span class="org-type">varchar</span>(30) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
+  <span class="org-type">name</span> <span class="org-type">varchar</span>(30) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
   tel <span class="org-type">varchar</span>(20),
   birth <span class="org-type">date</span>,
-  <span class="org-keyword">primary</span> <span class="org-keyword">key</span> (authorid)
+  <span class="org-keyword">primary</span> <span class="org-builtin">key</span> (authorid)
 );
 
 
 
 <span class="org-comment">-- &#23454;&#38469;&#30340;&#23548;&#20837;&#24773;&#20917;&#65292;&#39318;&#20808;&#21019;&#24314;&#34920;&#65292;&#20808;&#19981;&#28155;&#21152;&#20219;&#20309;&#22806;&#38190;&#32422;&#26463;</span>
 <span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">book</span> (
-   bookid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>,
-   <span class="org-keyword">name</span> <span class="org-type">varchar</span>(30) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
-   price <span class="org-type">float</span> <span class="org-keyword">check</span> (price &gt;= 0),
+   bookid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>,
+   <span class="org-type">name</span> <span class="org-type">varchar</span>(30) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
+   price <span class="org-builtin">float</span> <span class="org-keyword">check</span> (price &gt;= 0),
    press <span class="org-type">varchar</span>(50),
    authorid <span class="org-type">int</span>,
    publish_at datetime,
    created_at <span class="org-type">timestamp</span>
 );
 <span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">author</span> (
-  authorid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>,
-  <span class="org-keyword">name</span> <span class="org-type">varchar</span>(30) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
+  authorid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>,
+  <span class="org-type">name</span> <span class="org-type">varchar</span>(30) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
   tel <span class="org-type">varchar</span>(20),
   birth <span class="org-type">date</span>
 );
 <span class="org-comment">-- &#22312;&#36825;&#37324;&#65292;&#25191;&#34892;&#25152;&#26377;&#30340;&#25968;&#25454;&#25554;&#20837;&#25805;&#20316;</span>
 <span class="org-comment">-- insert into book ...</span>
 <span class="org-comment">-- insert into author ...</span>
-<span class="org-keyword">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">book</span> 
-   <span class="org-keyword">add</span> <span class="org-keyword">constraint</span> fk_authorid
-   <span class="org-keyword">foreign</span> <span class="org-keyword">key</span> (authorid)
+<span class="org-builtin">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">book</span> 
+   <span class="org-builtin">add</span> <span class="org-keyword">constraint</span> fk_authorid
+   <span class="org-keyword">foreign</span> <span class="org-builtin">key</span> (authorid)
    <span class="org-keyword">references</span> author (authorid);
 <span class="org-comment">-- &#22914;&#26524;&#38656;&#35201;&#28155;&#21152;&#20027;&#38190;&#30340;&#35805;&#65292;&#35821;&#27861;&#22914;&#19979;</span>
-<span class="org-keyword">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">book</span>
-   <span class="org-keyword">add</span> <span class="org-keyword">constraint</span> pk_bookid
-   <span class="org-keyword">primary</span> <span class="org-keyword">key</span> (bookid);
+<span class="org-builtin">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">book</span>
+   <span class="org-builtin">add</span> <span class="org-keyword">constraint</span> pk_bookid
+   <span class="org-keyword">primary</span> <span class="org-builtin">key</span> (bookid);
 <span class="org-comment">-- &#22914;&#26524;&#24819;&#21024;&#38500;&#25481;&#30340;&#35805;</span>
-<span class="org-keyword">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">book</span>
-   <span class="org-keyword">drop</span> <span class="org-keyword">foreign</span> <span class="org-keyword">key</span> fk_authorid;
+<span class="org-builtin">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">book</span>
+   <span class="org-builtin">drop</span> <span class="org-keyword">foreign</span> <span class="org-builtin">key</span> fk_authorid;
 </pre>
 </div>
 
@@ -401,35 +401,35 @@ kill 109;
 其他:
 </p>
 <div class="org-src-container">
-<pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">xxx</span> if <span class="org-keyword">not</span> <span class="org-keyword">exists</span> (id <span class="org-type">int</span>);
+<pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">xxx</span> <span class="org-builtin">if</span> <span class="org-keyword">not</span> <span class="org-builtin">exists</span> (<span class="org-builtin">id</span> <span class="org-type">int</span>);
 
-<span class="org-keyword">create</span> <span class="org-keyword">temporary</span> <span class="org-keyword">table</span> <span class="org-function-name">yyy</span> (id <span class="org-type">int</span>);
+<span class="org-keyword">create</span> <span class="org-builtin">temporary</span> <span class="org-keyword">table</span> <span class="org-function-name">yyy</span> (<span class="org-builtin">id</span> <span class="org-type">int</span>);
 
-<span class="org-keyword">create</span> <span class="org-keyword">temporary</span> <span class="org-keyword">table</span> if <span class="org-keyword">not</span> <span class="org-keyword">exists</span> <span class="org-function-name">yyy</span> (
-       id bigint auto_increment,
-       <span class="org-keyword">name</span> <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span> <span class="org-keyword">unique</span>, <span class="org-comment">-- &#21807;&#19968;&#65292;&#19981;&#37325;&#22797;&#30340;</span>
+<span class="org-keyword">create</span> <span class="org-builtin">temporary</span> <span class="org-keyword">table</span> <span class="org-builtin">if</span> <span class="org-keyword">not</span> <span class="org-builtin">exists</span> <span class="org-function-name">yyy</span> (
+       <span class="org-builtin">id</span> <span class="org-type">bigint</span> auto_increment,
+       <span class="org-type">name</span> <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span> <span class="org-keyword">unique</span>, <span class="org-comment">-- &#21807;&#19968;&#65292;&#19981;&#37325;&#22797;&#30340;</span>
        birth datetime,
-       gender enum(<span class="org-string">'f'</span>, <span class="org-string">'m'</span>), <span class="org-comment">-- Female Male</span>
-       minzu <span class="org-keyword">set</span>(<span class="org-string">'&#27721;'</span>, <span class="org-string">'&#20420;&#32599;&#26031;'</span>),
+       gender <span class="org-builtin">enum</span>(<span class="org-string">'f'</span>, <span class="org-string">'m'</span>), <span class="org-comment">-- Female Male</span>
+       minzu <span class="org-builtin">set</span>(<span class="org-string">'&#27721;'</span>, <span class="org-string">'&#20420;&#32599;&#26031;'</span>),
        created_at <span class="org-type">timestamp</span>,
-       <span class="org-keyword">primary</span> <span class="org-keyword">key</span> (id)
+       <span class="org-keyword">primary</span> <span class="org-builtin">key</span> (<span class="org-builtin">id</span>)
 );
 
 
-<span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">aaa</span> (id <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>, <span class="org-keyword">name</span> <span class="org-type">varchar</span>(20))
+<span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">aaa</span> (<span class="org-builtin">id</span> <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>, <span class="org-type">name</span> <span class="org-type">varchar</span>(20))
    <span class="org-keyword">default</span> charset = gbk
    engine = InnoDB
    auto_increment = 7
-   comment = `&#36825;&#21482;&#26159;&#19968;&#20010;&#27979;&#35797;&#34920;&#32780;&#24050;`;
+   <span class="org-builtin">comment</span> = `&#36825;&#21482;&#26159;&#19968;&#20010;&#27979;&#35797;&#34920;&#32780;&#24050;`;
 
 <span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">gbk_test2</span> (vvv <span class="org-type">varchar</span>(4)) <span class="org-keyword">default</span> charset = gbk;
 <span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">gbk_test3</span> (vvv <span class="org-type">varchar</span>(4)) <span class="org-keyword">default</span> charset = utf8;
-<span class="org-keyword">insert</span> <span class="org-keyword">into</span> gbk_test2 <span class="org-keyword">values</span> (<span class="org-string">'&#20013;&#22269;'</span>);
-<span class="org-keyword">insert</span> <span class="org-keyword">into</span> gbk_test3 <span class="org-keyword">values</span> (<span class="org-string">'&#20013;&#22269;'</span>);
+<span class="org-builtin">insert</span> <span class="org-keyword">into</span> gbk_test2 <span class="org-builtin">values</span> (<span class="org-string">'&#20013;&#22269;'</span>);
+<span class="org-builtin">insert</span> <span class="org-keyword">into</span> gbk_test3 <span class="org-builtin">values</span> (<span class="org-string">'&#20013;&#22269;'</span>);
 <span class="org-keyword">select</span> * <span class="org-keyword">from</span> gbk_test2;
 <span class="org-keyword">select</span> * <span class="org-keyword">from</span> gbk_test3;
-<span class="org-keyword">select</span> <span class="org-keyword">length</span>(vvv) <span class="org-keyword">from</span> gbk_test2;
-<span class="org-keyword">select</span> <span class="org-keyword">length</span>(vvv) <span class="org-keyword">from</span> gbk_test3;
+<span class="org-keyword">select</span> <span class="org-builtin">length</span>(vvv) <span class="org-keyword">from</span> gbk_test2;
+<span class="org-keyword">select</span> <span class="org-builtin">length</span>(vvv) <span class="org-keyword">from</span> gbk_test3;
 <span class="org-keyword">select</span> <span class="org-builtin">char_length</span>(vvv) <span class="org-keyword">from</span> gbk_test2;
 <span class="org-keyword">select</span> <span class="org-builtin">char_length</span>(vvv) <span class="org-keyword">from</span> gbk_test3;
 </pre>
@@ -518,8 +518,8 @@ kill 109;
 </div>
 </section>
 
-<section id="outline-container-org1072b51" class="outline-2">
-<h2 id="org1072b51"><span class="section-number-2">6</span> 数据类型</h2>
+<section id="outline-container-org99d0526" class="outline-2">
+<h2 id="org99d0526"><span class="section-number-2">6</span> 数据类型</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 大致分为 <b>6</b> 类:
@@ -548,16 +548,16 @@ kill 109;
 (
   aaa <span class="org-type">char</span>(40),
   bbb <span class="org-type">varchar</span>(40),
-  ccc text(40)
+  ccc <span class="org-type">text</span>(40)
 );
 
-<span class="org-keyword">insert</span> <span class="org-keyword">into</span> char_demo <span class="org-keyword">values</span> (<span class="org-string">'123'</span>, <span class="org-string">'123'</span>, <span class="org-string">'123'</span>);
+<span class="org-builtin">insert</span> <span class="org-keyword">into</span> char_demo <span class="org-builtin">values</span> (<span class="org-string">'123'</span>, <span class="org-string">'123'</span>, <span class="org-string">'123'</span>);
 
-<span class="org-keyword">select</span> <span class="org-keyword">length</span>(aaa), <span class="org-keyword">length</span>(bbb), <span class="org-keyword">length</span>(ccc) <span class="org-keyword">from</span> char_demo;
+<span class="org-keyword">select</span> <span class="org-builtin">length</span>(aaa), <span class="org-builtin">length</span>(bbb), <span class="org-builtin">length</span>(ccc) <span class="org-keyword">from</span> char_demo;
 
-<span class="org-keyword">SET</span> sql_mode = <span class="org-string">'PAD_CHAR_TO_FULL_LENGTH'</span>;
+<span class="org-builtin">SET</span> sql_mode = <span class="org-string">'PAD_CHAR_TO_FULL_LENGTH'</span>;
 
-<span class="org-keyword">select</span> <span class="org-keyword">length</span>(aaa), <span class="org-keyword">length</span>(bbb), <span class="org-keyword">length</span>(ccc) <span class="org-keyword">from</span> char_demo;
+<span class="org-keyword">select</span> <span class="org-builtin">length</span>(aaa), <span class="org-builtin">length</span>(bbb), <span class="org-builtin">length</span>(ccc) <span class="org-keyword">from</span> char_demo;
 </pre>
 </div>
 
@@ -582,33 +582,33 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
 </p>
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">person</span> (
-       id <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>,
-       <span class="org-keyword">name</span> <span class="org-type">varchar</span>(30) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
+       <span class="org-builtin">id</span> <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>,
+       <span class="org-type">name</span> <span class="org-type">varchar</span>(30) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
        gender <span class="org-type">char</span>(2) <span class="org-comment">-- &#38480;&#21046;&#65292;&#21482;&#26377; &#30007;&#12289;&#22899;&#12289;&#26410;&#30693;</span>
 );
 
 
 <span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">person</span> (
-       id <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>,
-       <span class="org-keyword">name</span> <span class="org-type">varchar</span>(30) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
-       gender enum(<span class="org-string">'&#30007;'</span>, <span class="org-string">'&#22899;'</span>, <span class="org-string">'&#26410;&#30693;'</span>) <span class="org-comment">-- &#38480;&#21046;&#65292;&#21482;&#26377; &#30007;&#12289;&#22899;&#12289;&#26410;&#30693;</span>
+       <span class="org-builtin">id</span> <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>,
+       <span class="org-type">name</span> <span class="org-type">varchar</span>(30) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
+       gender <span class="org-builtin">enum</span>(<span class="org-string">'&#30007;'</span>, <span class="org-string">'&#22899;'</span>, <span class="org-string">'&#26410;&#30693;'</span>) <span class="org-comment">-- &#38480;&#21046;&#65292;&#21482;&#26377; &#30007;&#12289;&#22899;&#12289;&#26410;&#30693;</span>
 );
 
 <span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">person2</span> (
-       id <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>,
-       <span class="org-keyword">name</span> <span class="org-type">varchar</span>(30) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
-       gender enum(<span class="org-string">'&#30007;'</span>, <span class="org-string">'&#22899;'</span>, <span class="org-string">'&#26410;&#30693;'</span>), <span class="org-comment">-- &#38480;&#21046;&#65292;&#21482;&#26377; &#30007;&#12289;&#22899;&#12289;&#26410;&#30693;</span>
-       country <span class="org-keyword">set</span>(<span class="org-string">'&#20013;&#22269;'</span>, <span class="org-string">'&#32654;&#22269;'</span>, <span class="org-string">'&#21335;&#38750;'</span>)
+       <span class="org-builtin">id</span> <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>,
+       <span class="org-type">name</span> <span class="org-type">varchar</span>(30) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
+       gender <span class="org-builtin">enum</span>(<span class="org-string">'&#30007;'</span>, <span class="org-string">'&#22899;'</span>, <span class="org-string">'&#26410;&#30693;'</span>), <span class="org-comment">-- &#38480;&#21046;&#65292;&#21482;&#26377; &#30007;&#12289;&#22899;&#12289;&#26410;&#30693;</span>
+       country <span class="org-builtin">set</span>(<span class="org-string">'&#20013;&#22269;'</span>, <span class="org-string">'&#32654;&#22269;'</span>, <span class="org-string">'&#21335;&#38750;'</span>)
 );
 
-<span class="org-keyword">insert</span> <span class="org-keyword">into</span> person3 (<span class="org-keyword">name</span>, gender, country) <span class="org-keyword">values</span> (<span class="org-string">'&#28781;&#32477;'</span>, <span class="org-string">'&#22899;'</span>, <span class="org-string">'&#32654;&#22269;,&#21335;&#38750;'</span>);
+<span class="org-builtin">insert</span> <span class="org-keyword">into</span> person3 (<span class="org-type">name</span>, gender, country) <span class="org-builtin">values</span> (<span class="org-string">'&#28781;&#32477;'</span>, <span class="org-string">'&#22899;'</span>, <span class="org-string">'&#32654;&#22269;,&#21335;&#38750;'</span>);
 </pre>
 </div>
 </div>
 </section>
 
-<section id="outline-container-org5494709" class="outline-2">
-<h2 id="org5494709"><span class="section-number-2">7</span> 主键约束</h2>
+<section id="outline-container-org2c63aa4" class="outline-2">
+<h2 id="org2c63aa4"><span class="section-number-2">7</span> 主键约束</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 主键，primary key，从性能和实际出发，应该遵循下面几点:
@@ -631,107 +631,107 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
 </div>
 </section>
 
-<section id="outline-container-org80a8b26" class="outline-2">
-<h2 id="org80a8b26"><span class="section-number-2">8</span> 表的修改</h2>
+<section id="outline-container-org4fc38f3" class="outline-2">
+<h2 id="org4fc38f3"><span class="section-number-2">8</span> 表的修改</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 基本语法:
 </p>
 <div class="org-src-container">
-<pre class="src src-sql"><span class="org-keyword">ALTER</span> [ONLINE|OFFLINE] [<span class="org-keyword">IGNORE</span>] <span class="org-keyword">TABLE</span> tbl_name
+<pre class="src src-sql"><span class="org-builtin">ALTER</span> [ONLINE|OFFLINE] [<span class="org-builtin">IGNORE</span>] <span class="org-keyword">TABLE</span> tbl_name
     [alter_specification [, alter_specification] ...]
     [partition_options]
 
 alter_specification:
     table_options
-  | <span class="org-keyword">ADD</span> [<span class="org-keyword">COLUMN</span>] col_name column_definition
-        [<span class="org-keyword">FIRST</span> | <span class="org-keyword">AFTER</span> col_name]
-  | <span class="org-keyword">ADD</span> [<span class="org-keyword">COLUMN</span>] (col_name column_definition,...)
+  | <span class="org-builtin">ADD</span> [<span class="org-keyword">COLUMN</span>] col_name column_definition
+        [<span class="org-builtin">FIRST</span> | <span class="org-builtin">AFTER</span> col_name]
+  | <span class="org-builtin">ADD</span> [<span class="org-keyword">COLUMN</span>] (col_name column_definition,...)
 
-  | <span class="org-keyword">ADD</span> {INDEX|<span class="org-keyword">KEY</span>} [index_name]
+  | <span class="org-builtin">ADD</span> {<span class="org-builtin">INDEX</span>|<span class="org-builtin">KEY</span>} [index_name]
         [index_type] (key_part,...) [index_option] ...
-  | <span class="org-keyword">ADD</span> [<span class="org-keyword">CONSTRAINT</span> [symbol]] <span class="org-keyword">PRIMARY</span> <span class="org-keyword">KEY</span>
+  | <span class="org-builtin">ADD</span> [<span class="org-keyword">CONSTRAINT</span> [symbol]] <span class="org-keyword">PRIMARY</span> <span class="org-builtin">KEY</span>
         [index_type] (key_part,...) [index_option] ...
-  | <span class="org-keyword">ADD</span> [<span class="org-keyword">CONSTRAINT</span> [symbol]]
-        <span class="org-keyword">UNIQUE</span> [INDEX|<span class="org-keyword">KEY</span>] [index_name]
+  | <span class="org-builtin">ADD</span> [<span class="org-keyword">CONSTRAINT</span> [symbol]]
+        <span class="org-keyword">UNIQUE</span> [<span class="org-builtin">INDEX</span>|<span class="org-builtin">KEY</span>] [index_name]
         [index_type] (key_part,...) [index_option] ...
-  | <span class="org-keyword">ADD</span> FULLTEXT [INDEX|<span class="org-keyword">KEY</span>] [index_name]
+  | <span class="org-builtin">ADD</span> FULLTEXT [<span class="org-builtin">INDEX</span>|<span class="org-builtin">KEY</span>] [index_name]
         (key_part,...) [index_option] ...
-  | <span class="org-keyword">ADD</span> SPATIAL [INDEX|<span class="org-keyword">KEY</span>] [index_name]
+  | <span class="org-builtin">ADD</span> SPATIAL [<span class="org-builtin">INDEX</span>|<span class="org-builtin">KEY</span>] [index_name]
         (key_part,...) [index_option] ...
-  | <span class="org-keyword">ADD</span> [<span class="org-keyword">CONSTRAINT</span> [symbol]]
-        <span class="org-keyword">FOREIGN</span> <span class="org-keyword">KEY</span> [index_name] (col_name,...)
+  | <span class="org-builtin">ADD</span> [<span class="org-keyword">CONSTRAINT</span> [symbol]]
+        <span class="org-keyword">FOREIGN</span> <span class="org-builtin">KEY</span> [index_name] (col_name,...)
         reference_definition
-  | ALGORITHM [=] {<span class="org-keyword">DEFAULT</span>|INPLACE|COPY}
-  | <span class="org-keyword">ALTER</span> [<span class="org-keyword">COLUMN</span>] col_name {<span class="org-keyword">SET</span> <span class="org-keyword">DEFAULT</span> literal | <span class="org-keyword">DROP</span> <span class="org-keyword">DEFAULT</span>}
+  | ALGORITHM [=] {<span class="org-keyword">DEFAULT</span>|INPLACE|<span class="org-builtin">COPY</span>}
+  | <span class="org-builtin">ALTER</span> [<span class="org-keyword">COLUMN</span>] col_name {<span class="org-builtin">SET</span> <span class="org-keyword">DEFAULT</span> literal | <span class="org-builtin">DROP</span> <span class="org-keyword">DEFAULT</span>}
   | CHANGE [<span class="org-keyword">COLUMN</span>] old_col_name new_col_name column_definition
-        [<span class="org-keyword">FIRST</span>|<span class="org-keyword">AFTER</span> col_name]
-  | [<span class="org-keyword">DEFAULT</span>] <span class="org-type">CHARACTER</span> <span class="org-keyword">SET</span> [=] charset_name [<span class="org-keyword">COLLATE</span> [=] <span class="org-keyword">collation_name</span>]
-  | <span class="org-builtin">CONVERT</span> <span class="org-keyword">TO</span> <span class="org-type">CHARACTER</span> <span class="org-keyword">SET</span> charset_name [<span class="org-keyword">COLLATE</span> <span class="org-keyword">collation_name</span>]
-  | {DISABLE|ENABLE} KEYS
-  | {DISCARD|IMPORT} TABLESPACE
+        [<span class="org-builtin">FIRST</span>|<span class="org-builtin">AFTER</span> col_name]
+  | [<span class="org-keyword">DEFAULT</span>] <span class="org-type">CHARACTER</span> <span class="org-builtin">SET</span> [=] charset_name [<span class="org-keyword">COLLATE</span> [=] <span class="org-builtin">collation_name</span>]
+  | <span class="org-builtin">CONVERT</span> <span class="org-keyword">TO</span> <span class="org-type">CHARACTER</span> <span class="org-builtin">SET</span> charset_name [<span class="org-keyword">COLLATE</span> <span class="org-builtin">collation_name</span>]
+  | {<span class="org-builtin">DISABLE</span>|<span class="org-builtin">ENABLE</span>} KEYS
+  | {<span class="org-builtin">DISCARD</span>|<span class="org-builtin">IMPORT</span>} <span class="org-builtin">TABLESPACE</span>
 
-  | <span class="org-keyword">DROP</span> [<span class="org-keyword">COLUMN</span>] col_name
-  | <span class="org-keyword">DROP</span> {INDEX|<span class="org-keyword">KEY</span>} index_name
-  | <span class="org-keyword">DROP</span> <span class="org-keyword">PRIMARY</span> <span class="org-keyword">KEY</span>
-  | <span class="org-keyword">DROP</span> <span class="org-keyword">FOREIGN</span> <span class="org-keyword">KEY</span> fk_symbol
+  | <span class="org-builtin">DROP</span> [<span class="org-keyword">COLUMN</span>] col_name
+  | <span class="org-builtin">DROP</span> {<span class="org-builtin">INDEX</span>|<span class="org-builtin">KEY</span>} index_name
+  | <span class="org-builtin">DROP</span> <span class="org-keyword">PRIMARY</span> <span class="org-builtin">KEY</span>
+  | <span class="org-builtin">DROP</span> <span class="org-keyword">FOREIGN</span> <span class="org-builtin">KEY</span> fk_symbol
 
-  | FORCE
-  | LOCK [=] {<span class="org-keyword">DEFAULT</span>|<span class="org-keyword">NONE</span>|SHARED|EXCLUSIVE}
-  | <span class="org-keyword">MODIFY</span> [<span class="org-keyword">COLUMN</span>] col_name column_definition
-        [<span class="org-keyword">FIRST</span> | <span class="org-keyword">AFTER</span> col_name]
-  | <span class="org-keyword">ORDER</span> <span class="org-keyword">BY</span> col_name [, col_name] ...
-  | RENAME [<span class="org-keyword">TO</span>|<span class="org-keyword">AS</span>] new_tbl_name
-  | <span class="org-keyword">ADD</span> PARTITION (partition_definition)
-  | <span class="org-keyword">DROP</span> PARTITION partition_names
-  | TRUNCATE PARTITION {partition_names | <span class="org-keyword">ALL</span>}
-  | <span class="org-builtin">COALESCE</span> PARTITION <span class="org-keyword">number</span>
-  | REORGANIZE PARTITION partition_names <span class="org-keyword">INTO</span> (partition_definitions)
-  | EXCHANGE PARTITION partition_name <span class="org-keyword">WITH</span> <span class="org-keyword">TABLE</span> tbl_name
-  | ANALYZE PARTITION {partition_names | <span class="org-keyword">ALL</span>}
-  | <span class="org-keyword">CHECK</span> PARTITION {partition_names | <span class="org-keyword">ALL</span>}
-  | OPTIMIZE PARTITION {partition_names | <span class="org-keyword">ALL</span>}
-  | REBUILD PARTITION {partition_names | <span class="org-keyword">ALL</span>}
-  | REPAIR PARTITION {partition_names | <span class="org-keyword">ALL</span>}
+  | <span class="org-builtin">FORCE</span>
+  | <span class="org-builtin">LOCK</span> [=] {<span class="org-keyword">DEFAULT</span>|<span class="org-builtin">NONE</span>|SHARED|<span class="org-builtin">EXCLUSIVE</span>}
+  | <span class="org-builtin">MODIFY</span> [<span class="org-keyword">COLUMN</span>] col_name column_definition
+        [<span class="org-builtin">FIRST</span> | <span class="org-builtin">AFTER</span> col_name]
+  | <span class="org-keyword">ORDER</span> <span class="org-builtin">BY</span> col_name [, col_name] ...
+  | <span class="org-builtin">RENAME</span> [<span class="org-keyword">TO</span>|<span class="org-keyword">AS</span>] new_tbl_name
+  | <span class="org-builtin">ADD</span> <span class="org-builtin">PARTITION</span> (partition_definition)
+  | <span class="org-builtin">DROP</span> <span class="org-builtin">PARTITION</span> partition_names
+  | <span class="org-builtin">TRUNCATE</span> <span class="org-builtin">PARTITION</span> {partition_names | <span class="org-keyword">ALL</span>}
+  | <span class="org-builtin">COALESCE</span> <span class="org-builtin">PARTITION</span> <span class="org-builtin">number</span>
+  | REORGANIZE <span class="org-builtin">PARTITION</span> partition_names <span class="org-keyword">INTO</span> (partition_definitions)
+  | EXCHANGE <span class="org-builtin">PARTITION</span> partition_name <span class="org-keyword">WITH</span> <span class="org-keyword">TABLE</span> tbl_name
+  | <span class="org-keyword">ANALYZE</span> <span class="org-builtin">PARTITION</span> {partition_names | <span class="org-keyword">ALL</span>}
+  | <span class="org-keyword">CHECK</span> <span class="org-builtin">PARTITION</span> {partition_names | <span class="org-keyword">ALL</span>}
+  | OPTIMIZE <span class="org-builtin">PARTITION</span> {partition_names | <span class="org-keyword">ALL</span>}
+  | REBUILD <span class="org-builtin">PARTITION</span> {partition_names | <span class="org-keyword">ALL</span>}
+  | REPAIR <span class="org-builtin">PARTITION</span> {partition_names | <span class="org-keyword">ALL</span>}
   | REMOVE PARTITIONING
 
 key_part:
-    col_name [(<span class="org-keyword">length</span>)] [<span class="org-keyword">ASC</span> | <span class="org-keyword">DESC</span>]
+    col_name [(<span class="org-builtin">length</span>)] [<span class="org-keyword">ASC</span> | <span class="org-keyword">DESC</span>]
 
 index_type:
     <span class="org-keyword">USING</span> {BTREE | HASH}
 
 index_option:
-    KEY_BLOCK_SIZE [=] <span class="org-keyword">value</span>
+    KEY_BLOCK_SIZE [=] <span class="org-builtin">value</span>
   | index_type
-  | <span class="org-keyword">WITH</span> PARSER parser_name
-  | COMMENT <span class="org-string">'string'</span>
+  | <span class="org-keyword">WITH</span> <span class="org-builtin">PARSER</span> parser_name
+  | <span class="org-builtin">COMMENT</span> <span class="org-string">'string'</span>
 
 table_options:
     table_option [[,] table_option] ...
 
 table_option:
-    AUTO_INCREMENT [=] <span class="org-keyword">value</span>
-  | AVG_ROW_LENGTH [=] <span class="org-keyword">value</span>
-  | [<span class="org-keyword">DEFAULT</span>] <span class="org-type">CHARACTER</span> <span class="org-keyword">SET</span> [=] charset_name
+    AUTO_INCREMENT [=] <span class="org-builtin">value</span>
+  | AVG_ROW_LENGTH [=] <span class="org-builtin">value</span>
+  | [<span class="org-keyword">DEFAULT</span>] <span class="org-type">CHARACTER</span> <span class="org-builtin">SET</span> [=] charset_name
   | CHECKSUM [=] {0 | 1}
-  | [<span class="org-keyword">DEFAULT</span>] <span class="org-keyword">COLLATE</span> [=] <span class="org-keyword">collation_name</span>
-  | COMMENT [=] <span class="org-string">'string'</span>
-  | <span class="org-keyword">CONNECTION</span> [=] <span class="org-string">'connect_string'</span>
-  | {<span class="org-keyword">DATA</span>|INDEX} DIRECTORY [=] <span class="org-string">'absolute path to directory'</span>
+  | [<span class="org-keyword">DEFAULT</span>] <span class="org-keyword">COLLATE</span> [=] <span class="org-builtin">collation_name</span>
+  | <span class="org-builtin">COMMENT</span> [=] <span class="org-string">'string'</span>
+  | <span class="org-builtin">CONNECTION</span> [=] <span class="org-string">'connect_string'</span>
+  | {<span class="org-builtin">DATA</span>|<span class="org-builtin">INDEX</span>} DIRECTORY [=] <span class="org-string">'absolute path to directory'</span>
   | DELAY_KEY_WRITE [=] {0 | 1}
   | ENGINE [=] engine_name
-  | INSERT_METHOD [=] { <span class="org-keyword">NO</span> | <span class="org-keyword">FIRST</span> | <span class="org-keyword">LAST</span> }
-  | KEY_BLOCK_SIZE [=] <span class="org-keyword">value</span>
-  | MAX_ROWS [=] <span class="org-keyword">value</span>
-  | MIN_ROWS [=] <span class="org-keyword">value</span>
+  | INSERT_METHOD [=] { <span class="org-builtin">NO</span> | <span class="org-builtin">FIRST</span> | <span class="org-builtin">LAST</span> }
+  | KEY_BLOCK_SIZE [=] <span class="org-builtin">value</span>
+  | MAX_ROWS [=] <span class="org-builtin">value</span>
+  | MIN_ROWS [=] <span class="org-builtin">value</span>
   | PACK_KEYS [=] {0 | 1 | <span class="org-keyword">DEFAULT</span>}
-  | PASSWORD [=] <span class="org-string">'string'</span>
-  | ROW_FORMAT [=] {<span class="org-keyword">DEFAULT</span>|<span class="org-keyword">DYNAMIC</span>|FIXED|COMPRESSED|REDUNDANT|COMPACT}
+  | <span class="org-builtin">PASSWORD</span> [=] <span class="org-string">'string'</span>
+  | ROW_FORMAT [=] {<span class="org-keyword">DEFAULT</span>|<span class="org-builtin">DYNAMIC</span>|FIXED|COMPRESSED|REDUNDANT|COMPACT}
   | STATS_AUTO_RECALC [=] {<span class="org-keyword">DEFAULT</span>|0|1}
   | STATS_PERSISTENT [=] {<span class="org-keyword">DEFAULT</span>|0|1}
-  | STATS_SAMPLE_PAGES [=] <span class="org-keyword">value</span>
-  | TABLESPACE tablespace_name [STORAGE {DISK|MEMORY|<span class="org-keyword">DEFAULT</span>}]
+  | STATS_SAMPLE_PAGES [=] <span class="org-builtin">value</span>
+  | <span class="org-builtin">TABLESPACE</span> tablespace_name [<span class="org-builtin">STORAGE</span> {DISK|MEMORY|<span class="org-keyword">DEFAULT</span>}]
   | <span class="org-keyword">UNION</span> [=] (tbl_name[,tbl_name]...)
 </pre>
 </div>
@@ -741,37 +741,37 @@ table_option:
 </p>
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-comment">-- &#28155;&#21152;&#21015;</span>
-<span class="org-keyword">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">person</span> <span class="org-keyword">add</span> <span class="org-keyword">column</span> qq <span class="org-type">varchar</span>(20);
-<span class="org-keyword">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">person</span> <span class="org-keyword">add</span> qq <span class="org-type">varchar</span>(20); <span class="org-comment">-- &#21487;&#20197;&#21435;&#25481; column &#20851;&#38190;&#35789;</span>
-<span class="org-keyword">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">person</span> <span class="org-keyword">add</span> tel <span class="org-type">varchar</span>(20) <span class="org-keyword">after</span> gender; <span class="org-comment">-- &#25351;&#23450;&#20301;&#32622;</span>
-<span class="org-keyword">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">person</span> <span class="org-keyword">add</span> (xxx <span class="org-type">int</span>, yyy <span class="org-type">int</span>);
+<span class="org-builtin">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">person</span> <span class="org-builtin">add</span> <span class="org-keyword">column</span> qq <span class="org-type">varchar</span>(20);
+<span class="org-builtin">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">person</span> <span class="org-builtin">add</span> qq <span class="org-type">varchar</span>(20); <span class="org-comment">-- &#21487;&#20197;&#21435;&#25481; column &#20851;&#38190;&#35789;</span>
+<span class="org-builtin">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">person</span> <span class="org-builtin">add</span> tel <span class="org-type">varchar</span>(20) <span class="org-builtin">after</span> gender; <span class="org-comment">-- &#25351;&#23450;&#20301;&#32622;</span>
+<span class="org-builtin">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">person</span> <span class="org-builtin">add</span> (xxx <span class="org-type">int</span>, yyy <span class="org-type">int</span>);
 
 <span class="org-comment">-- &#20462;&#25913;&#21015;</span>
-<span class="org-keyword">ALTER</span> <span class="org-keyword">TABLE</span> <span class="org-function-name">t2</span> <span class="org-keyword">MODIFY</span> a TINYINT <span class="org-keyword">NOT</span> <span class="org-keyword">NULL</span>, CHANGE b c <span class="org-type">CHAR</span>(20);
+<span class="org-builtin">ALTER</span> <span class="org-keyword">TABLE</span> <span class="org-function-name">t2</span> <span class="org-builtin">MODIFY</span> <span class="org-builtin">a</span> TINYINT <span class="org-keyword">NOT</span> <span class="org-keyword">NULL</span>, CHANGE b <span class="org-builtin">c</span> <span class="org-type">CHAR</span>(20);
 
 
 <span class="org-comment">-- &#21024;&#38500;&#20027;&#38190;</span>
-<span class="org-keyword">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">person</span> change id id <span class="org-type">int</span>; <span class="org-comment">-- &#38656;&#35201;&#23558; auto_increment &#21435;&#25481;</span>
-<span class="org-keyword">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">person</span> <span class="org-keyword">drop</span> <span class="org-keyword">primary</span> <span class="org-keyword">key</span>;
+<span class="org-builtin">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">person</span> change <span class="org-builtin">id</span> <span class="org-builtin">id</span> <span class="org-type">int</span>; <span class="org-comment">-- &#38656;&#35201;&#23558; auto_increment &#21435;&#25481;</span>
+<span class="org-builtin">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">person</span> <span class="org-builtin">drop</span> <span class="org-keyword">primary</span> <span class="org-builtin">key</span>;
 
 <span class="org-comment">-- &#22686;&#21152;&#20027;&#38190;</span>
-<span class="org-keyword">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">person</span> <span class="org-keyword">add</span> <span class="org-keyword">primary</span> <span class="org-keyword">key</span> (id);
+<span class="org-builtin">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">person</span> <span class="org-builtin">add</span> <span class="org-keyword">primary</span> <span class="org-builtin">key</span> (<span class="org-builtin">id</span>);
 <span class="org-comment">-- &#22686;&#21152;/&#21024;&#38500;&#22806;&#38190;</span>
-<span class="org-keyword">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">book</span> 
-   <span class="org-keyword">add</span> <span class="org-keyword">constraint</span> fk_authorid
-   <span class="org-keyword">foreign</span> <span class="org-keyword">key</span> (authorid)
+<span class="org-builtin">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">book</span> 
+   <span class="org-builtin">add</span> <span class="org-keyword">constraint</span> fk_authorid
+   <span class="org-keyword">foreign</span> <span class="org-builtin">key</span> (authorid)
    <span class="org-keyword">references</span> author (authorid);
 <span class="org-comment">-- &#22686;&#21152;/&#21024;&#38500;&#32034;&#24341;</span>
-<span class="org-keyword">ALTER</span> <span class="org-keyword">TABLE</span> <span class="org-function-name">t2</span> <span class="org-keyword">ADD</span> INDEX (d), <span class="org-keyword">ADD</span> <span class="org-keyword">UNIQUE</span> (a);
+<span class="org-builtin">ALTER</span> <span class="org-keyword">TABLE</span> <span class="org-function-name">t2</span> <span class="org-builtin">ADD</span> <span class="org-builtin">INDEX</span> (d), <span class="org-builtin">ADD</span> <span class="org-keyword">UNIQUE</span> (<span class="org-builtin">a</span>);
 <span class="org-comment">-- &#37325;&#21629;&#21517;</span>
-<span class="org-keyword">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">rename</span> <span class="org-keyword">to</span> people;
+<span class="org-builtin">alter</span> <span class="org-keyword">table</span> <span class="org-builtin">rename</span> <span class="org-keyword">to</span> people;
 </pre>
 </div>
 </div>
 </section>
 
-<section id="outline-container-org7ad672a" class="outline-2">
-<h2 id="org7ad672a"><span class="section-number-2">9</span> 引擎(Engine)</h2>
+<section id="outline-container-orgee513d6" class="outline-2">
+<h2 id="orgee513d6"><span class="section-number-2">9</span> 引擎(Engine)</h2>
 <div class="outline-text-2" id="text-9">
 <ul class="org-ul">
 <li><p>
@@ -795,48 +795,48 @@ create table xxx (id int) engine=MyISAM;
 事务相关的语法有:
 </p>
 <div class="org-src-container">
-<pre class="src src-sql"><span class="org-keyword">start</span> <span class="org-keyword">transaction</span>; <span class="org-comment">-- begin;</span>
-<span class="org-keyword">savepoint</span> xxx;     <span class="org-comment">-- &#23384;&#26723;</span>
-<span class="org-keyword">rollback</span>;          <span class="org-comment">-- &#22238;&#28378;</span>
-<span class="org-keyword">rollback</span> <span class="org-keyword">to</span> xxx;   <span class="org-comment">-- &#22238;&#26723;&#21040;&#26576;&#20010;&#20445;&#23384;&#28857;</span>
-<span class="org-keyword">commit</span>;            <span class="org-comment">-- &#25552;&#20132;&#20107;&#21153;</span>
+<pre class="src src-sql"><span class="org-builtin">start</span> <span class="org-builtin">transaction</span>; <span class="org-comment">-- begin;</span>
+<span class="org-builtin">savepoint</span> xxx;     <span class="org-comment">-- &#23384;&#26723;</span>
+<span class="org-builtin">rollback</span>;          <span class="org-comment">-- &#22238;&#28378;</span>
+<span class="org-builtin">rollback</span> <span class="org-keyword">to</span> xxx;   <span class="org-comment">-- &#22238;&#26723;&#21040;&#26576;&#20010;&#20445;&#23384;&#28857;</span>
+<span class="org-builtin">commit</span>;            <span class="org-comment">-- &#25552;&#20132;&#20107;&#21153;</span>
 
 
 <span class="org-comment">-- &#21019;&#34920;</span>
-<span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">xxx_inno</span> (id <span class="org-type">int</span>) engine=InnoDB;
-<span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">xxx_isam</span> (id <span class="org-type">int</span>) engine=MyISAM;
+<span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">xxx_inno</span> (<span class="org-builtin">id</span> <span class="org-type">int</span>) engine=InnoDB;
+<span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">xxx_isam</span> (<span class="org-builtin">id</span> <span class="org-type">int</span>) engine=MyISAM;
 <span class="org-comment">-- &#26597;&#30475;</span>
-show <span class="org-keyword">create</span> <span class="org-keyword">table</span> xxx_inno;
-show <span class="org-keyword">create</span> <span class="org-keyword">table</span> xxx_isam;
+<span class="org-builtin">show</span> <span class="org-keyword">create</span> <span class="org-keyword">table</span> xxx_inno;
+<span class="org-builtin">show</span> <span class="org-keyword">create</span> <span class="org-keyword">table</span> xxx_isam;
 
 
 
 <span class="org-comment">-- &#26597;&#30475; xxx_inno &#30340;&#20107;&#21153;&#25903;&#25345;&#24773;&#20917;</span>
 <span class="org-comment">-- &#39318;&#20808;&#65292;&#24320;&#21551;&#20107;&#21153;</span>
-<span class="org-keyword">start</span> <span class="org-keyword">transaction</span>;
+<span class="org-builtin">start</span> <span class="org-builtin">transaction</span>;
 <span class="org-comment">-- &#28982;&#21518;&#65292;&#25554;&#20837;&#25968;&#25454;</span>
-<span class="org-keyword">insert</span> <span class="org-keyword">into</span> xxx_inno <span class="org-keyword">values</span> (111);
-<span class="org-keyword">insert</span> <span class="org-keyword">into</span> xxx_inno <span class="org-keyword">values</span> (222);
+<span class="org-builtin">insert</span> <span class="org-keyword">into</span> xxx_inno <span class="org-builtin">values</span> (111);
+<span class="org-builtin">insert</span> <span class="org-keyword">into</span> xxx_inno <span class="org-builtin">values</span> (222);
 <span class="org-comment">-- &#29616;&#22312;&#65292;&#22312;&#20854;&#20182;&#30340;&#36830;&#25509;&#20013;&#65292;&#26159;&#26597;&#35810;&#19981;&#21040;&#36825;&#25968;&#25454;&#30340;</span>
 <span class="org-keyword">select</span> * <span class="org-keyword">from</span> xxx_inno;
 <span class="org-comment">-- &#24314;&#31435;&#20445;&#23384;&#28857;(&#23384;&#26723;)</span>
-<span class="org-keyword">savepoint</span> s1;
+<span class="org-builtin">savepoint</span> s1;
 <span class="org-comment">-- &#20877;&#25554;&#20837;&#26356;&#22810;&#25968;&#25454;</span>
-<span class="org-keyword">insert</span> <span class="org-keyword">into</span> xxx_inno <span class="org-keyword">values</span> (333);
+<span class="org-builtin">insert</span> <span class="org-keyword">into</span> xxx_inno <span class="org-builtin">values</span> (333);
 <span class="org-comment">-- &#29616;&#22312;&#65292;&#22312;&#24403;&#21069;&#20107;&#21153;&#20013;&#65292;&#21487;&#20197;&#26597;&#21040;3&#26465;&#25968;&#25454;</span>
 <span class="org-keyword">select</span> * <span class="org-keyword">from</span> xxx_inno;
 <span class="org-comment">-- &#20351;&#29992; rollback &#22238;&#26723;&#65292;&#23558;&#22238;&#21040;&#25554;&#20837; 333 &#21069;&#30340;&#29366;&#24577;</span>
-<span class="org-keyword">rollback</span> <span class="org-keyword">to</span> s1;
+<span class="org-builtin">rollback</span> <span class="org-keyword">to</span> s1;
 <span class="org-comment">-- &#25552;&#20132;&#20107;&#21153;</span>
-<span class="org-keyword">commit</span>;  
+<span class="org-builtin">commit</span>;  
 <span class="org-comment">-- &#29616;&#22312;&#65292;&#22312;&#20854;&#20182;&#30340;&#36830;&#25509;&#20013;&#65292;&#23601;&#33021;&#26597;&#35810;&#21040;&#36825;&#20123;&#25968;&#25454;&#20102;</span>
 <span class="org-keyword">select</span> * <span class="org-keyword">from</span> xxx_inno;
 
 
 
 <span class="org-comment">-- &#26597;&#30475; xxx_isam &#30340;&#20107;&#21153;&#25903;&#25345;&#24773;&#20917;</span>
-<span class="org-keyword">start</span> <span class="org-keyword">transaction</span>;
-<span class="org-keyword">insert</span> <span class="org-keyword">into</span> xxx_isam <span class="org-keyword">values</span> (666);
+<span class="org-builtin">start</span> <span class="org-builtin">transaction</span>;
+<span class="org-builtin">insert</span> <span class="org-keyword">into</span> xxx_isam <span class="org-builtin">values</span> (666);
 <span class="org-comment">-- &#22312;&#27809;&#26377; commit &#30340;&#26102;&#20505;&#65292;&#22312;&#20854;&#20182;&#36830;&#25509;&#20013;&#31455;&#28982;&#33021;&#26597;&#35810;&#36825;&#25968;&#25454;</span>
 <span class="org-comment">-- &#35828;&#26126; MyISAM &#26159;&#19981;&#25903;&#25345;&#20107;&#21153;&#30340;</span>
 <span class="org-keyword">select</span> * <span class="org-keyword">from</span> xxx_isam;
@@ -845,8 +845,8 @@ show <span class="org-keyword">create</span> <span class="org-keyword">table</sp
 </div>
 </section>
 
-<section id="outline-container-orgbb29c7c" class="outline-2">
-<h2 id="orgbb29c7c"><span class="section-number-2">10</span> 存储过程</h2>
+<section id="outline-container-org6c3516e" class="outline-2">
+<h2 id="org6c3516e"><span class="section-number-2">10</span> 存储过程</h2>
 <div class="outline-text-2" id="text-10">
 <p>
 [WARNNING] 存储过程不建议使用:
@@ -859,24 +859,24 @@ show <span class="org-keyword">create</span> <span class="org-keyword">table</sp
 </ol>
 </div>
 
-<div id="outline-container-org8836c4c" class="outline-3">
-<h3 id="org8836c4c"><span class="section-number-3">10.1</span> 基本语句</h3>
+<div id="outline-container-org8498452" class="outline-3">
+<h3 id="org8498452"><span class="section-number-3">10.1</span> 基本语句</h3>
 <div class="outline-text-3" id="text-10-1">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-comment">-- &#23384;&#20648;&#36807;&#31243;&#30340;&#23450;&#20041;</span>
-delimiter //                   <span class="org-comment">-- &#20351;&#29992; delimiter &#25351;&#20196;&#65292;&#23558;&#40664;&#35748;&#30340;&#20998;&#38548;&#31526;(;)&#25442;&#20026;&#25105;&#20204;&#33258;&#23450;&#20041;&#30340;&#20998;&#38548;&#31526;</span>
-<span class="org-keyword">create</span> <span class="org-keyword">procedure</span> <span class="org-function-name">ppx1</span> (p <span class="org-type">int</span>)  <span class="org-comment">-- &#21019;&#24314;&#23384;&#20648;&#36807;&#31243;&#65292;&#21517;&#23383; ppx1, &#19968;&#20010;&#20837;&#21442; int &#31867;&#22411;&#30340; p</span>
-<span class="org-keyword">begin</span>                          <span class="org-comment">-- &#20351;&#29992; begin &#36319; end &#23558;&#25152;&#26377;&#35821;&#21477;&#21253;&#25324;&#36215;&#26469;&#65292;&#30456;&#24403;&#20110; {}</span>
-    <span class="org-keyword">set</span> @x = 0;                <span class="org-comment">-- set &#26159;&#29992;&#26469;&#23450;&#20041;&#25110;&#32773;&#35774;&#32622;&#21464;&#37327;&#30340;&#20540;&#30340;&#65292;&#29992;&#25143;&#32423;&#21035;&#30340;&#21464;&#37327;&#65292;&#38656;&#35201;&#20351;&#29992; @ &#20316;&#20026;&#21069;&#32512;</span>
+<span class="org-builtin">delimiter</span> //                   <span class="org-comment">-- &#20351;&#29992; delimiter &#25351;&#20196;&#65292;&#23558;&#40664;&#35748;&#30340;&#20998;&#38548;&#31526;(;)&#25442;&#20026;&#25105;&#20204;&#33258;&#23450;&#20041;&#30340;&#20998;&#38548;&#31526;</span>
+<span class="org-keyword">create</span> <span class="org-builtin">procedure</span> <span class="org-function-name">ppx1</span> (<span class="org-builtin">p</span> <span class="org-type">int</span>)  <span class="org-comment">-- &#21019;&#24314;&#23384;&#20648;&#36807;&#31243;&#65292;&#21517;&#23383; ppx1, &#19968;&#20010;&#20837;&#21442; int &#31867;&#22411;&#30340; p</span>
+<span class="org-builtin">begin</span>                          <span class="org-comment">-- &#20351;&#29992; begin &#36319; end &#23558;&#25152;&#26377;&#35821;&#21477;&#21253;&#25324;&#36215;&#26469;&#65292;&#30456;&#24403;&#20110; {}</span>
+    <span class="org-builtin">set</span> @x = 0;                <span class="org-comment">-- set &#26159;&#29992;&#26469;&#23450;&#20041;&#25110;&#32773;&#35774;&#32622;&#21464;&#37327;&#30340;&#20540;&#30340;&#65292;&#29992;&#25143;&#32423;&#21035;&#30340;&#21464;&#37327;&#65292;&#38656;&#35201;&#20351;&#29992; @ &#20316;&#20026;&#21069;&#32512;</span>
 
     repeat                     <span class="org-comment">-- repeat .. until .. end repeat &#36825;&#26159;&#20351;&#29992;&#24490;&#29615;&#30340;&#20854;&#20013;&#19968;&#31181;&#26041;&#24335;</span>
-      <span class="org-keyword">set</span> @x = @x + 1;         <span class="org-comment">-- &#22312;&#24490;&#29615;&#20307;&#20013;&#65292;&#25105;&#20204;&#23601;&#21487;&#20197;&#36827;&#34892;&#25105;&#20204;&#19981;&#26029;&#37325;&#22797;&#30340;&#19994;&#21153;&#12289;&#20107;&#24773;&#20102;</span>
-    until @x &gt; p <span class="org-keyword">end</span> repeat;   <span class="org-comment">-- &#20351;&#29992; until &#34920;&#31034;&#24490;&#29615;&#32467;&#26463;&#30340;&#26465;&#20214;&#12290;&#31867;&#20284;&#20110; while &#24490;&#29615;&#20013;&#30340; break</span>
+      <span class="org-builtin">set</span> @x = @x + 1;         <span class="org-comment">-- &#22312;&#24490;&#29615;&#20307;&#20013;&#65292;&#25105;&#20204;&#23601;&#21487;&#20197;&#36827;&#34892;&#25105;&#20204;&#19981;&#26029;&#37325;&#22797;&#30340;&#19994;&#21153;&#12289;&#20107;&#24773;&#20102;</span>
+    <span class="org-builtin">until</span> @x &gt; <span class="org-builtin">p</span> <span class="org-keyword">end</span> repeat;   <span class="org-comment">-- &#20351;&#29992; until &#34920;&#31034;&#24490;&#29615;&#32467;&#26463;&#30340;&#26465;&#20214;&#12290;&#31867;&#20284;&#20110; while &#24490;&#29615;&#20013;&#30340; break</span>
 <span class="org-keyword">end</span>
-delimiter ;                    <span class="org-comment">-- &#36807;&#31243;&#23450;&#20041;&#23436;&#25104;&#21518;&#65292;&#38656;&#35201;&#23558;&#20998;&#38548;&#31526;&#36824;&#21407;&#20026;&#40664;&#35748;(;)</span>
+<span class="org-builtin">delimiter</span> ;                    <span class="org-comment">-- &#36807;&#31243;&#23450;&#20041;&#23436;&#25104;&#21518;&#65292;&#38656;&#35201;&#23558;&#20998;&#38548;&#31526;&#36824;&#21407;&#20026;&#40664;&#35748;(;)</span>
 
 <span class="org-comment">-- &#35843;&#29992;&#23384;&#20648;&#36807;&#31243;</span>
-<span class="org-keyword">call</span> ppx1(100);
+<span class="org-builtin">call</span> ppx1(100);
 
 <span class="org-comment">-- &#26597;&#30475;&#29992;&#25143;&#23450;&#20041;&#21464;&#37327;&#30340;&#20540;</span>
 <span class="org-keyword">select</span> @x;
@@ -887,23 +887,23 @@ delimiter ;                    <span class="org-comment">-- &#36807;&#31243;&#23
 求和 1-n:
 </p>
 <div class="org-src-container">
-<pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">procedure</span> <span class="org-function-name">sum2</span> (y <span class="org-type">int</span>)
-<span class="org-keyword">begin</span>
-  <span class="org-keyword">declare</span> x <span class="org-type">int</span>;  <span class="org-comment">-- &#22768;&#26126;&#23616;&#37096;&#21464;&#37327;</span>
-  <span class="org-keyword">set</span> x = 0;      <span class="org-comment">-- &#20026;&#23616;&#37096;&#21464;&#37327;&#36171;&#20540;</span>
-  <span class="org-keyword">set</span> @<span class="org-builtin">sum</span> = 0;
+<pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-builtin">procedure</span> <span class="org-function-name">sum2</span> (y <span class="org-type">int</span>)
+<span class="org-builtin">begin</span>
+  <span class="org-builtin">declare</span> x <span class="org-type">int</span>;  <span class="org-comment">-- &#22768;&#26126;&#23616;&#37096;&#21464;&#37327;</span>
+  <span class="org-builtin">set</span> x = 0;      <span class="org-comment">-- &#20026;&#23616;&#37096;&#21464;&#37327;&#36171;&#20540;</span>
+  <span class="org-builtin">set</span> @<span class="org-builtin">sum</span> = 0;
   repeat
-  <span class="org-keyword">set</span> x = x + 1;
-  <span class="org-keyword">set</span> @<span class="org-builtin">sum</span> = @<span class="org-builtin">sum</span> + x;
-  until x &gt;= y <span class="org-keyword">end</span> repeat;
+  <span class="org-builtin">set</span> x = x + 1;
+  <span class="org-builtin">set</span> @<span class="org-builtin">sum</span> = @<span class="org-builtin">sum</span> + x;
+  <span class="org-builtin">until</span> x &gt;= y <span class="org-keyword">end</span> repeat;
 <span class="org-keyword">end</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgf26bc64" class="outline-3">
-<h3 id="orgf26bc64"><span class="section-number-3">10.2</span> 变量定义</h3>
+<div id="outline-container-org4df11de" class="outline-3">
+<h3 id="org4df11de"><span class="section-number-3">10.2</span> 变量定义</h3>
 <div class="outline-text-3" id="text-10-2">
 <p>
 变量分类：
@@ -922,9 +922,9 @@ delimiter ;                    <span class="org-comment">-- &#36807;&#31243;&#23
 全局的(global)
 </p>
 <div class="org-src-container">
-<pre class="src src-sql">show <span class="org-keyword">global</span> variables;
-<span class="org-keyword">set</span> <span class="org-keyword">global</span> default_storage_engine=MyISAM;
-<span class="org-keyword">set</span> @@<span class="org-keyword">global</span>.default_storage_engine=MyISAM;
+<pre class="src src-sql"><span class="org-builtin">show</span> <span class="org-builtin">global</span> variables;
+<span class="org-builtin">set</span> <span class="org-builtin">global</span> default_storage_engine=MyISAM;
+<span class="org-builtin">set</span> @@<span class="org-builtin">global</span>.default_storage_engine=MyISAM;
 </pre>
 </div></li>
 
@@ -932,15 +932,15 @@ delimiter ;                    <span class="org-comment">-- &#36807;&#31243;&#23
 会话的(session)
 </p>
 <div class="org-src-container">
-<pre class="src src-sql">show <span class="org-keyword">session</span> variables;
-show <span class="org-keyword">local</span> variables;
-show variables;
-<span class="org-keyword">set</span> <span class="org-keyword">session</span> default_storage_engine=MyISAM;
-<span class="org-keyword">set</span> <span class="org-keyword">local</span>   default_storage_engine=MyISAM;
-<span class="org-keyword">set</span> @@<span class="org-keyword">session</span>.default_storage_engine=MyISAM;
-<span class="org-keyword">set</span> @@<span class="org-keyword">local</span>.default_storage_engine=MyISAM;
-<span class="org-keyword">set</span> default_storage_engine=MyISAM;
-<span class="org-keyword">set</span> @@default_storage_engine=MyISAM;
+<pre class="src src-sql"><span class="org-builtin">show</span> <span class="org-builtin">session</span> variables;
+<span class="org-builtin">show</span> <span class="org-builtin">local</span> variables;
+<span class="org-builtin">show</span> variables;
+<span class="org-builtin">set</span> <span class="org-builtin">session</span> default_storage_engine=MyISAM;
+<span class="org-builtin">set</span> <span class="org-builtin">local</span>   default_storage_engine=MyISAM;
+<span class="org-builtin">set</span> @@<span class="org-builtin">session</span>.default_storage_engine=MyISAM;
+<span class="org-builtin">set</span> @@<span class="org-builtin">local</span>.default_storage_engine=MyISAM;
+<span class="org-builtin">set</span> default_storage_engine=MyISAM;
+<span class="org-builtin">set</span> @@default_storage_engine=MyISAM;
 </pre>
 </div></li>
 </ol></li>
@@ -949,8 +949,8 @@ show variables;
 </div>
 </div>
 
-<div id="outline-container-orgeaa9d40" class="outline-3">
-<h3 id="orgeaa9d40"><span class="section-number-3">10.3</span> 参数与游标</h3>
+<div id="outline-container-org2a69212" class="outline-3">
+<h3 id="org2a69212"><span class="section-number-3">10.3</span> 参数与游标</h3>
 <div class="outline-text-3" id="text-10-3">
 <p>
 如果让存储过程跟外边进行数据交互，需要用到参数
@@ -960,17 +960,17 @@ show variables;
 第一种，在过程内部使用用户变量 @xxx
 </p>
 <div class="org-src-container">
-<pre class="src src-sql">delimiter //
-<span class="org-keyword">create</span> <span class="org-keyword">procedure</span> <span class="org-function-name">pp1</span> ()
-  <span class="org-keyword">begin</span>
-    <span class="org-keyword">declare</span> v1 <span class="org-type">int</span> <span class="org-keyword">default</span> 100;
+<pre class="src src-sql"><span class="org-builtin">delimiter</span> //
+<span class="org-keyword">create</span> <span class="org-builtin">procedure</span> <span class="org-function-name">pp1</span> ()
+  <span class="org-builtin">begin</span>
+    <span class="org-builtin">declare</span> v1 <span class="org-type">int</span> <span class="org-keyword">default</span> 100;
 
-    <span class="org-keyword">set</span> @aaa = v1*101;
+    <span class="org-builtin">set</span> @aaa = v1*101;
   <span class="org-keyword">end</span> //
-delimiter ;
+<span class="org-builtin">delimiter</span> ;
 
 <span class="org-comment">-- &#35843;&#29992;</span>
-<span class="org-keyword">call</span> pp1();
+<span class="org-builtin">call</span> pp1();
 <span class="org-keyword">select</span> @aaa;
 </pre>
 </div>
@@ -979,17 +979,17 @@ delimiter ;
 另外，可以将表中查询到的数据赋予参数:
 </p>
 <div class="org-src-container">
-<pre class="src src-sql">delimiter //
-<span class="org-keyword">drop</span> <span class="org-keyword">procedure</span> <span class="org-function-name">if</span> <span class="org-keyword">exists</span> pp2;
-<span class="org-keyword">create</span> <span class="org-keyword">procedure</span> <span class="org-function-name">pp2</span> ()
-  <span class="org-keyword">begin</span>
+<pre class="src src-sql"><span class="org-builtin">delimiter</span> //
+<span class="org-builtin">drop</span> <span class="org-builtin">procedure</span> <span class="org-builtin">if</span> <span class="org-builtin">exists</span> pp2;
+<span class="org-keyword">create</span> <span class="org-builtin">procedure</span> <span class="org-function-name">pp2</span> ()
+  <span class="org-builtin">begin</span>
     <span class="org-keyword">select</span> <span class="org-builtin">count</span>(*) <span class="org-keyword">into</span> @bbb <span class="org-keyword">from</span> t_person;
     <span class="org-keyword">select</span> weixin <span class="org-keyword">into</span> @ccc <span class="org-keyword">from</span> t_person <span class="org-keyword">limit</span> 1;
   <span class="org-keyword">end</span> //
-delimiter ;
+<span class="org-builtin">delimiter</span> ;
 
 <span class="org-comment">-- &#35843;&#29992;</span>
-<span class="org-keyword">call</span> pp2();
+<span class="org-builtin">call</span> pp2();
 <span class="org-keyword">select</span> @bbb, @ccc;
 </pre>
 </div>
@@ -998,21 +998,21 @@ delimiter ;
 使用过程内部定义用户变量的方式，容易在调用的时候产生冲突、混淆，所以最好使用外部定义，结合 out/inout 类型参数:
 </p>
 <div class="org-src-container">
-<pre class="src src-sql">delimiter //
-<span class="org-keyword">drop</span> <span class="org-keyword">procedure</span> <span class="org-function-name">if</span> <span class="org-keyword">exists</span> pp3;
-<span class="org-keyword">create</span> <span class="org-keyword">procedure</span> <span class="org-function-name">pp3</span> (<span class="org-keyword">inout</span> bbb <span class="org-type">varchar</span>(30), <span class="org-keyword">inout</span> ccc <span class="org-type">varchar</span>(20)) <span class="org-comment">-- in out in out</span>
-  <span class="org-keyword">begin</span>
-    <span class="org-keyword">insert</span> <span class="org-keyword">into</span> t_person (<span class="org-keyword">name</span>, weixin) <span class="org-keyword">value</span> (bbb, ccc);
+<pre class="src src-sql"><span class="org-builtin">delimiter</span> //
+<span class="org-builtin">drop</span> <span class="org-builtin">procedure</span> <span class="org-builtin">if</span> <span class="org-builtin">exists</span> pp3;
+<span class="org-keyword">create</span> <span class="org-builtin">procedure</span> <span class="org-function-name">pp3</span> (<span class="org-builtin">inout</span> bbb <span class="org-type">varchar</span>(30), <span class="org-builtin">inout</span> ccc <span class="org-type">varchar</span>(20)) <span class="org-comment">-- in out in out</span>
+  <span class="org-builtin">begin</span>
+    <span class="org-builtin">insert</span> <span class="org-keyword">into</span> t_person (<span class="org-type">name</span>, weixin) <span class="org-builtin">value</span> (bbb, ccc);
 
     <span class="org-keyword">select</span> <span class="org-builtin">count</span>(*) <span class="org-keyword">into</span> bbb <span class="org-keyword">from</span> t_person;
     <span class="org-keyword">select</span> weixin <span class="org-keyword">into</span> ccc <span class="org-keyword">from</span> t_person <span class="org-keyword">limit</span> 1;
   <span class="org-keyword">end</span> //
-delimiter ;
+<span class="org-builtin">delimiter</span> ;
 
 <span class="org-comment">-- &#35843;&#29992;</span>
-<span class="org-keyword">set</span> @ddd = <span class="org-string">'3333'</span>;
-<span class="org-keyword">set</span> @eee = <span class="org-string">'sdfsfsd'</span>;
-<span class="org-keyword">call</span> pp3(@ddd, @eee);
+<span class="org-builtin">set</span> @ddd = <span class="org-string">'3333'</span>;
+<span class="org-builtin">set</span> @eee = <span class="org-string">'sdfsfsd'</span>;
+<span class="org-builtin">call</span> pp3(@ddd, @eee);
 <span class="org-keyword">select</span> @ddd, @eee;
 </pre>
 </div>
@@ -1021,60 +1021,60 @@ delimiter ;
 如果需要处理表中的多行数据，就需要用到游标(Cursor):
 </p>
 <div class="org-src-container">
-<pre class="src src-sql">delimiter //
-<span class="org-keyword">drop</span> <span class="org-keyword">procedure</span> <span class="org-function-name">if</span> <span class="org-keyword">exists</span> pp4;
-<span class="org-keyword">create</span> <span class="org-keyword">procedure</span> <span class="org-function-name">pp4</span> (<span class="org-keyword">out</span> <span class="org-builtin">sum</span> bigint)
-  <span class="org-keyword">begin</span>
-    <span class="org-keyword">declare</span> iii <span class="org-type">int</span>;
-    <span class="org-keyword">declare</span> done <span class="org-type">int</span> <span class="org-keyword">default</span> 0;
+<pre class="src src-sql"><span class="org-builtin">delimiter</span> //
+<span class="org-builtin">drop</span> <span class="org-builtin">procedure</span> <span class="org-builtin">if</span> <span class="org-builtin">exists</span> pp4;
+<span class="org-keyword">create</span> <span class="org-builtin">procedure</span> <span class="org-function-name">pp4</span> (<span class="org-builtin">out</span> <span class="org-builtin">sum</span> <span class="org-type">bigint</span>)
+  <span class="org-builtin">begin</span>
+    <span class="org-builtin">declare</span> iii <span class="org-type">int</span>;
+    <span class="org-builtin">declare</span> done <span class="org-type">int</span> <span class="org-keyword">default</span> 0;
 
-    <span class="org-keyword">declare</span> c_person <span class="org-keyword">cursor</span> <span class="org-keyword">for</span> <span class="org-keyword">select</span> weixin <span class="org-keyword">from</span> t_person; <span class="org-comment">-- 1. &#28216;&#26631;&#30340;&#23450;&#20041;</span>
-    <span class="org-keyword">declare</span> <span class="org-keyword">continue</span> handler <span class="org-keyword">for</span> <span class="org-keyword">not</span> <span class="org-keyword">found</span> <span class="org-keyword">set</span> done = 1;     <span class="org-comment">-- &#25429;&#33719;&#31995;&#32479;&#25243;&#20986;&#30340; not found &#38169;&#35823;&#65292;&#22914;&#26524;&#25429;&#33719;&#21040;&#65292;&#23558; done &#35774;&#32622;&#20026; 1</span>
+    <span class="org-builtin">declare</span> c_person <span class="org-builtin">cursor</span> <span class="org-keyword">for</span> <span class="org-keyword">select</span> weixin <span class="org-keyword">from</span> t_person; <span class="org-comment">-- 1. &#28216;&#26631;&#30340;&#23450;&#20041;</span>
+    <span class="org-builtin">declare</span> <span class="org-builtin">continue</span> <span class="org-builtin">handler</span> <span class="org-keyword">for</span> <span class="org-keyword">not</span> <span class="org-builtin">found</span> <span class="org-builtin">set</span> done = 1;     <span class="org-comment">-- &#25429;&#33719;&#31995;&#32479;&#25243;&#20986;&#30340; not found &#38169;&#35823;&#65292;&#22914;&#26524;&#25429;&#33719;&#21040;&#65292;&#23558; done &#35774;&#32622;&#20026; 1</span>
 
-    <span class="org-keyword">set</span> <span class="org-builtin">sum</span> = 0;
-    <span class="org-keyword">open</span> c_person; <span class="org-comment">-- 2. &#25171;&#24320;&#28216;&#26631;</span>
+    <span class="org-builtin">set</span> <span class="org-builtin">sum</span> = 0;
+    <span class="org-builtin">open</span> c_person; <span class="org-comment">-- 2. &#25171;&#24320;&#28216;&#26631;</span>
 
-    xxx:loop
+    xxx:<span class="org-keyword">loop</span>
       <span class="org-keyword">fetch</span> c_person <span class="org-keyword">into</span> iii; <span class="org-comment">-- 3. &#20351;&#29992;&#28216;&#26631;</span>
-      if done = 1 <span class="org-keyword">then</span>   <span class="org-comment">-- 4. &#35774;&#23450;&#36864;&#20986;&#26465;&#20214;</span>
+      <span class="org-builtin">if</span> done = 1 <span class="org-keyword">then</span>   <span class="org-comment">-- 4. &#35774;&#23450;&#36864;&#20986;&#26465;&#20214;</span>
         leave xxx;
-      <span class="org-keyword">end</span> if;
-      <span class="org-keyword">set</span> <span class="org-builtin">sum</span> = <span class="org-builtin">sum</span> + iii;
-    <span class="org-keyword">end</span> loop;
+      <span class="org-keyword">end</span> <span class="org-builtin">if</span>;
+      <span class="org-builtin">set</span> <span class="org-builtin">sum</span> = <span class="org-builtin">sum</span> + iii;
+    <span class="org-keyword">end</span> <span class="org-keyword">loop</span>;
 
-    <span class="org-keyword">close</span> c_person; <span class="org-comment">-- 5. &#20851;&#38381;&#28216;&#26631;</span>
+    <span class="org-builtin">close</span> c_person; <span class="org-comment">-- 5. &#20851;&#38381;&#28216;&#26631;</span>
   <span class="org-keyword">end</span> //
-delimiter ;
+<span class="org-builtin">delimiter</span> ;
 
 <span class="org-comment">-- &#35843;&#29992;</span>
-<span class="org-keyword">set</span> @<span class="org-builtin">sum</span> = 0;
-<span class="org-keyword">call</span> pp4(@<span class="org-builtin">sum</span>);
+<span class="org-builtin">set</span> @<span class="org-builtin">sum</span> = 0;
+<span class="org-builtin">call</span> pp4(@<span class="org-builtin">sum</span>);
 <span class="org-keyword">select</span> @<span class="org-builtin">sum</span>;
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org239fee5" class="outline-3">
-<h3 id="org239fee5"><span class="section-number-3">10.4</span> JDBC 操作存储过程示例</h3>
+<div id="outline-container-org41e981b" class="outline-3">
+<h3 id="org41e981b"><span class="section-number-3">10.4</span> JDBC 操作存储过程示例</h3>
 <div class="outline-text-3" id="text-10-4">
 <p>
 存储过程示例:
 </p>
 <div class="org-src-container">
-<pre class="src src-sql">delimiter //
-<span class="org-keyword">drop</span> <span class="org-keyword">procedure</span> <span class="org-function-name">if</span> <span class="org-keyword">exists</span> pp6;
-<span class="org-keyword">create</span> <span class="org-keyword">procedure</span> <span class="org-function-name">pp6</span> (<span class="org-keyword">inout</span> bbb <span class="org-type">varchar</span>(30), <span class="org-keyword">inout</span> ccc <span class="org-type">varchar</span>(20)) <span class="org-comment">-- in out in out</span>
-  <span class="org-keyword">begin</span>
-    <span class="org-keyword">insert</span> <span class="org-keyword">into</span> t_person (<span class="org-keyword">name</span>, weixin) <span class="org-keyword">value</span> (bbb, ccc);
+<pre class="src src-sql"><span class="org-builtin">delimiter</span> //
+<span class="org-builtin">drop</span> <span class="org-builtin">procedure</span> <span class="org-builtin">if</span> <span class="org-builtin">exists</span> pp6;
+<span class="org-keyword">create</span> <span class="org-builtin">procedure</span> <span class="org-function-name">pp6</span> (<span class="org-builtin">inout</span> bbb <span class="org-type">varchar</span>(30), <span class="org-builtin">inout</span> ccc <span class="org-type">varchar</span>(20)) <span class="org-comment">-- in out in out</span>
+  <span class="org-builtin">begin</span>
+    <span class="org-builtin">insert</span> <span class="org-keyword">into</span> t_person (<span class="org-type">name</span>, weixin) <span class="org-builtin">value</span> (bbb, ccc);
 
     <span class="org-keyword">select</span> <span class="org-builtin">count</span>(*) <span class="org-keyword">into</span> bbb <span class="org-keyword">from</span> t_person;
     <span class="org-keyword">select</span> weixin <span class="org-keyword">into</span> ccc <span class="org-keyword">from</span> t_person <span class="org-keyword">limit</span> 1;
 
     <span class="org-keyword">select</span> * <span class="org-keyword">from</span> lagou_city <span class="org-keyword">where</span> province=<span class="org-string">'&#24191;&#19996;&#30465;'</span>;
-    <span class="org-keyword">select</span> * <span class="org-keyword">from</span> lagou_pos <span class="org-keyword">order</span> <span class="org-keyword">by</span> salary_min <span class="org-keyword">desc</span> <span class="org-keyword">limit</span> 10;
+    <span class="org-keyword">select</span> * <span class="org-keyword">from</span> lagou_pos <span class="org-keyword">order</span> <span class="org-builtin">by</span> salary_min <span class="org-keyword">desc</span> <span class="org-keyword">limit</span> 10;
   <span class="org-keyword">end</span> //
-delimiter ;
+<span class="org-builtin">delimiter</span> ;
 </pre>
 </div>
 
@@ -1125,29 +1125,29 @@ JDBC代码:
 </div>
 </section>
 
-<section id="outline-container-org9af713e" class="outline-2">
-<h2 id="org9af713e"><span class="section-number-2">11</span> 优化(Optimization)</h2>
+<section id="outline-container-org281659a" class="outline-2">
+<h2 id="org281659a"><span class="section-number-2">11</span> 优化(Optimization)</h2>
 <div class="outline-text-2" id="text-11">
 </div>
-<div id="outline-container-org77dabb5" class="outline-3">
-<h3 id="org77dabb5"><span class="section-number-3">11.1</span> 解释计划(Explain)</h3>
+<div id="outline-container-org7a2fe4d" class="outline-3">
+<h3 id="org7a2fe4d"><span class="section-number-3">11.1</span> 解释计划(Explain)</h3>
 <div class="outline-text-3" id="text-11-1">
 <p>
 可以查看数据内部是怎么分析执行相关语句的，根据这些可以对语句进行优化
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sql">explain <span class="org-keyword">select</span> c.city <span class="org-keyword">as</span> city2, p.* <span class="org-keyword">from</span> lagou_pos p
-        <span class="org-keyword">join</span> lagou_city c <span class="org-keyword">on</span> p.city = c.cid
-        <span class="org-keyword">where</span> c.province = <span class="org-string">'&#24191;&#19996;&#30465;'</span>
-    <span class="org-keyword">order</span> <span class="org-keyword">by</span> salary_min <span class="org-keyword">desc</span> <span class="org-keyword">limit</span> 10;
+<pre class="src src-sql"><span class="org-builtin">explain</span> <span class="org-keyword">select</span> <span class="org-builtin">c</span>.city <span class="org-keyword">as</span> city2, <span class="org-builtin">p</span>.* <span class="org-keyword">from</span> lagou_pos <span class="org-builtin">p</span>
+        <span class="org-keyword">join</span> lagou_city <span class="org-builtin">c</span> <span class="org-keyword">on</span> <span class="org-builtin">p</span>.city = <span class="org-builtin">c</span>.cid
+        <span class="org-keyword">where</span> <span class="org-builtin">c</span>.province = <span class="org-string">'&#24191;&#19996;&#30465;'</span>
+    <span class="org-keyword">order</span> <span class="org-builtin">by</span> salary_min <span class="org-keyword">desc</span> <span class="org-keyword">limit</span> 10;
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgac46e82" class="outline-3">
-<h3 id="orgac46e82"><span class="section-number-3">11.2</span> 索引</h3>
+<div id="outline-container-org1fc5557" class="outline-3">
+<h3 id="org1fc5557"><span class="section-number-3">11.2</span> 索引</h3>
 <div class="outline-text-3" id="text-11-2">
 <p>
 索引是跟引擎相关的，索引的主要分类有:
@@ -1165,11 +1165,11 @@ MySQL 不支持函数索引，但是可以支持前缀索引:
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-comment">-- &#21019;&#24314;</span>
 
-<span class="org-keyword">create</span> index idx_pos_city_01 <span class="org-keyword">on</span> lagou_pos(city);  <span class="org-comment">-- &#26222;&#36890;&#32034;&#24341;</span>
-<span class="org-keyword">create</span> <span class="org-keyword">unique</span> index skdfjks <span class="org-keyword">on</span> lagou_pos(pid);    <span class="org-comment">-- &#21807;&#19968;&#32034;&#24341;</span>
+<span class="org-keyword">create</span> <span class="org-builtin">index</span> idx_pos_city_01 <span class="org-keyword">on</span> lagou_pos(city);  <span class="org-comment">-- &#26222;&#36890;&#32034;&#24341;</span>
+<span class="org-keyword">create</span> <span class="org-keyword">unique</span> <span class="org-builtin">index</span> skdfjks <span class="org-keyword">on</span> lagou_pos(pid);    <span class="org-comment">-- &#21807;&#19968;&#32034;&#24341;</span>
 
-<span class="org-keyword">create</span> index idex_city_p01 <span class="org-keyword">on</span> lagou_city (province(2));     <span class="org-comment">-- &#21069;&#32512;&#32034;&#24341;</span>
-<span class="org-keyword">create</span> index idex_city_p01 <span class="org-keyword">on</span> lagou_city (province, city);  <span class="org-comment">-- &#32452;&#21512;&#32034;&#24341;</span>
+<span class="org-keyword">create</span> <span class="org-builtin">index</span> idex_city_p01 <span class="org-keyword">on</span> lagou_city (province(2));     <span class="org-comment">-- &#21069;&#32512;&#32034;&#24341;</span>
+<span class="org-keyword">create</span> <span class="org-builtin">index</span> idex_city_p01 <span class="org-keyword">on</span> lagou_city (province, city);  <span class="org-comment">-- &#32452;&#21512;&#32034;&#24341;</span>
 
 <span class="org-comment">-- &#32034;&#24341;&#30340;&#21019;&#24314;&#21407;&#21017;:</span>
 <span class="org-comment">-- 1. &#39057;&#32321;&#35835;&#21462;&#30340;&#23383;&#27573;&#65292;&#36866;&#21512;&#21019;&#24314;</span>
@@ -1179,23 +1179,23 @@ MySQL 不支持函数索引，但是可以支持前缀索引:
 
 <span class="org-comment">-- &#21024;&#38500;</span>
 
-<span class="org-keyword">drop</span> index idx_pos_city_01 <span class="org-keyword">on</span> lagou_pos;
-<span class="org-keyword">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">lagou_pos</span> <span class="org-keyword">drop</span> index  idx_pos_city_01;
+<span class="org-builtin">drop</span> <span class="org-builtin">index</span> idx_pos_city_01 <span class="org-keyword">on</span> lagou_pos;
+<span class="org-builtin">alter</span> <span class="org-keyword">table</span> <span class="org-function-name">lagou_pos</span> <span class="org-builtin">drop</span> <span class="org-builtin">index</span>  idx_pos_city_01;
 
 <span class="org-comment">-- &#26597;&#30475;&#34920;&#19978;&#30340;&#25152;&#26377;&#32034;&#24341;</span>
-show index <span class="org-keyword">from</span> lagou_pos;
+<span class="org-builtin">show</span> <span class="org-builtin">index</span> <span class="org-keyword">from</span> lagou_pos;
 </pre>
 </div>
 </div>
 </div>
 </section>
 
-<section id="outline-container-org2590135" class="outline-2">
-<h2 id="org2590135"><span class="section-number-2">12</span> UseCases</h2>
+<section id="outline-container-org3862653" class="outline-2">
+<h2 id="org3862653"><span class="section-number-2">12</span> UseCases</h2>
 <div class="outline-text-2" id="text-12">
 </div>
-<div id="outline-container-org1ec1b63" class="outline-3">
-<h3 id="org1ec1b63"><span class="section-number-3">12.1</span> 使用存储过程批量插入数据</h3>
+<div id="outline-container-org22fa5d8" class="outline-3">
+<h3 id="org22fa5d8"><span class="section-number-3">12.1</span> 使用存储过程批量插入数据</h3>
 <div class="outline-text-3" id="text-12-1">
 <blockquote>
 <p>
@@ -1212,8 +1212,8 @@ show index <span class="org-keyword">from</span> lagou_pos;
 </p>
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">t_person</span> (
-  pid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>,
-  <span class="org-keyword">name</span> <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
+  pid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>,
+  <span class="org-type">name</span> <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
   weixin <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span>
 );
 </pre>
@@ -1223,31 +1223,31 @@ show index <span class="org-keyword">from</span> lagou_pos;
 其次，编写函数，求取随机字符串。将求取随机字符串的方法提取出来的目的是为了复用，这也是函数的目的:
 </p>
 <div class="org-src-container">
-<pre class="src src-sql"><span class="org-keyword">drop</span> <span class="org-keyword">function</span> <span class="org-function-name">if</span> <span class="org-keyword">exists</span> rand_str;
-delimiter $$
-<span class="org-keyword">create</span> <span class="org-keyword">function</span> <span class="org-function-name">rand_str</span>(<span class="org-keyword">size</span> <span class="org-type">int</span>, <span class="org-keyword">type</span> <span class="org-type">int</span>)
-  <span class="org-keyword">returns</span> <span class="org-type">varchar</span>(255)
-  <span class="org-keyword">begin</span>
-    <span class="org-keyword">declare</span> seed <span class="org-type">varchar</span>(255);
-    <span class="org-keyword">declare</span> seed_no <span class="org-type">varchar</span>(255) <span class="org-keyword">default</span> <span class="org-string">'1234567890'</span>;
-    <span class="org-keyword">declare</span> seed_en <span class="org-type">varchar</span>(255) <span class="org-keyword">default</span> <span class="org-string">'qwertryuiopasdfghjklzxcvbnm'</span>;
+<pre class="src src-sql"><span class="org-builtin">drop</span> <span class="org-builtin">function</span> <span class="org-builtin">if</span> <span class="org-builtin">exists</span> rand_str;
+<span class="org-builtin">delimiter</span> $$
+<span class="org-keyword">create</span> <span class="org-builtin">function</span> <span class="org-function-name">rand_str</span>(<span class="org-builtin">size</span> <span class="org-type">int</span>, <span class="org-builtin">type</span> <span class="org-type">int</span>)
+  <span class="org-builtin">returns</span> <span class="org-type">varchar</span>(255)
+  <span class="org-builtin">begin</span>
+    <span class="org-builtin">declare</span> seed <span class="org-type">varchar</span>(255);
+    <span class="org-builtin">declare</span> seed_no <span class="org-type">varchar</span>(255) <span class="org-keyword">default</span> <span class="org-string">'1234567890'</span>;
+    <span class="org-builtin">declare</span> seed_en <span class="org-type">varchar</span>(255) <span class="org-keyword">default</span> <span class="org-string">'qwertryuiopasdfghjklzxcvbnm'</span>;
 
-    <span class="org-keyword">declare</span> ret <span class="org-type">varchar</span>(255) <span class="org-keyword">default</span> <span class="org-string">''</span>;
-    <span class="org-keyword">declare</span> i <span class="org-type">int</span> <span class="org-keyword">default</span> 0;
+    <span class="org-builtin">declare</span> ret <span class="org-type">varchar</span>(255) <span class="org-keyword">default</span> <span class="org-string">''</span>;
+    <span class="org-builtin">declare</span> i <span class="org-type">int</span> <span class="org-keyword">default</span> 0;
 
-    <span class="org-keyword">set</span> seed = <span class="org-keyword">case</span> <span class="org-keyword">type</span>    <span class="org-comment">-- if .. else / case when</span>
+    <span class="org-builtin">set</span> seed = <span class="org-keyword">case</span> <span class="org-builtin">type</span>    <span class="org-comment">-- if .. else / case when</span>
                <span class="org-keyword">when</span> 1 <span class="org-keyword">then</span> seed_en
                <span class="org-keyword">when</span> 2 <span class="org-keyword">then</span> seed_no
                <span class="org-keyword">else</span> concat(seed_en, seed_no) <span class="org-keyword">end</span>;
 
-    while i &lt; <span class="org-keyword">size</span> do
-      <span class="org-keyword">set</span> ret = concat(ret, <span class="org-builtin">substring</span>(seed, floor(<span class="org-keyword">length</span>(seed) * rand() + 1), 1));
-      <span class="org-keyword">set</span> i = i + 1;
-    <span class="org-keyword">end</span> while;
+    <span class="org-keyword">while</span> i &lt; <span class="org-builtin">size</span> <span class="org-keyword">do</span>
+      <span class="org-builtin">set</span> ret = concat(ret, <span class="org-builtin">substring</span>(seed, <span class="org-builtin">floor</span>(<span class="org-builtin">length</span>(seed) * rand() + 1), 1));
+      <span class="org-builtin">set</span> i = i + 1;
+    <span class="org-keyword">end</span> <span class="org-keyword">while</span>;
 
-    <span class="org-keyword">return</span> ret;
+    <span class="org-builtin">return</span> ret;
   <span class="org-keyword">end</span>$$
-delimiter ;
+<span class="org-builtin">delimiter</span> ;
 
 <span class="org-comment">-- &#35843;&#29992;</span>
 <span class="org-keyword">select</span> rand_str(5, 1);
@@ -1288,27 +1288,27 @@ delimiter ;
 然后，编写存储过程，实现数据的插入:
 </p>
 <div class="org-src-container">
-<pre class="src src-sql">delimiter //
-<span class="org-keyword">drop</span> <span class="org-keyword">procedure</span> <span class="org-function-name">if</span> <span class="org-keyword">exists</span> proc_person_data;
-<span class="org-keyword">create</span> <span class="org-keyword">procedure</span> <span class="org-function-name">proc_person_data</span> (num <span class="org-type">int</span>)
-  <span class="org-keyword">begin</span>
-    <span class="org-keyword">declare</span> ii <span class="org-type">int</span> <span class="org-keyword">default</span> 0;
+<pre class="src src-sql"><span class="org-builtin">delimiter</span> //
+<span class="org-builtin">drop</span> <span class="org-builtin">procedure</span> <span class="org-builtin">if</span> <span class="org-builtin">exists</span> proc_person_data;
+<span class="org-keyword">create</span> <span class="org-builtin">procedure</span> <span class="org-function-name">proc_person_data</span> (num <span class="org-type">int</span>)
+  <span class="org-builtin">begin</span>
+    <span class="org-builtin">declare</span> ii <span class="org-type">int</span> <span class="org-keyword">default</span> 0;
 
     <span class="org-comment">-- while .. end while</span>
     <span class="org-comment">-- repeat .. until .. end repeat</span>
     <span class="org-comment">-- loop_label:loop ... leave loop_label .. end loop;</span>
 
-    <span class="org-keyword">set</span> autocommit = 0;
+    <span class="org-builtin">set</span> autocommit = 0;
 
-    while ii &lt; num do
-      <span class="org-keyword">insert</span> <span class="org-keyword">into</span> t_person (<span class="org-keyword">name</span>, weixin) <span class="org-keyword">values</span> (concat(<span class="org-string">'user_'</span>, rand_str(6, 1)), rand_str(8, 2));
-      <span class="org-keyword">set</span> ii = ii + 1;
+    <span class="org-keyword">while</span> ii &lt; num <span class="org-keyword">do</span>
+      <span class="org-builtin">insert</span> <span class="org-keyword">into</span> t_person (<span class="org-type">name</span>, weixin) <span class="org-builtin">values</span> (concat(<span class="org-string">'user_'</span>, rand_str(6, 1)), rand_str(8, 2));
+      <span class="org-builtin">set</span> ii = ii + 1;
 
-      if ii % 100000 = 1 <span class="org-keyword">then</span> <span class="org-keyword">commit</span> ; <span class="org-keyword">end</span> if;
-    <span class="org-keyword">end</span> while;
+      <span class="org-builtin">if</span> ii % 100000 = 1 <span class="org-keyword">then</span> <span class="org-builtin">commit</span> ; <span class="org-keyword">end</span> <span class="org-builtin">if</span>;
+    <span class="org-keyword">end</span> <span class="org-keyword">while</span>;
 
-    <span class="org-keyword">commit</span> ;
-    <span class="org-keyword">set</span> autocommit = 1;
+    <span class="org-builtin">commit</span> ;
+    <span class="org-builtin">set</span> autocommit = 1;
   <span class="org-keyword">end</span>;
 //
 </pre>
@@ -1316,14 +1316,14 @@ delimiter ;
 </div>
 </div>
 
-<div id="outline-container-org115a2e0" class="outline-3">
-<h3 id="org115a2e0"><span class="section-number-3">12.2</span> 行列转换</h3>
+<div id="outline-container-orgeb7e897" class="outline-3">
+<h3 id="orgeb7e897"><span class="section-number-3">12.2</span> 行列转换</h3>
 <div class="outline-text-3" id="text-12-2">
 <p>
 表中的数据是这样的:
 </p>
 <div class="org-src-container">
-<pre class="src src-sql"><span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> `t_score` <span class="org-keyword">VALUES</span>
+<pre class="src src-sql"><span class="org-builtin">INSERT</span> <span class="org-keyword">INTO</span> `t_score` <span class="org-builtin">VALUES</span>
     (<span class="org-string">'&#29579;&#28023;'</span>, <span class="org-string">'&#35821;&#25991;'</span>, <span class="org-string">'86'</span>),
     (<span class="org-string">'&#29579;&#28023;'</span>, <span class="org-string">'&#25968;&#23398;'</span>, <span class="org-string">'83'</span>),
     (<span class="org-string">'&#29579;&#28023;'</span>, <span class="org-string">'&#33521;&#35821;'</span>, <span class="org-string">'93'</span>),
@@ -1417,12 +1417,12 @@ delimiter ;
 </p>
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-comment">-- 1</span>
-<span class="org-keyword">select</span> <span class="org-keyword">name</span>,
+<span class="org-keyword">select</span> <span class="org-type">name</span>,
        <span class="org-builtin">max</span>(<span class="org-keyword">case</span> subject <span class="org-keyword">when</span> <span class="org-string">'&#25968;&#23398;'</span> <span class="org-keyword">then</span> score <span class="org-keyword">else</span> 0 <span class="org-keyword">end</span>) Math,
        <span class="org-builtin">max</span>(<span class="org-keyword">case</span> subject <span class="org-keyword">when</span> <span class="org-string">'&#35821;&#25991;'</span> <span class="org-keyword">then</span> score <span class="org-keyword">else</span> 0 <span class="org-keyword">end</span>) Chinese,
        <span class="org-builtin">max</span>(<span class="org-keyword">case</span> subject <span class="org-keyword">when</span> <span class="org-string">'&#33521;&#35821;'</span> <span class="org-keyword">then</span> score <span class="org-keyword">else</span> 0 <span class="org-keyword">end</span>) English,
        <span class="org-builtin">sum</span>(score) score
-<span class="org-keyword">from</span> t_score <span class="org-keyword">group</span> <span class="org-keyword">by</span> <span class="org-keyword">name</span>
+<span class="org-keyword">from</span> t_score <span class="org-keyword">group</span> <span class="org-builtin">by</span> <span class="org-type">name</span>
 <span class="org-keyword">union</span> <span class="org-keyword">all</span>
 <span class="org-keyword">select</span> <span class="org-string">'TOTAL'</span>,
        <span class="org-builtin">sum</span>(<span class="org-keyword">case</span> subject <span class="org-keyword">when</span> <span class="org-string">'&#25968;&#23398;'</span> <span class="org-keyword">then</span> score <span class="org-keyword">else</span> 0 <span class="org-keyword">end</span>),
@@ -1433,29 +1433,29 @@ delimiter ;
 
 <span class="org-comment">-- 2</span>
 <span class="org-keyword">select</span>
-       IFNULL(<span class="org-keyword">NAME</span>,<span class="org-string">'TOTAL'</span>) <span class="org-keyword">name</span>, <span class="org-comment">-- name or 'TOTAL'</span>
+       IFNULL(<span class="org-type">NAME</span>,<span class="org-string">'TOTAL'</span>) <span class="org-type">name</span>, <span class="org-comment">-- name or 'TOTAL'</span>
        <span class="org-builtin">SUM</span>(<span class="org-keyword">case</span> subject <span class="org-keyword">when</span> <span class="org-string">'&#25968;&#23398;'</span> <span class="org-keyword">then</span> score <span class="org-keyword">else</span> 0 <span class="org-keyword">end</span>) Math,
        <span class="org-builtin">SUM</span>(<span class="org-keyword">case</span> subject <span class="org-keyword">when</span> <span class="org-string">'&#35821;&#25991;'</span> <span class="org-keyword">then</span> score <span class="org-keyword">else</span> 0 <span class="org-keyword">end</span>) Chinese,
        <span class="org-builtin">SUM</span>(<span class="org-keyword">case</span> subject <span class="org-keyword">when</span> <span class="org-string">'&#33521;&#35821;'</span> <span class="org-keyword">then</span> score <span class="org-keyword">else</span> 0 <span class="org-keyword">end</span>) English,
        <span class="org-builtin">sum</span>(score) score
-<span class="org-keyword">from</span> t_score <span class="org-keyword">group</span> <span class="org-keyword">by</span> <span class="org-keyword">name</span> <span class="org-keyword">WITH</span> <span class="org-keyword">ROLLUP</span>;
+<span class="org-keyword">from</span> t_score <span class="org-keyword">group</span> <span class="org-builtin">by</span> <span class="org-type">name</span> <span class="org-keyword">WITH</span> <span class="org-builtin">ROLLUP</span>;
 
 <span class="org-comment">-- 3</span>
 <span class="org-keyword">select</span>
-       IFNULL(<span class="org-keyword">NAME</span>,<span class="org-string">'TOTAL'</span>) <span class="org-keyword">name</span>, <span class="org-comment">-- name or 'TOTAL'</span>
-       <span class="org-builtin">SUM</span>(if (subject = <span class="org-string">'&#25968;&#23398;'</span>,score, 0) ) Math,
-       <span class="org-builtin">SUM</span>(if (subject = <span class="org-string">'&#35821;&#25991;'</span>,score, 0) ) Chinese,
-       <span class="org-builtin">SUM</span>(if (subject = <span class="org-string">'&#33521;&#35821;'</span>,score, 0) ) English,
+       IFNULL(<span class="org-type">NAME</span>,<span class="org-string">'TOTAL'</span>) <span class="org-type">name</span>, <span class="org-comment">-- name or 'TOTAL'</span>
+       <span class="org-builtin">SUM</span>(<span class="org-builtin">if</span> (subject = <span class="org-string">'&#25968;&#23398;'</span>,score, 0) ) Math,
+       <span class="org-builtin">SUM</span>(<span class="org-builtin">if</span> (subject = <span class="org-string">'&#35821;&#25991;'</span>,score, 0) ) Chinese,
+       <span class="org-builtin">SUM</span>(<span class="org-builtin">if</span> (subject = <span class="org-string">'&#33521;&#35821;'</span>,score, 0) ) English,
        <span class="org-builtin">sum</span>(score) score
-<span class="org-keyword">from</span> t_score <span class="org-keyword">group</span> <span class="org-keyword">by</span> <span class="org-keyword">name</span> <span class="org-keyword">WITH</span> <span class="org-keyword">ROLLUP</span>;
+<span class="org-keyword">from</span> t_score <span class="org-keyword">group</span> <span class="org-builtin">by</span> <span class="org-type">name</span> <span class="org-keyword">WITH</span> <span class="org-builtin">ROLLUP</span>;
 </pre>
 </div>
 </div>
 </div>
 </section>
 
-<section id="outline-container-org9430299" class="outline-2">
-<h2 id="org9430299"><span class="section-number-2">13</span> 备份与恢复</h2>
+<section id="outline-container-org99825dd" class="outline-2">
+<h2 id="org99825dd"><span class="section-number-2">13</span> 备份与恢复</h2>
 <div class="outline-text-2" id="text-13">
 <p>
 各种灾难防不胜防:
@@ -1507,23 +1507,23 @@ mysql&gt; source ~/xxx.sql
 在 InnoDB 引擎下，为了提高 source 导入效率，需要：
 </p>
 <div class="org-src-container">
-<pre class="src src-sql"><span class="org-keyword">set</span> <span class="org-keyword">names</span> utf8;       <span class="org-comment">-- &#38656;&#35201;&#27491;&#30830;&#30340;&#23458;&#25143;&#31471;&#32534;&#30721;</span>
+<pre class="src src-sql"><span class="org-builtin">set</span> <span class="org-builtin">names</span> utf8;       <span class="org-comment">-- &#38656;&#35201;&#27491;&#30830;&#30340;&#23458;&#25143;&#31471;&#32534;&#30721;</span>
 
-<span class="org-keyword">SET</span> autocommit=0;     <span class="org-comment">-- &#23558;&#33258;&#21160;&#25552;&#20132;&#20851;&#38381;&#65292;&#36991;&#20813;&#27599;&#19968;&#26465;&#35821;&#21477;&#37117;&#20250;&#20986;&#21457;&#26085;&#24535;&#20889;&#20837;&#25805;&#20316;</span>
-<span class="org-keyword">SET</span> unique_checks=0;  <span class="org-comment">-- &#23558;&#21807;&#19968;&#32422;&#26463;&#26816;&#26597;&#20851;&#38381;</span>
-<span class="org-keyword">SET</span> foreign_key_checks=0; <span class="org-comment">-- &#23558;&#22806;&#38190;&#32422;&#26463;&#26816;&#26597;&#20851;&#38381;</span>
-
-
-... <span class="org-keyword">SQL</span> import statements ...
-<span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> yourtable <span class="org-keyword">VALUES</span> (1,2), (5,5), ...; <span class="org-comment">-- &#23613;&#37327;&#20351;&#29992;&#36825;&#31181;&#26041;&#24335;&#30340;&#23548;&#20837;&#35821;&#21477;</span>
+<span class="org-builtin">SET</span> autocommit=0;     <span class="org-comment">-- &#23558;&#33258;&#21160;&#25552;&#20132;&#20851;&#38381;&#65292;&#36991;&#20813;&#27599;&#19968;&#26465;&#35821;&#21477;&#37117;&#20250;&#20986;&#21457;&#26085;&#24535;&#20889;&#20837;&#25805;&#20316;</span>
+<span class="org-builtin">SET</span> unique_checks=0;  <span class="org-comment">-- &#23558;&#21807;&#19968;&#32422;&#26463;&#26816;&#26597;&#20851;&#38381;</span>
+<span class="org-builtin">SET</span> foreign_key_checks=0; <span class="org-comment">-- &#23558;&#22806;&#38190;&#32422;&#26463;&#26816;&#26597;&#20851;&#38381;</span>
 
 
-<span class="org-keyword">COMMIT</span>;             <span class="org-comment">-- &#25552;&#20132;&#20107;&#21153;</span>
+... <span class="org-builtin">SQL</span> <span class="org-builtin">import</span> statements ...
+<span class="org-builtin">INSERT</span> <span class="org-keyword">INTO</span> yourtable <span class="org-builtin">VALUES</span> (1,2), (5,5), ...; <span class="org-comment">-- &#23613;&#37327;&#20351;&#29992;&#36825;&#31181;&#26041;&#24335;&#30340;&#23548;&#20837;&#35821;&#21477;</span>
+
+
+<span class="org-builtin">COMMIT</span>;             <span class="org-comment">-- &#25552;&#20132;&#20107;&#21153;</span>
 
 <span class="org-comment">-- &#24674;&#22797;&#35774;&#32622;</span>
-<span class="org-keyword">set</span> autocommit=1;
-<span class="org-keyword">SET</span> unique_checks=1;
-<span class="org-keyword">SET</span> foreign_key_checks=1;
+<span class="org-builtin">set</span> autocommit=1;
+<span class="org-builtin">SET</span> unique_checks=1;
+<span class="org-builtin">SET</span> foreign_key_checks=1;
 </pre>
 </div>
 
@@ -1533,16 +1533,16 @@ mysql&gt; source ~/xxx.sql
 </div>
 </section>
 
-<section id="outline-container-org708dcc4" class="outline-2">
-<h2 id="org708dcc4"><span class="section-number-2">14</span> 数据迁移示例</h2>
+<section id="outline-container-org689065e" class="outline-2">
+<h2 id="org689065e"><span class="section-number-2">14</span> 数据迁移示例</h2>
 <div class="outline-text-2" id="text-14">
 <p>
 将 sqlite3 格式的 lagou.db 中的数据迁移到 MySQL 中
 </p>
 </div>
 
-<div id="outline-container-orge531106" class="outline-3">
-<h3 id="orge531106"><span class="section-number-3">14.1</span> 命令行的方式</h3>
+<div id="outline-container-org4d27304" class="outline-3">
+<h3 id="org4d27304"><span class="section-number-3">14.1</span> 命令行的方式</h3>
 <div class="outline-text-3" id="text-14-1">
 <p>
 首先，从 sqlite 中导出:
@@ -1563,12 +1563,12 @@ mysql&gt; source ~/xxx.sql
 之后就可以连接 MySQL 进行导入了:
 </p>
 <div class="org-src-container">
-<pre class="src src-sql"><span class="org-keyword">drop</span> <span class="org-keyword">table</span> <span class="org-function-name">if</span> <span class="org-keyword">exists</span> lagou_position;
+<pre class="src src-sql"><span class="org-builtin">drop</span> <span class="org-keyword">table</span> <span class="org-builtin">if</span> <span class="org-builtin">exists</span> lagou_position;
 
-<span class="org-keyword">set</span> <span class="org-keyword">names</span> utf8;
-<span class="org-keyword">set</span> autocommit=0;
-<span class="org-keyword">source</span> d:/<span class="org-keyword">data</span>/lagou.<span class="org-keyword">sql</span>
-<span class="org-keyword">commit</span>;
+<span class="org-builtin">set</span> <span class="org-builtin">names</span> utf8;
+<span class="org-builtin">set</span> autocommit=0;
+<span class="org-builtin">source</span> d:/<span class="org-builtin">data</span>/lagou.<span class="org-builtin">sql</span>
+<span class="org-builtin">commit</span>;
 
 <span class="org-keyword">select</span> <span class="org-builtin">count</span>(*) <span class="org-keyword">from</span> lagou_position;
 </pre>
@@ -1576,8 +1576,8 @@ mysql&gt; source ~/xxx.sql
 </div>
 </div>
 
-<div id="outline-container-org14be7c6" class="outline-3">
-<h3 id="org14be7c6"><span class="section-number-3">14.2</span> JDBC 的方式</h3>
+<div id="outline-container-org841e496" class="outline-3">
+<h3 id="org841e496"><span class="section-number-3">14.2</span> JDBC 的方式</h3>
 <div class="outline-text-3" id="text-14-2">
 <p>
 需要注意的问题:
@@ -1715,12 +1715,12 @@ mysql&gt; source ~/xxx.sql
 </div>
 </section>
 
-<section id="outline-container-orga4ff5aa" class="outline-2">
-<h2 id="orga4ff5aa"><span class="section-number-2">15</span> 数据处理示例</h2>
+<section id="outline-container-org11fa8e2" class="outline-2">
+<h2 id="org11fa8e2"><span class="section-number-2">15</span> 数据处理示例</h2>
 <div class="outline-text-2" id="text-15">
 </div>
-<div id="outline-container-org00b3c07" class="outline-3">
-<h3 id="org00b3c07"><span class="section-number-3">15.1</span> 数据清理</h3>
+<div id="outline-container-orgafb31c4" class="outline-3">
+<h3 id="orgafb31c4"><span class="section-number-3">15.1</span> 数据清理</h3>
 <div class="outline-text-3" id="text-15-1">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">lagou_position_result</span> <span class="org-keyword">as</span>
@@ -1728,7 +1728,7 @@ mysql&gt; source ~/xxx.sql
   <span class="org-keyword">from</span> lagou_position
   <span class="org-keyword">where</span> pid <span class="org-keyword">is</span> <span class="org-keyword">not</span> <span class="org-keyword">null</span>
     <span class="org-keyword">and</span> city <span class="org-keyword">is</span> <span class="org-keyword">not</span> <span class="org-keyword">null</span>
-    <span class="org-keyword">and</span> <span class="org-keyword">position</span> <span class="org-keyword">is</span> <span class="org-keyword">not</span> <span class="org-keyword">null</span>
+    <span class="org-keyword">and</span> <span class="org-builtin">position</span> <span class="org-keyword">is</span> <span class="org-keyword">not</span> <span class="org-keyword">null</span>
     <span class="org-keyword">and</span> field <span class="org-keyword">is</span> <span class="org-keyword">not</span> <span class="org-keyword">null</span>
     <span class="org-keyword">and</span> salary_min <span class="org-keyword">is</span> <span class="org-keyword">not</span> <span class="org-keyword">null</span>
     <span class="org-keyword">and</span> salary_max <span class="org-keyword">is</span> <span class="org-keyword">not</span> <span class="org-keyword">null</span>
@@ -1747,8 +1747,8 @@ mysql&gt; source ~/xxx.sql
 </div>
 </div>
 
-<div id="outline-container-org471c283" class="outline-3">
-<h3 id="org471c283"><span class="section-number-3">15.2</span> 表的分离</h3>
+<div id="outline-container-orga50d17d" class="outline-3">
+<h3 id="orga50d17d"><span class="section-number-3">15.2</span> 表的分离</h3>
 <div class="outline-text-3" id="text-15-2">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-comment">-- &#28304;&#25968;&#25454;</span>
@@ -1768,33 +1768,33 @@ lagou_city 创建过程:
 </p>
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-comment">-- 373 &#24066; 3341 &#21439; &#24635;&#21644; 3714</span>
-<span class="org-keyword">select</span> <span class="org-builtin">count</span>(*) <span class="org-keyword">from</span> china_city <span class="org-keyword">where</span> <span class="org-keyword">depth</span>=2;
-<span class="org-keyword">select</span> <span class="org-builtin">count</span>(*) <span class="org-keyword">from</span> china_city <span class="org-keyword">where</span> <span class="org-keyword">depth</span>=3;
+<span class="org-keyword">select</span> <span class="org-builtin">count</span>(*) <span class="org-keyword">from</span> china_city <span class="org-keyword">where</span> <span class="org-builtin">depth</span>=2;
+<span class="org-keyword">select</span> <span class="org-builtin">count</span>(*) <span class="org-keyword">from</span> china_city <span class="org-keyword">where</span> <span class="org-builtin">depth</span>=3;
 
 <span class="org-comment">-- &#20998;&#27493;&#21019;&#24314;</span>
 
 <span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">lagou_city01</span> <span class="org-keyword">as</span>
-<span class="org-keyword">select</span> d.id, p.cityName <span class="org-keyword">as</span> province, c.cityName <span class="org-keyword">as</span> city, d.cityName <span class="org-keyword">as</span> district <span class="org-keyword">from</span>
-  (<span class="org-keyword">select</span> * <span class="org-keyword">from</span> china_city <span class="org-keyword">where</span> <span class="org-keyword">depth</span>=3) d
-    <span class="org-keyword">join</span> china_city c <span class="org-keyword">on</span> d.parentId = c.id <span class="org-keyword">and</span> c.<span class="org-keyword">depth</span>=2
-    <span class="org-keyword">join</span> china_city p <span class="org-keyword">on</span> c.parentId = p.id <span class="org-keyword">and</span> p.<span class="org-keyword">depth</span>=1;
+<span class="org-keyword">select</span> d.<span class="org-builtin">id</span>, <span class="org-builtin">p</span>.cityName <span class="org-keyword">as</span> province, <span class="org-builtin">c</span>.cityName <span class="org-keyword">as</span> city, d.cityName <span class="org-keyword">as</span> district <span class="org-keyword">from</span>
+  (<span class="org-keyword">select</span> * <span class="org-keyword">from</span> china_city <span class="org-keyword">where</span> <span class="org-builtin">depth</span>=3) d
+    <span class="org-keyword">join</span> china_city <span class="org-builtin">c</span> <span class="org-keyword">on</span> d.parentId = <span class="org-builtin">c</span>.<span class="org-builtin">id</span> <span class="org-keyword">and</span> <span class="org-builtin">c</span>.<span class="org-builtin">depth</span>=2
+    <span class="org-keyword">join</span> china_city <span class="org-builtin">p</span> <span class="org-keyword">on</span> <span class="org-builtin">c</span>.parentId = <span class="org-builtin">p</span>.<span class="org-builtin">id</span> <span class="org-keyword">and</span> <span class="org-builtin">p</span>.<span class="org-builtin">depth</span>=1;
 
-<span class="org-keyword">insert</span> <span class="org-keyword">into</span> lagou_city01
-<span class="org-keyword">select</span> c.id, p.cityName <span class="org-keyword">as</span> province, c.cityName <span class="org-keyword">as</span> city, <span class="org-keyword">null</span> <span class="org-keyword">as</span> district <span class="org-keyword">from</span> (<span class="org-keyword">select</span> * <span class="org-keyword">from</span> china_city <span class="org-keyword">where</span> <span class="org-keyword">depth</span>=2) c
-  <span class="org-keyword">join</span> china_city p <span class="org-keyword">on</span> c.parentId = p.id <span class="org-keyword">and</span> p.<span class="org-keyword">depth</span> = 1;
+<span class="org-builtin">insert</span> <span class="org-keyword">into</span> lagou_city01
+<span class="org-keyword">select</span> <span class="org-builtin">c</span>.<span class="org-builtin">id</span>, <span class="org-builtin">p</span>.cityName <span class="org-keyword">as</span> province, <span class="org-builtin">c</span>.cityName <span class="org-keyword">as</span> city, <span class="org-keyword">null</span> <span class="org-keyword">as</span> district <span class="org-keyword">from</span> (<span class="org-keyword">select</span> * <span class="org-keyword">from</span> china_city <span class="org-keyword">where</span> <span class="org-builtin">depth</span>=2) <span class="org-builtin">c</span>
+  <span class="org-keyword">join</span> china_city <span class="org-builtin">p</span> <span class="org-keyword">on</span> <span class="org-builtin">c</span>.parentId = <span class="org-builtin">p</span>.<span class="org-builtin">id</span> <span class="org-keyword">and</span> <span class="org-builtin">p</span>.<span class="org-builtin">depth</span> = 1;
 
 <span class="org-keyword">select</span> <span class="org-builtin">count</span>(*) <span class="org-keyword">from</span> lagou_city01;
 
 <span class="org-comment">-- &#25110;&#32773;&#20351;&#29992; union &#35821;&#21477;</span>
 
 <span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">lagou_city</span> <span class="org-keyword">as</span>
-<span class="org-keyword">select</span> d.id, p.cityName <span class="org-keyword">as</span> province, c.cityName <span class="org-keyword">as</span> city, d.cityName <span class="org-keyword">as</span> district <span class="org-keyword">from</span>
-  (<span class="org-keyword">select</span> * <span class="org-keyword">from</span> china_city <span class="org-keyword">where</span> <span class="org-keyword">depth</span>=3) d
-    <span class="org-keyword">join</span> china_city c <span class="org-keyword">on</span> d.parentId = c.id <span class="org-keyword">and</span> c.<span class="org-keyword">depth</span>=2
-    <span class="org-keyword">join</span> china_city p <span class="org-keyword">on</span> c.parentId = p.id <span class="org-keyword">and</span> p.<span class="org-keyword">depth</span>=1
+<span class="org-keyword">select</span> d.<span class="org-builtin">id</span>, <span class="org-builtin">p</span>.cityName <span class="org-keyword">as</span> province, <span class="org-builtin">c</span>.cityName <span class="org-keyword">as</span> city, d.cityName <span class="org-keyword">as</span> district <span class="org-keyword">from</span>
+  (<span class="org-keyword">select</span> * <span class="org-keyword">from</span> china_city <span class="org-keyword">where</span> <span class="org-builtin">depth</span>=3) d
+    <span class="org-keyword">join</span> china_city <span class="org-builtin">c</span> <span class="org-keyword">on</span> d.parentId = <span class="org-builtin">c</span>.<span class="org-builtin">id</span> <span class="org-keyword">and</span> <span class="org-builtin">c</span>.<span class="org-builtin">depth</span>=2
+    <span class="org-keyword">join</span> china_city <span class="org-builtin">p</span> <span class="org-keyword">on</span> <span class="org-builtin">c</span>.parentId = <span class="org-builtin">p</span>.<span class="org-builtin">id</span> <span class="org-keyword">and</span> <span class="org-builtin">p</span>.<span class="org-builtin">depth</span>=1
 <span class="org-keyword">union</span>
-<span class="org-keyword">select</span> c.id, p.cityName <span class="org-keyword">as</span> province, c.cityName <span class="org-keyword">as</span> city, <span class="org-keyword">null</span> <span class="org-keyword">as</span> district <span class="org-keyword">from</span> (<span class="org-keyword">select</span> * <span class="org-keyword">from</span> china_city <span class="org-keyword">where</span> <span class="org-keyword">depth</span>=2) c
-  <span class="org-keyword">join</span> china_city p <span class="org-keyword">on</span> c.parentId = p.id <span class="org-keyword">and</span> p.<span class="org-keyword">depth</span> = 1;
+<span class="org-keyword">select</span> <span class="org-builtin">c</span>.<span class="org-builtin">id</span>, <span class="org-builtin">p</span>.cityName <span class="org-keyword">as</span> province, <span class="org-builtin">c</span>.cityName <span class="org-keyword">as</span> city, <span class="org-keyword">null</span> <span class="org-keyword">as</span> district <span class="org-keyword">from</span> (<span class="org-keyword">select</span> * <span class="org-keyword">from</span> china_city <span class="org-keyword">where</span> <span class="org-builtin">depth</span>=2) <span class="org-builtin">c</span>
+  <span class="org-keyword">join</span> china_city <span class="org-builtin">p</span> <span class="org-keyword">on</span> <span class="org-builtin">c</span>.parentId = <span class="org-builtin">p</span>.<span class="org-builtin">id</span> <span class="org-keyword">and</span> <span class="org-builtin">p</span>.<span class="org-builtin">depth</span> = 1;
 
 </pre>
 </div>
@@ -1803,14 +1803,14 @@ lagou_city 创建过程:
 lagou_company 公司分离:
 </p>
 <div class="org-src-container">
-<pre class="src src-sql"><span class="org-keyword">drop</span> <span class="org-keyword">table</span> <span class="org-function-name">if</span> <span class="org-keyword">exists</span> lagou_company;
+<pre class="src src-sql"><span class="org-builtin">drop</span> <span class="org-keyword">table</span> <span class="org-builtin">if</span> <span class="org-builtin">exists</span> lagou_company;
 <span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">lagou_company</span> <span class="org-keyword">as</span>
-  <span class="org-keyword">select</span> <span class="org-keyword">distinct</span> t.company_id         <span class="org-keyword">as</span> cid,
-                  t.company_short_name <span class="org-keyword">as</span> short_name,
-                  t.company_full_name  <span class="org-keyword">as</span> full_name,
-                  t.company_size       <span class="org-keyword">as</span> <span class="org-keyword">size</span>,
-                  t.financestage
-  <span class="org-keyword">from</span> lagou_position_bk t;
+  <span class="org-keyword">select</span> <span class="org-keyword">distinct</span> <span class="org-builtin">t</span>.company_id         <span class="org-keyword">as</span> cid,
+                  <span class="org-builtin">t</span>.company_short_name <span class="org-keyword">as</span> short_name,
+                  <span class="org-builtin">t</span>.company_full_name  <span class="org-keyword">as</span> full_name,
+                  <span class="org-builtin">t</span>.company_size       <span class="org-keyword">as</span> <span class="org-builtin">size</span>,
+                  <span class="org-builtin">t</span>.financestage
+  <span class="org-keyword">from</span> lagou_position_bk <span class="org-builtin">t</span>;
 </pre>
 </div>
 
@@ -1820,31 +1820,31 @@ lagou_company 公司分离:
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">lagou_position</span>
 <span class="org-keyword">as</span>
-<span class="org-keyword">select</span> pid, cid <span class="org-keyword">as</span> city, company_id <span class="org-keyword">as</span> company, <span class="org-keyword">position</span>, field, salary_min, salary_max, workyear, education, ptype, pnature, advantage, published_at, updated_at <span class="org-keyword">from</span>
+<span class="org-keyword">select</span> pid, cid <span class="org-keyword">as</span> city, company_id <span class="org-keyword">as</span> company, <span class="org-builtin">position</span>, field, salary_min, salary_max, workyear, education, ptype, pnature, advantage, published_at, updated_at <span class="org-keyword">from</span>
 (
   <span class="org-comment">-- position &#34920;&#20013; district &#20026;&#31354;&#30340;&#25968;&#25454;</span>
-  <span class="org-keyword">select</span> p.*, c.cid <span class="org-keyword">from</span> (<span class="org-keyword">select</span> * <span class="org-keyword">from</span> lagou_position_bk <span class="org-keyword">where</span> district <span class="org-keyword">is</span> <span class="org-keyword">null</span>) p
-     <span class="org-keyword">join</span> lagou_city c <span class="org-keyword">on</span> c.city <span class="org-keyword">like</span> concat(p.city, <span class="org-string">'%'</span>) <span class="org-keyword">and</span> c.district <span class="org-keyword">is</span> <span class="org-keyword">null</span>
+  <span class="org-keyword">select</span> <span class="org-builtin">p</span>.*, <span class="org-builtin">c</span>.cid <span class="org-keyword">from</span> (<span class="org-keyword">select</span> * <span class="org-keyword">from</span> lagou_position_bk <span class="org-keyword">where</span> district <span class="org-keyword">is</span> <span class="org-keyword">null</span>) <span class="org-builtin">p</span>
+     <span class="org-keyword">join</span> lagou_city <span class="org-builtin">c</span> <span class="org-keyword">on</span> <span class="org-builtin">c</span>.city <span class="org-keyword">like</span> concat(<span class="org-builtin">p</span>.city, <span class="org-string">'%'</span>) <span class="org-keyword">and</span> <span class="org-builtin">c</span>.district <span class="org-keyword">is</span> <span class="org-keyword">null</span>
 
   <span class="org-keyword">union</span> <span class="org-keyword">all</span>
 
   <span class="org-comment">-- position &#34920;&#20013; district &#19981;&#20026;&#31354;&#30340;&#25968;&#25454;</span>
-  <span class="org-keyword">select</span> p.*, c.cid <span class="org-keyword">from</span> (<span class="org-keyword">select</span> * <span class="org-keyword">from</span> lagou_position_bk <span class="org-keyword">where</span> district <span class="org-keyword">is</span> <span class="org-keyword">not</span> <span class="org-keyword">null</span>) p
-    <span class="org-keyword">join</span> lagou_city c <span class="org-keyword">on</span> c.city <span class="org-keyword">like</span> concat(p.city, <span class="org-string">'%'</span>) <span class="org-keyword">and</span> c.district <span class="org-keyword">like</span> concat(p.district, <span class="org-string">'%'</span>)
+  <span class="org-keyword">select</span> <span class="org-builtin">p</span>.*, <span class="org-builtin">c</span>.cid <span class="org-keyword">from</span> (<span class="org-keyword">select</span> * <span class="org-keyword">from</span> lagou_position_bk <span class="org-keyword">where</span> district <span class="org-keyword">is</span> <span class="org-keyword">not</span> <span class="org-keyword">null</span>) <span class="org-builtin">p</span>
+    <span class="org-keyword">join</span> lagou_city <span class="org-builtin">c</span> <span class="org-keyword">on</span> <span class="org-builtin">c</span>.city <span class="org-keyword">like</span> concat(<span class="org-builtin">p</span>.city, <span class="org-string">'%'</span>) <span class="org-keyword">and</span> <span class="org-builtin">c</span>.district <span class="org-keyword">like</span> concat(<span class="org-builtin">p</span>.district, <span class="org-string">'%'</span>)
 
 ) <span class="org-keyword">as</span> ppp;
 
 
 <span class="org-comment">-- &#20063;&#21487;&#20197;&#20998;&#27493;&#36827;&#34892;&#12290;&#20351;&#29992; union &#35821;&#21477;&#34429;&#28982;&#20250;&#31616;&#21270;&#35821;&#21477;&#65292;&#20294;&#25928;&#29575;&#20250;&#27604;&#36739;&#20302;</span>
 <span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">lagou_position</span> <span class="org-keyword">as</span>
-<span class="org-keyword">select</span> pid, cid <span class="org-keyword">as</span> city, company_id <span class="org-keyword">as</span> company, <span class="org-keyword">position</span>, field, salary_min, salary_max, workyear, education, ptype, pnature, advantage, published_at, updated_at
-<span class="org-keyword">from</span> (<span class="org-keyword">select</span> * <span class="org-keyword">from</span> lagou_position_bk <span class="org-keyword">where</span> district <span class="org-keyword">is</span> <span class="org-keyword">null</span>) p
-  <span class="org-keyword">join</span> lagou_city c <span class="org-keyword">on</span> c.city <span class="org-keyword">like</span> concat(p.city, <span class="org-string">'%'</span>) <span class="org-keyword">and</span> c.district <span class="org-keyword">is</span> <span class="org-keyword">null</span>;
+<span class="org-keyword">select</span> pid, cid <span class="org-keyword">as</span> city, company_id <span class="org-keyword">as</span> company, <span class="org-builtin">position</span>, field, salary_min, salary_max, workyear, education, ptype, pnature, advantage, published_at, updated_at
+<span class="org-keyword">from</span> (<span class="org-keyword">select</span> * <span class="org-keyword">from</span> lagou_position_bk <span class="org-keyword">where</span> district <span class="org-keyword">is</span> <span class="org-keyword">null</span>) <span class="org-builtin">p</span>
+  <span class="org-keyword">join</span> lagou_city <span class="org-builtin">c</span> <span class="org-keyword">on</span> <span class="org-builtin">c</span>.city <span class="org-keyword">like</span> concat(<span class="org-builtin">p</span>.city, <span class="org-string">'%'</span>) <span class="org-keyword">and</span> <span class="org-builtin">c</span>.district <span class="org-keyword">is</span> <span class="org-keyword">null</span>;
 
-<span class="org-keyword">insert</span> <span class="org-keyword">into</span> lagou_position
-<span class="org-keyword">select</span> pid, cid <span class="org-keyword">as</span> city, company_id <span class="org-keyword">as</span> company, <span class="org-keyword">position</span>, field, salary_min, salary_max, workyear, education, ptype, pnature, advantage, published_at, updated_at
-<span class="org-keyword">from</span> (<span class="org-keyword">select</span> * <span class="org-keyword">from</span> lagou_position_bk <span class="org-keyword">where</span> district <span class="org-keyword">is</span> <span class="org-keyword">not</span> <span class="org-keyword">null</span>) p
-  <span class="org-keyword">join</span> lagou_city c <span class="org-keyword">on</span> c.city <span class="org-keyword">like</span> concat(p.city, <span class="org-string">'%'</span>) <span class="org-keyword">and</span> c.district <span class="org-keyword">like</span> concat(p.district, <span class="org-string">'%'</span>);
+<span class="org-builtin">insert</span> <span class="org-keyword">into</span> lagou_position
+<span class="org-keyword">select</span> pid, cid <span class="org-keyword">as</span> city, company_id <span class="org-keyword">as</span> company, <span class="org-builtin">position</span>, field, salary_min, salary_max, workyear, education, ptype, pnature, advantage, published_at, updated_at
+<span class="org-keyword">from</span> (<span class="org-keyword">select</span> * <span class="org-keyword">from</span> lagou_position_bk <span class="org-keyword">where</span> district <span class="org-keyword">is</span> <span class="org-keyword">not</span> <span class="org-keyword">null</span>) <span class="org-builtin">p</span>
+  <span class="org-keyword">join</span> lagou_city <span class="org-builtin">c</span> <span class="org-keyword">on</span> <span class="org-builtin">c</span>.city <span class="org-keyword">like</span> concat(<span class="org-builtin">p</span>.city, <span class="org-string">'%'</span>) <span class="org-keyword">and</span> <span class="org-builtin">c</span>.district <span class="org-keyword">like</span> concat(<span class="org-builtin">p</span>.district, <span class="org-string">'%'</span>);
 </pre>
 </div>
 
@@ -1861,15 +1861,15 @@ lagou_company 公司分离:
 </div>
 </section>
 
-<section id="outline-container-orged779aa" class="outline-2">
-<h2 id="orged779aa"><span class="section-number-2">16</span> 省市县模式数据库设计</h2>
+<section id="outline-container-org79dda33" class="outline-2">
+<h2 id="org79dda33"><span class="section-number-2">16</span> 省市县模式数据库设计</h2>
 <div class="outline-text-2" id="text-16">
 <p>
 最朴素的实现方式:
 </p>
 <div class="org-src-container">
 <pre class="src src-sql">  <span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">area_demo1</span> (
-    area_id <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>,
+    area_id <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>,
     sheng <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
     shi <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
     xian <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
@@ -1879,7 +1879,7 @@ lagou_company 公司分离:
     weidu <span class="org-type">decimal</span>(10, 10)
   );
 
-<span class="org-keyword">insert</span> <span class="org-keyword">into</span> area_demo1 (sheng, shi, xian, quhao) <span class="org-keyword">values</span>
+<span class="org-builtin">insert</span> <span class="org-keyword">into</span> area_demo1 (sheng, shi, xian, quhao) <span class="org-builtin">values</span>
   (<span class="org-string">'&#24191;&#19996;&#30465;'</span>, <span class="org-string">'&#29664;&#28023;&#24066;'</span>, <span class="org-string">'&#26007;&#38376;&#21306;'</span>, <span class="org-string">'22323'</span>),
   (<span class="org-string">'&#24191;&#19996;&#30465;'</span>, <span class="org-string">'&#29664;&#28023;&#24066;'</span>, <span class="org-string">'&#39321;&#27954;&#21306;'</span>, <span class="org-string">'22324'</span>),
   (<span class="org-string">'&#24191;&#19996;&#30465;'</span>, <span class="org-string">'&#29664;&#28023;&#24066;'</span>, <span class="org-string">'&#37329;&#28286;&#21306;'</span>, <span class="org-string">'22325'</span>),
@@ -1899,17 +1899,17 @@ lagou_company 公司分离:
 按照范式，需要分表:
 </p>
 <div class="org-src-container">
-<pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">s_sheng</span> (pid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>, p_name <span class="org-type">varchar</span>(20));
-<span class="org-keyword">insert</span> <span class="org-keyword">into</span> s_sheng (p_name) <span class="org-keyword">values</span> (<span class="org-string">'&#24191;&#19996;&#30465;'</span>), (<span class="org-string">'&#23665;&#19996;&#30465;'</span>), (<span class="org-string">'&#24191;&#35199;&#30465;'</span>), (<span class="org-string">'&#28246;&#21335;&#30465;'</span>);
+<pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">s_sheng</span> (pid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>, p_name <span class="org-type">varchar</span>(20));
+<span class="org-builtin">insert</span> <span class="org-keyword">into</span> s_sheng (p_name) <span class="org-builtin">values</span> (<span class="org-string">'&#24191;&#19996;&#30465;'</span>), (<span class="org-string">'&#23665;&#19996;&#30465;'</span>), (<span class="org-string">'&#24191;&#35199;&#30465;'</span>), (<span class="org-string">'&#28246;&#21335;&#30465;'</span>);
 
-<span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">s_shi</span> (sid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>, s_name <span class="org-type">varchar</span>(20), sheng <span class="org-type">int</span> <span class="org-keyword">references</span> s_sheng(id));
-<span class="org-keyword">insert</span> <span class="org-keyword">into</span> s_shi (s_name, sheng) <span class="org-keyword">values</span>
+<span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">s_shi</span> (sid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>, s_name <span class="org-type">varchar</span>(20), sheng <span class="org-type">int</span> <span class="org-keyword">references</span> s_sheng(<span class="org-builtin">id</span>));
+<span class="org-builtin">insert</span> <span class="org-keyword">into</span> s_shi (s_name, sheng) <span class="org-builtin">values</span>
   (<span class="org-string">'&#29664;&#28023;&#24066;'</span>, 1), (<span class="org-string">'&#24191;&#24030;&#24066;'</span>, 1), (<span class="org-string">'&#28251;&#27743;'</span>, 1),
   (<span class="org-string">'&#26690;&#26519;&#24066;'</span>, 3), (<span class="org-string">'&#21335;&#23425;&#24066;'</span>, 3), (<span class="org-string">'&#26611;&#24030;'</span>, 3);
 
 
-<span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">s_xian</span> (xid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>, x_name <span class="org-type">varchar</span>(20), shi <span class="org-type">int</span> <span class="org-keyword">references</span> s_shi(id), youbian <span class="org-type">varchar</span>(20), jingdu <span class="org-type">varchar</span>(20), weidu  <span class="org-type">varchar</span>(20));
-<span class="org-keyword">insert</span> <span class="org-keyword">into</span> s_xian (x_name, shi) <span class="org-keyword">values</span>
+<span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">s_xian</span> (xid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>, x_name <span class="org-type">varchar</span>(20), shi <span class="org-type">int</span> <span class="org-keyword">references</span> s_shi(<span class="org-builtin">id</span>), youbian <span class="org-type">varchar</span>(20), jingdu <span class="org-type">varchar</span>(20), weidu  <span class="org-type">varchar</span>(20));
+<span class="org-builtin">insert</span> <span class="org-keyword">into</span> s_xian (x_name, shi) <span class="org-builtin">values</span>
   (<span class="org-string">'&#26007;&#38376;&#21306;'</span>,  1), (<span class="org-string">'&#37329;&#28286;&#21306;'</span>, 1), (<span class="org-string">'&#39321;&#27954;&#21306;'</span>, 1),
   (<span class="org-string">'&#30333;&#20113;&#21306;'</span>, 2), (<span class="org-string">'&#36234;&#31168;&#21306;'</span>, 2), (<span class="org-string">'&#22825;&#27827;&#21306;'</span>, 2),
   (<span class="org-string">'&#38182;&#32483;&#21306;'</span>, 5), (<span class="org-string">'&#39118;&#26223;&#21306;'</span>, 5);
@@ -1918,7 +1918,7 @@ lagou_company 公司分离:
 <span class="org-keyword">select</span> * <span class="org-keyword">from</span> s_shi;
 <span class="org-keyword">select</span> * <span class="org-keyword">from</span> s_xian;
 
-<span class="org-keyword">delete</span> <span class="org-keyword">from</span> s_xian <span class="org-keyword">where</span> xid &gt; 8;
+<span class="org-builtin">delete</span> <span class="org-keyword">from</span> s_xian <span class="org-keyword">where</span> xid &gt; 8;
 </pre>
 </div>
 
@@ -1929,18 +1929,18 @@ lagou_company 公司分离:
 <pre class="src src-sql"><span class="org-comment">-- &#20840;&#36830;&#25509;&#65292;&#31515;&#21345;&#23572;&#31215;</span>
 <span class="org-keyword">select</span> * <span class="org-keyword">from</span> s_shi <span class="org-keyword">full</span> <span class="org-keyword">join</span> s_sheng;
 
-<span class="org-keyword">select</span> * <span class="org-keyword">from</span> s_shi <span class="org-keyword">inner</span> <span class="org-keyword">join</span> s_sheng <span class="org-keyword">on</span> s_shi.sheng = s_sheng.id;
+<span class="org-keyword">select</span> * <span class="org-keyword">from</span> s_shi <span class="org-keyword">inner</span> <span class="org-keyword">join</span> s_sheng <span class="org-keyword">on</span> s_shi.sheng = s_sheng.<span class="org-builtin">id</span>;
 
-<span class="org-keyword">select</span> * <span class="org-keyword">from</span> s_shi s <span class="org-keyword">inner</span> <span class="org-keyword">join</span> s_sheng t <span class="org-keyword">on</span> s.sheng = t.id;
+<span class="org-keyword">select</span> * <span class="org-keyword">from</span> s_shi s <span class="org-keyword">inner</span> <span class="org-keyword">join</span> s_sheng <span class="org-builtin">t</span> <span class="org-keyword">on</span> s.sheng = <span class="org-builtin">t</span>.<span class="org-builtin">id</span>;
 
-<span class="org-keyword">select</span> * <span class="org-keyword">from</span> (<span class="org-keyword">select</span> * <span class="org-keyword">from</span> s_shi s <span class="org-keyword">inner</span> <span class="org-keyword">join</span> s_sheng t <span class="org-keyword">on</span> s.sheng = t.id) w <span class="org-keyword">where</span> w.<span class="org-keyword">name</span> = <span class="org-string">'&#24191;&#19996;&#30465;'</span>;
+<span class="org-keyword">select</span> * <span class="org-keyword">from</span> (<span class="org-keyword">select</span> * <span class="org-keyword">from</span> s_shi s <span class="org-keyword">inner</span> <span class="org-keyword">join</span> s_sheng <span class="org-builtin">t</span> <span class="org-keyword">on</span> s.sheng = <span class="org-builtin">t</span>.<span class="org-builtin">id</span>) w <span class="org-keyword">where</span> w.<span class="org-type">name</span> = <span class="org-string">'&#24191;&#19996;&#30465;'</span>;
 
-<span class="org-keyword">select</span> * <span class="org-keyword">from</span> (<span class="org-keyword">select</span> * <span class="org-keyword">from</span> s_shi s <span class="org-keyword">inner</span> <span class="org-keyword">join</span> s_sheng t <span class="org-keyword">on</span> s.sheng = t.pid) w <span class="org-keyword">where</span> w.p_name = <span class="org-string">'&#24191;&#19996;&#30465;'</span>;
+<span class="org-keyword">select</span> * <span class="org-keyword">from</span> (<span class="org-keyword">select</span> * <span class="org-keyword">from</span> s_shi s <span class="org-keyword">inner</span> <span class="org-keyword">join</span> s_sheng <span class="org-builtin">t</span> <span class="org-keyword">on</span> s.sheng = <span class="org-builtin">t</span>.pid) w <span class="org-keyword">where</span> w.p_name = <span class="org-string">'&#24191;&#19996;&#30465;'</span>;
 
 
 <span class="org-keyword">select</span> sid, s_name <span class="org-keyword">from</span> (
-<span class="org-keyword">select</span> s.sid, s.s_name, p.p_name <span class="org-keyword">from</span> s_shi s <span class="org-keyword">join</span> s_sheng p <span class="org-keyword">on</span> s.sheng = p.pid
-) a <span class="org-keyword">where</span> p_name = <span class="org-string">'&#24191;&#19996;&#30465;'</span>;
+<span class="org-keyword">select</span> s.sid, s.s_name, <span class="org-builtin">p</span>.p_name <span class="org-keyword">from</span> s_shi s <span class="org-keyword">join</span> s_sheng <span class="org-builtin">p</span> <span class="org-keyword">on</span> s.sheng = <span class="org-builtin">p</span>.pid
+) <span class="org-builtin">a</span> <span class="org-keyword">where</span> p_name = <span class="org-string">'&#24191;&#19996;&#30465;'</span>;
 
 <span class="org-keyword">select</span> * <span class="org-keyword">from</span> s_xian x
        <span class="org-keyword">inner</span> <span class="org-keyword">join</span> s_shi s <span class="org-keyword">on</span> x.shi = s.sid
@@ -1960,13 +1960,13 @@ lagou_company 公司分离:
 <span class="org-keyword">select</span> * <span class="org-keyword">from</span> s_shi;
 <span class="org-keyword">select</span> * <span class="org-keyword">from</span> s_xian;
 
-<span class="org-keyword">select</span> x.* <span class="org-keyword">from</span> s_xian x, s_shi s, s_sheng p
+<span class="org-keyword">select</span> x.* <span class="org-keyword">from</span> s_xian x, s_shi s, s_sheng <span class="org-builtin">p</span>
    <span class="org-keyword">where</span> x.shi = s.sid
-         <span class="org-keyword">and</span> s.sheng = p.pid
-         <span class="org-keyword">and</span> p.p_name = <span class="org-string">'&#24191;&#35199;&#30465;'</span>;
+         <span class="org-keyword">and</span> s.sheng = <span class="org-builtin">p</span>.pid
+         <span class="org-keyword">and</span> <span class="org-builtin">p</span>.p_name = <span class="org-string">'&#24191;&#35199;&#30465;'</span>;
 
 <span class="org-keyword">select</span> * <span class="org-keyword">from</span> s_shi s
-  <span class="org-keyword">left</span> <span class="org-keyword">join</span> s_sheng p <span class="org-keyword">on</span> s.sheng = p.pid;
+  <span class="org-keyword">left</span> <span class="org-keyword">join</span> s_sheng <span class="org-builtin">p</span> <span class="org-keyword">on</span> s.sheng = <span class="org-builtin">p</span>.pid;
 
 
 <span class="org-keyword">select</span> * <span class="org-keyword">from</span> lagou_position_result <span class="org-keyword">limit</span> 5;
@@ -1981,7 +1981,7 @@ lagou_company 公司分离:
 <span class="org-keyword">select</span> * <span class="org-keyword">from</span> s_shi <span class="org-keyword">limit</span> 1;
 <span class="org-keyword">select</span> * <span class="org-keyword">from</span> s_provinces <span class="org-keyword">limit</span> 5;
 
-<span class="org-keyword">select</span> * <span class="org-keyword">from</span> lagou_position_result <span class="org-keyword">order</span> <span class="org-keyword">by</span> salary_min <span class="org-keyword">desc</span> <span class="org-keyword">limit</span> 10;
+<span class="org-keyword">select</span> * <span class="org-keyword">from</span> lagou_position_result <span class="org-keyword">order</span> <span class="org-builtin">by</span> salary_min <span class="org-keyword">desc</span> <span class="org-keyword">limit</span> 10;
 </pre>
 </div>
 
@@ -1990,11 +1990,11 @@ lagou_company 公司分离:
 </p>
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">CREATE</span> <span class="org-keyword">TABLE</span> `s_provinces` (
-  `id` <span class="org-type">int</span>(11) <span class="org-keyword">NOT</span> <span class="org-keyword">NULL</span>,
+  `<span class="org-builtin">id</span>` <span class="org-type">int</span>(11) <span class="org-keyword">NOT</span> <span class="org-keyword">NULL</span>,
   `cityName` <span class="org-type">varchar</span>(30) <span class="org-keyword">NOT</span> <span class="org-keyword">NULL</span>,
   `parentId` <span class="org-type">int</span>(11) <span class="org-keyword">NOT</span> <span class="org-keyword">NULL</span>,
   `shortName` <span class="org-type">varchar</span>(30) <span class="org-keyword">NOT</span> <span class="org-keyword">NULL</span>,
-  `<span class="org-keyword">depth</span>` <span class="org-type">int</span>(1) <span class="org-keyword">NOT</span> <span class="org-keyword">NULL</span>,
+  `<span class="org-builtin">depth</span>` <span class="org-type">int</span>(1) <span class="org-keyword">NOT</span> <span class="org-keyword">NULL</span>,
   `cityCode` <span class="org-type">varchar</span>(4) <span class="org-keyword">NOT</span> <span class="org-keyword">NULL</span>,
   `zipCode` <span class="org-type">varchar</span>(6) <span class="org-keyword">NOT</span> <span class="org-keyword">NULL</span>,
   `mergerName` <span class="org-type">varchar</span>(50) <span class="org-keyword">NOT</span> <span class="org-keyword">NULL</span>,
@@ -2011,22 +2011,22 @@ lagou_company 公司分离:
 </p>
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-comment">-- &#25152;&#26377;&#21439;</span>
-<span class="org-keyword">select</span> x.id, p.cityName, s.cityName, x.cityName
+<span class="org-keyword">select</span> x.<span class="org-builtin">id</span>, <span class="org-builtin">p</span>.cityName, s.cityName, x.cityName
 <span class="org-keyword">from</span> s_provinces x
-       <span class="org-keyword">join</span> s_provinces s <span class="org-keyword">on</span> x.parentId = s.id
-       <span class="org-keyword">join</span> s_provinces p <span class="org-keyword">on</span> s.parentId = p.id
-<span class="org-keyword">where</span> p.cityName = <span class="org-string">'&#24191;&#19996;&#30465;'</span>;
+       <span class="org-keyword">join</span> s_provinces s <span class="org-keyword">on</span> x.parentId = s.<span class="org-builtin">id</span>
+       <span class="org-keyword">join</span> s_provinces <span class="org-builtin">p</span> <span class="org-keyword">on</span> s.parentId = <span class="org-builtin">p</span>.<span class="org-builtin">id</span>
+<span class="org-keyword">where</span> <span class="org-builtin">p</span>.cityName = <span class="org-string">'&#24191;&#19996;&#30465;'</span>;
 
 <span class="org-comment">-- &#25152;&#26377;&#24066;</span>
-<span class="org-keyword">select</span> x.id, p.cityName, s.cityName, x.cityName
+<span class="org-keyword">select</span> x.<span class="org-builtin">id</span>, <span class="org-builtin">p</span>.cityName, s.cityName, x.cityName
 <span class="org-keyword">from</span> s_provinces x
-       <span class="org-keyword">join</span> s_provinces s <span class="org-keyword">on</span> x.parentId = s.id
-       <span class="org-keyword">join</span> s_provinces p <span class="org-keyword">on</span> s.parentId = p.id
-<span class="org-keyword">where</span> p.cityName = <span class="org-string">'&#24191;&#19996;&#30465;'</span>
+       <span class="org-keyword">join</span> s_provinces s <span class="org-keyword">on</span> x.parentId = s.<span class="org-builtin">id</span>
+       <span class="org-keyword">join</span> s_provinces <span class="org-builtin">p</span> <span class="org-keyword">on</span> s.parentId = <span class="org-builtin">p</span>.<span class="org-builtin">id</span>
+<span class="org-keyword">where</span> <span class="org-builtin">p</span>.cityName = <span class="org-string">'&#24191;&#19996;&#30465;'</span>
 <span class="org-keyword">union</span> <span class="org-keyword">all</span>
-<span class="org-keyword">select</span> s.id, p.cityName, s.cityName, <span class="org-keyword">null</span> <span class="org-keyword">from</span> s_provinces s
-       <span class="org-keyword">join</span> s_provinces p <span class="org-keyword">on</span> s.parentId = p.id
-<span class="org-keyword">where</span> p.cityName = <span class="org-string">'&#24191;&#19996;&#30465;'</span>;
+<span class="org-keyword">select</span> s.<span class="org-builtin">id</span>, <span class="org-builtin">p</span>.cityName, s.cityName, <span class="org-keyword">null</span> <span class="org-keyword">from</span> s_provinces s
+       <span class="org-keyword">join</span> s_provinces <span class="org-builtin">p</span> <span class="org-keyword">on</span> s.parentId = <span class="org-builtin">p</span>.<span class="org-builtin">id</span>
+<span class="org-keyword">where</span> <span class="org-builtin">p</span>.cityName = <span class="org-string">'&#24191;&#19996;&#30465;'</span>;
 </pre>
 </div>
 
@@ -2036,14 +2036,14 @@ lagou_company 公司分离:
 </div>
 </section>
 
-<section id="outline-container-org424bbd7" class="outline-2">
-<h2 id="org424bbd7"><span class="section-number-2">17</span> 查询练习</h2>
+<section id="outline-container-orgaf757ad" class="outline-2">
+<h2 id="orgaf757ad"><span class="section-number-2">17</span> 查询练习</h2>
 <div class="outline-text-2" id="text-17">
 <p>
 创建表:
 </p>
 <div class="org-src-container">
-<pre class="src src-sql"><span class="org-keyword">DROP</span> <span class="org-keyword">TABLE</span> <span class="org-function-name">IF</span> <span class="org-keyword">EXISTS</span> emp;
+<pre class="src src-sql"><span class="org-builtin">DROP</span> <span class="org-keyword">TABLE</span> <span class="org-builtin">IF</span> <span class="org-builtin">EXISTS</span> emp;
 
 <span class="org-keyword">CREATE</span> <span class="org-keyword">TABLE</span> <span class="org-function-name">emp</span> (
   empno <span class="org-type">decimal</span>(4,0) <span class="org-keyword">NOT</span> <span class="org-keyword">NULL</span>,
@@ -2056,7 +2056,7 @@ lagou_company 公司分离:
   deptno <span class="org-type">decimal</span>(2,0) <span class="org-keyword">default</span> <span class="org-keyword">NULL</span>
 );
 
-<span class="org-keyword">DROP</span> <span class="org-keyword">TABLE</span> <span class="org-function-name">IF</span> <span class="org-keyword">EXISTS</span> dept;
+<span class="org-builtin">DROP</span> <span class="org-keyword">TABLE</span> <span class="org-builtin">IF</span> <span class="org-builtin">EXISTS</span> dept;
 
 <span class="org-keyword">CREATE</span> <span class="org-keyword">TABLE</span> <span class="org-function-name">dept</span> (
   deptno <span class="org-type">decimal</span>(2,0) <span class="org-keyword">default</span> <span class="org-keyword">NULL</span>,
@@ -2064,25 +2064,25 @@ lagou_company 公司分离:
   loc <span class="org-type">varchar</span>(13) <span class="org-keyword">default</span> <span class="org-keyword">NULL</span>
 );
 
-<span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-keyword">VALUES</span> (<span class="org-string">'7369'</span>,<span class="org-string">'SMITH'</span>,<span class="org-string">'CLERK'</span>,<span class="org-string">'7902'</span>,<span class="org-string">'1980-12-17'</span>,<span class="org-string">'800.00'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'20'</span>);
-<span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-keyword">VALUES</span> (<span class="org-string">'7499'</span>,<span class="org-string">'ALLEN'</span>,<span class="org-string">'SALESMAN'</span>,<span class="org-string">'7698'</span>,<span class="org-string">'1981-02-20'</span>,<span class="org-string">'1600.00'</span>,<span class="org-string">'300.00'</span>,<span class="org-string">'30'</span>);
-<span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-keyword">VALUES</span> (<span class="org-string">'7521'</span>,<span class="org-string">'WARD'</span>,<span class="org-string">'SALESMAN'</span>,<span class="org-string">'7698'</span>,<span class="org-string">'1981-02-22'</span>,<span class="org-string">'1250.00'</span>,<span class="org-string">'500.00'</span>,<span class="org-string">'30'</span>);
-<span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-keyword">VALUES</span> (<span class="org-string">'7566'</span>,<span class="org-string">'JONES'</span>,<span class="org-string">'MANAGER'</span>,<span class="org-string">'7839'</span>,<span class="org-string">'1981-04-02'</span>,<span class="org-string">'2975.00'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'20'</span>);
-<span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-keyword">VALUES</span> (<span class="org-string">'7654'</span>,<span class="org-string">'MARTIN'</span>,<span class="org-string">'SALESMAN'</span>,<span class="org-string">'7698'</span>,<span class="org-string">'1981-09-28'</span>,<span class="org-string">'1250.00'</span>,<span class="org-string">'1400.00'</span>,<span class="org-string">'30'</span>);
-<span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-keyword">VALUES</span> (<span class="org-string">'7698'</span>,<span class="org-string">'BLAKE'</span>,<span class="org-string">'MANAGER'</span>,<span class="org-string">'7839'</span>,<span class="org-string">'1981-05-01'</span>,<span class="org-string">'2850.00'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'30'</span>);
-<span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-keyword">VALUES</span> (<span class="org-string">'7782'</span>,<span class="org-string">'CLARK'</span>,<span class="org-string">'MANAGER'</span>,<span class="org-string">'7839'</span>,<span class="org-string">'1981-06-09'</span>,<span class="org-string">'2450.00'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'10'</span>);
-<span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-keyword">VALUES</span> (<span class="org-string">'7788'</span>,<span class="org-string">'SCOTT'</span>,<span class="org-string">'ANALYST'</span>,<span class="org-string">'7566'</span>,<span class="org-string">'1982-12-09'</span>,<span class="org-string">'3000.00'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'20'</span>);
-<span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-keyword">VALUES</span> (<span class="org-string">'7839'</span>,<span class="org-string">'KING'</span>,<span class="org-string">'PRESIDENT'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'1981-11-17'</span>,<span class="org-string">'5000.00'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'10'</span>);
-<span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-keyword">VALUES</span> (<span class="org-string">'7844'</span>,<span class="org-string">'TURNER'</span>,<span class="org-string">'SALESMAN'</span>,<span class="org-string">'7698'</span>,<span class="org-string">'1981-09-08'</span>,<span class="org-string">'1500.00'</span>,<span class="org-string">'0.00'</span>,<span class="org-string">'30'</span>);
-<span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-keyword">VALUES</span> (<span class="org-string">'7876'</span>,<span class="org-string">'ADAMS'</span>,<span class="org-string">'CLERK'</span>,<span class="org-string">'7788'</span>,<span class="org-string">'1983-01-12'</span>,<span class="org-string">'1100.00'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'20'</span>);
-<span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-keyword">VALUES</span> (<span class="org-string">'7900'</span>,<span class="org-string">'JAMES'</span>,<span class="org-string">'CLERK'</span>,<span class="org-string">'7698'</span>,<span class="org-string">'1981-12-03'</span>,<span class="org-string">'950.00'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'30'</span>);
-<span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-keyword">VALUES</span> (<span class="org-string">'7902'</span>,<span class="org-string">'FORD'</span>,<span class="org-string">'ANALYST'</span>,<span class="org-string">'7566'</span>,<span class="org-string">'1981-12-03'</span>,<span class="org-string">'3000.00'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'20'</span>);
-<span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-keyword">VALUES</span> (<span class="org-string">'7934'</span>,<span class="org-string">'MILLER'</span>,<span class="org-string">'CLERK'</span>,<span class="org-string">'7782'</span>,<span class="org-string">'1982-01-23'</span>,<span class="org-string">'1300.00'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'10'</span>);
+<span class="org-builtin">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-builtin">VALUES</span> (<span class="org-string">'7369'</span>,<span class="org-string">'SMITH'</span>,<span class="org-string">'CLERK'</span>,<span class="org-string">'7902'</span>,<span class="org-string">'1980-12-17'</span>,<span class="org-string">'800.00'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'20'</span>);
+<span class="org-builtin">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-builtin">VALUES</span> (<span class="org-string">'7499'</span>,<span class="org-string">'ALLEN'</span>,<span class="org-string">'SALESMAN'</span>,<span class="org-string">'7698'</span>,<span class="org-string">'1981-02-20'</span>,<span class="org-string">'1600.00'</span>,<span class="org-string">'300.00'</span>,<span class="org-string">'30'</span>);
+<span class="org-builtin">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-builtin">VALUES</span> (<span class="org-string">'7521'</span>,<span class="org-string">'WARD'</span>,<span class="org-string">'SALESMAN'</span>,<span class="org-string">'7698'</span>,<span class="org-string">'1981-02-22'</span>,<span class="org-string">'1250.00'</span>,<span class="org-string">'500.00'</span>,<span class="org-string">'30'</span>);
+<span class="org-builtin">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-builtin">VALUES</span> (<span class="org-string">'7566'</span>,<span class="org-string">'JONES'</span>,<span class="org-string">'MANAGER'</span>,<span class="org-string">'7839'</span>,<span class="org-string">'1981-04-02'</span>,<span class="org-string">'2975.00'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'20'</span>);
+<span class="org-builtin">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-builtin">VALUES</span> (<span class="org-string">'7654'</span>,<span class="org-string">'MARTIN'</span>,<span class="org-string">'SALESMAN'</span>,<span class="org-string">'7698'</span>,<span class="org-string">'1981-09-28'</span>,<span class="org-string">'1250.00'</span>,<span class="org-string">'1400.00'</span>,<span class="org-string">'30'</span>);
+<span class="org-builtin">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-builtin">VALUES</span> (<span class="org-string">'7698'</span>,<span class="org-string">'BLAKE'</span>,<span class="org-string">'MANAGER'</span>,<span class="org-string">'7839'</span>,<span class="org-string">'1981-05-01'</span>,<span class="org-string">'2850.00'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'30'</span>);
+<span class="org-builtin">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-builtin">VALUES</span> (<span class="org-string">'7782'</span>,<span class="org-string">'CLARK'</span>,<span class="org-string">'MANAGER'</span>,<span class="org-string">'7839'</span>,<span class="org-string">'1981-06-09'</span>,<span class="org-string">'2450.00'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'10'</span>);
+<span class="org-builtin">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-builtin">VALUES</span> (<span class="org-string">'7788'</span>,<span class="org-string">'SCOTT'</span>,<span class="org-string">'ANALYST'</span>,<span class="org-string">'7566'</span>,<span class="org-string">'1982-12-09'</span>,<span class="org-string">'3000.00'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'20'</span>);
+<span class="org-builtin">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-builtin">VALUES</span> (<span class="org-string">'7839'</span>,<span class="org-string">'KING'</span>,<span class="org-string">'PRESIDENT'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'1981-11-17'</span>,<span class="org-string">'5000.00'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'10'</span>);
+<span class="org-builtin">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-builtin">VALUES</span> (<span class="org-string">'7844'</span>,<span class="org-string">'TURNER'</span>,<span class="org-string">'SALESMAN'</span>,<span class="org-string">'7698'</span>,<span class="org-string">'1981-09-08'</span>,<span class="org-string">'1500.00'</span>,<span class="org-string">'0.00'</span>,<span class="org-string">'30'</span>);
+<span class="org-builtin">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-builtin">VALUES</span> (<span class="org-string">'7876'</span>,<span class="org-string">'ADAMS'</span>,<span class="org-string">'CLERK'</span>,<span class="org-string">'7788'</span>,<span class="org-string">'1983-01-12'</span>,<span class="org-string">'1100.00'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'20'</span>);
+<span class="org-builtin">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-builtin">VALUES</span> (<span class="org-string">'7900'</span>,<span class="org-string">'JAMES'</span>,<span class="org-string">'CLERK'</span>,<span class="org-string">'7698'</span>,<span class="org-string">'1981-12-03'</span>,<span class="org-string">'950.00'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'30'</span>);
+<span class="org-builtin">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-builtin">VALUES</span> (<span class="org-string">'7902'</span>,<span class="org-string">'FORD'</span>,<span class="org-string">'ANALYST'</span>,<span class="org-string">'7566'</span>,<span class="org-string">'1981-12-03'</span>,<span class="org-string">'3000.00'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'20'</span>);
+<span class="org-builtin">INSERT</span> <span class="org-keyword">INTO</span> emp <span class="org-builtin">VALUES</span> (<span class="org-string">'7934'</span>,<span class="org-string">'MILLER'</span>,<span class="org-string">'CLERK'</span>,<span class="org-string">'7782'</span>,<span class="org-string">'1982-01-23'</span>,<span class="org-string">'1300.00'</span>,<span class="org-keyword">NULL</span>,<span class="org-string">'10'</span>);
 
-<span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> dept <span class="org-keyword">VALUES</span> (<span class="org-string">'10'</span>,<span class="org-string">'ACCOUNTING'</span>,<span class="org-string">'NEW YORK'</span>);
-<span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> dept <span class="org-keyword">VALUES</span> (<span class="org-string">'20'</span>,<span class="org-string">'RESEARCH'</span>,<span class="org-string">'DALLAS'</span>);
-<span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> dept <span class="org-keyword">VALUES</span> (<span class="org-string">'30'</span>,<span class="org-string">'SALES'</span>,<span class="org-string">'CHICAGO'</span>);
-<span class="org-keyword">INSERT</span> <span class="org-keyword">INTO</span> dept <span class="org-keyword">VALUES</span> (<span class="org-string">'40'</span>,<span class="org-string">'OPERATIONS'</span>,<span class="org-string">'BOSTON'</span>);
+<span class="org-builtin">INSERT</span> <span class="org-keyword">INTO</span> dept <span class="org-builtin">VALUES</span> (<span class="org-string">'10'</span>,<span class="org-string">'ACCOUNTING'</span>,<span class="org-string">'NEW YORK'</span>);
+<span class="org-builtin">INSERT</span> <span class="org-keyword">INTO</span> dept <span class="org-builtin">VALUES</span> (<span class="org-string">'20'</span>,<span class="org-string">'RESEARCH'</span>,<span class="org-string">'DALLAS'</span>);
+<span class="org-builtin">INSERT</span> <span class="org-keyword">INTO</span> dept <span class="org-builtin">VALUES</span> (<span class="org-string">'30'</span>,<span class="org-string">'SALES'</span>,<span class="org-string">'CHICAGO'</span>);
+<span class="org-builtin">INSERT</span> <span class="org-keyword">INTO</span> dept <span class="org-builtin">VALUES</span> (<span class="org-string">'40'</span>,<span class="org-string">'OPERATIONS'</span>,<span class="org-string">'BOSTON'</span>);
 </pre>
 </div>
 
@@ -2204,7 +2204,7 @@ lagou_company 公司分离:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-01 Thu 16:24</p>
+<p class="date">Created: 2018-11-05 Mon 00:56</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

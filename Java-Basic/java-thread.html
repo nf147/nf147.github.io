@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-01 Thu 16:24 -->
+<!-- 2018-11-05 Mon 00:56 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>线程(Thread)</title>
@@ -20,24 +20,24 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org944751e">1. Thread</a></li>
-<li><a href="#org1e4c548">2. Thread API</a></li>
-<li><a href="#org5326006">3. Thread Pool</a></li>
-<li><a href="#org28aafff">4. Java 并发历史</a></li>
-<li><a href="#orgdde971c">5. 面试题摘要</a>
+<li><a href="#org59badec">1. Thread</a></li>
+<li><a href="#org0e1679f">2. Thread API</a></li>
+<li><a href="#orgefb1141">3. Thread Pool</a></li>
+<li><a href="#orga55e8d1">4. Java 并发历史</a></li>
+<li><a href="#org56492f4">5. 面试题摘要</a>
 <ul>
-<li><a href="#org880c20d">5.1. 什么是线程</a></li>
-<li><a href="#org7e09ca4">5.2. 线程和进程有什么区别</a></li>
-<li><a href="#org656a87f">5.3. 如何在 Java 中使用新线程</a></li>
-<li><a href="#org5c88f01">5.4. start() 和 run() 有什么区别</a></li>
-<li><a href="#org0d22583">5.5. Thread.join 方法有什么用</a></li>
-<li><a href="#orge8b2061">5.6. 假如新建T1、T2、T3三个线程，如何保证它们按顺序执行？</a></li>
-<li><a href="#orgb82ee93">5.7. volatile 变了是做什么的</a></li>
-<li><a href="#org4e6e5f5">5.8. 如果一个线程中发生了异常会怎么样</a></li>
-<li><a href="#orgd81a1d3">5.9. 什么是 ThreadLocal 变量</a></li>
-<li><a href="#orgfc93385">5.10. 什么是线程池，为什么要使用</a></li>
-<li><a href="#orgb8af9c7">5.11. Thread.sleep 和 wait 方法有什么不同</a></li>
-<li><a href="#org7767f84">5.12. synchronized 关键词是做什么的</a></li>
+<li><a href="#orga265d95">5.1. 什么是线程</a></li>
+<li><a href="#org75651a9">5.2. 线程和进程有什么区别</a></li>
+<li><a href="#org071dacf">5.3. 如何在 Java 中使用新线程</a></li>
+<li><a href="#orgd2240fa">5.4. start() 和 run() 有什么区别</a></li>
+<li><a href="#org7c28be4">5.5. Thread.join 方法有什么用</a></li>
+<li><a href="#org850e12b">5.6. 假如新建T1、T2、T3三个线程，如何保证它们按顺序执行？</a></li>
+<li><a href="#org96c3243">5.7. volatile 变了是做什么的</a></li>
+<li><a href="#orge40b303">5.8. 如果一个线程中发生了异常会怎么样</a></li>
+<li><a href="#org727e623">5.9. 什么是 ThreadLocal 变量</a></li>
+<li><a href="#orgb250b2f">5.10. 什么是线程池，为什么要使用</a></li>
+<li><a href="#org2589b3e">5.11. Thread.sleep 和 wait 方法有什么不同</a></li>
+<li><a href="#org5abdf48">5.12. synchronized 关键词是做什么的</a></li>
 </ul>
 </li>
 </ul>
@@ -46,8 +46,8 @@
 
 
 
-<section id="outline-container-org944751e" class="outline-2">
-<h2 id="org944751e"><span class="section-number-2">1</span> Thread</h2>
+<section id="outline-container-org59badec" class="outline-2">
+<h2 id="org59badec"><span class="section-number-2">1</span> Thread</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 使用新线程的步骤:
@@ -129,8 +129,8 @@
 </div>
 </section>
 
-<section id="outline-container-org1e4c548" class="outline-2">
-<h2 id="org1e4c548"><span class="section-number-2">2</span> Thread API</h2>
+<section id="outline-container-org0e1679f" class="outline-2">
+<h2 id="org0e1679f"><span class="section-number-2">2</span> Thread API</h2>
 <div class="outline-text-2" id="text-2">
 
 <figure>
@@ -163,8 +163,8 @@
 </div>
 </section>
 
-<section id="outline-container-org5326006" class="outline-2">
-<h2 id="org5326006"><span class="section-number-2">3</span> Thread Pool</h2>
+<section id="outline-container-orgefb1141" class="outline-2">
+<h2 id="orgefb1141"><span class="section-number-2">3</span> Thread Pool</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 线程池的出现是为了复用线程，达到优化效率的目的。JDK1.5 开始提供了 <code>java.util.concurrent</code> 包用来对线程进行控制与调度，最重要的是内置了线程池的实现。
@@ -240,8 +240,8 @@ service.shutdown();
 </div>
 </section>
 
-<section id="outline-container-org28aafff" class="outline-2">
-<h2 id="org28aafff"><span class="section-number-2">4</span> Java 并发历史</h2>
+<section id="outline-container-orga55e8d1" class="outline-2">
+<h2 id="orga55e8d1"><span class="section-number-2">4</span> Java 并发历史</h2>
 <div class="outline-text-2" id="text-4">
 <ul class="org-ul">
 <li>jdk1.4 之前，Thread</li>
@@ -252,51 +252,51 @@ service.shutdown();
 </div>
 </section>
 
-<section id="outline-container-orgdde971c" class="outline-2">
-<h2 id="orgdde971c"><span class="section-number-2">5</span> 面试题摘要</h2>
+<section id="outline-container-org56492f4" class="outline-2">
+<h2 id="org56492f4"><span class="section-number-2">5</span> 面试题摘要</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-org880c20d" class="outline-3">
-<h3 id="org880c20d"><span class="section-number-3">5.1</span> 什么是线程</h3>
+<div id="outline-container-orga265d95" class="outline-3">
+<h3 id="orga265d95"><span class="section-number-3">5.1</span> 什么是线程</h3>
 </div>
-<div id="outline-container-org7e09ca4" class="outline-3">
-<h3 id="org7e09ca4"><span class="section-number-3">5.2</span> 线程和进程有什么区别</h3>
+<div id="outline-container-org75651a9" class="outline-3">
+<h3 id="org75651a9"><span class="section-number-3">5.2</span> 线程和进程有什么区别</h3>
 </div>
-<div id="outline-container-org656a87f" class="outline-3">
-<h3 id="org656a87f"><span class="section-number-3">5.3</span> 如何在 Java 中使用新线程</h3>
+<div id="outline-container-org071dacf" class="outline-3">
+<h3 id="org071dacf"><span class="section-number-3">5.3</span> 如何在 Java 中使用新线程</h3>
 </div>
-<div id="outline-container-org5c88f01" class="outline-3">
-<h3 id="org5c88f01"><span class="section-number-3">5.4</span> start() 和 run() 有什么区别</h3>
+<div id="outline-container-orgd2240fa" class="outline-3">
+<h3 id="orgd2240fa"><span class="section-number-3">5.4</span> start() 和 run() 有什么区别</h3>
 </div>
-<div id="outline-container-org0d22583" class="outline-3">
-<h3 id="org0d22583"><span class="section-number-3">5.5</span> Thread.join 方法有什么用</h3>
+<div id="outline-container-org7c28be4" class="outline-3">
+<h3 id="org7c28be4"><span class="section-number-3">5.5</span> Thread.join 方法有什么用</h3>
 </div>
-<div id="outline-container-orge8b2061" class="outline-3">
-<h3 id="orge8b2061"><span class="section-number-3">5.6</span> 假如新建T1、T2、T3三个线程，如何保证它们按顺序执行？</h3>
+<div id="outline-container-org850e12b" class="outline-3">
+<h3 id="org850e12b"><span class="section-number-3">5.6</span> 假如新建T1、T2、T3三个线程，如何保证它们按顺序执行？</h3>
 </div>
-<div id="outline-container-orgb82ee93" class="outline-3">
-<h3 id="orgb82ee93"><span class="section-number-3">5.7</span> volatile 变了是做什么的</h3>
+<div id="outline-container-org96c3243" class="outline-3">
+<h3 id="org96c3243"><span class="section-number-3">5.7</span> volatile 变了是做什么的</h3>
 </div>
-<div id="outline-container-org4e6e5f5" class="outline-3">
-<h3 id="org4e6e5f5"><span class="section-number-3">5.8</span> 如果一个线程中发生了异常会怎么样</h3>
+<div id="outline-container-orge40b303" class="outline-3">
+<h3 id="orge40b303"><span class="section-number-3">5.8</span> 如果一个线程中发生了异常会怎么样</h3>
 </div>
-<div id="outline-container-orgd81a1d3" class="outline-3">
-<h3 id="orgd81a1d3"><span class="section-number-3">5.9</span> 什么是 ThreadLocal 变量</h3>
+<div id="outline-container-org727e623" class="outline-3">
+<h3 id="org727e623"><span class="section-number-3">5.9</span> 什么是 ThreadLocal 变量</h3>
 </div>
-<div id="outline-container-orgfc93385" class="outline-3">
-<h3 id="orgfc93385"><span class="section-number-3">5.10</span> 什么是线程池，为什么要使用</h3>
+<div id="outline-container-orgb250b2f" class="outline-3">
+<h3 id="orgb250b2f"><span class="section-number-3">5.10</span> 什么是线程池，为什么要使用</h3>
 </div>
-<div id="outline-container-orgb8af9c7" class="outline-3">
-<h3 id="orgb8af9c7"><span class="section-number-3">5.11</span> Thread.sleep 和 wait 方法有什么不同</h3>
+<div id="outline-container-org2589b3e" class="outline-3">
+<h3 id="org2589b3e"><span class="section-number-3">5.11</span> Thread.sleep 和 wait 方法有什么不同</h3>
 </div>
-<div id="outline-container-org7767f84" class="outline-3">
-<h3 id="org7767f84"><span class="section-number-3">5.12</span> synchronized 关键词是做什么的</h3>
+<div id="outline-container-org5abdf48" class="outline-3">
+<h3 id="org5abdf48"><span class="section-number-3">5.12</span> synchronized 关键词是做什么的</h3>
 </div>
 </section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-01 Thu 16:24</p>
+<p class="date">Created: 2018-11-05 Mon 00:56</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

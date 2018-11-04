@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-01 Thu 16:24 -->
+<!-- 2018-11-05 Mon 00:56 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MyBatis</title>
@@ -20,49 +20,49 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orga7cc7b2">1. 历史背景</a>
+<li><a href="#orgad07f7e">1. 历史背景</a>
 <ul>
-<li><a href="#org0c96ffb">1.1. 背景</a></li>
-<li><a href="#org9e7ee00">1.2. Hibernate</a></li>
-<li><a href="#org17ac5b6">1.3. MyBatis</a></li>
+<li><a href="#orgbdcf9e9">1.1. 背景</a></li>
+<li><a href="#orge7dab28">1.2. Hibernate</a></li>
+<li><a href="#orgea7ebf4">1.3. MyBatis</a></li>
 </ul>
 </li>
-<li><a href="#org893bfd8">2. 核心配置文件 (mybatis-config.xml)</a>
+<li><a href="#org062169f">2. 核心配置文件 (mybatis-config.xml)</a>
 <ul>
-<li><a href="#orgb3e165a">2.1. 配置文件示例</a></li>
-<li><a href="#orgdb6ab7c">2.2. TypeHandler 示例</a></li>
-<li><a href="#org321e1ab">2.3. ObjectFactory 示例</a></li>
-<li><a href="#org8138632">2.4. DataSourceFactory 示例</a></li>
-<li><a href="#org1d0419d">2.5. Plugin 示例</a></li>
+<li><a href="#org48608f5">2.1. 配置文件示例</a></li>
+<li><a href="#org2e29ea4">2.2. TypeHandler 示例</a></li>
+<li><a href="#org08efce4">2.3. ObjectFactory 示例</a></li>
+<li><a href="#orgb11c564">2.4. DataSourceFactory 示例</a></li>
+<li><a href="#org9a15017">2.5. Plugin 示例</a></li>
 </ul>
 </li>
-<li><a href="#orgdc622d3">3. 映射文件 (EntityMapper.xml)</a>
+<li><a href="#org9235bb2">3. 映射文件 (EntityMapper.xml)</a>
 <ul>
-<li><a href="#org86c154e">3.1. 配置文件</a></li>
-<li><a href="#orgf88b6c2">3.2. sql</a></li>
-<li><a href="#org15dde4e">3.3. 动态语句之 if</a></li>
-<li><a href="#orgb758ed0">3.4. 动态语句之 trim/where/set</a></li>
-<li><a href="#org0bb7bc4">3.5. 动态语句之 foreach</a></li>
+<li><a href="#org7902544">3.1. 配置文件</a></li>
+<li><a href="#org121916f">3.2. sql</a></li>
+<li><a href="#orgb6312cf">3.3. 动态语句之 if</a></li>
+<li><a href="#org1ee9bf9">3.4. 动态语句之 trim/where/set</a></li>
+<li><a href="#org92f583b">3.5. 动态语句之 foreach</a></li>
 </ul>
 </li>
-<li><a href="#org9906152">4. 常用 API</a></li>
-<li><a href="#org524b1e7">5. 示例表</a></li>
-<li><a href="#orge5db9ad">6. 任务指导手册 P58 答案参考</a>
+<li><a href="#org1306806">4. 常用 API</a></li>
+<li><a href="#org8564ab5">5. 示例表</a></li>
+<li><a href="#org307181a">6. 任务指导手册 P58 答案参考</a>
 <ul>
-<li><a href="#org30ee6a6">6.1. 首先，在数据库中创建表，并插入测试数据:</a></li>
-<li><a href="#org38ae73c">6.2. 其次，为表创建相应实体类:</a></li>
-<li><a href="#org96d1ca3">6.3. 然后，创建接口。按照需求，我们要实现两个方法:</a></li>
-<li><a href="#org9c6401b">6.4. 为上述接口，写测试方法:</a></li>
-<li><a href="#org382f909">6.5. Mapper 的第一种方式，Nested ResultMap:</a></li>
-<li><a href="#org7c9d254">6.6. Mapper 的第二种方式，Nested Select:</a></li>
+<li><a href="#org12b90d1">6.1. 首先，在数据库中创建表，并插入测试数据:</a></li>
+<li><a href="#orgc2315d3">6.2. 其次，为表创建相应实体类:</a></li>
+<li><a href="#org23a7bd2">6.3. 然后，创建接口。按照需求，我们要实现两个方法:</a></li>
+<li><a href="#orgc1e7a99">6.4. 为上述接口，写测试方法:</a></li>
+<li><a href="#org9d25ff1">6.5. Mapper 的第一种方式，Nested ResultMap:</a></li>
+<li><a href="#org16a08fb">6.6. Mapper 的第二种方式，Nested Select:</a></li>
 </ul>
 </li>
-<li><a href="#org9d2c6f2">7. 缓存 (Cache)</a></li>
-<li><a href="#org8167325">8. 分页 (Pagination)</a></li>
-<li><a href="#orgc43d0d4">9. MBG (MyBatis-Generator)</a>
+<li><a href="#org20274c6">7. 缓存 (Cache)</a></li>
+<li><a href="#org0f3a6a3">8. 分页 (Pagination)</a></li>
+<li><a href="#orge1bcbaf">9. MBG (MyBatis-Generator)</a>
 <ul>
-<li><a href="#org11700f7">9.1. Quick Start</a></li>
-<li><a href="#org8ce312f">9.2. 配置文件总览</a></li>
+<li><a href="#orgc821481">9.1. Quick Start</a></li>
+<li><a href="#org6a273d5">9.2. 配置文件总览</a></li>
 </ul>
 </li>
 </ul>
@@ -70,12 +70,12 @@
 </nav>
 
 
-<section id="outline-container-orga7cc7b2" class="outline-2">
-<h2 id="orga7cc7b2"><span class="section-number-2">1</span> 历史背景</h2>
+<section id="outline-container-orgad07f7e" class="outline-2">
+<h2 id="orgad07f7e"><span class="section-number-2">1</span> 历史背景</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org0c96ffb" class="outline-3">
-<h3 id="org0c96ffb"><span class="section-number-3">1.1</span> 背景</h3>
+<div id="outline-container-orgbdcf9e9" class="outline-3">
+<h3 id="orgbdcf9e9"><span class="section-number-3">1.1</span> 背景</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>SSH, Spring + Struts1,2 + Hibernate</li>
@@ -87,8 +87,8 @@ dao, 数据库连接
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">person</span> (id <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>, <span class="org-keyword">name</span> <span class="org-type">varchar</span>(20), weixin <span class="org-type">varchar</span>(20));
-<span class="org-keyword">insert</span> <span class="org-keyword">into</span> person (<span class="org-keyword">name</span>, weixin) <span class="org-keyword">values</span> (<span class="org-string">'&#24352;&#23398;&#21451;'</span>, <span class="org-string">'110'</span>), (<span class="org-string">'&#21016;&#20134;&#33778;'</span>, <span class="org-string">'220'</span>);
+<pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">person</span> (<span class="org-builtin">id</span> <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>, <span class="org-type">name</span> <span class="org-type">varchar</span>(20), weixin <span class="org-type">varchar</span>(20));
+<span class="org-builtin">insert</span> <span class="org-keyword">into</span> person (<span class="org-type">name</span>, weixin) <span class="org-builtin">values</span> (<span class="org-string">'&#24352;&#23398;&#21451;'</span>, <span class="org-string">'110'</span>), (<span class="org-string">'&#21016;&#20134;&#33778;'</span>, <span class="org-string">'220'</span>);
 </pre>
 </div>
 
@@ -123,8 +123,8 @@ ORM:
 </div>
 
 
-<div id="outline-container-org9e7ee00" class="outline-3">
-<h3 id="org9e7ee00"><span class="section-number-3">1.2</span> Hibernate</h3>
+<div id="outline-container-orge7dab28" class="outline-3">
+<h3 id="orge7dab28"><span class="section-number-3">1.2</span> Hibernate</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 想法:
@@ -234,8 +234,8 @@ System.out.println(book1.getName());
 </div>
 </div>
 
-<div id="outline-container-org17ac5b6" class="outline-3">
-<h3 id="org17ac5b6"><span class="section-number-3">1.3</span> MyBatis</h3>
+<div id="outline-container-orgea7ebf4" class="outline-3">
+<h3 id="orgea7ebf4"><span class="section-number-3">1.3</span> MyBatis</h3>
 <div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
 <li>select id, name, wexin from person where ?</li>
@@ -282,12 +282,12 @@ helper.help(<span class="org-string">"yuju2"</span>);
 </div>
 </section>
 
-<section id="outline-container-org893bfd8" class="outline-2">
-<h2 id="org893bfd8"><span class="section-number-2">2</span> 核心配置文件 (mybatis-config.xml)</h2>
+<section id="outline-container-org062169f" class="outline-2">
+<h2 id="org062169f"><span class="section-number-2">2</span> 核心配置文件 (mybatis-config.xml)</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-orgb3e165a" class="outline-3">
-<h3 id="orgb3e165a"><span class="section-number-3">2.1</span> 配置文件示例</h3>
+<div id="outline-container-org48608f5" class="outline-3">
+<h3 id="org48608f5"><span class="section-number-3">2.1</span> 配置文件示例</h3>
 <div class="outline-text-3" id="text-2-1">
 <div class="org-src-container">
 <pre class="src src-sgml"><span class="org-string">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
@@ -390,8 +390,8 @@ helper.help(<span class="org-string">"yuju2"</span>);
 </div>
 </div>
 
-<div id="outline-container-orgdb6ab7c" class="outline-3">
-<h3 id="orgdb6ab7c"><span class="section-number-3">2.2</span> TypeHandler 示例</h3>
+<div id="outline-container-org2e29ea4" class="outline-3">
+<h3 id="org2e29ea4"><span class="section-number-3">2.2</span> TypeHandler 示例</h3>
 <div class="outline-text-3" id="text-2-2">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-c-annotation">@MappedJdbcTypes</span>(<span class="org-constant">JdbcType</span>.<span class="org-type">Integer</span>)
@@ -406,8 +406,8 @@ helper.help(<span class="org-string">"yuju2"</span>);
 </div>
 </div>
 
-<div id="outline-container-org321e1ab" class="outline-3">
-<h3 id="org321e1ab"><span class="section-number-3">2.3</span> ObjectFactory 示例</h3>
+<div id="outline-container-org08efce4" class="outline-3">
+<h3 id="org08efce4"><span class="section-number-3">2.3</span> ObjectFactory 示例</h3>
 <div class="outline-text-3" id="text-2-3">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">OurObjectFactory</span> <span class="org-keyword">extends</span> <span class="org-type">DefaultObjectFactory</span> {
@@ -422,8 +422,8 @@ helper.help(<span class="org-string">"yuju2"</span>);
 </div>
 </div>
 
-<div id="outline-container-org8138632" class="outline-3">
-<h3 id="org8138632"><span class="section-number-3">2.4</span> DataSourceFactory 示例</h3>
+<div id="outline-container-orgb11c564" class="outline-3">
+<h3 id="orgb11c564"><span class="section-number-3">2.4</span> DataSourceFactory 示例</h3>
 <div class="outline-text-3" id="text-2-4">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">MyDataSourceFactory</span> <span class="org-keyword">extends</span> <span class="org-type">UnpooledDataSourceFactory</span> {
@@ -437,8 +437,8 @@ helper.help(<span class="org-string">"yuju2"</span>);
 </div>
 </div>
 
-<div id="outline-container-org1d0419d" class="outline-3">
-<h3 id="org1d0419d"><span class="section-number-3">2.5</span> Plugin 示例</h3>
+<div id="outline-container-org9a15017" class="outline-3">
+<h3 id="org9a15017"><span class="section-number-3">2.5</span> Plugin 示例</h3>
 <div class="outline-text-3" id="text-2-5">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-c-annotation">@Intercepts</span>({<span class="org-c-annotation">@Signature</span>(
@@ -462,12 +462,12 @@ helper.help(<span class="org-string">"yuju2"</span>);
 </div>
 </div>
 </section>
-<section id="outline-container-orgdc622d3" class="outline-2">
-<h2 id="orgdc622d3"><span class="section-number-2">3</span> 映射文件 (EntityMapper.xml)</h2>
+<section id="outline-container-org9235bb2" class="outline-2">
+<h2 id="org9235bb2"><span class="section-number-2">3</span> 映射文件 (EntityMapper.xml)</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org86c154e" class="outline-3">
-<h3 id="org86c154e"><span class="section-number-3">3.1</span> 配置文件</h3>
+<div id="outline-container-org7902544" class="outline-3">
+<h3 id="org7902544"><span class="section-number-3">3.1</span> 配置文件</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 示例 XML:
@@ -662,8 +662,8 @@ System.out.println(comments);
 </div>
 </div>
 
-<div id="outline-container-orgf88b6c2" class="outline-3">
-<h3 id="orgf88b6c2"><span class="section-number-3">3.2</span> sql</h3>
+<div id="outline-container-org121916f" class="outline-3">
+<h3 id="org121916f"><span class="section-number-3">3.2</span> sql</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 用于在指定位置插入代码片段，这可以达到代码片段复用的目的。
@@ -751,8 +751,8 @@ System.out.println(comments);
 </div>
 
 
-<div id="outline-container-org15dde4e" class="outline-3">
-<h3 id="org15dde4e"><span class="section-number-3">3.3</span> 动态语句之 if</h3>
+<div id="outline-container-orgb6312cf" class="outline-3">
+<h3 id="orgb6312cf"><span class="section-number-3">3.3</span> 动态语句之 if</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 基本语法是:
@@ -781,8 +781,8 @@ System.out.println(comments);
 </div>
 </div>
 
-<div id="outline-container-orgb758ed0" class="outline-3">
-<h3 id="orgb758ed0"><span class="section-number-3">3.4</span> 动态语句之 trim/where/set</h3>
+<div id="outline-container-org1ee9bf9" class="outline-3">
+<h3 id="org1ee9bf9"><span class="section-number-3">3.4</span> 动态语句之 trim/where/set</h3>
 <div class="outline-text-3" id="text-3-4">
 <p>
 这些都是结合 if 语句使用，防止拼接多个语句的时候，产生多余的前缀、后缀，是一种辅助语法。
@@ -842,8 +842,8 @@ where city = #{city} and address like #{address}
 </div>
 </div>
 
-<div id="outline-container-org0bb7bc4" class="outline-3">
-<h3 id="org0bb7bc4"><span class="section-number-3">3.5</span> 动态语句之 foreach</h3>
+<div id="outline-container-org92f583b" class="outline-3">
+<h3 id="org92f583b"><span class="section-number-3">3.5</span> 动态语句之 foreach</h3>
 <div class="outline-text-3" id="text-3-5">
 <p>
 比如，动态组合成 in (xxx, yyy) 语句，那么这么写:
@@ -916,8 +916,8 @@ session.commit();
 </div>
 </section>
 
-<section id="outline-container-org9906152" class="outline-2">
-<h2 id="org9906152"><span class="section-number-2">4</span> 常用 API</h2>
+<section id="outline-container-org1306806" class="outline-2">
+<h2 id="org1306806"><span class="section-number-2">4</span> 常用 API</h2>
 <div class="outline-text-2" id="text-4">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">main</span>(<span class="org-type">String</span>[] <span class="org-variable-name">args</span>) <span class="org-keyword">throws</span> <span class="org-type">Exception</span> {
@@ -982,26 +982,26 @@ session.commit();
 </div>
 </section>
 
-<section id="outline-container-org524b1e7" class="outline-2">
-<h2 id="org524b1e7"><span class="section-number-2">5</span> 示例表</h2>
+<section id="outline-container-org8564ab5" class="outline-2">
+<h2 id="org8564ab5"><span class="section-number-2">5</span> 示例表</h2>
 <div class="outline-text-2" id="text-5">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">sss_author</span> (
-       id <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>,
-       <span class="org-keyword">name</span> <span class="org-type">varchar</span>(30),
+       <span class="org-builtin">id</span> <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>,
+       <span class="org-type">name</span> <span class="org-type">varchar</span>(30),
        city <span class="org-type">varchar</span>(30));
 <span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">sss_blog</span> (
-       id <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>,
+       <span class="org-builtin">id</span> <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>,
        title <span class="org-type">varchar</span>(30),
-       content text,
+       <span class="org-builtin">content</span> <span class="org-type">text</span>,
        author_id <span class="org-type">int</span>);
 <span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">sss_comment</span> (
-       id <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>,
+       <span class="org-builtin">id</span> <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>,
        body <span class="org-type">varchar</span>(30),
        blog_id <span class="org-type">int</span>,
        author_id <span class="org-type">int</span>);
 
-<span class="org-keyword">insert</span> <span class="org-keyword">into</span> sss_author (<span class="org-keyword">name</span>, city) <span class="org-keyword">values</span>
+<span class="org-builtin">insert</span> <span class="org-keyword">into</span> sss_author (<span class="org-type">name</span>, city) <span class="org-builtin">values</span>
        (<span class="org-string">'&#37101;&#25964;&#26126;'</span>, <span class="org-string">'&#19978;&#28023;'</span>),
        (<span class="org-string">'&#40065;&#36805;'</span>, <span class="org-string">'&#27993;&#27743;'</span>),
        (<span class="org-string">'&#27611;&#27901;&#19996;'</span>, <span class="org-string">'&#28246;&#21335;'</span>),
@@ -1009,13 +1009,13 @@ session.commit();
        (<span class="org-string">'&#21608;&#24681;&#26469;'</span>, <span class="org-string">'&#27993;&#27743;'</span>),
        (<span class="org-string">'&#29579;&#38451;&#26126;'</span>, <span class="org-string">'&#27743;&#35199;'</span>);
 
-<span class="org-keyword">insert</span> <span class="org-keyword">into</span> sss_blog (title, content, author_id) <span class="org-keyword">values</span>
+<span class="org-builtin">insert</span> <span class="org-keyword">into</span> sss_blog (title, <span class="org-builtin">content</span>, author_id) <span class="org-builtin">values</span>
        (<span class="org-string">'&#21584;&#21898;'</span>,<span class="org-string">'&#37266;&#37266;&#21543;&#65292;&#23401;&#23376;'</span>, 2),
        (<span class="org-string">'&#26397;&#33457;&#22805;&#25342;'</span>, <span class="org-string">'&#19977;&#21619;&#20070;&#23627;'</span>, 2),
        (<span class="org-string">'&#32780;&#24050;&#38598;'</span>, <span class="org-string">'&#33485;&#34631;&#23601;&#26159;&#33485;&#34631;'</span>, 2),
        (<span class="org-string">'&#23567;&#26102;&#20195;'</span>, <span class="org-string">'&#24754;&#20260;&#23612;&#31108;&#30475;&#35265;&#30475;&#35265;&#26694;&#26550;'</span>, 1);
 
-<span class="org-keyword">insert</span> <span class="org-keyword">into</span> sss_comment (body, blog_id, author_id) <span class="org-keyword">values</span>
+<span class="org-builtin">insert</span> <span class="org-keyword">into</span> sss_comment (body, blog_id, author_id) <span class="org-builtin">values</span>
        (<span class="org-string">'&#36825;&#26159;&#19968;&#26412;&#22909;&#20070;&#65292;&#25105;&#26159;&#20889;&#19981;&#20986;&#26469;'</span>, 1, 1),
        (<span class="org-string">'&#24456;&#22909;&#65292;&#24050;&#38405;&#12290;'</span>, 1, 2);
 
@@ -1027,22 +1027,22 @@ session.commit();
 </div>
 </div>
 </section>
-<section id="outline-container-orge5db9ad" class="outline-2">
-<h2 id="orge5db9ad"><span class="section-number-2">6</span> 任务指导手册 P58 答案参考</h2>
+<section id="outline-container-org307181a" class="outline-2">
+<h2 id="org307181a"><span class="section-number-2">6</span> 任务指导手册 P58 答案参考</h2>
 <div class="outline-text-2" id="text-6">
 </div>
-<div id="outline-container-org30ee6a6" class="outline-3">
-<h3 id="org30ee6a6"><span class="section-number-3">6.1</span> 首先，在数据库中创建表，并插入测试数据:</h3>
+<div id="outline-container-org12b90d1" class="outline-3">
+<h3 id="org12b90d1"><span class="section-number-3">6.1</span> 首先，在数据库中创建表，并插入测试数据:</h3>
 <div class="outline-text-3" id="text-6-1">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">customer</span>(
-    customer_id <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>,
+    customer_id <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>,
     first_name <span class="org-type">varchar</span>(30),
     last_name <span class="org-type">varchar</span>(10),
     company <span class="org-type">varchar</span>(30),
     address <span class="org-type">varchar</span>(30),
     city <span class="org-type">varchar</span>(20),
-    <span class="org-keyword">state</span> <span class="org-type">varchar</span>(10),
+    <span class="org-builtin">state</span> <span class="org-type">varchar</span>(10),
     county <span class="org-type">varchar</span>(10),
     postal_code <span class="org-type">varchar</span>(30),
     phone <span class="org-type">varchar</span>(20),
@@ -1051,7 +1051,7 @@ session.commit();
     support_repId <span class="org-type">int</span>
 );
 <span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">invoice</span>(
-    invoice_id <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>,
+    invoice_id <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>,
     customer_id <span class="org-type">int</span> <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
     invoice_date <span class="org-type">date</span>,
     billing_address <span class="org-type">varchar</span>(20),
@@ -1062,22 +1062,22 @@ session.commit();
     total <span class="org-type">int</span>
 );
 
-<span class="org-keyword">insert</span> <span class="org-keyword">into</span> customer (first_name,last_name,company,address,city,<span class="org-keyword">state</span> ,county,postal_code,phone,fax,email,support_repId)
-   <span class="org-keyword">values</span>
+<span class="org-builtin">insert</span> <span class="org-keyword">into</span> customer (first_name,last_name,company,address,city,<span class="org-builtin">state</span> ,county,postal_code,phone,fax,email,support_repId)
+   <span class="org-builtin">values</span>
    (<span class="org-string">'&#24503;&#21326;'</span>,<span class="org-string">'&#21016;'</span>,<span class="org-string">'&#21271;&#24433;'</span>,<span class="org-string">'001&#21495;&#34903;'</span>,<span class="org-string">'&#39321;&#28207;'</span>,<span class="org-string">'&#20122;&#27954;'</span>,<span class="org-string">'&#20013;&#22269;'</span>,<span class="org-string">'999077'</span>,<span class="org-string">'13842344532'</span>,<span class="org-string">'13842344532'</span>,<span class="org-string">'4534123124@qq.com'</span>,0),
    (<span class="org-string">'&#23500;&#22478;'</span>,<span class="org-string">'&#37101;'</span>,<span class="org-string">'&#21271;&#24433;'</span>,<span class="org-string">'002&#21495;&#34903;'</span>,<span class="org-string">'&#39321;&#28207;'</span>,<span class="org-string">'&#20122;&#27954;'</span>,<span class="org-string">'&#20013;&#22269;'</span>,<span class="org-string">'999077'</span>,<span class="org-string">'15072349132'</span>,<span class="org-string">'15072349132'</span>,<span class="org-string">'8937120154@qq.com'</span>,0),
    (<span class="org-string">'&#40857;'</span>,<span class="org-string">'&#25104;'</span>,<span class="org-string">'&#21271;&#24433;'</span>,<span class="org-string">'003&#21495;&#34903;'</span>,<span class="org-string">'&#39321;&#28207;'</span>,<span class="org-string">'&#20122;&#27954;'</span>,<span class="org-string">'&#20013;&#22269;'</span>,<span class="org-string">'999077'</span>,<span class="org-string">'13389344576'</span>,<span class="org-string">'13389344576'</span>,<span class="org-string">'4534123124@qq.com'</span>,0);
 
-<span class="org-keyword">insert</span> <span class="org-keyword">into</span> invoice (customer_id,invoice_date,billing_address,billing_city, billing_state,billing_country,billing_postalCode,total)
-   <span class="org-keyword">values</span>
+<span class="org-builtin">insert</span> <span class="org-keyword">into</span> invoice (customer_id,invoice_date,billing_address,billing_city, billing_state,billing_country,billing_postalCode,total)
+   <span class="org-builtin">values</span>
    (1,<span class="org-string">'2018-10-13'</span>,<span class="org-string">'001&#34903;'</span>,<span class="org-string">'&#39321;&#28207;'</span>,<span class="org-string">'&#20122;&#27954;'</span>,<span class="org-string">'&#20013;&#22269;'</span>,<span class="org-string">'999077'</span>,1);
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org38ae73c" class="outline-3">
-<h3 id="org38ae73c"><span class="section-number-3">6.2</span> 其次，为表创建相应实体类:</h3>
+<div id="outline-container-orgc2315d3" class="outline-3">
+<h3 id="orgc2315d3"><span class="section-number-3">6.2</span> 其次，为表创建相应实体类:</h3>
 <div class="outline-text-3" id="text-6-2">
 <ul class="org-ul">
 <li>注意，处理好依赖关系</li>
@@ -1087,8 +1087,8 @@ session.commit();
 </div>
 </div>
 
-<div id="outline-container-org96d1ca3" class="outline-3">
-<h3 id="org96d1ca3"><span class="section-number-3">6.3</span> 然后，创建接口。按照需求，我们要实现两个方法:</h3>
+<div id="outline-container-org23a7bd2" class="outline-3">
+<h3 id="org23a7bd2"><span class="section-number-3">6.3</span> 然后，创建接口。按照需求，我们要实现两个方法:</h3>
 <div class="outline-text-3" id="text-6-3">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">interface</span> <span class="org-type">InvoiceMapper</span> {
@@ -1100,8 +1100,8 @@ session.commit();
 </div>
 </div>
 
-<div id="outline-container-org9c6401b" class="outline-3">
-<h3 id="org9c6401b"><span class="section-number-3">6.4</span> 为上述接口，写测试方法:</h3>
+<div id="outline-container-orgc1e7a99" class="outline-3">
+<h3 id="orgc1e7a99"><span class="section-number-3">6.4</span> 为上述接口，写测试方法:</h3>
 <div class="outline-text-3" id="text-6-4">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">AppTest</span> {
@@ -1144,8 +1144,8 @@ session.commit();
 </div>
 </div>
 
-<div id="outline-container-org382f909" class="outline-3">
-<h3 id="org382f909"><span class="section-number-3">6.5</span> Mapper 的第一种方式，Nested ResultMap:</h3>
+<div id="outline-container-org9d25ff1" class="outline-3">
+<h3 id="org9d25ff1"><span class="section-number-3">6.5</span> Mapper 的第一种方式，Nested ResultMap:</h3>
 <div class="outline-text-3" id="text-6-5">
 <p>
 嵌套的 ResultMap。
@@ -1213,8 +1213,8 @@ session.commit();
 </div>
 </div>
 
-<div id="outline-container-org7c9d254" class="outline-3">
-<h3 id="org7c9d254"><span class="section-number-3">6.6</span> Mapper 的第二种方式，Nested Select:</h3>
+<div id="outline-container-org16a08fb" class="outline-3">
+<h3 id="org16a08fb"><span class="section-number-3">6.6</span> Mapper 的第二种方式，Nested Select:</h3>
 <div class="outline-text-3" id="text-6-6">
 <p>
 嵌套的 Select 查询。
@@ -1264,8 +1264,8 @@ session.commit();
 </div>
 </section>
 
-<section id="outline-container-org9d2c6f2" class="outline-2">
-<h2 id="org9d2c6f2"><span class="section-number-2">7</span> 缓存 (Cache)</h2>
+<section id="outline-container-org20274c6" class="outline-2">
+<h2 id="org20274c6"><span class="section-number-2">7</span> 缓存 (Cache)</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 缓存类型:
@@ -1319,8 +1319,8 @@ session.commit();
 </div>
 </section>
 
-<section id="outline-container-org8167325" class="outline-2">
-<h2 id="org8167325"><span class="section-number-2">8</span> 分页 (Pagination)</h2>
+<section id="outline-container-org0f3a6a3" class="outline-2">
+<h2 id="org0f3a6a3"><span class="section-number-2">8</span> 分页 (Pagination)</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 分页方式的分类:
@@ -1397,16 +1397,16 @@ assertEquals(<span class="org-constant">true</span>,  page.isHasNextPage());
 </div>
 </section>
 
-<section id="outline-container-orgc43d0d4" class="outline-2">
-<h2 id="orgc43d0d4"><span class="section-number-2">9</span> MBG (MyBatis-Generator)</h2>
+<section id="outline-container-orge1bcbaf" class="outline-2">
+<h2 id="orge1bcbaf"><span class="section-number-2">9</span> MBG (MyBatis-Generator)</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 <a href="http://www.mybatis.org/generator/">http://www.mybatis.org/generator/</a>
 </p>
 </div>
 
-<div id="outline-container-org11700f7" class="outline-3">
-<h3 id="org11700f7"><span class="section-number-3">9.1</span> Quick Start</h3>
+<div id="outline-container-orgc821481" class="outline-3">
+<h3 id="orgc821481"><span class="section-number-3">9.1</span> Quick Start</h3>
 <div class="outline-text-3" id="text-9-1">
 <p>
 首先，创建配置文件 <code>generatorConfig.xml</code>:
@@ -1489,8 +1489,8 @@ mvn mybatis-generator:generate -Dmybatis.generator.overwrite=true  # 可以传�
 </div>
 </div>
 
-<div id="outline-container-org8ce312f" class="outline-3">
-<h3 id="org8ce312f"><span class="section-number-3">9.2</span> 配置文件总览</h3>
+<div id="outline-container-org6a273d5" class="outline-3">
+<h3 id="org6a273d5"><span class="section-number-3">9.2</span> 配置文件总览</h3>
 <div class="outline-text-3" id="text-9-2">
 <div class="org-src-container">
 <pre class="src src-sgml"><span class="org-string">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
@@ -1594,7 +1594,7 @@ mvn mybatis-generator:generate -Dmybatis.generator.overwrite=true  # 可以传�
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-01 Thu 16:24</p>
+<p class="date">Created: 2018-11-05 Mon 00:56</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
