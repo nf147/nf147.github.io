@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-05 Mon 00:56 -->
+<!-- 2018-11-05 Mon 01:11 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Java DateTime API</title>
@@ -20,10 +20,10 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgdce5203">1. Date/SimpleDateFormat</a></li>
-<li><a href="#org08888b2">2. Calender</a></li>
-<li><a href="#org3f47ebb">3. JodaTime</a></li>
-<li><a href="#org501a61f">4. LocalTime/LocalDate/LocalDateTime</a></li>
+<li><a href="#org0151864">1. Date/SimpleDateFormat</a></li>
+<li><a href="#orga7cc4b2">2. Calender</a></li>
+<li><a href="#org3497c45">3. JodaTime</a></li>
+<li><a href="#orgd3afae4">4. LocalTime/LocalDate/LocalDateTime</a></li>
 </ul>
 </div>
 </nav>
@@ -31,8 +31,8 @@
 
 
 
-<section id="outline-container-orgdce5203" class="outline-2">
-<h2 id="orgdce5203"><span class="section-number-2">1</span> Date/SimpleDateFormat</h2>
+<section id="outline-container-org0151864" class="outline-2">
+<h2 id="org0151864"><span class="section-number-2">1</span> Date/SimpleDateFormat</h2>
 <div class="outline-text-2" id="text-1">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-type">Date</span> <span class="org-variable-name">now</span> = <span class="org-keyword">new</span> <span class="org-type">Date</span>();
@@ -46,8 +46,8 @@
 </div>
 </section>
 
-<section id="outline-container-org08888b2" class="outline-2">
-<h2 id="org08888b2"><span class="section-number-2">2</span> Calender</h2>
+<section id="outline-container-orga7cc4b2" class="outline-2">
+<h2 id="orga7cc4b2"><span class="section-number-2">2</span> Calender</h2>
 <div class="outline-text-2" id="text-2">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-type">Calender</span> <span class="org-variable-name">c</span> = Calender.getInstance(); <span class="org-comment-delimiter">// </span><span class="org-comment">GregorianCalendar</span>
@@ -59,8 +59,8 @@
 </div>
 </section>
 
-<section id="outline-container-org3f47ebb" class="outline-2">
-<h2 id="org3f47ebb"><span class="section-number-2">3</span> JodaTime</h2>
+<section id="outline-container-org3497c45" class="outline-2">
+<h2 id="org3497c45"><span class="section-number-2">3</span> JodaTime</h2>
 <div class="outline-text-2" id="text-3">
 <div class="org-src-container">
 <pre class="src src-sgml"><span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">https://mvnrepository.com/artifact/joda-time/joda-time </span><span class="org-comment-delimiter">--&gt;</span>
@@ -74,18 +74,25 @@
 </div>
 </section>
 
-<section id="outline-container-org501a61f" class="outline-2">
-<h2 id="org501a61f"><span class="section-number-2">4</span> LocalTime/LocalDate/LocalDateTime</h2>
+<section id="outline-container-orgd3afae4" class="outline-2">
+<h2 id="orgd3afae4"><span class="section-number-2">4</span> LocalTime/LocalDate/LocalDateTime</h2>
 <div class="outline-text-2" id="text-4">
-<p>
-jdk8
-</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-comment-delimiter">// </span><span class="org-comment">&#33719;&#21462;&#20170;&#22825;&#26102;&#38388;</span>
+<span class="org-type">LocalDateTime</span> <span class="org-variable-name">now</span> = LocalDateTime.now();
+<span class="org-type">LocalDateTime</span> <span class="org-variable-name">then</span> = LocalDateTime.of(2018, 10, 12, 22, 1, 1);
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#26684;&#24335;&#21270;&#26102;&#38388;</span>
+<span class="org-type">DateTimeFormatter</span> <span class="org-variable-name">dtf</span> = DateTimeFormatter.ofPattern(<span class="org-string">"yyyy-mm-dd hh:mm:ss"</span>);
+LocalDateTime.now().format(dtf);
+</pre>
+</div>
 </div>
 </section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-05 Mon 00:56</p>
+<p class="date">Created: 2018-11-05 Mon 01:11</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

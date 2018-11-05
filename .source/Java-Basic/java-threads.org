@@ -1,0 +1,174 @@
+#+TITLE: Thread (线程)
+
+
+
+* Thread
+
+使用新线程的步骤:
+1. 通过覆写 Thread 的 ~run~ 方法，配置新线程需要做的事情
+2. 创建新线程对象 ~new YourThread()~
+3. 开启线程 ~start~
+
+创建新线程的方法有很多，下面是一个示例:
+#+BEGIN_SRC java
+  class MyThread extends Thread {
+      @Override
+      public void run () {
+          System.out.println("在新的线程内运行的任务。这任务是独立的，不会影响主线程代码执行。");
+      }
+  }
+  public class Main {
+      public static void main (String... args) {
+          Thread myThread = new MyThread();   // 创建线程
+          mythread.start();                   // 运行线程
+      }
+  }
+#+END_SRC
+
+也可以这样:
+#+BEGIN_SRC java
+  class MyThread implements Runnable {
+      @Override
+      public void run () {
+          System.out.println("在新的线程内运行的任务。这任务是独立的，不会影响主线程代码执行。");
+      }
+  }
+  public class Main {
+      public static void main (String... args) {
+          Thread myThread = new Thread(new MyThread());   // 创建线程
+          mythread.start();                               // 运行线程
+      }
+  }
+#+END_SRC
+
+上面代码可以简写为:
+#+BEGIN_SRC java
+  // 使用匿名内部类进行简化
+  public class Main {
+      public static void main (String... args) {
+          Thread myThread = new Thread () {
+                  @Override
+                  public void run () {
+                      System.out.println("在新的线程内运行的任务。这任务是独立的，不会影响主线程代码执行。");
+                  }
+              };
+          myThread.start();
+      }
+  }
+#+END_SRC
+
+使用 jdk8 的语法，甚至可以简化为:
+#+BEGIN_SRC java
+    public class Main {
+        public static void main (String... args) {
+            new Thread(() -> System.out.println("task")).start();
+        }
+    }
+#+END_SRC
+
+* Thread API
+
+[[file:img/thread_2018-08-13_02-31-05.png]]
+
+- ~Thread.start/run()~
+- ~Thread.getName/getId/getThreadGroup()~...
+- ~Thread.interrupt()~
+- ~Thread.join()~
+- ~Thread.sleep/yield()~..
+- ~Thread.currentThread/getState/isAlive/isDaemon/interruped()~..
+
+其他:
+
+- t.join() ::
+
+  让当前线程阻塞并等待线程 t 结束再执行接下来代码
+
+- Thread.sleep() ::
+
+  让当前线程暂时休眠 n 毫秒，这过程不会释放所占用的对象锁
+
+- Thread.yield() ::
+
+  暂时退让，优先让其他线程先运行。如果没有线程在这个过程中抢占运行权，则继续运行
+
+- 其他 ::
+
+  待补充...
+
+* Thread Pool
+
+线程池的出现是为了复用线程，达到优化效率的目的。JDK1.5 开始提供了 ~java.util.concurrent~ 包用来对线程进行控制与调度，最重要的是内置了线程池的实现。
+
+线程池有多种，比如:
+- CachedThreadPool，缓存池
+- FixedThreadPool，固定线程数
+- SingleThreadPool，单线程池
+- ScheduledThreadPool，任务调度线程池
+
+*Executors* 是一个常用的静态类，内置了很多线程池相关的操作。
+
+线程池使用的基本语法:
+#+BEGIN_SRC java
+  // 1. 创建线程池
+  ExecutorService service = Executors.newCachedThreadPool();
+
+  // 2. 创建任务
+  Runnable task = new Runnable() {
+          @Override
+          public void run() {
+              System.out.println(Thread.currentThread());
+          }
+      };
+
+  // 3. 使用线程池调度任务
+  for (int i = 0; i < 1000; i++) {
+      service.execute(task);
+  }
+
+  // 4. 关闭线程池
+  service.shutdown();
+#+END_SRC
+
+可以简化为:
+#+BEGIN_SRC java
+  ExecutorService service = Executors.newCachedThreadPool();
+
+  for (int i = 0; i < count; i++) {
+      service.execute(new Runnable() {
+              @Override
+              public void run() {
+                  System.out.println(Thread.currentThread());
+              }
+          });
+  }
+#+END_SRC
+
+可以进一步简化为（jdk8语法）:
+#+BEGIN_SRC java
+  ExecutorService service = Executors.newCachedThreadPool();
+
+  for (int i = 0; i < count; i++) {
+      service.execute(() -> System.out.println(Thread.currentThread()));
+  }
+#+END_SRC
+
+* Java 并发历史
+
+- jdk1.4 之前，Thread
+- jdk1.5 java.util.concurrent，提供了线程池支持
+- jdk7 Fork/Join 算法
+- jdk8 Lambda 表达式，Stream 流
+
+* 面试题摘要
+** 什么是线程
+** 线程和进程有什么区别
+** 如何在 Java 中使用新线程
+** start() 和 run() 有什么区别
+** Thread.join 方法有什么用
+** 假如新建T1、T2、T3三个线程，如何保证它们按顺序执行？
+** volatile 变了是做什么的
+** 如果一个线程中发生了异常会怎么样
+** 什么是 ThreadLocal 变量
+** 什么是线程池，为什么要使用
+** Thread.sleep 和 wait 方法有什么不同
+** synchronized 关键词是做什么的

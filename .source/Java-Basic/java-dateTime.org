@@ -36,5 +36,13 @@
 
 * LocalTime/LocalDate/LocalDateTime
 
-jdk8
+#+BEGIN_SRC java
+  // 获取今天时间
+  LocalDateTime now = LocalDateTime.now();
+  LocalDateTime then = LocalDateTime.of(2018, 10, 12, 22, 1, 1);
+
+  // 格式化时间
+  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm:ss");
+  LocalDateTime.now().format(dtf);
+#+END_SRC
 
