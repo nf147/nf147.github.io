@@ -96,7 +96,7 @@
   });
 #+END_SRC
 
-发送 formData 到服务器:
+发送 FormData 到服务器:
 #+BEGIN_SRC js
   var formData = new FormData();
   formData.append("name", "tomcat");
@@ -104,7 +104,7 @@
   $.ajax({
       url: '/xxx',
       method: 'post',
-      contentType: 'application/json',
+      contentType: 'multipart/form-data',
       data: formData,
       processData: false // 不要将 formData 转换为 xxx=222&yyy=333 的方式
   }).done((data) => {
