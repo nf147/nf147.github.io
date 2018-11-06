@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-06 周二 03:47 -->
+<!-- 2018-11-06 周二 03:49 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Form/Ajax</title>
@@ -131,7 +131,7 @@ xhr.onload = <span class="org-keyword">function</span> (<span class="org-variabl
     url: <span class="org-string">'/xxx'</span>,
     method: <span class="org-string">'post'</span>,
     contentType: <span class="org-string">'application/json'</span>,
-    data: JSON.parse({
+    data: JSON.stringify({
         name: <span class="org-string">'xxx'</span>, age: 12
     }),
 }).done((data) =&gt; {  <span class="org-comment-delimiter">// </span><span class="org-comment">data &#30340;&#31867;&#22411;&#65292;&#30001; dataType &#20915;&#23450;</span>
@@ -171,7 +171,7 @@ $.ajax({
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-06 周二 03:47</p>
+<p class="date">Created: 2018-11-06 周二 03:49</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

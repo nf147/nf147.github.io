@@ -84,7 +84,7 @@
       url: '/xxx',
       method: 'post',
       contentType: 'application/json',
-      data: JSON.parse({
+      data: JSON.stringify({
           name: 'xxx', age: 12
       }),
   }).done((data) => {  // data 的类型，由 dataType 决定
