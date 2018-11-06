@@ -52,3 +52,28 @@
       console.err(r);
   });
 #+END_SRC
+* jQuery
+
+语法示例:
+#+BEGIN_SRC js
+  $.ajax({
+      url: '/xxx',  // 代表请求的服务器地址
+      method: 'get|post|put|patch|delete|options', // 使用的请求方法
+      headers: {},  // 设置请求头
+      async: true|false, // 是否使用异步请求的方式
+
+      contentType: 'application/x-www-form-urlencoded|...'; // 请求的 enctype
+      data: 'String'|Object|Array, // 传输的数据
+      processData: true|false, // 如果 data 是字符串的话不处理，否则调用 $.params(data, tranditional) => 'aaa=222&bbb=333'
+      tranditional: false|true,
+
+      dataType: 'json?xml?html?text', // 默认根据 response 头部的信息自动推测
+      xhrFields, cache, accepts, contents, crossDomain, conerters, jsonp, mimeType, timeout
+  }).done((data) => {  // data 的类型，由 dataType 决定
+      console.log(json.xxx)
+  }).fail((xhr, status, err) { // 参数分别是 ajax 原生对象，错误状态，以及错误对象
+      console.error(err);
+  }).always(() => {
+      console.log("终于结束了");
+  });
+#+END_SRC

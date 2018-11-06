@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-05 Mon 00:56 -->
+<!-- 2018-11-06 周二 03:42 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Form/Ajax</title>
@@ -20,8 +20,9 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org462987f">1. XMLHttpRequest</a></li>
-<li><a href="#orge972398">2. Fetch API</a></li>
+<li><a href="#orgfa1d03b">1. XMLHttpRequest</a></li>
+<li><a href="#org741c70c">2. Fetch API</a></li>
+<li><a href="#org57d2e9e">3. jQuery</a></li>
 </ul>
 </div>
 </nav>
@@ -29,8 +30,8 @@
 
 
 
-<section id="outline-container-org462987f" class="outline-2">
-<h2 id="org462987f"><span class="section-number-2">1</span> XMLHttpRequest</h2>
+<section id="outline-container-orgfa1d03b" class="outline-2">
+<h2 id="orgfa1d03b"><span class="section-number-2">1</span> XMLHttpRequest</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 也算比较简单，需要掌握。不要没有 jQuery 就写不出代码，那样很危险。。
@@ -67,8 +68,8 @@ xhr.onload = <span class="org-keyword">function</span> (<span class="org-variabl
 </div>
 </section>
 
-<section id="outline-container-orge972398" class="outline-2">
-<h2 id="orge972398"><span class="section-number-2">2</span> Fetch API</h2>
+<section id="outline-container-org741c70c" class="outline-2">
+<h2 id="org741c70c"><span class="section-number-2">2</span> Fetch API</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 旨在取代 XHR 的新标准，目前不是很成熟，但是日常测试使用很方便。
@@ -92,10 +93,41 @@ xhr.onload = <span class="org-keyword">function</span> (<span class="org-variabl
 </div>
 </div>
 </section>
+<section id="outline-container-org57d2e9e" class="outline-2">
+<h2 id="org57d2e9e"><span class="section-number-2">3</span> jQuery</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+语法示例:
+</p>
+<div class="org-src-container">
+<pre class="src src-js">$.ajax({
+    url: <span class="org-string">'/xxx'</span>,  <span class="org-comment-delimiter">// </span><span class="org-comment">&#20195;&#34920;&#35831;&#27714;&#30340;&#26381;&#21153;&#22120;&#22320;&#22336;</span>
+    method: <span class="org-string">'get|post|put|patch|delete|options'</span>, <span class="org-comment-delimiter">// </span><span class="org-comment">&#20351;&#29992;&#30340;&#35831;&#27714;&#26041;&#27861;</span>
+    headers: {},  <span class="org-comment-delimiter">// </span><span class="org-comment">&#35774;&#32622;&#35831;&#27714;&#22836;</span>
+    <span class="org-keyword">async</span>: <span class="org-constant">true</span>|<span class="org-constant">false</span>, <span class="org-comment-delimiter">// </span><span class="org-comment">&#26159;&#21542;&#20351;&#29992;&#24322;&#27493;&#35831;&#27714;&#30340;&#26041;&#24335;</span>
+
+    contentType: <span class="org-string">'application/x-www-form-urlencoded|...'</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">&#35831;&#27714;&#30340; enctype</span>
+    data: <span class="org-string">'String'</span>|Object|Array, <span class="org-comment-delimiter">// </span><span class="org-comment">&#20256;&#36755;&#30340;&#25968;&#25454;</span>
+    processData: <span class="org-constant">true</span>|<span class="org-constant">false</span>, <span class="org-comment-delimiter">// </span><span class="org-comment">&#22914;&#26524; data &#26159;&#23383;&#31526;&#20018;&#30340;&#35805;&#19981;&#22788;&#29702;&#65292;&#21542;&#21017;&#35843;&#29992; $.params(data, tranditional) =&gt; 'aaa=222&amp;bbb=333'</span>
+    tranditional: <span class="org-constant">false</span>|<span class="org-constant">true</span>,
+
+    dataType: <span class="org-string">'json?xml?html?text'</span>, <span class="org-comment-delimiter">// </span><span class="org-comment">&#40664;&#35748;&#26681;&#25454; response &#22836;&#37096;&#30340;&#20449;&#24687;&#33258;&#21160;&#25512;&#27979;</span>
+    xhrFields, cache, accepts, contents, crossDomain, conerters, jsonp, mimeType, timeout
+}).done((data) =&gt; {  <span class="org-comment-delimiter">// </span><span class="org-comment">data &#30340;&#31867;&#22411;&#65292;&#30001; dataType &#20915;&#23450;</span>
+    console.log(json.xxx)
+}).fail((xhr, status, err) { <span class="org-comment-delimiter">// </span><span class="org-comment">&#21442;&#25968;&#20998;&#21035;&#26159; ajax &#21407;&#29983;&#23545;&#35937;&#65292;&#38169;&#35823;&#29366;&#24577;&#65292;&#20197;&#21450;&#38169;&#35823;&#23545;&#35937;</span>
+    console.error(err);
+}).always(() =&gt; {
+    console.log(<span class="org-string">"&#32456;&#20110;&#32467;&#26463;&#20102;"</span>);
+});
+</pre>
+</div>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-05 Mon 00:56</p>
+<p class="date">Created: 2018-11-06 周二 03:42</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
