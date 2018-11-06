@@ -62,7 +62,7 @@
       headers: {},  // 设置请求头
       async: true|false, // 是否使用异步请求的方式
 
-      contentType: 'application/x-www-form-urlencoded|...'; // 请求的 enctype
+      contentType: 'application/x-www-form-urlencoded|...', // 请求的 enctype
       data: 'String'|Object|Array, // 传输的数据
       processData: true|false, // 如果 data 是字符串的话不处理，否则调用 $.params(data, tranditional) => 'aaa=222&bbb=333'
       tranditional: false|true,
@@ -72,6 +72,44 @@
   }).done((data) => {  // data 的类型，由 dataType 决定
       console.log(json.xxx)
   }).fail((xhr, status, err) { // 参数分别是 ajax 原生对象，错误状态，以及错误对象
+      console.error(err);
+  }).always(() => {
+      console.log("终于结束了");
+  });
+#+END_SRC
+
+发送 JSON 到服务器:
+#+BEGIN_SRC js
+  $.ajax({
+      url: '/xxx',
+      method: 'post',
+      contentType: 'application/json',
+      data: JSON.parse({
+          name: 'xxx', age: 12
+      }),
+  }).done((data) => {  // data 的类型，由 dataType 决定
+      console.log(json.xxx)
+  }).fail((xhr, status, err) { // 参数分别是 ajax 原生对象，错误状态，以及错误对象
+      console.error(err);
+  }).always(() => {
+      console.log("终于结束了");
+  });
+#+END_SRC
+
+发送 formData 到服务器:
+#+BEGIN_SRC js
+  var formData = new FormData();
+  formData.append("name", "tomcat");
+
+  $.ajax({
+      url: '/xxx',
+      method: 'post',
+      contentType: 'application/json',
+      data: formData,
+      processData: false // 不要将 formData 转换为 xxx=222&yyy=333 的方式
+  }).done((data) => {
+      console.log(json.xxx)
+  }).fail((xhr, status, err) {
       console.error(err);
   }).always(() => {
       console.log("终于结束了");

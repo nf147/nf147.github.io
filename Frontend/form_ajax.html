@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-06 周二 03:42 -->
+<!-- 2018-11-06 周二 03:47 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Form/Ajax</title>
@@ -106,7 +106,7 @@ xhr.onload = <span class="org-keyword">function</span> (<span class="org-variabl
     headers: {},  <span class="org-comment-delimiter">// </span><span class="org-comment">&#35774;&#32622;&#35831;&#27714;&#22836;</span>
     <span class="org-keyword">async</span>: <span class="org-constant">true</span>|<span class="org-constant">false</span>, <span class="org-comment-delimiter">// </span><span class="org-comment">&#26159;&#21542;&#20351;&#29992;&#24322;&#27493;&#35831;&#27714;&#30340;&#26041;&#24335;</span>
 
-    contentType: <span class="org-string">'application/x-www-form-urlencoded|...'</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">&#35831;&#27714;&#30340; enctype</span>
+    contentType: <span class="org-string">'application/x-www-form-urlencoded|...'</span>, <span class="org-comment-delimiter">// </span><span class="org-comment">&#35831;&#27714;&#30340; enctype</span>
     data: <span class="org-string">'String'</span>|Object|Array, <span class="org-comment-delimiter">// </span><span class="org-comment">&#20256;&#36755;&#30340;&#25968;&#25454;</span>
     processData: <span class="org-constant">true</span>|<span class="org-constant">false</span>, <span class="org-comment-delimiter">// </span><span class="org-comment">&#22914;&#26524; data &#26159;&#23383;&#31526;&#20018;&#30340;&#35805;&#19981;&#22788;&#29702;&#65292;&#21542;&#21017;&#35843;&#29992; $.params(data, tranditional) =&gt; 'aaa=222&amp;bbb=333'</span>
     tranditional: <span class="org-constant">false</span>|<span class="org-constant">true</span>,
@@ -122,12 +122,56 @@ xhr.onload = <span class="org-keyword">function</span> (<span class="org-variabl
 });
 </pre>
 </div>
+
+<p>
+发送 JSON 到服务器:
+</p>
+<div class="org-src-container">
+<pre class="src src-js">$.ajax({
+    url: <span class="org-string">'/xxx'</span>,
+    method: <span class="org-string">'post'</span>,
+    contentType: <span class="org-string">'application/json'</span>,
+    data: JSON.parse({
+        name: <span class="org-string">'xxx'</span>, age: 12
+    }),
+}).done((data) =&gt; {  <span class="org-comment-delimiter">// </span><span class="org-comment">data &#30340;&#31867;&#22411;&#65292;&#30001; dataType &#20915;&#23450;</span>
+    console.log(json.xxx)
+}).fail((xhr, status, err) { <span class="org-comment-delimiter">// </span><span class="org-comment">&#21442;&#25968;&#20998;&#21035;&#26159; ajax &#21407;&#29983;&#23545;&#35937;&#65292;&#38169;&#35823;&#29366;&#24577;&#65292;&#20197;&#21450;&#38169;&#35823;&#23545;&#35937;</span>
+    console.error(err);
+}).always(() =&gt; {
+    console.log(<span class="org-string">"&#32456;&#20110;&#32467;&#26463;&#20102;"</span>);
+});
+</pre>
+</div>
+
+<p>
+发送 formData 到服务器:
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-keyword">var</span> <span class="org-variable-name">formData</span> = <span class="org-keyword">new</span> <span class="org-type">FormData</span>();
+formData.append(<span class="org-string">"name"</span>, <span class="org-string">"tomcat"</span>);
+
+$.ajax({
+    url: <span class="org-string">'/xxx'</span>,
+    method: <span class="org-string">'post'</span>,
+    contentType: <span class="org-string">'application/json'</span>,
+    data: formData,
+    processData: <span class="org-constant">false</span> <span class="org-comment-delimiter">// </span><span class="org-comment">&#19981;&#35201;&#23558; formData &#36716;&#25442;&#20026; xxx=222&amp;yyy=333 &#30340;&#26041;&#24335;</span>
+}).done((data) =&gt; {
+    console.log(json.xxx)
+}).fail((xhr, status, err) {
+    console.error(err);
+}).always(() =&gt; {
+    console.log(<span class="org-string">"&#32456;&#20110;&#32467;&#26463;&#20102;"</span>);
+});
+</pre>
+</div>
 </div>
 </section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-06 周二 03:42</p>
+<p class="date">Created: 2018-11-06 周二 03:47</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
