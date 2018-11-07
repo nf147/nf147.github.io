@@ -1,0 +1,32 @@
+#+TITLE: File API
+
+
+ES5 推出了一系列的 API:
+- BLOB (二进制大对象)
+- File (文件接口，基于 BLOB，但是增加了文件相关的方法，比如路径，大小)
+- FileList (借助 <input type="file">，来获取硬盘文件的一个接口)
+- FileReader
+- URL
+
+
+#+BEGIN_SRC js
+  // 第一步，获取 input
+  var fileInput = document.getElementById("myfile");
+
+  // 第二步，通过 input 获取 FileList
+  var fileList = fileInput.files;
+
+  // 第三步，通过 FileList 获取某个文件的对象
+  var file = fileList[0];
+
+  // 简单来说，获取 File 对象就是:
+  file = document.getElementById('myfile').files[0];
+#+END_SRC
+
+
+一个图片 <img src="" > 的 src 可以使下面三个之一:
+1. 文件在操作系统中的路径
+2. DataURL 数据，用 Base64 编码，将二进制文件进行加密的过程，然后就可以使用这字符串来表示二进制文件了
+
+
+
