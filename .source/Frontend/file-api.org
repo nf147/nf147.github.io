@@ -27,6 +27,6 @@ ES5 推出了一系列的 API:
 一个图片 <img src="" > 的 src 可以使下面三个之一:
 1. 文件在操作系统中的路径
 2. DataURL 数据，用 Base64 编码，将二进制文件进行加密的过程，然后就可以使用这字符串来表示二进制文件了
-3. ObjectURL，它是我们需要使用的文件的一个引用字符串而已，格式为 ~blob:http://localhsot:9080/a3b05b0e-bd18-4b53-b6b8-0b345e9aebdb~
+3. ObjectURL，它是我们需要使用的文件的一个引用字符串而已，格式为 ~blob:http://localhsot:8080/a3b05b0e-bd18-4b53-b6b8-0b345e9aebdb~
 
 
