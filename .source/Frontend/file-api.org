@@ -8,6 +8,8 @@ ES5 推出了一系列的 API:
 - FileReader
 - URL
 
+* Simple APIs
+
 
 #+BEGIN_SRC js
   // 第一步，获取 input
@@ -30,3 +32,51 @@ ES5 推出了一系列的 API:
 3. ObjectURL，它是我们需要使用的文件的一个引用字符串而已，格式为 ~blob:http://localhsot:8080/a3b05b0e-bd18-4b53-b6b8-0b345e9aebdb~
 
 
+* Preview Demo
+
+使用 ObjectURL:
+#+BEGIN_SRC js
+  myfile.onchange = function () {
+      var imgUrl = URL.createObjectURL(myfile.files[0]);
+      myimg.src = imgUrl;
+      myimg.onload = () => URL.revokeObjectURL(imgUrl);
+  };
+#+END_SRC
+
+* Compress and Upload with AJAX
+
+#+BEGIN_SRC js
+  function shangchuantupian() {
+      // 1. 获取图片的数据
+      // 2. 校验大小，如果超过尺寸，那么对其进行压缩
+      // 3. 加上你的水印
+      // 4. 调用 ajax 方式，将其发送到服务器
+
+      var canvas = document.createElement("canvas");
+
+      var image = new Image();
+      var imgUrl = URL.createObjectURL(myfile.files[0]);
+      image.src = imgUrl;
+
+      image.onload = () => {
+          URL.revokeObjectURL(imgUrl);
+
+          canvas.width = image.width / 2;
+          canvas.height = image.height / 2;
+
+          var ctx = canvas.getContext('2d');
+          ctx.drawImage(image, 0, 0, image.width / 2, image.height / 2);
+          ctx.fillText("nf147", image.width / 2 - 20, image.height / 2 - 20);
+
+          canvas.toBlob(function (b) {
+              var fd = new FormData();
+              fd.append("fff", b);
+
+              fetch("/myupload", {
+                  method: 'post',
+                  body: fd
+              }).then(resp => resp.body);
+          }, "image/jpeg");
+      };
+  }
+#+END_SRC
