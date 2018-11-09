@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-08 Thu 03:46 -->
+<!-- 2018-11-09 周五 02:57 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>File API</title>
@@ -23,6 +23,7 @@
 <li><a href="#orgfafb2eb">1. Simple APIs</a></li>
 <li><a href="#org1443f44">2. Preview Demo</a></li>
 <li><a href="#orgd1a3e7b">3. Compress and Upload with AJAX</a></li>
+<li><a href="#orgb781f0c">4. Compress and Upload [version 2]</a></li>
 </ul>
 </div>
 </nav>
@@ -126,10 +127,133 @@ file = document.getElementById(<span class="org-string">'myfile'</span>).files[0
 </div>
 </div>
 </section>
+<section id="outline-container-orgb781f0c" class="outline-2">
+<h2 id="orgb781f0c"><span class="section-number-2">4</span> Compress and Upload [version 2]</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+HTML:
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span class="org-function-name">style</span>&gt;
+ #myimg {
+     border: 3px solid gray;
+     border-radius: 5px;
+     position: absolute;
+     top: 0;
+     left: 0;
+ }
+
+ #mymask {
+     position: absolute;
+     top: 0;
+     left: 0;
+ }
+&lt;/<span class="org-function-name">style</span>&gt;
+
+
+
+&lt;<span class="org-function-name">div</span> <span class="org-variable-name">class</span>=<span class="org-string">"container"</span>&gt;
+    &lt;<span class="org-function-name">div</span> <span class="org-variable-name">style</span>=<span class="org-string">"margin-top: 2em;"</span>&gt;
+        &lt;<span class="org-function-name">input</span> <span class="org-variable-name">type</span>=<span class="org-string">"file"</span> <span class="org-variable-name">id</span>=<span class="org-string">"myfile"</span> <span class="org-variable-name">style</span>=<span class="org-string">"display: none"</span>&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#36873;&#25321;&#25991;&#20214;&#21518;&#65292;&#35201;&#39044;&#35272; </span><span class="org-comment-delimiter">--&gt;</span>
+        &lt;<span class="org-function-name">button</span> <span class="org-variable-name">class</span>=<span class="org-string">"btn btn-primary"</span> <span class="org-variable-name">onclick</span>=<span class="org-string">"myfile.click()"</span>&gt;&#36873;&#25321;&#22270;&#29255;&lt;/<span class="org-function-name">button</span>&gt;
+        &lt;<span class="org-function-name">button</span> <span class="org-variable-name">class</span>=<span class="org-string">"btn btn-primary"</span> <span class="org-variable-name">onclick</span>=<span class="org-string">"clickMe()"</span>&gt;&#19978;&#20256;&#22270;&#29255;&lt;/<span class="org-function-name">button</span>&gt;
+    &lt;/<span class="org-function-name">div</span>&gt;
+
+    &lt;<span class="org-function-name">div</span> <span class="org-variable-name">style</span>=<span class="org-string">"position: relative"</span>&gt;
+        &lt;<span class="org-function-name">img</span> <span class="org-variable-name">src</span>=<span class="org-string">""</span> <span class="org-variable-name">id</span>=<span class="org-string">"myimg"</span> <span class="org-variable-name">title</span>=<span class="org-string">"&#26242;&#26102;&#27809;&#26377;&#19978;&#20256;"</span> <span class="org-variable-name">width</span>=<span class="org-string">"200"</span> <span class="org-variable-name">height</span>=<span class="org-string">"200"</span>/&gt;
+        &lt;<span class="org-function-name">canvas</span> <span class="org-variable-name">id</span>=<span class="org-string">"mymask"</span> <span class="org-variable-name">width</span>=<span class="org-string">"200"</span> <span class="org-variable-name">height</span>=<span class="org-string">"200"</span>&gt;&#19981;&#25903;&#25345;canvas&lt;/<span class="org-function-name">canvas</span>&gt;
+    &lt;/<span class="org-function-name">div</span>&gt;
+&lt;/<span class="org-function-name">div</span>&gt;
+
+</pre>
+</div>
+
+<p>
+JS:
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-keyword">var</span> <span class="org-variable-name">ctx</span>;
+
+myfile.onchange = () =&gt; { <span class="org-comment-delimiter">// </span><span class="org-comment">&#39044;&#35272;&#22270;&#29255;</span>
+    <span class="org-keyword">var</span> <span class="org-variable-name">imgUrl</span> = URL.createObjectURL(event.target.files[0]);
+    myimg.src = imgUrl;
+    myimg.onload = () =&gt; URL.revokeObjectURL(imgUrl);
+};
+
+<span class="org-keyword">function</span> <span class="org-function-name">clickMe</span>() {
+    compressImgWithCanvas(myfile.files[0], uploadWithAJAX);
+    <span class="org-comment-delimiter">// </span><span class="org-comment">uploadWithAJAX(myfile.files[0]);</span>
+
+}
+
+<span class="org-doc">/**</span>
+<span class="org-doc"> * &#21387;&#32553;&#22270;&#29255;&#65292;&#28982;&#21518;&#25191;&#34892;&#26576;&#20123;&#20219;&#21153;</span>
+<span class="org-doc"> */</span>
+<span class="org-keyword">function</span> <span class="org-function-name">compressImgWithCanvas</span>(<span class="org-variable-name">blob</span>, <span class="org-variable-name">taskCallback</span>) {
+    console.log(<span class="org-string">"bbb"</span>);
+    <span class="org-keyword">var</span> <span class="org-variable-name">rat</span> = 2;
+    <span class="org-keyword">var</span> <span class="org-variable-name">w</span> = myimg.naturalWidth / rat, <span class="org-variable-name">h</span> = myimg.naturalHeight / rat;
+
+    <span class="org-keyword">var</span> <span class="org-variable-name">canvas</span> = document.createElement(<span class="org-string">"canvas"</span>);
+    canvas.width = w;
+    canvas.height = h;
+
+    <span class="org-keyword">var</span> <span class="org-variable-name">ctx</span> = canvas.getContext(<span class="org-string">'2d'</span>);
+    ctx.drawImage(myimg, 0, 0, w, h);
+    ctx.fillText(<span class="org-string">"nf147"</span>, w - 20, h - 20);
+
+    canvas.toBlob(taskCallback, <span class="org-string">"image/jpeg"</span>);
+}
+
+<span class="org-doc">/**</span>
+<span class="org-doc"> * &#26356;&#26032;&#39044;&#35272;&#36827;&#24230;</span>
+<span class="org-doc"> */</span>
+<span class="org-keyword">function</span> <span class="org-function-name">refreshProgress</span>(<span class="org-variable-name">r</span>) {
+    <span class="org-keyword">if</span> (!ctx) ctx = mymask.getContext(<span class="org-string">'2d'</span>);
+    ctx.save();
+    ctx.clearRect(0, 0, 200, 200);
+    ctx.globalAlpha = 0.6;
+    ctx.fillRect(0, (1 - r) * 200, 200, 200);
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = <span class="org-string">"white"</span>;
+    ctx.font = <span class="org-string">"20px &#24494;&#36719;&#38597;&#40657;"</span>;
+    ctx.fillText(r * 100 + <span class="org-string">'%'</span>, 80, 180);
+    ctx.restore();
+}
+
+<span class="org-doc">/**</span>
+<span class="org-doc"> * &#36890;&#36807; AJAX &#19978;&#20256; blob &#31867;&#22411;&#30340;&#25991;&#20214;</span>
+<span class="org-doc"> * @param blob</span>
+<span class="org-doc"> */</span>
+<span class="org-keyword">function</span> <span class="org-function-name">uploadWithAJAX</span>(<span class="org-variable-name">blob</span>) {
+    <span class="org-keyword">var</span> <span class="org-variable-name">fd</span> = <span class="org-keyword">new</span> <span class="org-type">FormData</span>();
+    fd.append(<span class="org-string">"fff"</span>, blob);
+
+    $.ajax({
+        method: <span class="org-string">'post'</span>,
+        url: <span class="org-string">"/myupload"</span>,
+        cache: <span class="org-constant">false</span>,
+        contentType: <span class="org-constant">false</span>,
+        data: fd,
+        processData: <span class="org-constant">false</span>,
+        xhr: () =&gt; {
+            <span class="org-keyword">var</span> <span class="org-variable-name">xhr</span> = $.ajaxSettings.xhr();
+            xhr.upload.onprogress = (ev) =&gt; {
+                refreshProgress(ev.loaded / ev.total);
+            };
+            <span class="org-keyword">return</span> xhr;
+        }
+    }).done(console.log)
+        .fail((xhr, staus, err) =&gt; console.error(xhr, staus, err));
+}
+</pre>
+</div>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-08 Thu 03:46</p>
+<p class="date">Created: 2018-11-09 周五 02:57</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
