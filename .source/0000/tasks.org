@@ -2,6 +2,16 @@
 
 
 
+* 2018年11月12日
+
+为下面项目增加两个功能:
+- 通过 Excel 批量上传
+- 将数据批量导出为 Excel
+
+#+DOWNLOADED: c:/Users/nf147/AppData/Local/Temp/clip.png @ 2018-11-12 07:11:26
+[[file:img/clip_2018-11-12_07-11-26.png]]
+
+
 * 2018年10月31日
 :PROPERTIES:
 :CUSTOM_ID: active

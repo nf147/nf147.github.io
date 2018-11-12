@@ -22,7 +22,7 @@
 
 #+HTML: <section id="toc">
 
-#+HTML: <h4 style='color: red;'>纪律、勤奋、进取心</h4>
+#+HTML: <h3 style='color: red;'>现在是全心全意做个人项目的时候了！</h3>
 
 #+HTML: <h3>当前任务</h3>
 #+INCLUDE: "0000/tasks.org::#active" :only-contents t
