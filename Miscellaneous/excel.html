@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2018-11-12 Mon 07:06 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Excel</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="孙悟空">
+<link rel='stylesheet' href='/asset/common.css' />
+<script src='https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+<script src='/asset/common.js'></script>
+</head>
+<body>
+<div id="content">
+<header>
+<h1 class="title">Excel</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org4c1b2e8">1. POI 是什么</a></li>
+<li><a href="#org5a42216">2. 引入依赖</a></li>
+<li><a href="#orgf1cf553">3. 使用示例</a></li>
+<li><a href="#orgae5eda1">4. 可以结合 SpringMVC 的上传下载使用</a></li>
+</ul>
+</div>
+</nav>
+<p>
+两种:
+</p>
+<ol class="org-ol">
+<li>apache POI</li>
+<li>JXL</li>
+</ol>
+
+<section id="outline-container-org4c1b2e8" class="outline-2">
+<h2 id="org4c1b2e8"><span class="section-number-2">1</span> POI 是什么</h2>
+<div class="outline-text-2" id="text-1">
+
+<figure>
+<img src="img/clip_2018-11-12_07-02-25.png" alt="clip_2018-11-12_07-02-25.png">
+
+</figure>
+
+<p>
+常用接口:
+</p>
+
+<ul class="org-ul">
+<li><b>HSSF</b> － 提供读写 Microsoft Excel XLS 格式档案的功能。Horrible SpreadSheet Format。</li>
+<li><b>XSSF</b> － 提供读写 Microsoft Excel OOXML XLSX 格式档案的功能。</li>
+<li><b>HWPF</b> － 提供读写 Microsoft Word DOC97 格式档案的功能。</li>
+<li><b>XWPF</b> － 提供读写 Microsoft Word DOC2003 格式档案的功能。</li>
+<li><b>HSLF</b> － 提供读写 Microsoft PowerPoint 格式档案的功能。</li>
+<li><b>HDGF</b> － 提供读 Microsoft Visio 格式档案的功能。</li>
+<li><b>HPBF</b> － 提供读 Microsoft Publisher 格式档案的功能。</li>
+<li><b>HSMF</b> － 提供读 Microsoft Outlook 格式档案的功能。</li>
+</ul>
+</div>
+</section>
+
+<section id="outline-container-org5a42216" class="outline-2">
+<h2 id="org5a42216"><span class="section-number-2">2</span> 引入依赖</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+<pre class="src src-sgml"><span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">https://mvnrepository.com/artifact/org.apache.poi/poi </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">dependency</span>&gt;
+  &lt;<span class="org-function-name">groupId</span>&gt;org.apache.poi&lt;/<span class="org-function-name">groupId</span>&gt;
+  &lt;<span class="org-function-name">artifactId</span>&gt;poi&lt;/<span class="org-function-name">artifactId</span>&gt;
+  &lt;<span class="org-function-name">version</span>&gt;4.0.0&lt;/<span class="org-function-name">version</span>&gt;
+&lt;/<span class="org-function-name">dependency</span>&gt;
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#22914;&#26524;&#35201;&#20351;&#29992; xlsx &#21644; &#27969;&#65292;&#38656;&#35201;&#24341;&#20837;&#19979;&#38754;&#36825;&#20010;&#21253; </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">dependency</span>&gt;
+  &lt;<span class="org-function-name">groupId</span>&gt;org.apache.poi&lt;/<span class="org-function-name">groupId</span>&gt;
+  &lt;<span class="org-function-name">artifactId</span>&gt;poi-ooxml&lt;/<span class="org-function-name">artifactId</span>&gt;
+  &lt;<span class="org-function-name">version</span>&gt;4.0.0&lt;/<span class="org-function-name">version</span>&gt;
+&lt;/<span class="org-function-name">dependency</span>&gt;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgf1cf553" class="outline-2">
+<h2 id="orgf1cf553"><span class="section-number-2">3</span> 使用示例</h2>
+<div class="outline-text-2" id="text-3">
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Service</span>
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">ExcelService</span> {
+    <span class="org-c-annotation">@Autowired</span>
+    <span class="org-keyword">private</span> <span class="org-type">EmMapper</span> <span class="org-variable-name">emMapper</span>;
+
+    <span class="org-keyword">public</span> <span class="org-type">ByteArrayOutputStream</span> <span class="org-function-name">exportExcel</span>() <span class="org-keyword">throws</span> <span class="org-type">IOException</span> {
+        <span class="org-type">List</span>&lt;<span class="org-type">Emp</span>&gt; <span class="org-variable-name">emps</span> = emMapper.selectAll(); <span class="org-comment-delimiter">// </span><span class="org-comment">&#25509;&#19979;&#26469;&#23558;&#36825;&#20123;&#25968;&#25454;&#23553;&#35013;&#21040; excel &#20013;</span>
+
+        <span class="org-type">HSSFWorkbook</span> <span class="org-variable-name">workbook</span> = <span class="org-keyword">new</span> <span class="org-type">HSSFWorkbook</span>(); <span class="org-comment-delimiter">// </span><span class="org-comment">&#21019;&#24314;&#26032;&#30340; excel &#25991;&#26723;</span>
+        <span class="org-type">HSSFSheet</span> <span class="org-variable-name">sheet1</span> = workbook.createSheet(<span class="org-string">"&#31532;&#19968;&#39029;&#12290;&#12290;&#12290;"</span>); <span class="org-comment-delimiter">// </span><span class="org-comment">&#21019;&#24314;&#31532;&#19968;&#20010;&#24037;&#20316;&#34920;</span>
+        <span class="org-type">HSSFSheet</span> <span class="org-variable-name">sheet2</span> = workbook.createSheet(<span class="org-string">"&#31532;2&#39029;&#12290;&#12290;&#12290;"</span>);
+        <span class="org-type">HSSFSheet</span> <span class="org-variable-name">sheet3</span> = workbook.createSheet(<span class="org-string">"&#31532;III&#39029;&#12290;&#12290;&#12290;"</span>);
+        <span class="org-type">HSSFSheet</span> <span class="org-variable-name">sheet4</span> = workbook.createSheet(<span class="org-string">"&#31532;si&#39029;&#12290;&#12290;&#12290;"</span>);
+
+        <span class="org-type">HSSFRow</span> <span class="org-variable-name">row</span> = sheet1.createRow(0);
+        <span class="org-type">HSSFCell</span> <span class="org-variable-name">cell</span> = row.createCell(0);
+        cell.setCellValue(<span class="org-string">"hello, hello"</span>);
+
+        <span class="org-type">HSSFRow</span> <span class="org-variable-name">row22</span> = sheet2.createRow(2);
+        <span class="org-type">HSSFCell</span> <span class="org-variable-name">cell1</span> = row22.createCell(3);
+        cell1.setCellValue(<span class="org-string">"&#25105;&#26159;&#35841;&#65311;&#25105;&#20174;&#21738;&#37324;&#26469;&#65292;&#25105;&#21040;&#21738;&#37324;&#21602;"</span>);
+
+        <span class="org-comment-delimiter">// </span><span class="org-comment">&#26679;&#24335;&#23545;&#35937;</span>
+        <span class="org-type">CellStyle</span> <span class="org-variable-name">cellStyle</span> = workbook.createCellStyle();
+        cellStyle.setDataFormat(workbook.getCreationHelper().createDataFormat().getFormat(<span class="org-string">"yyyy-MM-dd"</span>));
+        cellStyle.setFillForegroundColor(<span class="org-constant">IndexedColors</span>.RED.getIndex());
+        cellStyle.setFillBackgroundColor(<span class="org-constant">IndexedColors</span>.YELLOW.getIndex());
+        cellStyle.setShrinkToFit(<span class="org-constant">true</span>);
+
+        <span class="org-type">HSSFRow</span> <span class="org-variable-name">row1</span> = sheet3.createRow(1);
+        <span class="org-type">HSSFCell</span> <span class="org-variable-name">cell2</span> = row1.createCell(0);
+        cell2.setCellStyle(cellStyle);
+        cell2.setCellValue(<span class="org-keyword">new</span> <span class="org-type">Date</span>());
+
+        row1.createCell(1).setCellValue(22323);
+        row1.createCell(2).setCellValue(444444);
+        row1.createCell(3).setCellValue(<span class="org-constant">true</span>);
+        row1.createCell(4).setCellFormula(<span class="org-string">"$B$2*$C$2"</span>);
+
+        <span class="org-comment-delimiter">// </span><span class="org-comment">&#23558;&#20854;&#20445;&#23384;</span>
+        <span class="org-type">ByteArrayOutputStream</span> <span class="org-variable-name">stream</span> = <span class="org-keyword">new</span> <span class="org-type">ByteArrayOutputStream</span>();
+        workbook.write(stream);
+        <span class="org-keyword">return</span> stream;
+    }
+
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">testFetchFromExcel</span>() <span class="org-keyword">throws</span> <span class="org-type">IOException</span> {
+        <span class="org-type">Workbook</span> <span class="org-variable-name">workbook</span> = readExcelFromFileName(<span class="org-string">"D:\\mydemo.xlsx"</span>);
+
+        <span class="org-type">Sheet</span> <span class="org-variable-name">sheet</span> = workbook.getSheetAt(1);
+        <span class="org-type">Row</span> <span class="org-variable-name">row</span> = sheet.getRow(2);
+        <span class="org-type">double</span> <span class="org-variable-name">value</span> = row.getCell(1).getNumericCellValue();
+        System.out.println(value);
+    }
+
+    <span class="org-keyword">public</span> <span class="org-type">Workbook</span> <span class="org-function-name">readExcelFromFileName</span>(<span class="org-type">String</span> <span class="org-variable-name">fileName</span>) <span class="org-keyword">throws</span> <span class="org-type">IOException</span> {
+        <span class="org-type">FileInputStream</span> <span class="org-variable-name">fis</span>;
+        <span class="org-type">Workbook</span> <span class="org-variable-name">workbook</span>;
+        <span class="org-keyword">try</span> {
+            fis = <span class="org-keyword">new</span> <span class="org-type">FileInputStream</span>(<span class="org-keyword">new</span> <span class="org-type">File</span>(fileName));
+            workbook = <span class="org-keyword">new</span> <span class="org-type">HSSFWorkbook</span>(fis);
+            fis.close();
+        } <span class="org-keyword">catch</span> (<span class="org-type">OfficeXmlFileException</span> <span class="org-variable-name">e</span>) {
+            fis = <span class="org-keyword">new</span> <span class="org-type">FileInputStream</span>(<span class="org-keyword">new</span> <span class="org-type">File</span>(fileName));
+            workbook = <span class="org-keyword">new</span> <span class="org-type">XSSFWorkbook</span>(fis);
+            fis.close();
+        }
+        <span class="org-keyword">return</span> workbook;
+    }
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgae5eda1" class="outline-2">
+<h2 id="orgae5eda1"><span class="section-number-2">4</span> 可以结合 SpringMVC 的上传下载使用</h2>
+<div class="outline-text-2" id="text-4">
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Controller</span>
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">ExcelController</span> {
+    <span class="org-c-annotation">@Autowired</span>
+    <span class="org-keyword">private</span> <span class="org-type">ExcelService</span> <span class="org-variable-name">excelService</span>;
+
+    <span class="org-c-annotation">@GetMapping</span>(value = <span class="org-string">"/excel_download"</span>)
+    <span class="org-type">ResponseEntity</span>&lt;<span class="org-type">byte</span>[]&gt; <span class="org-function-name">downloadFile</span>() <span class="org-keyword">throws</span> <span class="org-type">IOException</span> {
+        <span class="org-type">byte</span>[] <span class="org-variable-name">contents</span> = excelService.exportExcel().toByteArray();
+
+        <span class="org-type">HttpHeaders</span> <span class="org-variable-name">headers</span> = <span class="org-keyword">new</span> <span class="org-type">HttpHeaders</span>();
+        headers.setCacheControl(<span class="org-string">"no-cache, no-store, must-revalidate"</span>);
+        headers.setContentType(<span class="org-constant">MediaType</span>.APPLICATION_OCTET_STREAM);
+        headers.setContentLength(contents.length);
+        headers.setContentDispositionFormData(<span class="org-string">"attachment"</span>, <span class="org-string">"xxx_"</span> + <span class="org-keyword">new</span> <span class="org-type">SimpleDateFormat</span>(<span class="org-string">"yyyyMMddhhmmss"</span>).format(<span class="org-keyword">new</span> <span class="org-type">Date</span>()) + <span class="org-string">".xls"</span>);
+
+        <span class="org-keyword">return</span> ResponseEntity.ok().headers(headers).body(contents);
+    }
+}
+</pre>
+</div>
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: 孙悟空</p>
+<p class="date">Created: 2018-11-12 Mon 07:06</p>
+<p class="validation">Go ahead, never stop.</p>
+</div>
+</body>
+</html>

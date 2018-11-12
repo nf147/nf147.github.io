@@ -1,0 +1,136 @@
+#+TITLE: Excel
+
+
+
+两种:
+1. apache POI
+2. JXL
+
+* POI 是什么
+
+[[file:img/clip_2018-11-12_07-02-25.png]]
+
+常用接口:
+
+- *HSSF* － 提供读写 Microsoft Excel XLS 格式档案的功能。Horrible SpreadSheet Format。
+- *XSSF* － 提供读写 Microsoft Excel OOXML XLSX 格式档案的功能。
+- *HWPF* － 提供读写 Microsoft Word DOC97 格式档案的功能。
+- *XWPF* － 提供读写 Microsoft Word DOC2003 格式档案的功能。
+- *HSLF* － 提供读写 Microsoft PowerPoint 格式档案的功能。
+- *HDGF* － 提供读 Microsoft Visio 格式档案的功能。
+- *HPBF* － 提供读 Microsoft Publisher 格式档案的功能。
+- *HSMF* － 提供读 Microsoft Outlook 格式档案的功能。
+
+* 引入依赖
+
+#+BEGIN_SRC sgml
+  <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+  <dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi</artifactId>
+    <version>4.0.0</version>
+  </dependency>
+
+  <!-- 如果要使用 xlsx 和 流，需要引入下面这个包 -->
+  <dependency>
+    <groupId>org.apache.poi</groupId>
+    <artifactId>poi-ooxml</artifactId>
+    <version>4.0.0</version>
+  </dependency>
+#+END_SRC
+
+* 使用示例
+
+#+BEGIN_SRC java
+  @Service
+  public class ExcelService {
+      @Autowired
+      private EmMapper emMapper;
+
+      public ByteArrayOutputStream exportExcel() throws IOException {
+          List<Emp> emps = emMapper.selectAll(); // 接下来将这些数据封装到 excel 中
+
+          HSSFWorkbook workbook = new HSSFWorkbook(); // 创建新的 excel 文档
+          HSSFSheet sheet1 = workbook.createSheet("第一页。。。"); // 创建第一个工作表
+          HSSFSheet sheet2 = workbook.createSheet("第2页。。。");
+          HSSFSheet sheet3 = workbook.createSheet("第III页。。。");
+          HSSFSheet sheet4 = workbook.createSheet("第si页。。。");
+
+          HSSFRow row = sheet1.createRow(0);
+          HSSFCell cell = row.createCell(0);
+          cell.setCellValue("hello, hello");
+
+          HSSFRow row22 = sheet2.createRow(2);
+          HSSFCell cell1 = row22.createCell(3);
+          cell1.setCellValue("我是谁？我从哪里来，我到哪里呢");
+
+          // 样式对象
+          CellStyle cellStyle = workbook.createCellStyle();
+          cellStyle.setDataFormat(workbook.getCreationHelper().createDataFormat().getFormat("yyyy-MM-dd"));
+          cellStyle.setFillForegroundColor(IndexedColors.RED.getIndex());
+          cellStyle.setFillBackgroundColor(IndexedColors.YELLOW.getIndex());
+          cellStyle.setShrinkToFit(true);
+
+          HSSFRow row1 = sheet3.createRow(1);
+          HSSFCell cell2 = row1.createCell(0);
+          cell2.setCellStyle(cellStyle);
+          cell2.setCellValue(new Date());
+
+          row1.createCell(1).setCellValue(22323);
+          row1.createCell(2).setCellValue(444444);
+          row1.createCell(3).setCellValue(true);
+          row1.createCell(4).setCellFormula("$B$2*$C$2");
+
+          // 将其保存
+          ByteArrayOutputStream stream = new ByteArrayOutputStream();
+          workbook.write(stream);
+          return stream;
+      }
+
+      public void testFetchFromExcel() throws IOException {
+          Workbook workbook = readExcelFromFileName("D:\\mydemo.xlsx");
+
+          Sheet sheet = workbook.getSheetAt(1);
+          Row row = sheet.getRow(2);
+          double value = row.getCell(1).getNumericCellValue();
+          System.out.println(value);
+      }
+
+      public Workbook readExcelFromFileName(String fileName) throws IOException {
+          FileInputStream fis;
+          Workbook workbook;
+          try {
+              fis = new FileInputStream(new File(fileName));
+              workbook = new HSSFWorkbook(fis);
+              fis.close();
+          } catch (OfficeXmlFileException e) {
+              fis = new FileInputStream(new File(fileName));
+              workbook = new XSSFWorkbook(fis);
+              fis.close();
+          }
+          return workbook;
+      }
+#+END_SRC
+
+* 可以结合 SpringMVC 的上传下载使用
+
+#+BEGIN_SRC java
+  @Controller
+  public class ExcelController {
+      @Autowired
+      private ExcelService excelService;
+
+      @GetMapping(value = "/excel_download")
+      ResponseEntity<byte[]> downloadFile() throws IOException {
+          byte[] contents = excelService.exportExcel().toByteArray();
+
+          HttpHeaders headers = new HttpHeaders();
+          headers.setCacheControl("no-cache, no-store, must-revalidate");
+          headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+          headers.setContentLength(contents.length);
+          headers.setContentDispositionFormData("attachment", "xxx_" + new SimpleDateFormat("yyyyMMddhhmmss").format(new Date()) + ".xls");
+
+          return ResponseEntity.ok().headers(headers).body(contents);
+      }
+  }
+#+END_SRC
