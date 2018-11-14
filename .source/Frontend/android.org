@@ -1,0 +1,12 @@
+#+TITLE: Android
+
+
+
+http://www.android-studio.org/
+
+* 环境搭建
+** 首先，下载 Android Studio (Intellij Idea)
+
+** 其次，更新下载 Android SDK (JDK)
+
+** 然后，下载运行模拟器

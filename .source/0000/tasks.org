@@ -2,10 +2,18 @@
 
 
 
-* 2018年11月12日
+* 2018年11月14日
 :PROPERTIES:
 :CUSTOM_ID: active
 :END:
+
+*使用 MUI 仿“知乎日报” APP*。
+
+知乎日报的 API 地址为:
+- https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90
+
+* 2018年11月12日
+
 
 为下面项目增加两个功能:
 - 通过 Excel 批量上传
