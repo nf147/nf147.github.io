@@ -10,3 +10,38 @@ http://www.android-studio.org/
 ** 其次，更新下载 Android SDK (JDK)
 
 ** 然后，下载运行模拟器
+* ADB (Android Debug Bridge)
+
+安卓调试桥，通过这个工具，可以在电脑上对安卓手机进行控制跟操作。
+
+安装完 sdk 后，默认 adb.exe 就在 ~platform-tools~ 文件夹下。
+这个工具也可以单独安装使用。
+
+adb 是由两部分组成的:
+1. 在手机上，存在服务器，名为 adbd.exe
+2. 在电脑上，使用客户端进行跟服务器端的通讯，即 adb.exe
+
+常用的命令:
+#+BEGIN_SRC sh
+  adb devices  # 查看所有连接的设备
+
+  adb start-server # 在手机上开启 adbd，默认端口号为 5037。不需要手动执行此命令，它会自动被调用
+  adb start-server -P 3333 # 启动 adbd 并设置端口为 3333
+  adb kill-server  # 关闭手机上的 adbd 服务
+
+  adb shell ls     # 在手机上执行 ls 命令
+  adb shell pm list packages # 查看手机上的所有 app  
+  adb install/push/uninstall.... # 安装、卸载、推送等
+#+END_SRC
+
+使用 wifi 的方式连接 adbd:
+#+BEGIN_SRC sh
+  # 首先，通过数据线连接手机后，通过 adb 将 adbd 端口设置为 8888
+  adb tcpip 8888
+
+  # 其次，断开数据线，连接 wifi，之后，手动创建 adb 连接:
+  adb connect 192.168.1.222:8888
+
+  # 然后，就可以看到了
+  adb devices
+#+END_SRC

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-14 Wed 07:11 -->
+<!-- 2018-11-15 周四 03:34 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Android</title>
@@ -27,6 +27,7 @@
 <li><a href="#org0e7f18a">1.3. 然后，下载运行模拟器</a></li>
 </ul>
 </li>
+<li><a href="#org2e98e7e">2. ADB (Android Debug Bridge)</a></li>
 </ul>
 </div>
 </nav>
@@ -50,10 +51,61 @@
 <h3 id="org0e7f18a"><span class="section-number-3">1.3</span> 然后，下载运行模拟器</h3>
 </div>
 </section>
+<section id="outline-container-org2e98e7e" class="outline-2">
+<h2 id="org2e98e7e"><span class="section-number-2">2</span> ADB (Android Debug Bridge)</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+安卓调试桥，通过这个工具，可以在电脑上对安卓手机进行控制跟操作。
+</p>
+
+<p>
+安装完 sdk 后，默认 adb.exe 就在 <code>platform-tools</code> 文件夹下。这个工具也可以单独安装使用。
+</p>
+
+<p>
+adb 是由两部分组成的:
+</p>
+<ol class="org-ol">
+<li>在手机上，存在服务器，名为 adbd.exe</li>
+<li>在电脑上，使用客户端进行跟服务器端的通讯，即 adb.exe</li>
+</ol>
+
+<p>
+常用的命令:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">adb devices  <span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475;&#25152;&#26377;&#36830;&#25509;&#30340;&#35774;&#22791;</span>
+
+adb start-server <span class="org-comment-delimiter"># </span><span class="org-comment">&#22312;&#25163;&#26426;&#19978;&#24320;&#21551; adbd&#65292;&#40664;&#35748;&#31471;&#21475;&#21495;&#20026; 5037&#12290;&#19981;&#38656;&#35201;&#25163;&#21160;&#25191;&#34892;&#27492;&#21629;&#20196;&#65292;&#23427;&#20250;&#33258;&#21160;&#34987;&#35843;&#29992;</span>
+adb start-server -P 3333 <span class="org-comment-delimiter"># </span><span class="org-comment">&#21551;&#21160; adbd &#24182;&#35774;&#32622;&#31471;&#21475;&#20026; 3333</span>
+adb kill-server  <span class="org-comment-delimiter"># </span><span class="org-comment">&#20851;&#38381;&#25163;&#26426;&#19978;&#30340; adbd &#26381;&#21153;</span>
+
+adb shell ls     <span class="org-comment-delimiter"># </span><span class="org-comment">&#22312;&#25163;&#26426;&#19978;&#25191;&#34892; ls &#21629;&#20196;</span>
+adb shell pm list packages <span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475;&#25163;&#26426;&#19978;&#30340;&#25152;&#26377; app  </span>
+adb install/push/uninstall.... <span class="org-comment-delimiter"># </span><span class="org-comment">&#23433;&#35013;&#12289;&#21368;&#36733;&#12289;&#25512;&#36865;&#31561;</span>
+</pre>
+</div>
+
+<p>
+使用 wifi 的方式连接 adbd:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">&#39318;&#20808;&#65292;&#36890;&#36807;&#25968;&#25454;&#32447;&#36830;&#25509;&#25163;&#26426;&#21518;&#65292;&#36890;&#36807; adb &#23558; adbd &#31471;&#21475;&#35774;&#32622;&#20026; 8888</span>
+adb tcpip 8888
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#20854;&#27425;&#65292;&#26029;&#24320;&#25968;&#25454;&#32447;&#65292;&#36830;&#25509; wifi&#65292;&#20043;&#21518;&#65292;&#25163;&#21160;&#21019;&#24314; adb &#36830;&#25509;:</span>
+adb connect 192.168.1.222:8888
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#28982;&#21518;&#65292;&#23601;&#21487;&#20197;&#30475;&#21040;&#20102;</span>
+adb devices
+</pre>
+</div>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-14 Wed 07:11</p>
+<p class="date">Created: 2018-11-15 周四 03:34</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
