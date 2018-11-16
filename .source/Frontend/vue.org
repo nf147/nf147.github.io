@@ -1,0 +1,201 @@
+#+TITLE: Vue
+
+
+* MVC/MVP/MVVM
+
+MVC:
+- Model
+- View
+- Controller
+
+社会上需要有分工，编程分模板。分的目的是为了提高效率，便于维护。
+
+这是一种非常自然，也是一种使用最普遍的分层方式。
+
+但是 MVC 在实际运用中，往往暴露出一个非常大的问题:
+- Model/View 相对简单，但是 *Controller 太大了，责任太重了*
+- Controller 往往会超过几千行代码，里面混杂太多逻辑了
+
+由于存在上述问题，自然就产生了其他的一些解决方案。
+这些解决方案基本上都是基于 MVC 模式，可以说，他们都是 MVC 模式的变种。
+
+比如说，MVP (Most Valuable Player)
+
+MVVM:
+- Model
+- View
+- View Model
+
+#+BEGIN_SRC web
+  <!-- View -->
+  <html>
+      <table id="xxx">
+      </table>
+  </html>
+
+  <script>
+   // Model
+   $.ajax('/url', {...}).done(doRender);
+
+   // Controller
+   function doRender(data) {
+       // 把 Model 里的相关数据，绑定到页面 View 的相关位置
+       var node = $("#xxx");
+       var html = "<tr>" + "data 拼接成 <td> 连接起来的方式" + "</tr>";
+       node.innerHTML = html;
+   }
+  </script>
+#+END_SRC
+* 示例
+
+#+BEGIN_SRC html
+  <div id="app">
+    <section>
+      <h4>进行数据绑定，判断、循环</h4>
+      <div v-for="person in persons" v-if="person.age > 18">
+        <div>name: {{person.name}}</div>
+        <div>age: {{person.age}}</div>
+        <div>address: {{person.address}}</div>
+      </div>
+    </section>
+
+    <section :style="mystyle" v-bind:title="mytitle">
+      <h4>进行属性绑定，事件的声明</h4>
+      <span>{{message}}</span>
+      <button v-on:click="changeStyle">改变颜色</button>
+      <button @click="reverseMessage">反向显示</button>
+    </section>
+
+    <section>
+      <h4>数据的双向绑定</h4>
+      <div><input v-model.number="firstScore" placeholder="第 1 个人的分数"></div>
+      <div><input v-model.number="secondScore" placeholder="第 2 个人的分数"></div>
+      <div><input v-model.number="thirdScore" placeholder="第 3 个人的分数"></div>
+      <div>当前，所有人的总分为: {{firstScore + secondScore + thirdScore}} </div>
+      <button v-on:click="submit">提交</button>
+    </section>
+
+    <section>
+      <h4>指令的修饰符</h4>
+      <a href="http://www.baidu.com" @click.prevent="hahaha">百度</a>
+      <input @keyup.13="heiheihei">
+    </section>
+
+    <div>
+      {{sysmsg1}}
+    </div>
+    <div>
+      {{sysmsg2}}
+    </div>
+
+    <table>
+      <tr>
+        <th>编号</th>
+        <th>名字</th>
+        <th>价格</th>
+      </tr>
+      <tr v-for="book in books">
+        <td>{{ book.id }}</td>
+        <td>{{ book.name }}</td>
+        <td>{{ book.price }}</td>
+        <td><a href="" @click.prevent="killMe(book.id)">删除</a></td>
+      </tr>
+    </table>
+    <div v-if="books.length == 0">
+      目前没有任何书籍
+    </div>
+
+    <div style="border: 1px solid grey; border-radius: 5px; padding: 1em;">
+      <div><input v-model="book.id"></div>
+      <div><input v-model="book.name"></div>
+      <div><input v-model="book.price"></div>
+    </div>
+    <button @click="saveBook">保存</button>
+  </div>
+
+#+END_SRC
+
+View Model:
+#+BEGIN_SRC js
+  var vm = new Vue({
+      el: '#app',
+      data: { // Model
+          persons: [],
+
+          message: 'hello, my friend.',
+          mystyle: "color: red",
+          mytitle: '现在时间: ' + new Date(),
+
+          firstScore: 100,
+          secondScore: 10,
+          thirdScore: 220,
+
+          sysmsg2: '空',
+          books: [],
+          book: { id: 0, name: '', price: 100 }
+      },
+      watch: {
+          firstScore: function(n, o) {
+              console.log("skdfjsdk");
+              this.sysmsg2 = `老的 firstScore 为 ${o} 新的为 ${n}`;
+          }
+      },
+      computed: { // 通过计算得来的属性
+          sysmsg1: function () {
+              if (Math.random() > 0.5) {
+                  return this.message + this.thirdScore + new Date();
+              } else {
+                  return "hello";
+              }
+          }
+      },
+      methods: {
+          changeStyle: function () {
+              var colors = ["green", "red", "yellow", "pink", "blue"];
+              var randColor = colors[Math.floor((Math.random()*colors.length))];
+              this.mystyle = "color: " + randColor;
+          },
+          reverseMessage: function () {
+              this.message = this.message.split('').reverse().join('');
+          },
+          submit: function () {
+              console.log(vm.firstScore);
+              console.log(vm.secondScore);
+              console.log(vm.thirdScore);
+          },
+          hahaha: function () {
+              alert("哈哈哈哈");
+          },
+          heiheihei: function () {
+              alert("嘿嘿嘿: " + event.keyCode);
+          },
+          saveBook: function () {
+              this.books.push({
+                  id: this.book.id,
+                  name: this.book.name,
+                  price: this.book.price
+              });
+              this.book = {};
+          },
+          killMe: function (id) {
+              this.books = this.books.filter((b) => b.id != id);
+          }
+      },
+      created: function () {
+          this.books.push({
+              id: 1,
+              name: 'ssss',
+              price: 232
+          });
+      },
+      mounted: function () {
+          console.log("现在，所有的工作都准备就虚了!!");
+      }
+  });
+
+
+  function xxx () {
+      event.preventDefault();
+      alert('骗你的');
+  }
+#+END_SRC
