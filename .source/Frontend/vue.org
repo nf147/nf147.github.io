@@ -48,6 +48,7 @@ MVVM:
 #+END_SRC
 * 示例
 
+指令模板 (View):
 #+BEGIN_SRC html
   <div id="app">
     <section>
@@ -189,7 +190,7 @@ View Model:
           });
       },
       mounted: function () {
-          console.log("现在，所有的工作都准备就虚了!!");
+          console.log("现在，所有的工作都准备就绪了!!");
       }
   });
 

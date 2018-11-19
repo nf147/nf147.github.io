@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-16 Fri 07:32 -->
+<!-- 2018-11-19 Mon 07:15 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>S3S147</title>
@@ -36,14 +36,26 @@
 
 <h3>当前任务</h3>
 <p>
-<b>使用 MUI 仿“知乎日报” APP</b>。
+使用 Vue 组件的方式，实现以下功能:
 </p>
 
+
+<figure>
+<img src="img/clip_2018-11-19_07-10-12.png" alt="clip_2018-11-19_07-10-12.png">
+
+</figure>
+
 <p>
-知乎日报的 API 地址为:
+要求：
 </p>
 <ul class="org-ul">
-<li><a href="https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90">https://github.com/izzyleung/ZhihuDailyPurify/wiki/知乎日报-API-分析</a></li>
+<li>使用 Vue 实现</li>
+<li>使用组件</li>
+<li>用户输入用户名和评论，点击按钮后，评论发布成功</li>
+<li>用户名和评论都不能为空</li>
+<li>将用户名缓存到本地的 <b>localStorage</b> 里面，如果刷新页面，直接使用上次缓存的名字</li>
+<li>将评论列表的内容也缓存到本地 <b>localStorage</b> 里面。首次加载页面，先到缓存里读取并渲染，如果有修改，那么缓存也要更新</li>
+<li>实现评论的删除功能</li>
 </ul>
 
 <div><br>
@@ -199,7 +211,7 @@
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-16 Fri 07:32</p>
+<p class="date">Created: 2018-11-19 Mon 07:15</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
