@@ -200,3 +200,248 @@ View Model:
       alert('骗你的');
   }
 #+END_SRC
+* 示例，用户评论
+** 最终效果如图
+[[file:img/clip_2018-11-20_07-24-12.png]]
+
+其他要求:
+- 使用 Vue 实现
+- 使用组件
+- 用户输入用户名和评论，点击按钮后，评论发布成功
+- 用户名和评论都不能为空
+- 将用户名缓存到本地的 localStorage 里面，如果刷新页面，直接使用上次缓存的名字
+- 将评论列表的内容也缓存到本地 localStorage 里面。首次加载页面，先到缓存里读取并渲染，如果有修改，那么缓存也要更新
+- 实现评论的删除功能
+
+** 分析页面，划分组件，确定组件间的数据传输方式
+[[file:img/clip_2018-11-20_07-23-04.png]]
+** index.html/index.css
+
+html:
+#+BEGIN_SRC html
+  <!doctype html>
+  <html lang="en">
+      <head>
+          <meta charset="UTF-8"/>
+          <title>评论模块</title>
+          <link rel="stylesheet" href="index.css">
+          <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+      </head>
+      <body>
+          <div id="root">
+              <comment></comment>
+          </div>
+
+          <script type="module">
+
+           import commentComp from './component/comment/comment-comp.js';
+
+           Vue.component('comment', commentComp);
+
+           var vm = new Vue({
+               el: '#root'
+           });
+
+          </script>
+      </body>
+  </html>
+#+END_SRC
+
+css:
+#+BEGIN_SRC css
+  #root {
+      width: 400px;
+      padding: 2em;
+      margin: 2em auto;
+      border: 1px solid #e0e0e0;
+      border-radius: 1em;
+  }
+  .cinput {
+      margin-bottom: 1em;
+  }
+  label {
+      display: flex;
+      margin: 1em 0;
+  }
+  label span {
+      flex-basis: 100px;
+  }
+  input, textarea {
+      flex: 1;
+  }
+  .cinput footer {
+      text-align: right;
+  }
+  .cinput button {
+      border: none;
+      background-color: orange;
+      padding: .4em 1em;
+      color: white;
+      font-size: 16px;
+      border-radius: 3px;
+      box-shadow: 1px 1px 1px #e0e0e0;
+  }
+
+
+  .comment {
+      padding: 1em;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+  }
+  .comment-author {
+      color: steelblue;
+      flex-basis: 80px;
+  }
+  .comment-delete {
+      margin-left: auto;
+  }
+#+END_SRC
+** CommentComp
+
+#+BEGIN_SRC js
+  import commentInput from './comment-input.js';
+  import commentList from './comment-list.js';
+
+  export default {
+      template: `
+          <div>
+              <cinput @woyaobaocun="zhendeyaobaocuna"></cinput>
+              <clist @shanchuwo="zhendeyaoshanchu" v-bind:comments="comments"></clist>
+          </div>
+      `,
+      data() { return {
+          comments: []
+      }},
+      methods: {
+          updateLocal() {
+              localStorage.setItem('vvv-comments', JSON.stringify(this.comments));
+          },
+          zhendeyaobaocuna(res) {
+              this.comments.push(res);
+              this.updateLocal();
+          },
+          zhendeyaoshanchu(id) {
+              this.comments = this.comments.filter((c) => c.id != id);
+              this.updateLocal();
+          }
+      },
+      components: {
+          cinput: commentInput,
+          clist: commentList
+      },
+      created() {
+          const cs = localStorage.getItem('vvv-comments');
+          if (cs) {
+              this.comments = JSON.parse(cs);
+          }
+      }
+  }
+#+END_SRC
+** CommentInput
+
+#+BEGIN_SRC js
+  // 1. 定义
+  var commentInput = {
+      template: `
+          <div class='cinput'>
+              <label>
+                 <span>用户名</span>
+                 <input v-model='author'>
+              </label>
+              <label>
+                  <span>评论内容</span>
+                  <textarea v-model='content'></textarea>
+              </label>
+              <footer>
+                  <button @click='doSave'>发布</button>
+              </footer>
+          </div>
+      `,
+      data() { return {
+          author: '',
+          content: ''
+      }},
+      methods: {
+          doSave() {
+              if (!this.author) {
+                  return alert('用户名不能为空');
+              }
+              if (!this.content) {
+                  return alert('内容不能为空');
+              }
+
+              // 更新保存在 localStorage 里的作者名
+              localStorage.setItem('vvv-authorname', this.author);
+
+              // 发射、广播出去
+              this.$emit('woyaobaocun', {
+                  id: +new Date(),
+                  author: this.author,
+                  content: this.content
+              });
+
+              // clear
+              this.content = '';
+          }
+      },
+      created() {
+          const authorname = localStorage.getItem('vvv-authorname');
+          if (authorname) {
+              this.author = authorname;
+          }
+      }
+  };
+
+  // 2. 导出
+  // default 代表默认导出，一个模块中只能有一个
+  export default commentInput;
+
+#+END_SRC
+
+** CommentList
+
+list:
+#+BEGIN_SRC js
+  import commentItem from './comment-item.js';
+
+  export default {
+      props: ['comments'],
+      methods: {
+          doDelete(id) {
+              this.$emit('shanchuwo', id);
+          }
+      },
+      template: `
+         <div class='clist'>
+             <comment v-for='c, index in comments'
+                 :comment='c'
+                 :key='c.id'
+                 @shanchuwo='doDelete'>
+             </comment>
+         </div>
+      `,
+      components: {
+          comment: commentItem
+      }
+  };
+#+END_SRC
+
+item:
+#+BEGIN_SRC js
+  export default {
+      props: ['comment'],
+      methods: {
+          deleteMe() {
+              this.$emit('shanchuwo', this.comment.id);
+          }
+      },
+      template: `
+         <div class='comment'>
+             <span class='comment-author'>{{comment.author}}:</span>
+             <span class='comment-content'>{{comment.content}}</span>
+             <a href @click.prevent='deleteMe' class='comment-delete'>删除</a>
+         </div>
+      `
+  };
+
+#+END_SRC

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-19 Mon 07:15 -->
+<!-- 2018-11-20 Tue 07:28 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vue</title>
@@ -22,6 +22,16 @@
 <ul>
 <li><a href="#orgb4e73bf">1. MVC/MVP/MVVM</a></li>
 <li><a href="#org93c1762">2. 示例</a></li>
+<li><a href="#orgaf42f52">3. 示例，用户评论</a>
+<ul>
+<li><a href="#orgdbaacb1">3.1. 最终效果如图</a></li>
+<li><a href="#org51dcac8">3.2. 分析页面，划分组件，确定组件间的数据传输方式</a></li>
+<li><a href="#org268e3d4">3.3. index.html/index.css</a></li>
+<li><a href="#orgdc04878">3.4. CommentComp</a></li>
+<li><a href="#orgc962bfa">3.5. CommentInput</a></li>
+<li><a href="#org6f6fa98">3.6. CommentList</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </nav>
@@ -258,10 +268,305 @@ View Model:
 </div>
 </div>
 </section>
+<section id="outline-container-orgaf42f52" class="outline-2">
+<h2 id="orgaf42f52"><span class="section-number-2">3</span> 示例，用户评论</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-orgdbaacb1" class="outline-3">
+<h3 id="orgdbaacb1"><span class="section-number-3">3.1</span> 最终效果如图</h3>
+<div class="outline-text-3" id="text-3-1">
+
+<figure>
+<img src="img/clip_2018-11-20_07-24-12.png" alt="clip_2018-11-20_07-24-12.png">
+
+</figure>
+
+<p>
+其他要求:
+</p>
+<ul class="org-ul">
+<li>使用 Vue 实现</li>
+<li>使用组件</li>
+<li>用户输入用户名和评论，点击按钮后，评论发布成功</li>
+<li>用户名和评论都不能为空</li>
+<li>将用户名缓存到本地的 localStorage 里面，如果刷新页面，直接使用上次缓存的名字</li>
+<li>将评论列表的内容也缓存到本地 localStorage 里面。首次加载页面，先到缓存里读取并渲染，如果有修改，那么缓存也要更新</li>
+<li>实现评论的删除功能</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org51dcac8" class="outline-3">
+<h3 id="org51dcac8"><span class="section-number-3">3.2</span> 分析页面，划分组件，确定组件间的数据传输方式</h3>
+<div class="outline-text-3" id="text-3-2">
+
+<figure>
+<img src="img/clip_2018-11-20_07-23-04.png" alt="clip_2018-11-20_07-23-04.png">
+
+</figure>
+</div>
+</div>
+<div id="outline-container-org268e3d4" class="outline-3">
+<h3 id="org268e3d4"><span class="section-number-3">3.3</span> index.html/index.css</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+html:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span class="org-string">&lt;!doctype html&gt;</span>
+&lt;<span class="org-function-name">html</span> <span class="org-variable-name">lang</span>=<span class="org-string">"en"</span>&gt;
+    &lt;<span class="org-function-name">head</span>&gt;
+        &lt;<span class="org-function-name">meta</span> <span class="org-variable-name">charset</span>=<span class="org-string">"UTF-8"</span>/&gt;
+        &lt;<span class="org-function-name">title</span>&gt;<span class="org-underline"><span class="org-bold">&#35780;&#35770;&#27169;&#22359;</span></span>&lt;/<span class="org-function-name">title</span>&gt;
+        &lt;<span class="org-function-name">link</span> <span class="org-variable-name">rel</span>=<span class="org-string">"stylesheet"</span> <span class="org-variable-name">href</span>=<span class="org-string">"index.css"</span>&gt;
+        &lt;<span class="org-function-name">script</span> <span class="org-variable-name">src</span>=<span class="org-string">"https://cdn.bootcss.com/vue/2.5.13/vue.js"</span>&gt;&lt;/<span class="org-function-name">script</span>&gt;
+    &lt;/<span class="org-function-name">head</span>&gt;
+    &lt;<span class="org-function-name">body</span>&gt;
+        &lt;<span class="org-function-name">div</span> <span class="org-variable-name">id</span>=<span class="org-string">"root"</span>&gt;
+            &lt;<span class="org-function-name">comment</span>&gt;&lt;/<span class="org-function-name">comment</span>&gt;
+        &lt;/<span class="org-function-name">div</span>&gt;
+
+        &lt;<span class="org-function-name">script</span> <span class="org-variable-name">type</span>=<span class="org-string">"module"</span>&gt;
+
+         import commentComp from './component/comment/comment-comp.js';
+
+         Vue.component('comment', commentComp);
+
+         var vm = new Vue({
+             el: '#root'
+         });
+
+        &lt;/<span class="org-function-name">script</span>&gt;
+    &lt;/<span class="org-function-name">body</span>&gt;
+&lt;/<span class="org-function-name">html</span>&gt;
+</pre>
+</div>
+
+<p>
+css:
+</p>
+<div class="org-src-container">
+<pre class="src src-css"><span class="org-css-selector">#root </span>{
+    <span class="org-css-property">width</span>: 400px;
+    <span class="org-css-property">padding</span>: 2em;
+    <span class="org-css-property">margin</span>: 2em auto;
+    <span class="org-css-property">border</span>: 1px solid <span class="custom-4">#e0e0e0</span>;
+    <span class="org-css-property">border-radius</span>: 1em;
+}
+<span class="org-css-selector">.cinput </span>{
+    <span class="org-css-property">margin-bottom</span>: 1em;
+}
+<span class="org-css-selector">label </span>{
+    <span class="org-css-property">display</span>: flex;
+    <span class="org-css-property">margin</span>: 1em 0;
+}
+<span class="org-css-selector">label span </span>{
+    <span class="org-css-property">flex-basis</span>: 100px;
+}
+<span class="org-css-selector">input, textarea </span>{
+    <span class="org-css-property">flex</span>: 1;
+}
+<span class="org-css-selector">.cinput footer </span>{
+    <span class="org-css-property">text-align</span>: right;
+}
+<span class="org-css-selector">.cinput button </span>{
+    <span class="org-css-property">border</span>: none;
+    <span class="org-css-property">background-color</span>: <span class="custom-3">orange</span>;
+    <span class="org-css-property">padding</span>: .4em 1em;
+    <span class="org-css-property">color</span>: <span class="custom-2">white</span>;
+    <span class="org-css-property">font-size</span>: 16px;
+    <span class="org-css-property">border-radius</span>: 3px;
+    <span class="org-css-property">box-shadow</span>: 1px 1px 1px <span class="custom-4">#e0e0e0</span>;
+}
+
+
+<span class="org-css-selector">.comment </span>{
+    <span class="org-css-property">padding</span>: 1em;
+    <span class="org-css-property">border-bottom</span>: 1px solid <span class="custom-1">#f0f0f0</span>;
+    <span class="org-css-property">display</span>: flex;
+}
+<span class="org-css-selector">.comment-author </span>{
+    <span class="org-css-property">color</span>: <span class="custom">steelblue</span>;
+    <span class="org-css-property">flex-basis</span>: 80px;
+}
+<span class="org-css-selector">.comment-delete </span>{
+    <span class="org-css-property">margin-left</span>: auto;
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgdc04878" class="outline-3">
+<h3 id="orgdc04878"><span class="section-number-3">3.4</span> CommentComp</h3>
+<div class="outline-text-3" id="text-3-4">
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-keyword">import</span> commentInput from <span class="org-string">'./comment-input.js'</span>;
+<span class="org-keyword">import</span> commentList from <span class="org-string">'./comment-list.js'</span>;
+
+<span class="org-keyword">export</span> <span class="org-keyword">default</span> {
+    template: <span class="org-string">`</span>
+<span class="org-string">        &lt;div&gt;</span>
+<span class="org-string">            &lt;cinput @woyaobaocun="zhendeyaobaocuna"&gt;&lt;/cinput&gt;</span>
+<span class="org-string">            &lt;clist @shanchuwo="zhendeyaoshanchu" v-bind:comments="comments"&gt;&lt;/clist&gt;</span>
+<span class="org-string">        &lt;/div&gt;</span>
+<span class="org-string">    `</span>,
+    data() { <span class="org-keyword">return</span> {
+        comments: []
+    }},
+    methods: {
+        updateLocal() {
+            localStorage.setItem(<span class="org-string">'vvv-comments'</span>, JSON.stringify(<span class="org-constant">this</span>.comments));
+        },
+        zhendeyaobaocuna(res) {
+            <span class="org-constant">this</span>.comments.push(res);
+            <span class="org-constant">this</span>.updateLocal();
+        },
+        zhendeyaoshanchu(id) {
+            <span class="org-constant">this</span>.comments = <span class="org-constant">this</span>.comments.filter((c) =&gt; c.id != id);
+            <span class="org-constant">this</span>.updateLocal();
+        }
+    },
+    components: {
+        cinput: commentInput,
+        clist: commentList
+    },
+    created() {
+        <span class="org-keyword">const</span> <span class="org-variable-name">cs</span> = localStorage.getItem(<span class="org-string">'vvv-comments'</span>);
+        <span class="org-keyword">if</span> (cs) {
+            <span class="org-constant">this</span>.comments = JSON.parse(cs);
+        }
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc962bfa" class="outline-3">
+<h3 id="orgc962bfa"><span class="section-number-3">3.5</span> CommentInput</h3>
+<div class="outline-text-3" id="text-3-5">
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-comment-delimiter">// </span><span class="org-comment">1. &#23450;&#20041;</span>
+<span class="org-keyword">var</span> <span class="org-variable-name">commentInput</span> = {
+    template: <span class="org-string">`</span>
+<span class="org-string">        &lt;div class='cinput'&gt;</span>
+<span class="org-string">            &lt;label&gt;</span>
+<span class="org-string">               &lt;span&gt;&#29992;&#25143;&#21517;&lt;/span&gt;</span>
+<span class="org-string">               &lt;input v-model='author'&gt;</span>
+<span class="org-string">            &lt;/label&gt;</span>
+<span class="org-string">            &lt;label&gt;</span>
+<span class="org-string">                &lt;span&gt;&#35780;&#35770;&#20869;&#23481;&lt;/span&gt;</span>
+<span class="org-string">                &lt;textarea v-model='content'&gt;&lt;/textarea&gt;</span>
+<span class="org-string">            &lt;/label&gt;</span>
+<span class="org-string">            &lt;footer&gt;</span>
+<span class="org-string">                &lt;button @click='doSave'&gt;&#21457;&#24067;&lt;/button&gt;</span>
+<span class="org-string">            &lt;/footer&gt;</span>
+<span class="org-string">        &lt;/div&gt;</span>
+<span class="org-string">    `</span>,
+    data() { <span class="org-keyword">return</span> {
+        author: <span class="org-string">''</span>,
+        content: <span class="org-string">''</span>
+    }},
+    methods: {
+        doSave() {
+            <span class="org-keyword">if</span> (!<span class="org-constant">this</span>.author) {
+                <span class="org-keyword">return</span> alert(<span class="org-string">'&#29992;&#25143;&#21517;&#19981;&#33021;&#20026;&#31354;'</span>);
+            }
+            <span class="org-keyword">if</span> (!<span class="org-constant">this</span>.content) {
+                <span class="org-keyword">return</span> alert(<span class="org-string">'&#20869;&#23481;&#19981;&#33021;&#20026;&#31354;'</span>);
+            }
+
+            <span class="org-comment-delimiter">// </span><span class="org-comment">&#26356;&#26032;&#20445;&#23384;&#22312; localStorage &#37324;&#30340;&#20316;&#32773;&#21517;</span>
+            localStorage.setItem(<span class="org-string">'vvv-authorname'</span>, <span class="org-constant">this</span>.author);
+
+            <span class="org-comment-delimiter">// </span><span class="org-comment">&#21457;&#23556;&#12289;&#24191;&#25773;&#20986;&#21435;</span>
+            <span class="org-constant">this</span>.$emit(<span class="org-string">'woyaobaocun'</span>, {
+                id: +<span class="org-keyword">new</span> <span class="org-type">Date</span>(),
+                author: <span class="org-constant">this</span>.author,
+                content: <span class="org-constant">this</span>.content
+            });
+
+            <span class="org-comment-delimiter">// </span><span class="org-comment">clear</span>
+            <span class="org-constant">this</span>.content = <span class="org-string">''</span>;
+        }
+    },
+    created() {
+        <span class="org-keyword">const</span> <span class="org-variable-name">authorname</span> = localStorage.getItem(<span class="org-string">'vvv-authorname'</span>);
+        <span class="org-keyword">if</span> (authorname) {
+            <span class="org-constant">this</span>.author = authorname;
+        }
+    }
+};
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">2. &#23548;&#20986;</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">default &#20195;&#34920;&#40664;&#35748;&#23548;&#20986;&#65292;&#19968;&#20010;&#27169;&#22359;&#20013;&#21482;&#33021;&#26377;&#19968;&#20010;</span>
+<span class="org-keyword">export</span> <span class="org-keyword">default</span> commentInput;
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6f6fa98" class="outline-3">
+<h3 id="org6f6fa98"><span class="section-number-3">3.6</span> CommentList</h3>
+<div class="outline-text-3" id="text-3-6">
+<p>
+list:
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-keyword">import</span> commentItem from <span class="org-string">'./comment-item.js'</span>;
+
+<span class="org-keyword">export</span> <span class="org-keyword">default</span> {
+    props: [<span class="org-string">'comments'</span>],
+    methods: {
+        doDelete(id) {
+            <span class="org-constant">this</span>.$emit(<span class="org-string">'shanchuwo'</span>, id);
+        }
+    },
+    template: <span class="org-string">`</span>
+<span class="org-string">       &lt;div class='clist'&gt;</span>
+<span class="org-string">           &lt;comment v-for='c, index in comments'</span>
+<span class="org-string">               :comment='c'</span>
+<span class="org-string">               :key='c.id'</span>
+<span class="org-string">               @shanchuwo='doDelete'&gt;</span>
+<span class="org-string">           &lt;/comment&gt;</span>
+<span class="org-string">       &lt;/div&gt;</span>
+<span class="org-string">    `</span>,
+    components: {
+        comment: commentItem
+    }
+};
+</pre>
+</div>
+
+<p>
+item:
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-keyword">export</span> <span class="org-keyword">default</span> {
+    props: [<span class="org-string">'comment'</span>],
+    methods: {
+        deleteMe() {
+            <span class="org-constant">this</span>.$emit(<span class="org-string">'shanchuwo'</span>, <span class="org-constant">this</span>.comment.id);
+        }
+    },
+    template: <span class="org-string">`</span>
+<span class="org-string">       &lt;div class='comment'&gt;</span>
+<span class="org-string">           &lt;span class='comment-author'&gt;{{comment.author}}:&lt;/span&gt;</span>
+<span class="org-string">           &lt;span class='comment-content'&gt;{{comment.content}}&lt;/span&gt;</span>
+<span class="org-string">           &lt;a href @click.prevent='deleteMe' class='comment-delete'&gt;&#21024;&#38500;&lt;/a&gt;</span>
+<span class="org-string">       &lt;/div&gt;</span>
+<span class="org-string">    `</span>
+};
+
+</pre>
+</div>
+</div>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-19 Mon 07:15</p>
+<p class="date">Created: 2018-11-20 Tue 07:28</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
