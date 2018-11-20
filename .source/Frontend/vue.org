@@ -214,7 +214,9 @@ View Model:
 - 实现评论的删除功能
 
 ** 分析页面，划分组件，确定组件间的数据传输方式
-[[file:img/clip_2018-11-20_07-23-04.png]]
+
+[[file:img/clip_2018-11-20_07-32-19.png]]
+
 ** index.html/index.css
 
 html:
