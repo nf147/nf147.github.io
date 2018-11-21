@@ -491,7 +491,7 @@ https://cli.vuejs.org/zh/
 
 安装完后，打开命令行窗口，会有一个 vue 命令:
 
-#+ATTR_HTML: :style width: 300px, display: block;
+#+ATTR_HTML: :style width: 250px, display: block;
 [[file:img/clip_2018-11-21_02-37-04.png]]
 
 然后，就可以使用 vue 命令创建、管理项目了:
@@ -507,12 +507,13 @@ https://cli.vuejs.org/zh/
   cd vue-hello-world
 
   # 接下来，启动项目服务器
+  # 服务器启动后，就可以使用 http://localhost:8080 访问到首页了
   npm run serve
 
   # 然后就可以进行开发了
   # - public 下面放一些全局静态文件
   # - src 下面存在 main.js 跟相关 .vue 文件
-  # -- main.js 是入口js文件
+  # -- main.js 是入口 js 文件
 
   # 开发完成后，就可以将工程打包、分发，运行在客户端了
   # 执行完命令，打包的内容会在 dist 文件夹中
@@ -522,3 +523,59 @@ https://cli.vuejs.org/zh/
   ## 另外，也可以使用图形化界面的形式进行（不推荐）
   vue ui
 #+END_SRC
+* ElementUI
+
+http://element-cn.eleme.io/#/zh-CN
+
+导入 ElementUI 到项目中:
+#+BEGIN_SRC sh
+  # 首先，通过 vue-cli@3 脚手架创建项目
+  vue create hello-ele
+
+  # 其次，切换到目录
+  cd hello-ele
+
+  # 然后，就可以通过 eleme 的插件将 ElementUI 配置到项目中了
+  vue add element
+#+END_SRC
+
+然后，就可以使用了:
+#+BEGIN_SRC js
+  <template>
+      <div id="app">
+          <el-table :data="tableData" stripe border height="400px">
+              <el-table-column fixed prop="date" label="日期" width="100"></el-table-column>
+              <el-table-column prop="name" label="姓名" width="180"></el-table-column>
+              <el-table-column prop="address" label="地址"></el-table-column>
+          </el-table>
+      </div>
+  </template>
+
+  <script>
+   export default {
+       data() {
+           return {
+               tableData: [{
+                   date: '2016-05-02',
+                   name: '王小虎',
+                   address: '上海市普陀区金沙江路 1518 弄'
+               }, {
+                   date: '2016-05-04',
+                   name: '王小虎',
+                   address: '上海市普陀区金沙江路 1517 弄'
+               }, {
+                   date: '2016-05-01',
+                   name: '王小虎',
+                   address: '上海市普陀区金沙江路 1519 弄'
+               }, {
+                   date: '2016-05-01',
+                   name: '王小虎',
+                   address: '上海市普陀区金沙江路 1519 弄'
+               }]
+           }
+       }
+   }
+  </script>
+#+END_SRC
+
+更多，查看组件的帮助文档。

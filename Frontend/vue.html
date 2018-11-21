@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-21 Wed 03:10 -->
+<!-- 2018-11-21 Wed 08:23 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vue</title>
@@ -38,6 +38,7 @@
 <li><a href="#org4deec97">4.2. Vue CLI</a></li>
 </ul>
 </li>
+<li><a href="#org2191c55">5. ElementUI</a></li>
 </ul>
 </div>
 </nav>
@@ -646,7 +647,7 @@ npm install -g @vue/cli
 
 
 <figure>
-<img src="img/clip_2018-11-21_02-37-04.png" alt="clip_2018-11-21_02-37-04.png" style="width: 300px, display: block;">
+<img src="img/clip_2018-11-21_02-37-04.png" alt="clip_2018-11-21_02-37-04.png" style="width: 250px, display: block;">
 
 </figure>
 
@@ -665,12 +666,13 @@ vue create vue-hello-world
 <span class="org-builtin">cd</span> vue-hello-world
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#25509;&#19979;&#26469;&#65292;&#21551;&#21160;&#39033;&#30446;&#26381;&#21153;&#22120;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26381;&#21153;&#22120;&#21551;&#21160;&#21518;&#65292;&#23601;&#21487;&#20197;&#20351;&#29992; http://localhost:8080 &#35775;&#38382;&#21040;&#39318;&#39029;&#20102;</span>
 npm run serve
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#28982;&#21518;&#23601;&#21487;&#20197;&#36827;&#34892;&#24320;&#21457;&#20102;</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">- public &#19979;&#38754;&#25918;&#19968;&#20123;&#20840;&#23616;&#38745;&#24577;&#25991;&#20214;</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">- src &#19979;&#38754;&#23384;&#22312; main.js &#36319;&#30456;&#20851; .vue &#25991;&#20214;</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">-- main.js &#26159;&#20837;&#21475;js&#25991;&#20214;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">-- main.js &#26159;&#20837;&#21475; js &#25991;&#20214;</span>
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#24320;&#21457;&#23436;&#25104;&#21518;&#65292;&#23601;&#21487;&#20197;&#23558;&#24037;&#31243;&#25171;&#21253;&#12289;&#20998;&#21457;&#65292;&#36816;&#34892;&#22312;&#23458;&#25143;&#31471;&#20102;</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#25191;&#34892;&#23436;&#21629;&#20196;&#65292;&#25171;&#21253;&#30340;&#20869;&#23481;&#20250;&#22312; dist &#25991;&#20214;&#22841;&#20013;</span>
@@ -684,10 +686,79 @@ vue ui
 </div>
 </div>
 </section>
+<section id="outline-container-org2191c55" class="outline-2">
+<h2 id="org2191c55"><span class="section-number-2">5</span> ElementUI</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+<a href="http://element-cn.eleme.io/#/zh-CN">http://element-cn.eleme.io/#/zh-CN</a>
+</p>
+
+<p>
+导入 ElementUI 到项目中:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">&#39318;&#20808;&#65292;&#36890;&#36807; vue-cli@3 &#33050;&#25163;&#26550;&#21019;&#24314;&#39033;&#30446;</span>
+vue create hello-ele
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#20854;&#27425;&#65292;&#20999;&#25442;&#21040;&#30446;&#24405;</span>
+<span class="org-builtin">cd</span> hello-ele
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#28982;&#21518;&#65292;&#23601;&#21487;&#20197;&#36890;&#36807; eleme &#30340;&#25554;&#20214;&#23558; ElementUI &#37197;&#32622;&#21040;&#39033;&#30446;&#20013;&#20102;</span>
+vue add element
+</pre>
+</div>
+
+<p>
+然后，就可以使用了:
+</p>
+<div class="org-src-container">
+<pre class="src src-js">&lt;template&gt;
+    &lt;div id=<span class="org-string">"app"</span>&gt;
+        &lt;el-table :data=<span class="org-string">"tableData"</span> stripe border height=<span class="org-string">"400px"</span>&gt;
+            &lt;el-table-column fixed prop=<span class="org-string">"date"</span> label=<span class="org-string">"&#26085;&#26399;"</span> width=<span class="org-string">"100"</span>&gt;&lt;/el-table-column&gt;
+            &lt;el-table-column prop=<span class="org-string">"name"</span> label=<span class="org-string">"&#22995;&#21517;"</span> width=<span class="org-string">"180"</span>&gt;&lt;/el-table-column&gt;
+            &lt;el-table-column prop=<span class="org-string">"address"</span> label=<span class="org-string">"&#22320;&#22336;"</span>&gt;&lt;/el-table-column&gt;
+        &lt;/el-table&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+ <span class="org-keyword">export</span> <span class="org-keyword">default</span> {
+     data() {
+         <span class="org-keyword">return</span> {
+             tableData: [{
+                 date: <span class="org-string">'2016-05-02'</span>,
+                 name: <span class="org-string">'&#29579;&#23567;&#34382;'</span>,
+                 address: <span class="org-string">'&#19978;&#28023;&#24066;&#26222;&#38464;&#21306;&#37329;&#27801;&#27743;&#36335; 1518 &#24324;'</span>
+             }, {
+                 date: <span class="org-string">'2016-05-04'</span>,
+                 name: <span class="org-string">'&#29579;&#23567;&#34382;'</span>,
+                 address: <span class="org-string">'&#19978;&#28023;&#24066;&#26222;&#38464;&#21306;&#37329;&#27801;&#27743;&#36335; 1517 &#24324;'</span>
+             }, {
+                 date: <span class="org-string">'2016-05-01'</span>,
+                 name: <span class="org-string">'&#29579;&#23567;&#34382;'</span>,
+                 address: <span class="org-string">'&#19978;&#28023;&#24066;&#26222;&#38464;&#21306;&#37329;&#27801;&#27743;&#36335; 1519 &#24324;'</span>
+             }, {
+                 date: <span class="org-string">'2016-05-01'</span>,
+                 name: <span class="org-string">'&#29579;&#23567;&#34382;'</span>,
+                 address: <span class="org-string">'&#19978;&#28023;&#24066;&#26222;&#38464;&#21306;&#37329;&#27801;&#27743;&#36335; 1519 &#24324;'</span>
+             }]
+         }
+     }
+ }
+&lt;/script&gt;
+</pre>
+</div>
+
+<p>
+更多，查看组件的帮助文档。
+</p>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-21 Wed 03:10</p>
+<p class="date">Created: 2018-11-21 Wed 08:23</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
