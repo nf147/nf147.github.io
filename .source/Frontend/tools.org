@@ -1,0 +1,49 @@
+#+TITLE: 前端工程化
+
+
+* babel
+
+https://babeljs.io/
+
+这是一个翻译工具。
+我们使用 es6/es7 等新的语法编程，
+经过 babel 的翻译之后，它就能兼容不支持 es6/7 的浏览器。
+
+它能把使用 es6/es7 等语法的文件，
+根据配置翻译成能够在指定浏览器使用的文件。
+
+比如说，你可以指定，让它翻译成能够在 ie6 下面使用的使用。
+
+你可以指定，让它翻译成能够兼容 ie8 的文件。
+
+你也可以指定，让它翻译成能够兼容 ie10 的文件。
+* 针对 vue，vue-loader 工具
+* npm/yarn
+
+下载插件，下载工具，简单的任务管理。
+
+npm(nodejs package manager)，它是伴随 nodejs 出现的一个工具包。
+
+使用相当简单。
+
+第一步，下载。
+
+第二步，安装。
+
+第三步，使用。
+
+基本命令如下:
+#+BEGIN_SRC sh
+  # 初始化一个项目，在项目下面创建基本的配置文件 package.json
+  # package.json 是属于 CommonJS 规范的一个配置文件
+  # 因为 npm 使用的是 CommonJS 规范，所以，他也使用了同样的 package.json 作为它的配置文件
+  npm init
+
+  # 下载一个插件
+  # 下载完之后，默认会安装到当前目录下的 node_moduels 文件夹里
+  npm install jQuery
+  npm install electron --global
+  npm install vue
+
+  # 
+#+END_SRC
