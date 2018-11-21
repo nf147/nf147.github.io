@@ -476,6 +476,8 @@ Vue-loader 是一个插件，它能让下面格式的文件转换为普通的 JS
 
 ** Vue CLI
 
+https://cli.vuejs.org/zh/
+
 这是用来快速搭建 Vue 开发环境的脚手架，它集成了:
 - vue-loader
 - webpack
