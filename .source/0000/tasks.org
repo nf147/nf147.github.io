@@ -3,10 +3,14 @@
 
 
 
-* 2018年11月19日
+* 2018年11月21日
 :PROPERTIES:
 :CUSTOM_ID: active
 :END:
+
+将“评论模块”使用 Vue 和 ElementUI 重构一遍
+
+* 2018年11月19日
 
 
 使用 Vue 组件的方式，实现以下功能:
