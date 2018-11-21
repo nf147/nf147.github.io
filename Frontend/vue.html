@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-20 Tue 07:45 -->
+<!-- 2018-11-21 Wed 02:42 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vue</title>
@@ -30,6 +30,12 @@
 <li><a href="#orgdc04878">3.4. CommentComp</a></li>
 <li><a href="#orgc962bfa">3.5. CommentInput</a></li>
 <li><a href="#org6f6fa98">3.6. CommentList</a></li>
+</ul>
+</li>
+<li><a href="#orge49c6e7">4. Vue-loader/Vue-CLI</a>
+<ul>
+<li><a href="#orgb14093e">4.1. Vue-loader</a></li>
+<li><a href="#org4deec97">4.2. Vue CLI</a></li>
 </ul>
 </li>
 </ul>
@@ -564,10 +570,116 @@ item:
 </div>
 </div>
 </section>
+<section id="outline-container-orge49c6e7" class="outline-2">
+<h2 id="orge49c6e7"><span class="section-number-2">4</span> Vue-loader/Vue-CLI</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-orgb14093e" class="outline-3">
+<h3 id="orgb14093e"><span class="section-number-3">4.1</span> Vue-loader</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Vue-loader 是一个插件，它能让下面格式的文件转换为普通的 JS 模板的文件:
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span class="org-function-name">template</span>&gt;
+    &lt;<span class="org-function-name">div</span>&gt; {{message}} &lt;/<span class="org-function-name">div</span>&gt;
+&lt;/<span class="org-function-name">template</span>&gt;
+
+&lt;<span class="org-function-name">script</span>&gt;
+ export default {
+     data() {
+         return {
+             message: <span class="org-string">""</span>
+         }
+     }
+ }
+&lt;/<span class="org-function-name">script</span>&gt;
+
+&lt;<span class="org-function-name">style</span> scoped&gt;
+&lt;/<span class="org-function-name">style</span>&gt;
+</pre>
+</div>
+
+<p>
+使用 vue-loader 需要借助 babel 和 webpack 一起使用。
+</p>
+
+<p>
+所幸，vue 官方给我们提供了一个脚手架，可以一步到位搭建所需要的环境。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4deec97" class="outline-3">
+<h3 id="org4deec97"><span class="section-number-3">4.2</span> Vue CLI</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+这是用来快速搭建 Vue 开发环境的脚手架，它集成了:
+</p>
+<ul class="org-ul">
+<li>vue-loader</li>
+<li>webpack</li>
+<li>babel</li>
+<li>其他一些可选插件</li>
+</ul>
+
+<p>
+使用前，必须要先按照 node:
+</p>
+<ul class="org-ul">
+<li><a href="https://nodejs.org/zh-cn/download/">https://nodejs.org/zh-cn/download/</a></li>
+</ul>
+
+<p>
+然后，就可以使用 npm 命令安装了:
+</p>
+<pre class="example">
+npm install -g @vue/cli
+</pre>
+
+<p>
+安装完后，打开命令行窗口，会有一个 vue 命令:
+<img src="img/clip_2018-11-21_02-37-04.png" alt="clip_2018-11-21_02-37-04.png">
+</p>
+
+<p>
+然后，就可以使用 vue 命令创建、管理项目了:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">&#20808;&#20999;&#25442;&#21040;&#30456;&#24212;&#30446;&#24405;</span>
+e:
+<span class="org-builtin">cd</span> myhomework
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#28982;&#21518;&#21019;&#24314;&#39033;&#30446;</span>
+vue create vue-hello-world
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21019;&#24314;&#23436;&#21518;&#65292;&#20999;&#25442;&#21040;&#39033;&#30446;&#30446;&#24405;</span>
+<span class="org-builtin">cd</span> vue-hello-world
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#25509;&#19979;&#26469;&#65292;&#21551;&#21160;&#39033;&#30446;&#26381;&#21153;&#22120;</span>
+npm run serve
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#28982;&#21518;&#23601;&#21487;&#20197;&#36827;&#34892;&#24320;&#21457;&#20102;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">- public &#19979;&#38754;&#25918;&#19968;&#20123;&#20840;&#23616;&#38745;&#24577;&#25991;&#20214;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">- src &#19979;&#38754;&#23384;&#22312; main.js &#36319;&#30456;&#20851; .vue &#25991;&#20214;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">-- main.js &#26159;&#20837;&#21475;js&#25991;&#20214;</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#24320;&#21457;&#23436;&#25104;&#21518;&#65292;&#23601;&#21487;&#20197;&#23558;&#24037;&#31243;&#25171;&#21253;&#12289;&#20998;&#21457;&#65292;&#36816;&#34892;&#22312;&#23458;&#25143;&#31471;&#20102;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#25191;&#34892;&#23436;&#21629;&#20196;&#65292;&#25171;&#21253;&#30340;&#20869;&#23481;&#20250;&#22312; dist &#25991;&#20214;&#22841;&#20013;</span>
+npm run build
+
+
+<span class="org-comment-delimiter">## </span><span class="org-comment">&#21478;&#22806;&#65292;&#20063;&#21487;&#20197;&#20351;&#29992;&#22270;&#24418;&#21270;&#30028;&#38754;&#30340;&#24418;&#24335;&#36827;&#34892;&#65288;&#19981;&#25512;&#33616;&#65289;</span>
+vue ui
+</pre>
+</div>
+</div>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-20 Tue 07:45</p>
+<p class="date">Created: 2018-11-21 Wed 02:42</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

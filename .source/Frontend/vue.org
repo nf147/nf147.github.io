@@ -447,3 +447,75 @@ item:
   };
 
 #+END_SRC
+* Vue-loader/Vue-CLI
+** Vue-loader
+
+Vue-loader 是一个插件，它能让下面格式的文件转换为普通的 JS 模板的文件:
+#+BEGIN_SRC html
+  <template>
+      <div> {{message}} </div>
+  </template>
+
+  <script>
+   export default {
+       data() {
+           return {
+               message: ""
+           }
+       }
+   }
+  </script>
+
+  <style scoped>
+  </style>
+#+END_SRC
+
+使用 vue-loader 需要借助 babel 和 webpack 一起使用。
+
+所幸，vue 官方给我们提供了一个脚手架，可以一步到位搭建所需要的环境。
+
+** Vue CLI
+
+这是用来快速搭建 Vue 开发环境的脚手架，它集成了:
+- vue-loader
+- webpack
+- babel
+- 其他一些可选插件
+
+使用前，必须要先按照 node:
+- https://nodejs.org/zh-cn/download/
+
+然后，就可以使用 npm 命令安装了:
+: npm install -g @vue/cli
+
+安装完后，打开命令行窗口，会有一个 vue 命令:
+[[file:img/clip_2018-11-21_02-37-04.png]]
+
+然后，就可以使用 vue 命令创建、管理项目了:
+#+BEGIN_SRC sh
+  # 先切换到相应目录
+  e:
+  cd myhomework
+
+  # 然后创建项目
+  vue create vue-hello-world
+
+  # 创建完后，切换到项目目录
+  cd vue-hello-world
+
+  # 接下来，启动项目服务器
+  npm run serve
+
+  # 然后就可以进行开发了
+  # - public 下面放一些全局静态文件
+  # - src 下面存在 main.js 跟相关 .vue 文件
+  # -- main.js 是入口js文件
+
+  # 开发完成后，就可以将工程打包、分发，运行在客户端了
+  # 执行完命令，打包的内容会在 dist 文件夹中
+  npm run build
+
+
+  ## 另外，也可以使用图形化界面的形式进行（不推荐）
+  vue ui
+#+END_SRC

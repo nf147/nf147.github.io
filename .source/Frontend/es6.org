@@ -4,7 +4,7 @@
 
 * 模块
 
-JS 是一门仓促产生的语句，
+JS 是一门仓促产生的语言，
 在产生的时候，很多特性都不具备。
 
 比如说，模块、命名空间。
@@ -14,7 +14,15 @@ JS 是一门仓促产生的语句，
 所以，就产生了很多的第三方实现。
 
 ** CommonJS 规范
+
+两个主要 api:
+- module.exports = {}
+- require('xxx')
+
 ** AMD 规范
+
+requirejs 是他的一个主要实现。
+
 ** 其他规范
 *** UMD规范
 
@@ -31,7 +39,7 @@ JS 是一门仓促产生的语句，
 
 它有两个基本 api:
 - export
-- import module from xxx
+- import x from 'xxx'
 
 语法示例如下:
 #+BEGIN_SRC js

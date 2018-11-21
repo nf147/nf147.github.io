@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-21 周三 01:12 -->
+<!-- 2018-11-21 Wed 02:42 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>前端工程化</title>
@@ -21,8 +21,9 @@
 <div id="text-table-of-contents">
 <ul>
 <li><a href="#org868e0b6">1. babel</a></li>
-<li><a href="#org80fa3a8">2. 针对 vue，vue-loader 工具</a></li>
-<li><a href="#org48fed49">3. npm/yarn</a></li>
+<li><a href="#org48fed49">2. npm/yarn</a></li>
+<li><a href="#org556b863">3. Webpack</a></li>
+<li><a href="#org7b207a4">4. 其他的脚手架</a></li>
 </ul>
 </div>
 </nav>
@@ -56,12 +57,18 @@
 </p>
 </div>
 </section>
-<section id="outline-container-org80fa3a8" class="outline-2">
-<h2 id="org80fa3a8"><span class="section-number-2">2</span> 针对 vue，vue-loader 工具</h2>
-</section>
 <section id="outline-container-org48fed49" class="outline-2">
-<h2 id="org48fed49"><span class="section-number-2">3</span> npm/yarn</h2>
-<div class="outline-text-2" id="text-3">
+<h2 id="org48fed49"><span class="section-number-2">2</span> npm/yarn</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+包的管理工具
+</p>
+
+<ul class="org-ul">
+<li><a href="https://www.npmjs.com/">https://www.npmjs.com/</a></li>
+<li><a href="https://www.npmjs.com.cn/">https://www.npmjs.com.cn/</a></li>
+</ul>
+
 <p>
 下载插件，下载工具，简单的任务管理。
 </p>
@@ -90,26 +97,58 @@ npm(nodejs package manager)，它是伴随 nodejs 出现的一个工具包。
 基本命令如下:
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">&#21021;&#22987;&#21270;&#19968;&#20010;&#39033;&#30446;&#65292;&#22312;&#39033;&#30446;&#19979;&#38754;&#21019;&#24314;&#22522;&#26412;&#30340;&#37197;&#32622;&#25991;&#20214; package.json</span>
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">&#28155;&#21152;&#22269;&#20869;&#28304;</span>
+npm config list
+npm config set <span class="org-variable-name">registry</span>=https://registry.npm.taobao.org
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21021;&#22987;&#21270;&#19968;&#20010;&#39033;&#30446;&#65292;&#22312;&#39033;&#30446;&#19979;&#38754;&#21019;&#24314;&#22522;&#26412;&#30340;&#37197;&#32622;&#25991;&#20214; package.json</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">package.json &#26159;&#23646;&#20110; CommonJS &#35268;&#33539;&#30340;&#19968;&#20010;&#37197;&#32622;&#25991;&#20214;</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#22240;&#20026; npm &#20351;&#29992;&#30340;&#26159; CommonJS &#35268;&#33539;&#65292;&#25152;&#20197;&#65292;&#20182;&#20063;&#20351;&#29992;&#20102;&#21516;&#26679;&#30340; package.json &#20316;&#20026;&#23427;&#30340;&#37197;&#32622;&#25991;&#20214;</span>
 npm init
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#19979;&#36733;&#19968;&#20010;&#25554;&#20214;</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#19979;&#36733;&#23436;&#20043;&#21518;&#65292;&#40664;&#35748;&#20250;&#23433;&#35013;&#21040;&#24403;&#21069;&#30446;&#24405;&#19979;&#30340; node_moduels &#25991;&#20214;&#22841;&#37324;</span>
-npm install jQuery
+npm install jquery
 npm install electron --global
 npm install vue
 
-<span class="org-comment-delimiter"># </span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21024;&#38500;&#25481;</span>
+npm uninstall jquery
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#36816;&#34892;&#31616;&#21333;&#21629;&#20196;</span>
+npm run hahaha
+<span class="org-comment-delimiter"># </span><span class="org-comment">"scripts": {</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">"hahaha": "ipconfig",</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">"test": "echo \"Error: no test specified\" &amp;&amp; exit 1"</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">},</span>
 </pre>
 </div>
+</div>
+</section>
+<section id="outline-container-org556b863" class="outline-2">
+<h2 id="org556b863"><span class="section-number-2">3</span> Webpack</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+用来:
+</p>
+<ol class="org-ol">
+<li>打包资源</li>
+<li>通过一定的插件，进行任务的集成（自动化任务）</li>
+</ol>
+</div>
+</section>
+<section id="outline-container-org7b207a4" class="outline-2">
+<h2 id="org7b207a4"><span class="section-number-2">4</span> 其他的脚手架</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+cli: command line interface，命令行工具
+</p>
 </div>
 </section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-21 周三 01:12</p>
+<p class="date">Created: 2018-11-21 Wed 02:42</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
