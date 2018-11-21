@@ -473,7 +473,6 @@ Vue-loader 是一个插件，它能让下面格式的文件转换为普通的 JS
 使用 vue-loader 需要借助 babel 和 webpack 一起使用。
 
 所幸，vue 官方给我们提供了一个脚手架，可以一步到位搭建所需要的环境。
-
 ** Vue CLI
 
 https://cli.vuejs.org/zh/
@@ -491,6 +490,8 @@ https://cli.vuejs.org/zh/
 : npm install -g @vue/cli
 
 安装完后，打开命令行窗口，会有一个 vue 命令:
+
+#+ATTR_HTML: :style width: 300px, display: block;
 [[file:img/clip_2018-11-21_02-37-04.png]]
 
 然后，就可以使用 vue 命令创建、管理项目了:
