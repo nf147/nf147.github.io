@@ -448,6 +448,9 @@ item:
 
 #+END_SRC
 * Vue API
+
+https://cn.vuejs.org/v2/api/index.html
+
 ** 指令
 
 - ~v-text~

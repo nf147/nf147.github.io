@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-05 Mon 00:56 -->
+<!-- 2018-11-22 周四 01:46 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Isolation Level (隔离级别)</title>
@@ -20,7 +20,7 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org9afc12b">1. 图示</a></li>
+<li><a href="#org8339181">1. 图示</a></li>
 </ul>
 </div>
 </nav>
@@ -28,8 +28,8 @@
 
 
 
-<section id="outline-container-org9afc12b" class="outline-2">
-<h2 id="org9afc12b"><span class="section-number-2">1</span> 图示</h2>
+<section id="outline-container-org8339181" class="outline-2">
+<h2 id="org8339181"><span class="section-number-2">1</span> 图示</h2>
 <div class="outline-text-2" id="text-1">
 
 <figure>
@@ -42,11 +42,11 @@
 MySQL InnoDB 引擎默认的隔离级别是 RR(Repeatable Read):
 </p>
 <div class="org-src-container">
-<pre class="src src-sql"><span class="org-builtin">show</span> variables <span class="org-keyword">like</span> <span class="org-string">'tx_is%'</span>;
+<pre class="src src-sql">show variables <span class="org-keyword">like</span> <span class="org-string">'tx_is%'</span>;
 
 <span class="org-comment">-- &#26356;&#25913;</span>
-<span class="org-builtin">set</span> <span class="org-builtin">global</span> tx_isolation=<span class="org-string">'read-committed'</span>;
-<span class="org-builtin">set</span> <span class="org-builtin">global</span> tx_isolation=<span class="org-string">'repeatable-read'</span>;
+<span class="org-keyword">set</span> <span class="org-keyword">global</span> tx_isolation=<span class="org-string">'read-committed'</span>;
+<span class="org-keyword">set</span> <span class="org-keyword">global</span> tx_isolation=<span class="org-string">'repeatable-read'</span>;
 </pre>
 </div>
 
@@ -58,7 +58,7 @@ Oracle/PostgreSQL 等数据库的默认隔离级别是 RC(Read Committed)。
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-05 Mon 00:56</p>
+<p class="date">Created: 2018-11-22 周四 01:46</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

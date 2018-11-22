@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-05 Mon 00:56 -->
+<!-- 2018-11-22 周四 01:46 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SSM 整合示例</title>
@@ -20,22 +20,22 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org54695a8">1. 简介</a></li>
-<li><a href="#org36cf9df">2. 首先，创建项目</a></li>
-<li><a href="#orgfb12891">3. 其次，增加依赖(jar 包)</a></li>
-<li><a href="#orgcc9859b">4. 之后，增加配置文件</a></li>
-<li><a href="#orgea8c1b9">5. 然后就可以创建服务器，启动之了</a></li>
-<li><a href="#org8a040e5">6. 开始编码, 准备工作</a></li>
-<li><a href="#org4648658">7. 开始编码, dao 层示例</a></li>
-<li><a href="#org8f977ca">8. 开始编码, service 层示例</a></li>
-<li><a href="#org43a5748">9. 开始编码, web 层示例</a></li>
+<li><a href="#org8e4dbdb">1. 简介</a></li>
+<li><a href="#orge0309f3">2. 首先，创建项目</a></li>
+<li><a href="#org510e2c1">3. 其次，增加依赖(jar 包)</a></li>
+<li><a href="#org603497a">4. 之后，增加配置文件</a></li>
+<li><a href="#org4c1b357">5. 然后就可以创建服务器，启动之了</a></li>
+<li><a href="#orgbb23712">6. 开始编码, 准备工作</a></li>
+<li><a href="#orgea58b77">7. 开始编码, dao 层示例</a></li>
+<li><a href="#orgf1fe681">8. 开始编码, service 层示例</a></li>
+<li><a href="#org9159882">9. 开始编码, web 层示例</a></li>
 </ul>
 </div>
 </nav>
 
 
-<section id="outline-container-org54695a8" class="outline-2">
-<h2 id="org54695a8"><span class="section-number-2">1</span> 简介</h2>
+<section id="outline-container-org8e4dbdb" class="outline-2">
+<h2 id="org8e4dbdb"><span class="section-number-2">1</span> 简介</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 SSM 包含三大框架:
@@ -48,8 +48,8 @@ SSM 包含三大框架:
 </div>
 </section>
 
-<section id="outline-container-org36cf9df" class="outline-2">
-<h2 id="org36cf9df"><span class="section-number-2">2</span> 首先，创建项目</h2>
+<section id="outline-container-orge0309f3" class="outline-2">
+<h2 id="orge0309f3"><span class="section-number-2">2</span> 首先，创建项目</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 推荐使用 Maven 或者 Gradle 创建 ssm 项目。
@@ -61,8 +61,8 @@ SSM 包含三大框架:
 </div>
 </section>
 
-<section id="outline-container-orgfb12891" class="outline-2">
-<h2 id="orgfb12891"><span class="section-number-2">3</span> 其次，增加依赖(jar 包)</h2>
+<section id="outline-container-org510e2c1" class="outline-2">
+<h2 id="org510e2c1"><span class="section-number-2">3</span> 其次，增加依赖(jar 包)</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Maven 的配置文件是 pom.xml，想为项目添加依赖，只需要向 pom.xml 增加相关配置即可。
@@ -186,8 +186,8 @@ Maven 的配置文件是 pom.xml，想为项目添加依赖，只需要向 pom.x
 </div>
 </section>
 
-<section id="outline-container-orgcc9859b" class="outline-2">
-<h2 id="orgcc9859b"><span class="section-number-2">4</span> 之后，增加配置文件</h2>
+<section id="outline-container-org603497a" class="outline-2">
+<h2 id="org603497a"><span class="section-number-2">4</span> 之后，增加配置文件</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 基本只需要下面几个配置文件:
@@ -335,13 +335,13 @@ web.xml 示例，用来驱动 spring 和 spring mvc:
 log4j.properties，用来配置日志:
 </p>
 <div class="org-src-container">
-<pre class="src src-conf"><span class="org-comment-delimiter"># </span><span class="org-comment">&#20840;&#23616;&#37197;&#32622;: &#21482;&#26174;&#31034;&#38169;&#35823;&#32423;&#21035;&#30340;&#26085;&#24535;&#65292;&#36755;&#20986;&#20026;&#21517;&#23383;&#20026; stdou &#30340;&#26085;&#24535;</span>
+<pre class="src src-conf"># &#20840;&#23616;&#37197;&#32622;: &#21482;&#26174;&#31034;&#38169;&#35823;&#32423;&#21035;&#30340;&#26085;&#24535;&#65292;&#36755;&#20986;&#20026;&#21517;&#23383;&#20026; stdou &#30340;&#26085;&#24535;
 <span class="org-variable-name">log4j.rootLogger</span>=ERROR, stdout
 
-<span class="org-comment-delimiter"># </span><span class="org-comment">MyBatis &#30340;&#26085;&#24535;&#37197;&#32622;&#65292;&#21482;&#36755;&#20986; com.nf147.bookstore_ssm.dao &#21253;&#19979;&#20135;&#29983; INFO &#20197;&#21450;&#20197;&#19978;&#32423;&#21035;&#30340;&#26085;&#24535;</span>
+# MyBatis &#30340;&#26085;&#24535;&#37197;&#32622;&#65292;&#21482;&#36755;&#20986; com.nf147.bookstore_ssm.dao &#21253;&#19979;&#20135;&#29983; INFO &#20197;&#21450;&#20197;&#19978;&#32423;&#21035;&#30340;&#26085;&#24535;
 <span class="org-variable-name">log4j.logger.com.nf147.bookstore_ssm.dao</span>=INFO
 
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#23450;&#20041;&#21517;&#23383;&#20026; stdout &#30340;&#26085;&#24535;&#65292;&#23558;&#26085;&#24535;&#36755;&#20986;&#21040;&#25511;&#21046;&#21488;</span>
+# &#23450;&#20041;&#21517;&#23383;&#20026; stdout &#30340;&#26085;&#24535;&#65292;&#23558;&#26085;&#24535;&#36755;&#20986;&#21040;&#25511;&#21046;&#21488;
 <span class="org-variable-name">log4j.appender.stdout</span>=org.apache.log4j.ConsoleAppender
 <span class="org-variable-name">log4j.appender.stdout.layout</span>=org.apache.log4j.PatternLayout
 <span class="org-variable-name">log4j.appender.stdout.layout.ConversionPattern</span>=%5p [%t] - %m%n
@@ -361,8 +361,8 @@ log4j.properties，用来配置日志:
 </div>
 </section>
 
-<section id="outline-container-orgea8c1b9" class="outline-2">
-<h2 id="orgea8c1b9"><span class="section-number-2">5</span> 然后就可以创建服务器，启动之了</h2>
+<section id="outline-container-org4c1b357" class="outline-2">
+<h2 id="org4c1b357"><span class="section-number-2">5</span> 然后就可以创建服务器，启动之了</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 之后就可以在 idea 里面创建应用服务器，将项目部署到上面，运行之。
@@ -370,16 +370,16 @@ log4j.properties，用来配置日志:
 </div>
 </section>
 
-<section id="outline-container-org8a040e5" class="outline-2">
-<h2 id="org8a040e5"><span class="section-number-2">6</span> 开始编码, 准备工作</h2>
+<section id="outline-container-orgbb23712" class="outline-2">
+<h2 id="orgbb23712"><span class="section-number-2">6</span> 开始编码, 准备工作</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 创建表:
 </p>
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">ssm_book</span> (
-    bookid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-builtin">key</span>,
-    <span class="org-type">name</span> <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
+    bookid <span class="org-type">int</span> auto_increment <span class="org-keyword">primary</span> <span class="org-keyword">key</span>,
+    <span class="org-keyword">name</span> <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span>,
     cnt <span class="org-type">int</span> <span class="org-keyword">default</span> 0
 );
 </pre>
@@ -442,8 +442,8 @@ log4j.properties，用来配置日志:
 </div>
 </section>
 
-<section id="outline-container-org4648658" class="outline-2">
-<h2 id="org4648658"><span class="section-number-2">7</span> 开始编码, dao 层示例</h2>
+<section id="outline-container-orgea58b77" class="outline-2">
+<h2 id="orgea58b77"><span class="section-number-2">7</span> 开始编码, dao 层示例</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 其创建 BookDAO 接口，实现数据库查询与操作:
@@ -532,8 +532,8 @@ log4j.properties，用来配置日志:
 </div>
 </section>
 
-<section id="outline-container-org8f977ca" class="outline-2">
-<h2 id="org8f977ca"><span class="section-number-2">8</span> 开始编码, service 层示例</h2>
+<section id="outline-container-orgf1fe681" class="outline-2">
+<h2 id="orgf1fe681"><span class="section-number-2">8</span> 开始编码, service 层示例</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 需要有接口，有实现类，面向接口编程。
@@ -549,8 +549,8 @@ log4j.properties，用来配置日志:
 </div>
 </section>
 
-<section id="outline-container-org43a5748" class="outline-2">
-<h2 id="org43a5748"><span class="section-number-2">9</span> 开始编码, web 层示例</h2>
+<section id="outline-container-org9159882" class="outline-2">
+<h2 id="org9159882"><span class="section-number-2">9</span> 开始编码, web 层示例</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 简单示例:
@@ -585,7 +585,7 @@ log4j.properties，用来配置日志:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-05 Mon 00:56</p>
+<p class="date">Created: 2018-11-22 周四 01:46</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

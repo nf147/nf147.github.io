@@ -1,4 +1,4 @@
-#+TITLE: 前端工程化
+#+TITLE: FE 工程化
 
 
 * babel
@@ -17,6 +17,7 @@ https://babeljs.io/
 你可以指定，让它翻译成能够兼容 ie8 的文件。
 
 你也可以指定，让它翻译成能够兼容 ie10 的文件。
+
 * npm/yarn
 
 包的管理工具
@@ -63,12 +64,13 @@ npm(nodejs package manager)，它是伴随 nodejs 出现的一个工具包。
   #   "test": "echo \"Error: no test specified\" && exit 1"
   # },
 #+END_SRC
+
 * Webpack
 
 用来:
 1. 打包资源
 2. 通过一定的插件，进行任务的集成（自动化任务）
-* 其他的脚手架
 
+* 其他的脚手架
 
 cli: command line interface，命令行工具

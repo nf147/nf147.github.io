@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-05 Mon 00:56 -->
+<!-- 2018-11-22 周四 01:46 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Maven</title>
@@ -20,19 +20,19 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org05db3b6">1. 安装与使用</a></li>
-<li><a href="#org3d6a647">2. 生命周期(Lifecycle)</a></li>
-<li><a href="#org9ed0e2d">3. POM 参考</a>
+<li><a href="#orgdd18d81">1. 安装与使用</a></li>
+<li><a href="#org798fb3b">2. 生命周期(Lifecycle)</a></li>
+<li><a href="#org8e639df">3. POM 参考</a>
 <ul>
-<li><a href="#org0cb9964">3.1. POM(Project Object Model) 示例</a></li>
-<li><a href="#org2567655">3.2. Build Configuration</a></li>
-<li><a href="#orgce2fd69">3.3. 插件配置示例</a></li>
+<li><a href="#orgac9256d">3.1. POM(Project Object Model) 示例</a></li>
+<li><a href="#orga905961">3.2. Build Configuration</a></li>
+<li><a href="#orga9583cf">3.3. 插件配置示例</a></li>
 </ul>
 </li>
-<li><a href="#org7c4eab6">4. 插件</a>
+<li><a href="#org00d3186">4. 插件</a>
 <ul>
-<li><a href="#orgdbe7160">4.1. TOMCAT插件</a></li>
-<li><a href="#orge18e369">4.2. 自定义插件</a></li>
+<li><a href="#orgc56e876">4.1. TOMCAT插件</a></li>
+<li><a href="#org231bc93">4.2. 自定义插件</a></li>
 </ul>
 </li>
 </ul>
@@ -41,8 +41,8 @@
 
 
 
-<section id="outline-container-org05db3b6" class="outline-2">
-<h2 id="org05db3b6"><span class="section-number-2">1</span> 安装与使用</h2>
+<section id="outline-container-orgdd18d81" class="outline-2">
+<h2 id="orgdd18d81"><span class="section-number-2">1</span> 安装与使用</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 修改镜像源，增加 jar 包下载速度，比如使用阿里云的源，settings.xml:
@@ -110,8 +110,8 @@ mvn dependency:copy-dependencies -DoutputDirectory=/tmp/xxx -DincludeScope=compi
 </div>
 </section>
 
-<section id="outline-container-org3d6a647" class="outline-2">
-<h2 id="org3d6a647"><span class="section-number-2">2</span> 生命周期(Lifecycle)</h2>
+<section id="outline-container-org798fb3b" class="outline-2">
+<h2 id="org798fb3b"><span class="section-number-2">2</span> 生命周期(Lifecycle)</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 包括以下三种
@@ -218,16 +218,16 @@ site 生命周期的 phase 有:
 </section>
 
 
-<section id="outline-container-org9ed0e2d" class="outline-2">
-<h2 id="org9ed0e2d"><span class="section-number-2">3</span> POM 参考</h2>
+<section id="outline-container-org8e639df" class="outline-2">
+<h2 id="org8e639df"><span class="section-number-2">3</span> POM 参考</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 <a href="https://maven.apache.org/pom.html#What_is_the_POM">https://maven.apache.org/pom.html#What_is_the_POM</a>
 </p>
 </div>
 
-<div id="outline-container-org0cb9964" class="outline-3">
-<h3 id="org0cb9964"><span class="section-number-3">3.1</span> POM(Project Object Model) 示例</h3>
+<div id="outline-container-orgac9256d" class="outline-3">
+<h3 id="orgac9256d"><span class="section-number-3">3.1</span> POM(Project Object Model) 示例</h3>
 <div class="outline-text-3" id="text-3-1">
 <div class="org-src-container">
 <pre class="src src-sgml">&lt;<span class="org-function-name">project</span> <span class="org-variable-name">xmlns</span>=<span class="org-string">"http://maven.apache.org/POM/4.0.0"</span>
@@ -317,8 +317,8 @@ site 生命周期的 phase 有:
 </div>
 </div>
 
-<div id="outline-container-org2567655" class="outline-3">
-<h3 id="org2567655"><span class="section-number-3">3.2</span> Build Configuration</h3>
+<div id="outline-container-orga905961" class="outline-3">
+<h3 id="orga905961"><span class="section-number-3">3.2</span> Build Configuration</h3>
 <div class="outline-text-3" id="text-3-2">
 <div class="org-src-container">
 <pre class="src src-sgml">&lt;<span class="org-function-name">build</span>&gt;
@@ -352,8 +352,8 @@ site 生命周期的 phase 有:
 </div>
 </div>
 
-<div id="outline-container-orgce2fd69" class="outline-3">
-<h3 id="orgce2fd69"><span class="section-number-3">3.3</span> 插件配置示例</h3>
+<div id="outline-container-orga9583cf" class="outline-3">
+<h3 id="orga9583cf"><span class="section-number-3">3.3</span> 插件配置示例</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 插件分为两类:
@@ -429,12 +429,12 @@ site 生命周期的 phase 有:
 </div>
 </section>
 
-<section id="outline-container-org7c4eab6" class="outline-2">
-<h2 id="org7c4eab6"><span class="section-number-2">4</span> 插件</h2>
+<section id="outline-container-org00d3186" class="outline-2">
+<h2 id="org00d3186"><span class="section-number-2">4</span> 插件</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-orgdbe7160" class="outline-3">
-<h3 id="orgdbe7160"><span class="section-number-3">4.1</span> TOMCAT插件</h3>
+<div id="outline-container-orgc56e876" class="outline-3">
+<h3 id="orgc56e876"><span class="section-number-3">4.1</span> TOMCAT插件</h3>
 <div class="outline-text-3" id="text-4-1">
 <div class="org-src-container">
 <pre class="src src-sgml">&lt;<span class="org-function-name">plugin</span>&gt;   
@@ -463,14 +463,14 @@ mvn tomcat7:deploy/undeply/redeploy
 </div>
 </div>
 
-<div id="outline-container-orge18e369" class="outline-3">
-<h3 id="orge18e369"><span class="section-number-3">4.2</span> 自定义插件</h3>
+<div id="outline-container-org231bc93" class="outline-3">
+<h3 id="org231bc93"><span class="section-number-3">4.2</span> 自定义插件</h3>
 </div>
 </section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-05 Mon 00:56</p>
+<p class="date">Created: 2018-11-22 周四 01:46</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
