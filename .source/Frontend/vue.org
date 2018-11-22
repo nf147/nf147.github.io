@@ -447,6 +447,128 @@ item:
   };
 
 #+END_SRC
+* Vue API
+** 指令
+
+- ~v-text~
+- ~v-html~
+- ~v-show~
+- ~v-if~
+- ~v-else~
+- ~v-else-if~
+- ~v-for~
+- ~v-on~
+- ~v-bind~
+- ~v-model~
+- ~v-pre~
+- ~v-cloak~
+- ~v-once~
+
+** 选项
+
+#+BEGIN_SRC js
+  new Vue({
+      // 数据选项
+      data,
+      props,
+      prosData,
+      computed,
+      watch,
+      methods,
+
+      // DOM选项
+      el,
+      template,
+      render,
+      rederError,
+
+      // 生命周期
+      beforeCreate,
+      created,
+      beforeMount,
+      mouted,
+      beforeUpdate,
+      updated,
+      //..
+
+      // 资源
+      directives,
+      filters,
+      components,
+
+      // 组合关系
+      parent,
+      mixins,
+      extends,
+      provice/inject,
+
+      // 其他
+      name/delimeters/functional/model/inheritAttrs/comments
+  });
+#+END_SRC
+
+** 实例属性、方法、事件
+
+#+BEGIN_SRC js
+  new Vue({
+      mounted() {
+          // 属性
+          console.log(this.$data, $this.props, $this.attrs);
+          console.log(this.$slots, $scopedSlots);
+          console.log(this.$el, this.$options, this.$listeners, this.$refs);
+          console.log(this.$parent, this.$root, this.children);
+
+          // 方法
+          this.$watch(...);
+          this.$set(...);
+          this.$delete(...);
+
+          // 事件
+          this.$on();
+          this.$once();
+          this.$off();
+          this.$emit();
+
+          // 触发生命周期
+          this.$mount();
+          this.$forceUpdate();
+          this.$nextTick();
+          this.$destroy();
+      }
+  });
+#+END_SRC
+
+** 全局 API
+
+- ~Vue.extend()~
+- ~Vue.component()~
+- ~Vue.use()~
+- ~Vue.mixin()~
+- ~Vue.set()~
+- ~Vue.delete()~
+- ~Vue.nextTick()~
+
+Q:
+- nextTick 是什么？EventLoop 是什么？MicroTask 是什么？
+- nextTick 的主要运用场景在哪？
+
+** 其他
+
+特殊特性:
+- ~:key~
+- ~:ref~
+- ~:slot~
+- ~:slot-scope~
+- ~:scope~
+- ~:is~
+
+内置的组件:
+- ~component~
+- ~transition~
+- ~transition-group~
+- ~keep-alive~
+- ~slot~
+
 * Vue-loader/Vue-CLI
 ** Vue-loader
 

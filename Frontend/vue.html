@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-21 Wed 08:28 -->
+<!-- 2018-11-22 周四 01:27 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vue</title>
@@ -32,13 +32,22 @@
 <li><a href="#org6f6fa98">3.6. CommentList</a></li>
 </ul>
 </li>
-<li><a href="#orge49c6e7">4. Vue-loader/Vue-CLI</a>
+<li><a href="#orgdffb3aa">4. Vue API</a>
 <ul>
-<li><a href="#orgb14093e">4.1. Vue-loader</a></li>
-<li><a href="#org4deec97">4.2. Vue CLI</a></li>
+<li><a href="#orge44371a">4.1. 指令</a></li>
+<li><a href="#org9b776bb">4.2. 选项</a></li>
+<li><a href="#org4b604cf">4.3. 实例属性、方法、事件</a></li>
+<li><a href="#orgda9137f">4.4. 全局 API</a></li>
+<li><a href="#org8debc24">4.5. 其他</a></li>
 </ul>
 </li>
-<li><a href="#org2191c55">5. ElementUI</a></li>
+<li><a href="#orge49c6e7">5. Vue-loader/Vue-CLI</a>
+<ul>
+<li><a href="#orgb14093e">5.1. Vue-loader</a></li>
+<li><a href="#org4deec97">5.2. Vue CLI</a></li>
+</ul>
+</li>
+<li><a href="#org2191c55">6. ElementUI</a></li>
 </ul>
 </div>
 </nav>
@@ -571,13 +580,172 @@ item:
 </div>
 </div>
 </section>
-<section id="outline-container-orge49c6e7" class="outline-2">
-<h2 id="orge49c6e7"><span class="section-number-2">4</span> Vue-loader/Vue-CLI</h2>
+<section id="outline-container-orgdffb3aa" class="outline-2">
+<h2 id="orgdffb3aa"><span class="section-number-2">4</span> Vue API</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-orgb14093e" class="outline-3">
-<h3 id="orgb14093e"><span class="section-number-3">4.1</span> Vue-loader</h3>
+<div id="outline-container-orge44371a" class="outline-3">
+<h3 id="orge44371a"><span class="section-number-3">4.1</span> 指令</h3>
 <div class="outline-text-3" id="text-4-1">
+<ul class="org-ul">
+<li><code>v-text</code></li>
+<li><code>v-html</code></li>
+<li><code>v-show</code></li>
+<li><code>v-if</code></li>
+<li><code>v-else</code></li>
+<li><code>v-else-if</code></li>
+<li><code>v-for</code></li>
+<li><code>v-on</code></li>
+<li><code>v-bind</code></li>
+<li><code>v-model</code></li>
+<li><code>v-pre</code></li>
+<li><code>v-cloak</code></li>
+<li><code>v-once</code></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9b776bb" class="outline-3">
+<h3 id="org9b776bb"><span class="section-number-3">4.2</span> 选项</h3>
+<div class="outline-text-3" id="text-4-2">
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-keyword">new</span> <span class="org-type">Vue</span>({
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&#25968;&#25454;&#36873;&#39033;</span>
+    data,
+    props,
+    prosData,
+    computed,
+    watch,
+    methods,
+
+    <span class="org-comment-delimiter">// </span><span class="org-comment">DOM&#36873;&#39033;</span>
+    el,
+    template,
+    render,
+    rederError,
+
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&#29983;&#21629;&#21608;&#26399;</span>
+    beforeCreate,
+    created,
+    beforeMount,
+    mouted,
+    beforeUpdate,
+    updated,
+    <span class="org-comment-delimiter">//</span><span class="org-comment">..</span>
+
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&#36164;&#28304;</span>
+    directives,
+    filters,
+    components,
+
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&#32452;&#21512;&#20851;&#31995;</span>
+    parent,
+    mixins,
+    <span class="org-keyword">extends</span>,
+    provice/inject,
+
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&#20854;&#20182;</span>
+    name/delimeters/functional/model/inheritAttrs/comments
+});
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4b604cf" class="outline-3">
+<h3 id="org4b604cf"><span class="section-number-3">4.3</span> 实例属性、方法、事件</h3>
+<div class="outline-text-3" id="text-4-3">
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-keyword">new</span> <span class="org-type">Vue</span>({
+    mounted() {
+        <span class="org-comment-delimiter">// </span><span class="org-comment">&#23646;&#24615;</span>
+        console.log(<span class="org-constant">this</span>.$data, $this.props, $this.attrs);
+        console.log(<span class="org-constant">this</span>.$slots, $scopedSlots);
+        console.log(<span class="org-constant">this</span>.$el, <span class="org-constant">this</span>.$options, <span class="org-constant">this</span>.$listeners, <span class="org-constant">this</span>.$refs);
+        console.log(<span class="org-constant">this</span>.$parent, <span class="org-constant">this</span>.$root, <span class="org-constant">this</span>.children);
+
+        <span class="org-comment-delimiter">// </span><span class="org-comment">&#26041;&#27861;</span>
+        <span class="org-constant">this</span>.$watch(...);
+        <span class="org-constant">this</span>.$set(...);
+        <span class="org-constant">this</span>.$delete(...);
+
+        <span class="org-comment-delimiter">// </span><span class="org-comment">&#20107;&#20214;</span>
+        <span class="org-constant">this</span>.$on();
+        <span class="org-constant">this</span>.$once();
+        <span class="org-constant">this</span>.$off();
+        <span class="org-constant">this</span>.$emit();
+
+        <span class="org-comment-delimiter">// </span><span class="org-comment">&#35302;&#21457;&#29983;&#21629;&#21608;&#26399;</span>
+        <span class="org-constant">this</span>.$mount();
+        <span class="org-constant">this</span>.$forceUpdate();
+        <span class="org-constant">this</span>.$nextTick();
+        <span class="org-constant">this</span>.$destroy();
+    }
+});
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgda9137f" class="outline-3">
+<h3 id="orgda9137f"><span class="section-number-3">4.4</span> 全局 API</h3>
+<div class="outline-text-3" id="text-4-4">
+<ul class="org-ul">
+<li><code>Vue.extend()</code></li>
+<li><code>Vue.component()</code></li>
+<li><code>Vue.use()</code></li>
+<li><code>Vue.mixin()</code></li>
+<li><code>Vue.set()</code></li>
+<li><code>Vue.delete()</code></li>
+<li><code>Vue.nextTick()</code></li>
+</ul>
+
+<p>
+Q:
+</p>
+<ul class="org-ul">
+<li>nextTick 是什么？EventLoop 是什么？MicroTask 是什么？</li>
+<li>nextTick 的主要运用场景在哪？</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org8debc24" class="outline-3">
+<h3 id="org8debc24"><span class="section-number-3">4.5</span> 其他</h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+特殊特性:
+</p>
+<ul class="org-ul">
+<li><code>:key</code></li>
+<li><code>:ref</code></li>
+<li><code>:slot</code></li>
+<li><code>:slot-scope</code></li>
+<li><code>:scope</code></li>
+<li><code>:is</code></li>
+</ul>
+
+<p>
+内置的组件:
+</p>
+<ul class="org-ul">
+<li><code>component</code></li>
+<li><code>transition</code></li>
+<li><code>transition-group</code></li>
+<li><code>keep-alive</code></li>
+<li><code>slot</code></li>
+</ul>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orge49c6e7" class="outline-2">
+<h2 id="orge49c6e7"><span class="section-number-2">5</span> Vue-loader/Vue-CLI</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-orgb14093e" class="outline-3">
+<h3 id="orgb14093e"><span class="section-number-3">5.1</span> Vue-loader</h3>
+<div class="outline-text-3" id="text-5-1">
 <p>
 Vue-loader 是一个插件，它能让下面格式的文件转换为普通的 JS 模板的文件:
 </p>
@@ -611,8 +779,8 @@ Vue-loader 是一个插件，它能让下面格式的文件转换为普通的 JS
 </div>
 </div>
 <div id="outline-container-org4deec97" class="outline-3">
-<h3 id="org4deec97"><span class="section-number-3">4.2</span> Vue CLI</h3>
-<div class="outline-text-3" id="text-4-2">
+<h3 id="org4deec97"><span class="section-number-3">5.2</span> Vue CLI</h3>
+<div class="outline-text-3" id="text-5-2">
 <p>
 <a href="https://cli.vuejs.org/zh/">https://cli.vuejs.org/zh/</a>
 </p>
@@ -687,8 +855,8 @@ vue ui
 </div>
 </section>
 <section id="outline-container-org2191c55" class="outline-2">
-<h2 id="org2191c55"><span class="section-number-2">5</span> ElementUI</h2>
-<div class="outline-text-2" id="text-5">
+<h2 id="org2191c55"><span class="section-number-2">6</span> ElementUI</h2>
+<div class="outline-text-2" id="text-6">
 <p>
 <a href="http://element-cn.eleme.io/#/zh-CN">http://element-cn.eleme.io/#/zh-CN</a>
 </p>
@@ -754,7 +922,7 @@ vue add element
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-21 Wed 08:28</p>
+<p class="date">Created: 2018-11-22 周四 01:27</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
