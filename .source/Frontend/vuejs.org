@@ -700,7 +700,7 @@ http://element-cn.eleme.io/#/zh-CN
 #+END_SRC
 
 更多，查看组件的帮助文档。
-* 从 0 开始大家 element 项目
+* 从 0 开始搭建 element 项目
 ** 第零步，安装 Nodejs/NPM
 
 https://nodejs.org/zh-cn/download/
