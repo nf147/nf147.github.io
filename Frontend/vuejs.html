@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-22 Thu 07:02 -->
+<!-- 2018-11-22 Thu 07:07 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vue.js</title>
@@ -56,6 +56,7 @@
 <li><a href="#org261839b">7.4. 第三步，增加 ElementUI 的支持</a></li>
 <li><a href="#orgf90cfec">7.5. 第四步，增加 router 支持</a></li>
 <li><a href="#orgf4d54cc">7.6. 第五步，开始编码。</a></li>
+<li><a href="#orgcc0ab9b">7.7. 另外的另外</a></li>
 </ul>
 </li>
 </ul>
@@ -1052,11 +1053,71 @@ vue add router
 <div id="outline-container-orgf4d54cc" class="outline-3">
 <h3 id="orgf4d54cc"><span class="section-number-3">7.6</span> 第五步，开始编码。</h3>
 </div>
+<div id="outline-container-orgcc0ab9b" class="outline-3">
+<h3 id="orgcc0ab9b"><span class="section-number-3">7.7</span> 另外的另外</h3>
+<div class="outline-text-3" id="text-7-7">
+<p>
+<b>vue add router</b> 命令等同于:
+</p>
+<ol class="org-ol">
+<li>首先执行 <code>npm install vue-router --save</code></li>
+<li><p>
+在 main.js 里添加:
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-comment-delimiter">// </span><span class="org-comment">&#24341;&#36827;</span>
+<span class="org-keyword">import</span> Router from <span class="org-string">'vue-router'</span>
+<span class="org-keyword">import</span> Home from <span class="org-string">'./components/Home'</span>
+<span class="org-keyword">import</span> About from <span class="org-string">'./components/About'</span>
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#27880;&#20876;</span>
+Vue.use(Router)
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#23450;&#20041;</span>
+<span class="org-keyword">const</span> <span class="org-variable-name">router</span> = <span class="org-keyword">new</span> <span class="org-type">Router</span>({
+    base: process.env.BASE_URL,
+    routes: [
+        { path: <span class="org-string">'/'</span>, component: Home },
+        { path: <span class="org-string">'/about, component: About }</span>
+<span class="org-string">    ]</span>
+<span class="org-string">})</span>
+</pre>
+</div></li>
+</ol>
+
+<p>
+<b>vue add element</b> 命令等同于:
+</p>
+<ol class="org-ol">
+<li>首先，执行 <code>npm install element-ui --save</code></li>
+<li><p>
+在 main.js 里配置:
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-keyword">import</span> Vue from <span class="org-string">'vue'</span>;
+<span class="org-keyword">import</span> App from <span class="org-string">'./App.vue'</span>;
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#24341;&#20837; js + css</span>
+<span class="org-keyword">import</span> ElementUI from <span class="org-string">'element-ui'</span>;
+<span class="org-keyword">import</span> <span class="org-string">'element-ui/lib/theme-chalk/index.css'</span>;
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#27880;&#20876;</span>
+Vue.use(ElementUI);
+
+<span class="org-keyword">new</span> <span class="org-type">Vue</span>({
+    el: <span class="org-string">'#app'</span>,
+    render: h =&gt; h(App)
+});
+</pre>
+</div></li>
+</ol>
+</div>
+</div>
 </section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-22 Thu 07:02</p>
+<p class="date">Created: 2018-11-22 Thu 07:07</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

@@ -754,7 +754,49 @@ https://nodejs.org/zh-cn/download/
 等待完成即可！
 
 ** 第五步，开始编码。
+** 另外的另外
 
+*vue add router* 命令等同于:
+1. 首先执行 ~npm install vue-router --save~
+2. 在 main.js 里添加:
+   #+BEGIN_SRC js
+     // 引进
+     import Router from 'vue-router'
+     import Home from './components/Home'
+     import About from './components/About'
+
+     // 注册
+     Vue.use(Router)
+
+     // 定义
+     const router = new Router({
+         base: process.env.BASE_URL,
+         routes: [
+             { path: '/', component: Home },
+             { path: '/about, component: About }
+         ]
+     })
+   #+END_SRC
+
+*vue add element* 命令等同于:
+1. 首先，执行 ~npm install element-ui --save~
+2. 在 main.js 里配置:
+   #+BEGIN_SRC js
+     import Vue from 'vue';
+     import App from './App.vue';
+
+     // 引入 js + css
+     import ElementUI from 'element-ui';
+     import 'element-ui/lib/theme-chalk/index.css';
+
+     // 注册
+     Vue.use(ElementUI);
+
+     new Vue({
+         el: '#app',
+         render: h => h(App)
+     });
+   #+END_SRC
 
 
 
