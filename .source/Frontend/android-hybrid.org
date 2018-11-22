@@ -1,5 +1,4 @@
-#+TITLE: Android Hybrid
-
+#+TITLE: 安卓混合式开发(Hybrid)
 
 
 http://www.android-studio.org/
