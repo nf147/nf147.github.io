@@ -608,7 +608,7 @@ https://cli.vuejs.org/zh/
 - babel
 - 其他一些可选插件
 
-使用前，必须要先按照 node:
+使用前，必须要先安装 node:
 - https://nodejs.org/zh-cn/download/
 
 然后，就可以使用 npm 命令安装了:
@@ -700,3 +700,61 @@ http://element-cn.eleme.io/#/zh-CN
 #+END_SRC
 
 更多，查看组件的帮助文档。
+* 从 0 开始大家 element 项目
+** 第零步，安装 Nodejs/NPM
+
+https://nodejs.org/zh-cn/download/
+
+下载安装即可！
+
+** 第一步，安装 vue-cli
+
+打开 cmd 创建，在命令行下执行命令即可安装:
+: npm install -g @vue/cli
+
+安装完后，会有一个 vue 命令可以被调用:
+: vue --version
+
+如果没有，请从第零步重新开始
+
+** 第二步，创建新的项目
+
+打开 cmd 窗口，切换到相关工作目录:
+#+BEGIN_SRC sh
+  d:
+  cd wodegongzuomulu
+#+END_SRC
+
+然后，在命令行下，使用 vue 命令创建项目：
+: vue create vue-xiangmu
+
+这时候项目就创建好了，创建好的项目目录如下:
+
+[[file:img/clip_2018-11-22_06-58-34.png]]
+
+** 第三步，增加 ElementUI 的支持
+
+在刚才的命令行下，敲入命令:
+: vue add element
+
+如果有提醒，分别选择:
+1. Full Import? Enter
+2. SCSS support? N
+3. ZH-CN
+
+等待完成即可。
+
+** 第四步，增加 router 支持
+
+在上述的命令行下，敲入命令:
+: vue add router
+
+如果有提醒，选择“回车”，“回车”....
+
+等待完成即可！
+
+** 第五步，开始编码。
+
+
+
+

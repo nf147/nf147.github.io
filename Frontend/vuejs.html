@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-22 周四 02:19 -->
+<!-- 2018-11-22 Thu 07:02 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vue.js</title>
@@ -48,6 +48,16 @@
 </ul>
 </li>
 <li><a href="#org808c13c">6. ElementUI</a></li>
+<li><a href="#orgf77c8de">7. 从 0 开始大家 element 项目</a>
+<ul>
+<li><a href="#org59eb344">7.1. 第零步，安装 Nodejs/NPM</a></li>
+<li><a href="#orgcfda2bf">7.2. 第一步，安装 vue-cli</a></li>
+<li><a href="#org8d4bb29">7.3. 第二步，创建新的项目</a></li>
+<li><a href="#org261839b">7.4. 第三步，增加 ElementUI 的支持</a></li>
+<li><a href="#orgf90cfec">7.5. 第四步，增加 router 支持</a></li>
+<li><a href="#orgf4d54cc">7.6. 第五步，开始编码。</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </nav>
@@ -800,7 +810,7 @@ Vue-loader 是一个插件，它能让下面格式的文件转换为普通的 JS
 </ul>
 
 <p>
-使用前，必须要先按照 node:
+使用前，必须要先安装 node:
 </p>
 <ul class="org-ul">
 <li><a href="https://nodejs.org/zh-cn/download/">https://nodejs.org/zh-cn/download/</a></li>
@@ -923,10 +933,130 @@ vue add element
 </p>
 </div>
 </section>
+<section id="outline-container-orgf77c8de" class="outline-2">
+<h2 id="orgf77c8de"><span class="section-number-2">7</span> 从 0 开始大家 element 项目</h2>
+<div class="outline-text-2" id="text-7">
+</div>
+<div id="outline-container-org59eb344" class="outline-3">
+<h3 id="org59eb344"><span class="section-number-3">7.1</span> 第零步，安装 Nodejs/NPM</h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+<a href="https://nodejs.org/zh-cn/download/">https://nodejs.org/zh-cn/download/</a>
+</p>
+
+<p>
+下载安装即可！
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgcfda2bf" class="outline-3">
+<h3 id="orgcfda2bf"><span class="section-number-3">7.2</span> 第一步，安装 vue-cli</h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+打开 cmd 创建，在命令行下执行命令即可安装:
+</p>
+<pre class="example">
+npm install -g @vue/cli
+</pre>
+
+<p>
+安装完后，会有一个 vue 命令可以被调用:
+</p>
+<pre class="example">
+vue --version
+</pre>
+
+<p>
+如果没有，请从第零步重新开始
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8d4bb29" class="outline-3">
+<h3 id="org8d4bb29"><span class="section-number-3">7.3</span> 第二步，创建新的项目</h3>
+<div class="outline-text-3" id="text-7-3">
+<p>
+打开 cmd 窗口，切换到相关工作目录:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">d:
+<span class="org-builtin">cd</span> wodegongzuomulu
+</pre>
+</div>
+
+<p>
+然后，在命令行下，使用 vue 命令创建项目：
+</p>
+<pre class="example">
+vue create vue-xiangmu
+</pre>
+
+<p>
+这时候项目就创建好了，创建好的项目目录如下:
+</p>
+
+
+<figure>
+<img src="img/clip_2018-11-22_06-58-34.png" alt="clip_2018-11-22_06-58-34.png">
+
+</figure>
+</div>
+</div>
+
+<div id="outline-container-org261839b" class="outline-3">
+<h3 id="org261839b"><span class="section-number-3">7.4</span> 第三步，增加 ElementUI 的支持</h3>
+<div class="outline-text-3" id="text-7-4">
+<p>
+在刚才的命令行下，敲入命令:
+</p>
+<pre class="example">
+vue add element
+</pre>
+
+<p>
+如果有提醒，分别选择:
+</p>
+<ol class="org-ol">
+<li>Full Import? Enter</li>
+<li>SCSS support? N</li>
+<li>ZH-CN</li>
+</ol>
+
+<p>
+等待完成即可。
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf90cfec" class="outline-3">
+<h3 id="orgf90cfec"><span class="section-number-3">7.5</span> 第四步，增加 router 支持</h3>
+<div class="outline-text-3" id="text-7-5">
+<p>
+在上述的命令行下，敲入命令:
+</p>
+<pre class="example">
+vue add router
+</pre>
+
+<p>
+如果有提醒，选择“回车”，“回车”&#x2026;.
+</p>
+
+<p>
+等待完成即可！
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf4d54cc" class="outline-3">
+<h3 id="orgf4d54cc"><span class="section-number-3">7.6</span> 第五步，开始编码。</h3>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-22 周四 02:19</p>
+<p class="date">Created: 2018-11-22 Thu 07:02</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
