@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-22 周四 02:16 -->
+<!-- 2018-11-22 周四 02:19 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MySQL</title>
@@ -20,58 +20,58 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org00abba9">1. 安装与配置</a></li>
-<li><a href="#orgf64d518">2. 数据库与账户</a></li>
-<li><a href="#orgefe28d2">3. 用户跟权限</a></li>
-<li><a href="#orgbdbc780">4. 常用命令</a></li>
-<li><a href="#org2b127ea">5. 表的创建</a></li>
-<li><a href="#orgd3a7bfe">6. 数据类型</a></li>
-<li><a href="#org86ea108">7. 主键约束</a></li>
-<li><a href="#org8e6269a">8. 表的修改</a></li>
-<li><a href="#orga424e4c">9. 引擎(Engine)</a></li>
-<li><a href="#org59f2415">10. 存储过程</a>
+<li><a href="#org05058fb">1. 安装与配置</a></li>
+<li><a href="#orgd8c4bf0">2. 数据库与账户</a></li>
+<li><a href="#org586def9">3. 用户跟权限</a></li>
+<li><a href="#org2e14b6d">4. 常用命令</a></li>
+<li><a href="#org6a377e9">5. 表的创建</a></li>
+<li><a href="#org40228a1">6. 数据类型</a></li>
+<li><a href="#org528da24">7. 主键约束</a></li>
+<li><a href="#orge4a3336">8. 表的修改</a></li>
+<li><a href="#org0855f34">9. 引擎(Engine)</a></li>
+<li><a href="#org1775c38">10. 存储过程</a>
 <ul>
-<li><a href="#orgfda20c6">10.1. 基本语句</a></li>
-<li><a href="#org5d138e5">10.2. 变量定义</a></li>
-<li><a href="#org9d1d971">10.3. 参数与游标</a></li>
-<li><a href="#org3a11138">10.4. JDBC 操作存储过程示例</a></li>
+<li><a href="#orgfe54380">10.1. 基本语句</a></li>
+<li><a href="#orgfda57eb">10.2. 变量定义</a></li>
+<li><a href="#orgf684a80">10.3. 参数与游标</a></li>
+<li><a href="#org04f9920">10.4. JDBC 操作存储过程示例</a></li>
 </ul>
 </li>
-<li><a href="#org71fa317">11. 优化(Optimization)</a>
+<li><a href="#org33dc56c">11. 优化(Optimization)</a>
 <ul>
-<li><a href="#orgad93eb2">11.1. 解释计划(Explain)</a></li>
-<li><a href="#orgc3435f8">11.2. 索引</a></li>
+<li><a href="#org3fe0d9c">11.1. 解释计划(Explain)</a></li>
+<li><a href="#org656d329">11.2. 索引</a></li>
 </ul>
 </li>
-<li><a href="#org793bb8a">12. UseCases</a>
+<li><a href="#orge510f15">12. UseCases</a>
 <ul>
-<li><a href="#orga3f969b">12.1. 使用存储过程批量插入数据</a></li>
-<li><a href="#org27d57b7">12.2. 行列转换</a></li>
+<li><a href="#org54c244f">12.1. 使用存储过程批量插入数据</a></li>
+<li><a href="#org6911ba4">12.2. 行列转换</a></li>
 </ul>
 </li>
-<li><a href="#orged0fb4d">13. 备份与恢复</a></li>
-<li><a href="#orgd0d5d8a">14. 数据迁移示例</a>
+<li><a href="#orgf47c89e">13. 备份与恢复</a></li>
+<li><a href="#orgf2697d0">14. 数据迁移示例</a>
 <ul>
-<li><a href="#org25b1e33">14.1. 命令行的方式</a></li>
-<li><a href="#orgd450739">14.2. JDBC 的方式</a></li>
+<li><a href="#orga71e907">14.1. 命令行的方式</a></li>
+<li><a href="#orgfd1c82f">14.2. JDBC 的方式</a></li>
 </ul>
 </li>
-<li><a href="#org17dc9bf">15. 数据处理示例</a>
+<li><a href="#orgdfe349d">15. 数据处理示例</a>
 <ul>
-<li><a href="#org3801940">15.1. 数据清理</a></li>
-<li><a href="#orgea93cab">15.2. 表的分离</a></li>
+<li><a href="#org7f03826">15.1. 数据清理</a></li>
+<li><a href="#orge444c65">15.2. 表的分离</a></li>
 </ul>
 </li>
-<li><a href="#org77c6256">16. 省市县模式数据库设计</a></li>
-<li><a href="#org65288bb">17. 查询练习</a></li>
+<li><a href="#org5a370f8">16. 省市县模式数据库设计</a></li>
+<li><a href="#org99b9827">17. 查询练习</a></li>
 </ul>
 </div>
 </nav>
 
 
 
-<section id="outline-container-org00abba9" class="outline-2">
-<h2 id="org00abba9"><span class="section-number-2">1</span> 安装与配置</h2>
+<section id="outline-container-org05058fb" class="outline-2">
+<h2 id="org05058fb"><span class="section-number-2">1</span> 安装与配置</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 MySQL/MariaDB:
@@ -130,8 +130,8 @@ mysql -h 45.42.32.1 -P 9999 -uroot -p
 </div>
 </section>
 
-<section id="outline-container-orgf64d518" class="outline-2">
-<h2 id="orgf64d518"><span class="section-number-2">2</span> 数据库与账户</h2>
+<section id="outline-container-orgd8c4bf0" class="outline-2">
+<h2 id="orgd8c4bf0"><span class="section-number-2">2</span> 数据库与账户</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 MySQL 在用户登录后（默认使用 root 用户登录），需要切换到一个 <b>database</b> 才能进行表的创建等操作。所有的表和数据都隶属于某个数据库。
@@ -200,8 +200,8 @@ use bookstore;  <span class="org-comment">-- &#20999;&#25442;&#21040;&#25968;&#2
 </div>
 </section>
 
-<section id="outline-container-orgefe28d2" class="outline-2">
-<h2 id="orgefe28d2"><span class="section-number-2">3</span> 用户跟权限</h2>
+<section id="outline-container-org586def9" class="outline-2">
+<h2 id="org586def9"><span class="section-number-2">3</span> 用户跟权限</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 用户跟权限的相关信息，都是保存在下面表中：
@@ -272,8 +272,8 @@ flush <span class="org-keyword">privileges</span>;
 </div>
 </div>
 </section>
-<section id="outline-container-orgbdbc780" class="outline-2">
-<h2 id="orgbdbc780"><span class="section-number-2">4</span> 常用命令</h2>
+<section id="outline-container-org2e14b6d" class="outline-2">
+<h2 id="org2e14b6d"><span class="section-number-2">4</span> 常用命令</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 基本命令:
@@ -308,8 +308,8 @@ kill 109;
 </div>
 </section>
 
-<section id="outline-container-org2b127ea" class="outline-2">
-<h2 id="org2b127ea"><span class="section-number-2">5</span> 表的创建</h2>
+<section id="outline-container-org6a377e9" class="outline-2">
+<h2 id="org6a377e9"><span class="section-number-2">5</span> 表的创建</h2>
 <div class="outline-text-2" id="text-5">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">book1</span> (
@@ -518,8 +518,8 @@ kill 109;
 </div>
 </section>
 
-<section id="outline-container-orgd3a7bfe" class="outline-2">
-<h2 id="orgd3a7bfe"><span class="section-number-2">6</span> 数据类型</h2>
+<section id="outline-container-org40228a1" class="outline-2">
+<h2 id="org40228a1"><span class="section-number-2">6</span> 数据类型</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 大致分为 <b>6</b> 类:
@@ -607,8 +607,8 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
 </div>
 </section>
 
-<section id="outline-container-org86ea108" class="outline-2">
-<h2 id="org86ea108"><span class="section-number-2">7</span> 主键约束</h2>
+<section id="outline-container-org528da24" class="outline-2">
+<h2 id="org528da24"><span class="section-number-2">7</span> 主键约束</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 主键，primary key，从性能和实际出发，应该遵循下面几点:
@@ -631,8 +631,8 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
 </div>
 </section>
 
-<section id="outline-container-org8e6269a" class="outline-2">
-<h2 id="org8e6269a"><span class="section-number-2">8</span> 表的修改</h2>
+<section id="outline-container-orge4a3336" class="outline-2">
+<h2 id="orge4a3336"><span class="section-number-2">8</span> 表的修改</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 基本语法:
@@ -770,8 +770,8 @@ table_option:
 </div>
 </section>
 
-<section id="outline-container-orga424e4c" class="outline-2">
-<h2 id="orga424e4c"><span class="section-number-2">9</span> 引擎(Engine)</h2>
+<section id="outline-container-org0855f34" class="outline-2">
+<h2 id="org0855f34"><span class="section-number-2">9</span> 引擎(Engine)</h2>
 <div class="outline-text-2" id="text-9">
 <ul class="org-ul">
 <li><p>
@@ -845,8 +845,8 @@ show <span class="org-keyword">create</span> <span class="org-keyword">table</sp
 </div>
 </section>
 
-<section id="outline-container-org59f2415" class="outline-2">
-<h2 id="org59f2415"><span class="section-number-2">10</span> 存储过程</h2>
+<section id="outline-container-org1775c38" class="outline-2">
+<h2 id="org1775c38"><span class="section-number-2">10</span> 存储过程</h2>
 <div class="outline-text-2" id="text-10">
 <p>
 [WARNNING] 存储过程不建议使用:
@@ -859,8 +859,8 @@ show <span class="org-keyword">create</span> <span class="org-keyword">table</sp
 </ol>
 </div>
 
-<div id="outline-container-orgfda20c6" class="outline-3">
-<h3 id="orgfda20c6"><span class="section-number-3">10.1</span> 基本语句</h3>
+<div id="outline-container-orgfe54380" class="outline-3">
+<h3 id="orgfe54380"><span class="section-number-3">10.1</span> 基本语句</h3>
 <div class="outline-text-3" id="text-10-1">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-comment">-- &#23384;&#20648;&#36807;&#31243;&#30340;&#23450;&#20041;</span>
@@ -902,8 +902,8 @@ delimiter ;                    <span class="org-comment">-- &#36807;&#31243;&#23
 </div>
 </div>
 
-<div id="outline-container-org5d138e5" class="outline-3">
-<h3 id="org5d138e5"><span class="section-number-3">10.2</span> 变量定义</h3>
+<div id="outline-container-orgfda57eb" class="outline-3">
+<h3 id="orgfda57eb"><span class="section-number-3">10.2</span> 变量定义</h3>
 <div class="outline-text-3" id="text-10-2">
 <p>
 变量分类：
@@ -949,8 +949,8 @@ show variables;
 </div>
 </div>
 
-<div id="outline-container-org9d1d971" class="outline-3">
-<h3 id="org9d1d971"><span class="section-number-3">10.3</span> 参数与游标</h3>
+<div id="outline-container-orgf684a80" class="outline-3">
+<h3 id="orgf684a80"><span class="section-number-3">10.3</span> 参数与游标</h3>
 <div class="outline-text-3" id="text-10-3">
 <p>
 如果让存储过程跟外边进行数据交互，需要用到参数
@@ -1055,8 +1055,8 @@ delimiter ;
 </div>
 </div>
 
-<div id="outline-container-org3a11138" class="outline-3">
-<h3 id="org3a11138"><span class="section-number-3">10.4</span> JDBC 操作存储过程示例</h3>
+<div id="outline-container-org04f9920" class="outline-3">
+<h3 id="org04f9920"><span class="section-number-3">10.4</span> JDBC 操作存储过程示例</h3>
 <div class="outline-text-3" id="text-10-4">
 <p>
 存储过程示例:
@@ -1125,12 +1125,12 @@ JDBC代码:
 </div>
 </section>
 
-<section id="outline-container-org71fa317" class="outline-2">
-<h2 id="org71fa317"><span class="section-number-2">11</span> 优化(Optimization)</h2>
+<section id="outline-container-org33dc56c" class="outline-2">
+<h2 id="org33dc56c"><span class="section-number-2">11</span> 优化(Optimization)</h2>
 <div class="outline-text-2" id="text-11">
 </div>
-<div id="outline-container-orgad93eb2" class="outline-3">
-<h3 id="orgad93eb2"><span class="section-number-3">11.1</span> 解释计划(Explain)</h3>
+<div id="outline-container-org3fe0d9c" class="outline-3">
+<h3 id="org3fe0d9c"><span class="section-number-3">11.1</span> 解释计划(Explain)</h3>
 <div class="outline-text-3" id="text-11-1">
 <p>
 可以查看数据内部是怎么分析执行相关语句的，根据这些可以对语句进行优化
@@ -1146,8 +1146,8 @@ JDBC代码:
 </div>
 </div>
 
-<div id="outline-container-orgc3435f8" class="outline-3">
-<h3 id="orgc3435f8"><span class="section-number-3">11.2</span> 索引</h3>
+<div id="outline-container-org656d329" class="outline-3">
+<h3 id="org656d329"><span class="section-number-3">11.2</span> 索引</h3>
 <div class="outline-text-3" id="text-11-2">
 <p>
 索引是跟引擎相关的，索引的主要分类有:
@@ -1190,12 +1190,12 @@ show index <span class="org-keyword">from</span> lagou_pos;
 </div>
 </section>
 
-<section id="outline-container-org793bb8a" class="outline-2">
-<h2 id="org793bb8a"><span class="section-number-2">12</span> UseCases</h2>
+<section id="outline-container-orge510f15" class="outline-2">
+<h2 id="orge510f15"><span class="section-number-2">12</span> UseCases</h2>
 <div class="outline-text-2" id="text-12">
 </div>
-<div id="outline-container-orga3f969b" class="outline-3">
-<h3 id="orga3f969b"><span class="section-number-3">12.1</span> 使用存储过程批量插入数据</h3>
+<div id="outline-container-org54c244f" class="outline-3">
+<h3 id="org54c244f"><span class="section-number-3">12.1</span> 使用存储过程批量插入数据</h3>
 <div class="outline-text-3" id="text-12-1">
 <blockquote>
 <p>
@@ -1316,8 +1316,8 @@ delimiter ;
 </div>
 </div>
 
-<div id="outline-container-org27d57b7" class="outline-3">
-<h3 id="org27d57b7"><span class="section-number-3">12.2</span> 行列转换</h3>
+<div id="outline-container-org6911ba4" class="outline-3">
+<h3 id="org6911ba4"><span class="section-number-3">12.2</span> 行列转换</h3>
 <div class="outline-text-3" id="text-12-2">
 <p>
 表中的数据是这样的:
@@ -1454,8 +1454,8 @@ delimiter ;
 </div>
 </section>
 
-<section id="outline-container-orged0fb4d" class="outline-2">
-<h2 id="orged0fb4d"><span class="section-number-2">13</span> 备份与恢复</h2>
+<section id="outline-container-orgf47c89e" class="outline-2">
+<h2 id="orgf47c89e"><span class="section-number-2">13</span> 备份与恢复</h2>
 <div class="outline-text-2" id="text-13">
 <p>
 各种灾难防不胜防:
@@ -1533,16 +1533,16 @@ mysql&gt; source ~/xxx.sql
 </div>
 </section>
 
-<section id="outline-container-orgd0d5d8a" class="outline-2">
-<h2 id="orgd0d5d8a"><span class="section-number-2">14</span> 数据迁移示例</h2>
+<section id="outline-container-orgf2697d0" class="outline-2">
+<h2 id="orgf2697d0"><span class="section-number-2">14</span> 数据迁移示例</h2>
 <div class="outline-text-2" id="text-14">
 <p>
 将 sqlite3 格式的 lagou.db 中的数据迁移到 MySQL 中
 </p>
 </div>
 
-<div id="outline-container-org25b1e33" class="outline-3">
-<h3 id="org25b1e33"><span class="section-number-3">14.1</span> 命令行的方式</h3>
+<div id="outline-container-orga71e907" class="outline-3">
+<h3 id="orga71e907"><span class="section-number-3">14.1</span> 命令行的方式</h3>
 <div class="outline-text-3" id="text-14-1">
 <p>
 首先，从 sqlite 中导出:
@@ -1576,8 +1576,8 @@ mysql&gt; source ~/xxx.sql
 </div>
 </div>
 
-<div id="outline-container-orgd450739" class="outline-3">
-<h3 id="orgd450739"><span class="section-number-3">14.2</span> JDBC 的方式</h3>
+<div id="outline-container-orgfd1c82f" class="outline-3">
+<h3 id="orgfd1c82f"><span class="section-number-3">14.2</span> JDBC 的方式</h3>
 <div class="outline-text-3" id="text-14-2">
 <p>
 需要注意的问题:
@@ -1715,12 +1715,12 @@ mysql&gt; source ~/xxx.sql
 </div>
 </section>
 
-<section id="outline-container-org17dc9bf" class="outline-2">
-<h2 id="org17dc9bf"><span class="section-number-2">15</span> 数据处理示例</h2>
+<section id="outline-container-orgdfe349d" class="outline-2">
+<h2 id="orgdfe349d"><span class="section-number-2">15</span> 数据处理示例</h2>
 <div class="outline-text-2" id="text-15">
 </div>
-<div id="outline-container-org3801940" class="outline-3">
-<h3 id="org3801940"><span class="section-number-3">15.1</span> 数据清理</h3>
+<div id="outline-container-org7f03826" class="outline-3">
+<h3 id="org7f03826"><span class="section-number-3">15.1</span> 数据清理</h3>
 <div class="outline-text-3" id="text-15-1">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">lagou_position_result</span> <span class="org-keyword">as</span>
@@ -1747,8 +1747,8 @@ mysql&gt; source ~/xxx.sql
 </div>
 </div>
 
-<div id="outline-container-orgea93cab" class="outline-3">
-<h3 id="orgea93cab"><span class="section-number-3">15.2</span> 表的分离</h3>
+<div id="outline-container-orge444c65" class="outline-3">
+<h3 id="orge444c65"><span class="section-number-3">15.2</span> 表的分离</h3>
 <div class="outline-text-3" id="text-15-2">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-comment">-- &#28304;&#25968;&#25454;</span>
@@ -1861,8 +1861,8 @@ lagou_company 公司分离:
 </div>
 </section>
 
-<section id="outline-container-org77c6256" class="outline-2">
-<h2 id="org77c6256"><span class="section-number-2">16</span> 省市县模式数据库设计</h2>
+<section id="outline-container-org5a370f8" class="outline-2">
+<h2 id="org5a370f8"><span class="section-number-2">16</span> 省市县模式数据库设计</h2>
 <div class="outline-text-2" id="text-16">
 <p>
 最朴素的实现方式:
@@ -2036,8 +2036,8 @@ lagou_company 公司分离:
 </div>
 </section>
 
-<section id="outline-container-org65288bb" class="outline-2">
-<h2 id="org65288bb"><span class="section-number-2">17</span> 查询练习</h2>
+<section id="outline-container-org99b9827" class="outline-2">
+<h2 id="org99b9827"><span class="section-number-2">17</span> 查询练习</h2>
 <div class="outline-text-2" id="text-17">
 <p>
 创建表:
@@ -2204,7 +2204,7 @@ lagou_company 公司分离:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-22 周四 02:16</p>
+<p class="date">Created: 2018-11-22 周四 02:19</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

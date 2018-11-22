@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2018-11-22 周四 02:19 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>File API</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="孙悟空">
+<link rel='stylesheet' href='/asset/common.css' />
+<script src='https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+<script src='/asset/common.js'></script>
+</head>
+<body>
+<div id="content">
+<header>
+<h1 class="title">File API</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org6055778">1. Simple APIs</a></li>
+<li><a href="#org44802e7">2. Preview Demo</a></li>
+<li><a href="#org0ea2644">3. Compress and Upload with AJAX</a></li>
+<li><a href="#orgf31066c">4. Compress and Upload [version 2]</a></li>
+</ul>
+</div>
+</nav>
+<p>
+ES5 推出了一系列的 API:
+</p>
+<ul class="org-ul">
+<li>BLOB (二进制大对象)</li>
+<li>File (文件接口，基于 BLOB，但是增加了文件相关的方法，比如路径，大小)</li>
+<li>FileList (借助 &lt;input type="file"&gt;，来获取硬盘文件的一个接口)</li>
+<li>FileReader</li>
+<li>URL</li>
+</ul>
+
+<section id="outline-container-org6055778" class="outline-2">
+<h2 id="org6055778"><span class="section-number-2">1</span> Simple APIs</h2>
+<div class="outline-text-2" id="text-1">
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-comment-delimiter">// </span><span class="org-comment">&#31532;&#19968;&#27493;&#65292;&#33719;&#21462; input</span>
+<span class="org-keyword">var</span> <span class="org-variable-name">fileInput</span> = document.getElementById(<span class="org-string">"myfile"</span>);
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#31532;&#20108;&#27493;&#65292;&#36890;&#36807; input &#33719;&#21462; FileList</span>
+<span class="org-keyword">var</span> <span class="org-variable-name">fileList</span> = fileInput.files;
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#31532;&#19977;&#27493;&#65292;&#36890;&#36807; FileList &#33719;&#21462;&#26576;&#20010;&#25991;&#20214;&#30340;&#23545;&#35937;</span>
+<span class="org-keyword">var</span> <span class="org-variable-name">file</span> = fileList[0];
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#31616;&#21333;&#26469;&#35828;&#65292;&#33719;&#21462; File &#23545;&#35937;&#23601;&#26159;:</span>
+file = document.getElementById(<span class="org-string">'myfile'</span>).files[0];
+</pre>
+</div>
+
+
+<p>
+一个图片 &lt;img src="" &gt; 的 src 可以使下面三个之一:
+</p>
+<ol class="org-ol">
+<li>文件在操作系统中的路径</li>
+<li>DataURL 数据，用 Base64 编码，将二进制文件进行加密的过程，然后就可以使用这字符串来表示二进制文件了</li>
+<li>ObjectURL，它是我们需要使用的文件的一个引用字符串而已，格式为 <code>blob:http://localhsot:8080/a3b05b0e-bd18-4b53-b6b8-0b345e9aebdb</code></li>
+</ol>
+</div>
+</section>
+
+
+<section id="outline-container-org44802e7" class="outline-2">
+<h2 id="org44802e7"><span class="section-number-2">2</span> Preview Demo</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+使用 ObjectURL:
+</p>
+<div class="org-src-container">
+<pre class="src src-js">myfile.onchange = <span class="org-keyword">function</span> () {
+    <span class="org-keyword">var</span> <span class="org-variable-name">imgUrl</span> = URL.createObjectURL(myfile.files[0]);
+    myimg.src = imgUrl;
+    myimg.onload = () =&gt; URL.revokeObjectURL(imgUrl);
+};
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org0ea2644" class="outline-2">
+<h2 id="org0ea2644"><span class="section-number-2">3</span> Compress and Upload with AJAX</h2>
+<div class="outline-text-2" id="text-3">
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-keyword">function</span> <span class="org-function-name">shangchuantupian</span>() {
+    <span class="org-comment-delimiter">// </span><span class="org-comment">1. &#33719;&#21462;&#22270;&#29255;&#30340;&#25968;&#25454;</span>
+    <span class="org-comment-delimiter">// </span><span class="org-comment">2. &#26657;&#39564;&#22823;&#23567;&#65292;&#22914;&#26524;&#36229;&#36807;&#23610;&#23544;&#65292;&#37027;&#20040;&#23545;&#20854;&#36827;&#34892;&#21387;&#32553;</span>
+    <span class="org-comment-delimiter">// </span><span class="org-comment">3. &#21152;&#19978;&#20320;&#30340;&#27700;&#21360;</span>
+    <span class="org-comment-delimiter">// </span><span class="org-comment">4. &#35843;&#29992; ajax &#26041;&#24335;&#65292;&#23558;&#20854;&#21457;&#36865;&#21040;&#26381;&#21153;&#22120;</span>
+
+    <span class="org-keyword">var</span> <span class="org-variable-name">canvas</span> = document.createElement(<span class="org-string">"canvas"</span>);
+
+    <span class="org-keyword">var</span> <span class="org-variable-name">image</span> = <span class="org-keyword">new</span> <span class="org-type">Image</span>();
+    <span class="org-keyword">var</span> <span class="org-variable-name">imgUrl</span> = URL.createObjectURL(myfile.files[0]);
+    image.src = imgUrl;
+
+    image.onload = () =&gt; {
+        URL.revokeObjectURL(imgUrl);
+
+        canvas.width = image.width / 2;
+        canvas.height = image.height / 2;
+
+        <span class="org-keyword">var</span> <span class="org-variable-name">ctx</span> = canvas.getContext(<span class="org-string">'2d'</span>);
+        ctx.drawImage(image, 0, 0, image.width / 2, image.height / 2);
+        ctx.fillText(<span class="org-string">"nf147"</span>, image.width / 2 - 20, image.height / 2 - 20);
+
+        canvas.toBlob(<span class="org-keyword">function</span> (<span class="org-variable-name">b</span>) {
+            <span class="org-keyword">var</span> <span class="org-variable-name">fd</span> = <span class="org-keyword">new</span> <span class="org-type">FormData</span>();
+            fd.append(<span class="org-string">"fff"</span>, b);
+
+            fetch(<span class="org-string">"/myupload"</span>, {
+                method: <span class="org-string">'post'</span>,
+                body: fd
+            }).then(resp =&gt; resp.body);
+        }, <span class="org-string">"image/jpeg"</span>);
+    };
+}
+</pre>
+</div>
+</div>
+</section>
+<section id="outline-container-orgf31066c" class="outline-2">
+<h2 id="orgf31066c"><span class="section-number-2">4</span> Compress and Upload [version 2]</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+HTML:
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span class="org-function-name">style</span>&gt;
+ #myimg {
+     border: 3px solid gray;
+     border-radius: 5px;
+     position: absolute;
+     top: 0;
+     left: 0;
+ }
+
+ #mymask {
+     position: absolute;
+     top: 0;
+     left: 0;
+ }
+&lt;/<span class="org-function-name">style</span>&gt;
+
+
+
+&lt;<span class="org-function-name">div</span> <span class="org-variable-name">class</span>=<span class="org-string">"container"</span>&gt;
+    &lt;<span class="org-function-name">div</span> <span class="org-variable-name">style</span>=<span class="org-string">"margin-top: 2em;"</span>&gt;
+        &lt;<span class="org-function-name">input</span> <span class="org-variable-name">type</span>=<span class="org-string">"file"</span> <span class="org-variable-name">id</span>=<span class="org-string">"myfile"</span> <span class="org-variable-name">style</span>=<span class="org-string">"display: none"</span>&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#36873;&#25321;&#25991;&#20214;&#21518;&#65292;&#35201;&#39044;&#35272; </span><span class="org-comment-delimiter">--&gt;</span>
+        &lt;<span class="org-function-name">button</span> <span class="org-variable-name">class</span>=<span class="org-string">"btn btn-primary"</span> <span class="org-variable-name">onclick</span>=<span class="org-string">"myfile.click()"</span>&gt;&#36873;&#25321;&#22270;&#29255;&lt;/<span class="org-function-name">button</span>&gt;
+        &lt;<span class="org-function-name">button</span> <span class="org-variable-name">class</span>=<span class="org-string">"btn btn-primary"</span> <span class="org-variable-name">onclick</span>=<span class="org-string">"clickMe()"</span>&gt;&#19978;&#20256;&#22270;&#29255;&lt;/<span class="org-function-name">button</span>&gt;
+    &lt;/<span class="org-function-name">div</span>&gt;
+
+    &lt;<span class="org-function-name">div</span> <span class="org-variable-name">style</span>=<span class="org-string">"position: relative"</span>&gt;
+        &lt;<span class="org-function-name">img</span> <span class="org-variable-name">src</span>=<span class="org-string">""</span> <span class="org-variable-name">id</span>=<span class="org-string">"myimg"</span> <span class="org-variable-name">title</span>=<span class="org-string">"&#26242;&#26102;&#27809;&#26377;&#19978;&#20256;"</span> <span class="org-variable-name">width</span>=<span class="org-string">"200"</span> <span class="org-variable-name">height</span>=<span class="org-string">"200"</span>/&gt;
+        &lt;<span class="org-function-name">canvas</span> <span class="org-variable-name">id</span>=<span class="org-string">"mymask"</span> <span class="org-variable-name">width</span>=<span class="org-string">"200"</span> <span class="org-variable-name">height</span>=<span class="org-string">"200"</span>&gt;&#19981;&#25903;&#25345;canvas&lt;/<span class="org-function-name">canvas</span>&gt;
+    &lt;/<span class="org-function-name">div</span>&gt;
+&lt;/<span class="org-function-name">div</span>&gt;
+
+</pre>
+</div>
+
+<p>
+JS:
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-keyword">var</span> <span class="org-variable-name">ctx</span>;
+
+myfile.onchange = () =&gt; { <span class="org-comment-delimiter">// </span><span class="org-comment">&#39044;&#35272;&#22270;&#29255;</span>
+    <span class="org-keyword">var</span> <span class="org-variable-name">imgUrl</span> = URL.createObjectURL(event.target.files[0]);
+    myimg.src = imgUrl;
+    myimg.onload = () =&gt; URL.revokeObjectURL(imgUrl);
+};
+
+<span class="org-keyword">function</span> <span class="org-function-name">clickMe</span>() {
+    compressImgWithCanvas(myfile.files[0], uploadWithAJAX);
+    <span class="org-comment-delimiter">// </span><span class="org-comment">uploadWithAJAX(myfile.files[0]);</span>
+
+}
+
+<span class="org-doc">/**</span>
+<span class="org-doc"> * &#21387;&#32553;&#22270;&#29255;&#65292;&#28982;&#21518;&#25191;&#34892;&#26576;&#20123;&#20219;&#21153;</span>
+<span class="org-doc"> */</span>
+<span class="org-keyword">function</span> <span class="org-function-name">compressImgWithCanvas</span>(<span class="org-variable-name">blob</span>, <span class="org-variable-name">taskCallback</span>) {
+    console.log(<span class="org-string">"bbb"</span>);
+    <span class="org-keyword">var</span> <span class="org-variable-name">rat</span> = 2;
+    <span class="org-keyword">var</span> <span class="org-variable-name">w</span> = myimg.naturalWidth / rat, <span class="org-variable-name">h</span> = myimg.naturalHeight / rat;
+
+    <span class="org-keyword">var</span> <span class="org-variable-name">canvas</span> = document.createElement(<span class="org-string">"canvas"</span>);
+    canvas.width = w;
+    canvas.height = h;
+
+    <span class="org-keyword">var</span> <span class="org-variable-name">ctx</span> = canvas.getContext(<span class="org-string">'2d'</span>);
+    ctx.drawImage(myimg, 0, 0, w, h);
+    ctx.fillText(<span class="org-string">"nf147"</span>, w - 20, h - 20);
+
+    canvas.toBlob(taskCallback, <span class="org-string">"image/jpeg"</span>);
+}
+
+<span class="org-doc">/**</span>
+<span class="org-doc"> * &#26356;&#26032;&#39044;&#35272;&#36827;&#24230;</span>
+<span class="org-doc"> */</span>
+<span class="org-keyword">function</span> <span class="org-function-name">refreshProgress</span>(<span class="org-variable-name">r</span>) {
+    <span class="org-keyword">if</span> (!ctx) ctx = mymask.getContext(<span class="org-string">'2d'</span>);
+    ctx.save();
+    ctx.clearRect(0, 0, 200, 200);
+    ctx.globalAlpha = 0.6;
+    ctx.fillRect(0, (1 - r) * 200, 200, 200);
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = <span class="org-string">"white"</span>;
+    ctx.font = <span class="org-string">"20px &#24494;&#36719;&#38597;&#40657;"</span>;
+    ctx.fillText(r * 100 + <span class="org-string">'%'</span>, 80, 180);
+    ctx.restore();
+}
+
+<span class="org-doc">/**</span>
+<span class="org-doc"> * &#36890;&#36807; AJAX &#19978;&#20256; blob &#31867;&#22411;&#30340;&#25991;&#20214;</span>
+<span class="org-doc"> * @param blob</span>
+<span class="org-doc"> */</span>
+<span class="org-keyword">function</span> <span class="org-function-name">uploadWithAJAX</span>(<span class="org-variable-name">blob</span>) {
+    <span class="org-keyword">var</span> <span class="org-variable-name">fd</span> = <span class="org-keyword">new</span> <span class="org-type">FormData</span>();
+    fd.append(<span class="org-string">"fff"</span>, blob);
+
+    $.ajax({
+        method: <span class="org-string">'post'</span>,
+        url: <span class="org-string">"/myupload"</span>,
+        cache: <span class="org-constant">false</span>,
+        contentType: <span class="org-constant">false</span>,
+        data: fd,
+        processData: <span class="org-constant">false</span>,
+        xhr: () =&gt; {
+            <span class="org-keyword">var</span> <span class="org-variable-name">xhr</span> = $.ajaxSettings.xhr();
+            xhr.upload.onprogress = (ev) =&gt; {
+                refreshProgress(ev.loaded / ev.total);
+            };
+            <span class="org-keyword">return</span> xhr;
+        }
+    }).done(console.log)
+        .fail((xhr, staus, err) =&gt; console.error(xhr, staus, err));
+}
+</pre>
+</div>
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: 孙悟空</p>
+<p class="date">Created: 2018-11-22 周四 02:19</p>
+<p class="validation">Go ahead, never stop.</p>
+</div>
+</body>
+</html>

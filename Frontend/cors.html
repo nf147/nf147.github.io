@@ -4,7 +4,7 @@
 <!-- 2018-11-22 周四 02:19 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SQLServer</title>
+<title>CORS 跨域</title>
 <meta name="generator" content="Org mode">
 <meta name="author" content="孙悟空">
 <link rel='stylesheet' href='/asset/common.css' />
@@ -15,27 +15,35 @@
 <body>
 <div id="content">
 <header>
-<h1 class="title">SQLServer</h1>
+<h1 class="title">CORS 跨域</h1>
 </header><nav id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgecdb2c2">1. 分页</a></li>
+<li><a href="#org18c60b7">1. 手动解除浏览器跨域限制</a></li>
 </ul>
 </div>
 </nav>
 
 
-<section id="outline-container-orgecdb2c2" class="outline-2">
-<h2 id="orgecdb2c2"><span class="section-number-2">1</span> 分页</h2>
+
+<section id="outline-container-org18c60b7" class="outline-2">
+<h2 id="org18c60b7"><span class="section-number-2">1</span> 手动解除浏览器跨域限制</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-如何取得 50-80 条的数据
+将谷歌浏览器的跨域限制给去除，只需要在启动的快捷方式里添加参数即可:
+</p>
+<pre class="example">
+--disable-web-security --user-data-dir=d:\xxx
+</pre>
+
+<p>
+然后，开启浏览器，就会没有跨域限制了。
 </p>
 
-<ul class="org-ul">
-<li><a href="https://stackoverflow.com/questions/109232/what-is-the-best-way-to-paginate-results-in-sql-server">https://stackoverflow.com/questions/109232/what-is-the-best-way-to-paginate-results-in-sql-server</a></li>
-</ul>
+<p>
+虽然这样可以很方便进行调试跟开发，但是，用完请关闭。不安全。
+</p>
 </div>
 </section>
 </div>

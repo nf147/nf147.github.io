@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2018-11-22 周四 02:19 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>_ES6</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="孙悟空">
+<link rel='stylesheet' href='/asset/common.css' />
+<script src='https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+<script src='/asset/common.js'></script>
+</head>
+<body>
+<div id="content">
+<header>
+<h1 class="title">_ES6</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgb4db9c0">1. 模块</a>
+<ul>
+<li><a href="#org21f1208">1.1. CommonJS 规范</a></li>
+<li><a href="#org9032f37">1.2. AMD 规范</a></li>
+<li><a href="#org7c6e007">1.3. 其他规范</a>
+<ul>
+<li><a href="#org7cce7c1">1.3.1. UMD规范</a></li>
+<li><a href="#orgedc788c">1.3.2. CMD 规范</a></li>
+</ul>
+</li>
+<li><a href="#orgeee59f2">1.4. es6 Module</a></li>
+</ul>
+</li>
+<li><a href="#orgc4f20f1">2. 前端工程化</a>
+<ul>
+<li><a href="#orge62c78d">2.1. babel</a></li>
+<li><a href="#org3e258aa">2.2. npm/yarn</a></li>
+<li><a href="#org3837ab5">2.3. Webpack</a></li>
+<li><a href="#orgb912ed7">2.4. 其他的脚手架</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+
+
+<section id="outline-container-orgb4db9c0" class="outline-2">
+<h2 id="orgb4db9c0"><span class="section-number-2">1</span> 模块</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+JS 是一门仓促产生的语言，在产生的时候，很多特性都不具备。
+</p>
+
+<p>
+比如说，模块、命名空间。
+</p>
+
+<p>
+这样就导致了很多问题。
+</p>
+
+<p>
+所以，就产生了很多的第三方实现。
+</p>
+</div>
+
+<div id="outline-container-org21f1208" class="outline-3">
+<h3 id="org21f1208"><span class="section-number-3">1.1</span> CommonJS 规范</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+两个主要 api:
+</p>
+<ul class="org-ul">
+<li>module.exports = {}</li>
+<li>require('xxx')</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9032f37" class="outline-3">
+<h3 id="org9032f37"><span class="section-number-3">1.2</span> AMD 规范</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+requirejs 是他的一个主要实现。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7c6e007" class="outline-3">
+<h3 id="org7c6e007"><span class="section-number-3">1.3</span> 其他规范</h3>
+<div class="outline-text-3" id="text-1-3">
+</div>
+<div id="outline-container-org7cce7c1" class="outline-4">
+<h4 id="org7cce7c1"><span class="section-number-4">1.3.1</span> UMD规范</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<p>
+语法丑陋，但是兼容了 CommonJS 和 AMD
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgedc788c" class="outline-4">
+<h4 id="orgedc788c"><span class="section-number-4">1.3.2</span> CMD 规范</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<p>
+是中国人搞的
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgeee59f2" class="outline-3">
+<h3 id="orgeee59f2"><span class="section-number-3">1.4</span> es6 Module</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+经过了漫长的岁月，终于，在 es6 中出现了语言级别的模块概念。
+</p>
+
+<p>
+它有两个基本 api:
+</p>
+<ul class="org-ul">
+<li>export</li>
+<li>import x from 'xxx'</li>
+</ul>
+
+<p>
+语法示例如下:
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-comment-delimiter">// </span><span class="org-comment">&#30053;</span>
+</pre>
+</div>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-orgc4f20f1" class="outline-2">
+<h2 id="orgc4f20f1"><span class="section-number-2">2</span> 前端工程化</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orge62c78d" class="outline-3">
+<h3 id="orge62c78d"><span class="section-number-3">2.1</span> babel</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+<a href="https://babeljs.io/">https://babeljs.io/</a>
+</p>
+
+<p>
+这是一个翻译工具。我们使用 es6/es7 等新的语法编程，经过 babel 的翻译之后，它就能兼容不支持 es6/7 的浏览器。
+</p>
+
+<p>
+它能把使用 es6/es7 等语法的文件，根据配置翻译成能够在指定浏览器使用的文件。
+</p>
+
+<p>
+比如说，你可以指定，让它翻译成能够在 ie6 下面使用的使用。
+</p>
+
+<p>
+你可以指定，让它翻译成能够兼容 ie8 的文件。
+</p>
+
+<p>
+你也可以指定，让它翻译成能够兼容 ie10 的文件。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3e258aa" class="outline-3">
+<h3 id="org3e258aa"><span class="section-number-3">2.2</span> npm/yarn</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+包的管理工具
+</p>
+
+<ul class="org-ul">
+<li><a href="https://www.npmjs.com/">https://www.npmjs.com/</a></li>
+<li><a href="https://www.npmjs.com.cn/">https://www.npmjs.com.cn/</a></li>
+</ul>
+
+<p>
+下载插件，下载工具，简单的任务管理。
+</p>
+
+<p>
+npm(nodejs package manager)，它是伴随 nodejs 出现的一个工具包。
+</p>
+
+<p>
+使用相当简单。
+</p>
+
+<p>
+第一步，下载。
+</p>
+
+<p>
+第二步，安装。
+</p>
+
+<p>
+第三步，使用。
+</p>
+
+<p>
+基本命令如下:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">&#28155;&#21152;&#22269;&#20869;&#28304;</span>
+npm config list
+npm config set <span class="org-variable-name">registry</span>=https://registry.npm.taobao.org
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21021;&#22987;&#21270;&#19968;&#20010;&#39033;&#30446;&#65292;&#22312;&#39033;&#30446;&#19979;&#38754;&#21019;&#24314;&#22522;&#26412;&#30340;&#37197;&#32622;&#25991;&#20214; package.json</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">package.json &#26159;&#23646;&#20110; CommonJS &#35268;&#33539;&#30340;&#19968;&#20010;&#37197;&#32622;&#25991;&#20214;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#22240;&#20026; npm &#20351;&#29992;&#30340;&#26159; CommonJS &#35268;&#33539;&#65292;&#25152;&#20197;&#65292;&#20182;&#20063;&#20351;&#29992;&#20102;&#21516;&#26679;&#30340; package.json &#20316;&#20026;&#23427;&#30340;&#37197;&#32622;&#25991;&#20214;</span>
+npm init
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#19979;&#36733;&#19968;&#20010;&#25554;&#20214;</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#19979;&#36733;&#23436;&#20043;&#21518;&#65292;&#40664;&#35748;&#20250;&#23433;&#35013;&#21040;&#24403;&#21069;&#30446;&#24405;&#19979;&#30340; node_moduels &#25991;&#20214;&#22841;&#37324;</span>
+npm install jquery
+npm install electron --global
+npm install vue
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21024;&#38500;&#25481;</span>
+npm uninstall jquery
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#36816;&#34892;&#31616;&#21333;&#21629;&#20196;</span>
+npm run hahaha
+<span class="org-comment-delimiter"># </span><span class="org-comment">"scripts": {</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">"hahaha": "ipconfig",</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">"test": "echo \"Error: no test specified\" &amp;&amp; exit 1"</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">},</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3837ab5" class="outline-3">
+<h3 id="org3837ab5"><span class="section-number-3">2.3</span> Webpack</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+用来:
+</p>
+<ol class="org-ol">
+<li>打包资源</li>
+<li>通过一定的插件，进行任务的集成（自动化任务）</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgb912ed7" class="outline-3">
+<h3 id="orgb912ed7"><span class="section-number-3">2.4</span> 其他的脚手架</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+cli: command line interface，命令行工具
+</p>
+</div>
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: 孙悟空</p>
+<p class="date">Created: 2018-11-22 周四 02:19</p>
+<p class="validation">Go ahead, never stop.</p>
+</div>
+</body>
+</html>
