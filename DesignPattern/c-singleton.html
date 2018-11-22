@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-22 周四 02:00 -->
+<!-- 2018-11-22 周四 02:16 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>单例模式</title>
@@ -20,10 +20,10 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgdc3ac63">1. 饿汉模式</a></li>
-<li><a href="#orgcc491b8">2. 懒汉模式以及演进</a></li>
-<li><a href="#orgd388dae">3. 静态内部类方式</a></li>
-<li><a href="#orgc4153f8">4. ENUM方式</a></li>
+<li><a href="#org05519ee">1. 饿汉模式</a></li>
+<li><a href="#org1bae2f5">2. 懒汉模式以及演进</a></li>
+<li><a href="#org2f98527">3. 静态内部类方式</a></li>
+<li><a href="#orge6ceeb7">4. ENUM方式</a></li>
 </ul>
 </div>
 </nav>
@@ -36,8 +36,8 @@
 <li>其他</li>
 </ul>
 
-<section id="outline-container-orgdc3ac63" class="outline-2">
-<h2 id="orgdc3ac63"><span class="section-number-2">1</span> 饿汉模式</h2>
+<section id="outline-container-org05519ee" class="outline-2">
+<h2 id="org05519ee"><span class="section-number-2">1</span> 饿汉模式</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 最基本的思路，就是将类的构造器私有化，那么就不能在外部调用 new 创建实例了。
@@ -64,8 +64,8 @@
 </div>
 </section>
 
-<section id="outline-container-orgcc491b8" class="outline-2">
-<h2 id="orgcc491b8"><span class="section-number-2">2</span> 懒汉模式以及演进</h2>
+<section id="outline-container-org1bae2f5" class="outline-2">
+<h2 id="org1bae2f5"><span class="section-number-2">2</span> 懒汉模式以及演进</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 饿汉模式的问题在于，即使没有用到 boss，它也会被实例化，有些浪费空间&#x2026;
@@ -161,8 +161,8 @@
 </div>
 </section>
 
-<section id="outline-container-orgd388dae" class="outline-2">
-<h2 id="orgd388dae"><span class="section-number-2">3</span> 静态内部类方式</h2>
+<section id="outline-container-org2f98527" class="outline-2">
+<h2 id="org2f98527"><span class="section-number-2">3</span> 静态内部类方式</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 这是相对来说，非常优秀的一种实现。在很多地方，推荐使用这种方式。
@@ -190,8 +190,8 @@
 </div>
 </section>
 
-<section id="outline-container-orgc4153f8" class="outline-2">
-<h2 id="orgc4153f8"><span class="section-number-2">4</span> ENUM方式</h2>
+<section id="outline-container-orge6ceeb7" class="outline-2">
+<h2 id="orge6ceeb7"><span class="section-number-2">4</span> ENUM方式</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 ENUM 应该是最<b>简单</b>，也是<b>最好</b>的一种实现单例模式的方式。
@@ -227,7 +227,7 @@ ENUM 应该是最<b>简单</b>，也是<b>最好</b>的一种实现单例模式�
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-22 周四 02:00</p>
+<p class="date">Created: 2018-11-22 周四 02:16</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-22 周四 02:00 -->
+<!-- 2018-11-22 周四 02:16 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vue.js</title>
@@ -20,41 +20,41 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgf04ac09">1. MVC/MVP/MVVM</a></li>
-<li><a href="#org6984204">2. 示例</a></li>
-<li><a href="#org95f80ef">3. 示例，用户评论</a>
+<li><a href="#orga843839">1. MVC/MVP/MVVM</a></li>
+<li><a href="#org78c4bbe">2. 示例</a></li>
+<li><a href="#orgad6fde4">3. 示例，用户评论</a>
 <ul>
-<li><a href="#orgb625701">3.1. 最终效果如图</a></li>
-<li><a href="#orgce4dd5b">3.2. 分析页面，划分组件，确定组件间的数据传输方式</a></li>
-<li><a href="#orgadf4717">3.3. Index.html/index.css</a></li>
-<li><a href="#orgd933be3">3.4. CommentComp</a></li>
-<li><a href="#org5bcea76">3.5. CommentInput</a></li>
-<li><a href="#org8f20b9a">3.6. CommentList</a></li>
+<li><a href="#org8ce1243">3.1. 最终效果如图</a></li>
+<li><a href="#org2e4fbf7">3.2. 分析页面，划分组件，确定组件间的数据传输方式</a></li>
+<li><a href="#orga1a2cd4">3.3. Index.html/index.css</a></li>
+<li><a href="#orgb5381be">3.4. CommentComp</a></li>
+<li><a href="#orgf435630">3.5. CommentInput</a></li>
+<li><a href="#orgacfec2e">3.6. CommentList</a></li>
 </ul>
 </li>
-<li><a href="#org03fce7c">4. Vue API</a>
+<li><a href="#orgac3a854">4. Vue API</a>
 <ul>
-<li><a href="#org9ebc275">4.1. 指令</a></li>
-<li><a href="#org9b3aa12">4.2. 选项</a></li>
-<li><a href="#org13eb05d">4.3. 实例属性、方法、事件</a></li>
-<li><a href="#org7e3b71a">4.4. 全局 API</a></li>
-<li><a href="#org97b07c5">4.5. 其他</a></li>
+<li><a href="#org9baa7f0">4.1. 指令</a></li>
+<li><a href="#orgb640e65">4.2. 选项</a></li>
+<li><a href="#org4c29d45">4.3. 实例属性、方法、事件</a></li>
+<li><a href="#org0cef626">4.4. 全局 API</a></li>
+<li><a href="#org92603c5">4.5. 其他</a></li>
 </ul>
 </li>
-<li><a href="#org4a947fe">5. Vue-loader/Vue-CLI</a>
+<li><a href="#org42bec43">5. Vue-loader/Vue-CLI</a>
 <ul>
-<li><a href="#org99ea845">5.1. Vue-loader</a></li>
-<li><a href="#orgbd8954c">5.2. Vue CLI</a></li>
+<li><a href="#org559fc6a">5.1. Vue-loader</a></li>
+<li><a href="#orgec9079a">5.2. Vue CLI</a></li>
 </ul>
 </li>
-<li><a href="#org3236dab">6. ElementUI</a></li>
+<li><a href="#org2e6d990">6. ElementUI</a></li>
 </ul>
 </div>
 </nav>
 
 
-<section id="outline-container-orgf04ac09" class="outline-2">
-<h2 id="orgf04ac09"><span class="section-number-2">1</span> MVC/MVP/MVVM</h2>
+<section id="outline-container-orga843839" class="outline-2">
+<h2 id="orga843839"><span class="section-number-2">1</span> MVC/MVP/MVVM</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 MVC:
@@ -121,8 +121,8 @@ MVVM:
 </div>
 </div>
 </section>
-<section id="outline-container-org6984204" class="outline-2">
-<h2 id="org6984204"><span class="section-number-2">2</span> 示例</h2>
+<section id="outline-container-org78c4bbe" class="outline-2">
+<h2 id="org78c4bbe"><span class="section-number-2">2</span> 示例</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 指令模板 (View):
@@ -284,12 +284,12 @@ View Model:
 </div>
 </div>
 </section>
-<section id="outline-container-org95f80ef" class="outline-2">
-<h2 id="org95f80ef"><span class="section-number-2">3</span> 示例，用户评论</h2>
+<section id="outline-container-orgad6fde4" class="outline-2">
+<h2 id="orgad6fde4"><span class="section-number-2">3</span> 示例，用户评论</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-orgb625701" class="outline-3">
-<h3 id="orgb625701"><span class="section-number-3">3.1</span> 最终效果如图</h3>
+<div id="outline-container-org8ce1243" class="outline-3">
+<h3 id="org8ce1243"><span class="section-number-3">3.1</span> 最终效果如图</h3>
 <div class="outline-text-3" id="text-3-1">
 
 <figure>
@@ -312,8 +312,8 @@ View Model:
 </div>
 </div>
 
-<div id="outline-container-orgce4dd5b" class="outline-3">
-<h3 id="orgce4dd5b"><span class="section-number-3">3.2</span> 分析页面，划分组件，确定组件间的数据传输方式</h3>
+<div id="outline-container-org2e4fbf7" class="outline-3">
+<h3 id="org2e4fbf7"><span class="section-number-3">3.2</span> 分析页面，划分组件，确定组件间的数据传输方式</h3>
 <div class="outline-text-3" id="text-3-2">
 
 <figure>
@@ -323,8 +323,8 @@ View Model:
 </div>
 </div>
 
-<div id="outline-container-orgadf4717" class="outline-3">
-<h3 id="orgadf4717"><span class="section-number-3">3.3</span> Index.html/index.css</h3>
+<div id="outline-container-orga1a2cd4" class="outline-3">
+<h3 id="orga1a2cd4"><span class="section-number-3">3.3</span> Index.html/index.css</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 html:
@@ -413,8 +413,8 @@ css:
 </div>
 </div>
 </div>
-<div id="outline-container-orgd933be3" class="outline-3">
-<h3 id="orgd933be3"><span class="section-number-3">3.4</span> CommentComp</h3>
+<div id="outline-container-orgb5381be" class="outline-3">
+<h3 id="orgb5381be"><span class="section-number-3">3.4</span> CommentComp</h3>
 <div class="outline-text-3" id="text-3-4">
 <div class="org-src-container">
 <pre class="src src-js"><span class="org-keyword">import</span> commentInput from <span class="org-string">'./comment-input.js'</span>;
@@ -458,8 +458,8 @@ css:
 </div>
 </div>
 </div>
-<div id="outline-container-org5bcea76" class="outline-3">
-<h3 id="org5bcea76"><span class="section-number-3">3.5</span> CommentInput</h3>
+<div id="outline-container-orgf435630" class="outline-3">
+<h3 id="orgf435630"><span class="section-number-3">3.5</span> CommentInput</h3>
 <div class="outline-text-3" id="text-3-5">
 <div class="org-src-container">
 <pre class="src src-js"><span class="org-comment-delimiter">// </span><span class="org-comment">1. &#23450;&#20041;</span>
@@ -523,8 +523,8 @@ css:
 </div>
 </div>
 
-<div id="outline-container-org8f20b9a" class="outline-3">
-<h3 id="org8f20b9a"><span class="section-number-3">3.6</span> CommentList</h3>
+<div id="outline-container-orgacfec2e" class="outline-3">
+<h3 id="orgacfec2e"><span class="section-number-3">3.6</span> CommentList</h3>
 <div class="outline-text-3" id="text-3-6">
 <p>
 list:
@@ -580,16 +580,16 @@ item:
 </div>
 </div>
 </section>
-<section id="outline-container-org03fce7c" class="outline-2">
-<h2 id="org03fce7c"><span class="section-number-2">4</span> Vue API</h2>
+<section id="outline-container-orgac3a854" class="outline-2">
+<h2 id="orgac3a854"><span class="section-number-2">4</span> Vue API</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 <a href="https://cn.vuejs.org/v2/api/index.html">https://cn.vuejs.org/v2/api/index.html</a>
 </p>
 </div>
 
-<div id="outline-container-org9ebc275" class="outline-3">
-<h3 id="org9ebc275"><span class="section-number-3">4.1</span> 指令</h3>
+<div id="outline-container-org9baa7f0" class="outline-3">
+<h3 id="org9baa7f0"><span class="section-number-3">4.1</span> 指令</h3>
 <div class="outline-text-3" id="text-4-1">
 <ul class="org-ul">
 <li><code>v-text</code></li>
@@ -609,8 +609,8 @@ item:
 </div>
 </div>
 
-<div id="outline-container-org9b3aa12" class="outline-3">
-<h3 id="org9b3aa12"><span class="section-number-3">4.2</span> 选项</h3>
+<div id="outline-container-orgb640e65" class="outline-3">
+<h3 id="orgb640e65"><span class="section-number-3">4.2</span> 选项</h3>
 <div class="outline-text-3" id="text-4-2">
 <div class="org-src-container">
 <pre class="src src-js"><span class="org-keyword">new</span> <span class="org-type">Vue</span>({
@@ -656,8 +656,8 @@ item:
 </div>
 </div>
 
-<div id="outline-container-org13eb05d" class="outline-3">
-<h3 id="org13eb05d"><span class="section-number-3">4.3</span> 实例属性、方法、事件</h3>
+<div id="outline-container-org4c29d45" class="outline-3">
+<h3 id="org4c29d45"><span class="section-number-3">4.3</span> 实例属性、方法、事件</h3>
 <div class="outline-text-3" id="text-4-3">
 <div class="org-src-container">
 <pre class="src src-js"><span class="org-keyword">new</span> <span class="org-type">Vue</span>({
@@ -691,8 +691,8 @@ item:
 </div>
 </div>
 
-<div id="outline-container-org7e3b71a" class="outline-3">
-<h3 id="org7e3b71a"><span class="section-number-3">4.4</span> 全局 API</h3>
+<div id="outline-container-org0cef626" class="outline-3">
+<h3 id="org0cef626"><span class="section-number-3">4.4</span> 全局 API</h3>
 <div class="outline-text-3" id="text-4-4">
 <ul class="org-ul">
 <li><code>Vue.extend()</code></li>
@@ -714,8 +714,8 @@ Q:
 </div>
 </div>
 
-<div id="outline-container-org97b07c5" class="outline-3">
-<h3 id="org97b07c5"><span class="section-number-3">4.5</span> 其他</h3>
+<div id="outline-container-org92603c5" class="outline-3">
+<h3 id="org92603c5"><span class="section-number-3">4.5</span> 其他</h3>
 <div class="outline-text-3" id="text-4-5">
 <p>
 特殊特性:
@@ -743,12 +743,12 @@ Q:
 </div>
 </section>
 
-<section id="outline-container-org4a947fe" class="outline-2">
-<h2 id="org4a947fe"><span class="section-number-2">5</span> Vue-loader/Vue-CLI</h2>
+<section id="outline-container-org42bec43" class="outline-2">
+<h2 id="org42bec43"><span class="section-number-2">5</span> Vue-loader/Vue-CLI</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-org99ea845" class="outline-3">
-<h3 id="org99ea845"><span class="section-number-3">5.1</span> Vue-loader</h3>
+<div id="outline-container-org559fc6a" class="outline-3">
+<h3 id="org559fc6a"><span class="section-number-3">5.1</span> Vue-loader</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 Vue-loader 是一个插件，它能让下面格式的文件转换为普通的 JS 模板的文件:
@@ -782,8 +782,8 @@ Vue-loader 是一个插件，它能让下面格式的文件转换为普通的 JS
 </p>
 </div>
 </div>
-<div id="outline-container-orgbd8954c" class="outline-3">
-<h3 id="orgbd8954c"><span class="section-number-3">5.2</span> Vue CLI</h3>
+<div id="outline-container-orgec9079a" class="outline-3">
+<h3 id="orgec9079a"><span class="section-number-3">5.2</span> Vue CLI</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 <a href="https://cli.vuejs.org/zh/">https://cli.vuejs.org/zh/</a>
@@ -858,8 +858,8 @@ vue ui
 </div>
 </div>
 </section>
-<section id="outline-container-org3236dab" class="outline-2">
-<h2 id="org3236dab"><span class="section-number-2">6</span> ElementUI</h2>
+<section id="outline-container-org2e6d990" class="outline-2">
+<h2 id="org2e6d990"><span class="section-number-2">6</span> ElementUI</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 <a href="http://element-cn.eleme.io/#/zh-CN">http://element-cn.eleme.io/#/zh-CN</a>
@@ -926,7 +926,7 @@ vue add element
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-22 周四 02:00</p>
+<p class="date">Created: 2018-11-22 周四 02:16</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
