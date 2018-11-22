@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-22 周四 01:50 -->
+<!-- 2018-11-22 周四 02:00 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Web MVC</title>
@@ -20,51 +20,51 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orge429674">1. 基本配置</a></li>
-<li><a href="#org3dce62a">2. DispatcherServlet</a></li>
-<li><a href="#org74c8595">3. Controller</a>
+<li><a href="#orgc5808b0">1. 基本配置</a></li>
+<li><a href="#orgd77c6ac">2. DispatcherServlet</a></li>
+<li><a href="#orge75f9eb">3. Controller</a>
 <ul>
-<li><a href="#org858826f">3.1. Hello, World</a></li>
-<li><a href="#orgdcd5a97">3.2. RequestMapping</a></li>
-<li><a href="#org5348054">3.3. Handler 参数</a></li>
-<li><a href="#org60792d4">3.4. Handler 返回</a></li>
-<li><a href="#org15d08ae">3.5. reqeust data bind to Collection</a>
+<li><a href="#orgdaac21b">3.1. Hello, World</a></li>
+<li><a href="#org1f85c00">3.2. RequestMapping</a></li>
+<li><a href="#orgf495587">3.3. Handler 参数</a></li>
+<li><a href="#org5ab5127">3.4. Handler 返回</a></li>
+<li><a href="#orgbc6840b">3.5. reqeust data bind to Collection</a>
 <ul>
-<li><a href="#orgcb28aa5">3.5.1. via FormBean</a></li>
-<li><a href="#orga981a71">3.5.2. via FormBean with Validation</a></li>
-<li><a href="#org66268b0">3.5.3. via Ajax and RequestBody</a></li>
+<li><a href="#org667ae35">3.5.1. via FormBean</a></li>
+<li><a href="#org468008e">3.5.2. via FormBean with Validation</a></li>
+<li><a href="#org7eabe37">3.5.3. via Ajax and RequestBody</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org6e53efb">4. DataBinding/Conversion (类型转换)</a>
+<li><a href="#orgc0a14d6">4. DataBinding/Conversion (类型转换)</a>
 <ul>
-<li><a href="#org977beeb">4.1. 第一种方法：利用内置的 CustomDateEditor</a></li>
-<li><a href="#org4f906ab">4.2. 第二种方法：实现自定义 Converter</a></li>
-<li><a href="#orgd1ddc97">4.3. 第三种方法：使用 @DateTimeFormat 注解</a></li>
+<li><a href="#org544d117">4.1. 第一种方法：利用内置的 CustomDateEditor</a></li>
+<li><a href="#orgaa3c5b8">4.2. 第二种方法：实现自定义 Converter</a></li>
+<li><a href="#orgae81a3e">4.3. 第三种方法：使用 @DateTimeFormat 注解</a></li>
 </ul>
 </li>
-<li><a href="#orgbdfa98e">5. DataBinding/Validation (验证)</a>
+<li><a href="#orgd6da645">5. DataBinding/Validation (验证)</a>
 <ul>
-<li><a href="#org90be96b">5.1. JSR-303</a></li>
-<li><a href="#org39e870f">5.2. JSR303 例子</a>
+<li><a href="#org76b052a">5.1. JSR-303</a></li>
+<li><a href="#orgfe5d026">5.2. JSR303 例子</a>
 <ul>
-<li><a href="#orgf7bdd84">5.2.1. 一个订单类</a></li>
-<li><a href="#org1a32566">5.2.2. 也可以自定义验证器</a></li>
+<li><a href="#orgab123bc">5.2.1. 一个订单类</a></li>
+<li><a href="#orgcf727af">5.2.2. 也可以自定义验证器</a></li>
 </ul>
 </li>
-<li><a href="#org2c5dae9">5.3. Spring Validator 接口</a></li>
+<li><a href="#org37123c2">5.3. Spring Validator 接口</a></li>
 </ul>
 </li>
-<li><a href="#orgfc54a25">6. Exception (异常处理)</a></li>
-<li><a href="#orgc49954c">7. View</a></li>
-<li><a href="#org4b9564c">8. I18N (国际化)</a></li>
-<li><a href="#org76ead32">9. Theme (主题)</a></li>
-<li><a href="#org900cf53">10. File Upload/Download (文件上传、下载)</a>
+<li><a href="#orgc28a196">6. Exception (异常处理)</a></li>
+<li><a href="#org2805a75">7. View</a></li>
+<li><a href="#orgc93ef49">8. I18N (国际化)</a></li>
+<li><a href="#orga12b348">9. Theme (主题)</a></li>
+<li><a href="#org210fd42">10. File Upload/Download (文件上传、下载)</a>
 <ul>
-<li><a href="#org0fd8166">10.1. Upload</a></li>
-<li><a href="#org33e5d25">10.2. Download</a></li>
-<li><a href="#org2287c91">10.3. 示例</a></li>
+<li><a href="#org73ec787">10.1. Upload</a></li>
+<li><a href="#org3234efd">10.2. Download</a></li>
+<li><a href="#orgce6a5cd">10.3. 示例</a></li>
 </ul>
 </li>
 </ul>
@@ -73,8 +73,8 @@
 
 
 
-<section id="outline-container-orge429674" class="outline-2">
-<h2 id="orge429674"><span class="section-number-2">1</span> 基本配置</h2>
+<section id="outline-container-orgc5808b0" class="outline-2">
+<h2 id="orgc5808b0"><span class="section-number-2">1</span> 基本配置</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 在 Web.xml 中配置前端控制器，让 Spring MVC 拦截处理所有的请求:
@@ -120,8 +120,8 @@ Spring MVC 在启动的时候会初始化容器，所以需要通过 xml 配置�
 </div>
 </section>
 
-<section id="outline-container-org3dce62a" class="outline-2">
-<h2 id="org3dce62a"><span class="section-number-2">2</span> DispatcherServlet</h2>
+<section id="outline-container-orgd77c6ac" class="outline-2">
+<h2 id="orgd77c6ac"><span class="section-number-2">2</span> DispatcherServlet</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 前端控制器，所有来自客户端的请求，都会交由它去处理。
@@ -129,12 +129,12 @@ Spring MVC 在启动的时候会初始化容器，所以需要通过 xml 配置�
 </div>
 </section>
 
-<section id="outline-container-org74c8595" class="outline-2">
-<h2 id="org74c8595"><span class="section-number-2">3</span> Controller</h2>
+<section id="outline-container-orge75f9eb" class="outline-2">
+<h2 id="orge75f9eb"><span class="section-number-2">3</span> Controller</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org858826f" class="outline-3">
-<h3 id="org858826f"><span class="section-number-3">3.1</span> Hello, World</h3>
+<div id="outline-container-orgdaac21b" class="outline-3">
+<h3 id="orgdaac21b"><span class="section-number-3">3.1</span> Hello, World</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 <b>传统方式</b>，使用 Controller 接口:
@@ -177,8 +177,8 @@ Spring MVC 在启动的时候会初始化容器，所以需要通过 xml 配置�
 </div>
 </div>
 
-<div id="outline-container-orgdcd5a97" class="outline-3">
-<h3 id="orgdcd5a97"><span class="section-number-3">3.2</span> RequestMapping</h3>
+<div id="outline-container-org1f85c00" class="outline-3">
+<h3 id="org1f85c00"><span class="section-number-3">3.2</span> RequestMapping</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 使用 @RequestMapping 来为 handler 绑定映射:
@@ -284,8 +284,8 @@ Spring MVC 在启动的时候会初始化容器，所以需要通过 xml 配置�
 </div>
 </div>
 
-<div id="outline-container-org5348054" class="outline-3">
-<h3 id="org5348054"><span class="section-number-3">3.3</span> Handler 参数</h3>
+<div id="outline-container-orgf495587" class="outline-3">
+<h3 id="orgf495587"><span class="section-number-3">3.3</span> Handler 参数</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 Spring 会根据 handler 参数的类型签名创建并注入相应实例:
@@ -398,8 +398,8 @@ Spring 会根据 handler 参数的类型签名创建并注入相应实例:
 </div>
 </div>
 
-<div id="outline-container-org60792d4" class="outline-3">
-<h3 id="org60792d4"><span class="section-number-3">3.4</span> Handler 返回</h3>
+<div id="outline-container-org5ab5127" class="outline-3">
+<h3 id="org5ab5127"><span class="section-number-3">3.4</span> Handler 返回</h3>
 <div class="outline-text-3" id="text-3-4">
 <p>
 主要的返回方式有:
@@ -477,12 +477,12 @@ Spring 提供了两种方法将资源转换为发送给客户端的表述形式:
 </div>
 </div>
 
-<div id="outline-container-org15d08ae" class="outline-3">
-<h3 id="org15d08ae"><span class="section-number-3">3.5</span> reqeust data bind to Collection</h3>
+<div id="outline-container-orgbc6840b" class="outline-3">
+<h3 id="orgbc6840b"><span class="section-number-3">3.5</span> reqeust data bind to Collection</h3>
 <div class="outline-text-3" id="text-3-5">
 </div>
-<div id="outline-container-orgcb28aa5" class="outline-4">
-<h4 id="orgcb28aa5"><span class="section-number-4">3.5.1</span> via FormBean</h4>
+<div id="outline-container-org667ae35" class="outline-4">
+<h4 id="org667ae35"><span class="section-number-4">3.5.1</span> via FormBean</h4>
 <div class="outline-text-4" id="text-3-5-1">
 <p>
 客户端:
@@ -524,8 +524,8 @@ Spring 提供了两种方法将资源转换为发送给客户端的表述形式:
 </div>
 </div>
 
-<div id="outline-container-orga981a71" class="outline-4">
-<h4 id="orga981a71"><span class="section-number-4">3.5.2</span> via FormBean with Validation</h4>
+<div id="outline-container-org468008e" class="outline-4">
+<h4 id="org468008e"><span class="section-number-4">3.5.2</span> via FormBean with Validation</h4>
 <div class="outline-text-4" id="text-3-5-2">
 <p>
 如果想要捕获错误，并回显，需要改造。
@@ -569,8 +569,8 @@ Spring 提供了两种方法将资源转换为发送给客户端的表述形式:
 </div>
 </div>
 
-<div id="outline-container-org66268b0" class="outline-4">
-<h4 id="org66268b0"><span class="section-number-4">3.5.3</span> via Ajax and RequestBody</h4>
+<div id="outline-container-org7eabe37" class="outline-4">
+<h4 id="org7eabe37"><span class="section-number-4">3.5.3</span> via Ajax and RequestBody</h4>
 <div class="outline-text-4" id="text-3-5-3">
 <p>
 客户端:
@@ -605,8 +605,8 @@ Spring 提供了两种方法将资源转换为发送给客户端的表述形式:
 </div>
 </section>
 
-<section id="outline-container-org6e53efb" class="outline-2">
-<h2 id="org6e53efb"><span class="section-number-2">4</span> DataBinding/Conversion (类型转换)</h2>
+<section id="outline-container-orgc0a14d6" class="outline-2">
+<h2 id="orgc0a14d6"><span class="section-number-2">4</span> DataBinding/Conversion (类型转换)</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 三种方式:
@@ -622,8 +622,8 @@ Spring 提供了两种方法将资源转换为发送给客户端的表述形式:
 </p>
 </div>
 
-<div id="outline-container-org977beeb" class="outline-3">
-<h3 id="org977beeb"><span class="section-number-3">4.1</span> 第一种方法：利用内置的 CustomDateEditor</h3>
+<div id="outline-container-org544d117" class="outline-3">
+<h3 id="org544d117"><span class="section-number-3">4.1</span> 第一种方法：利用内置的 CustomDateEditor</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 首先，在我们的 Controller 的 InitBinder 里面，注册 CustomEditor
@@ -644,8 +644,8 @@ Spring 提供了两种方法将资源转换为发送给客户端的表述形式:
 </div>
 </div>
 
-<div id="outline-container-org4f906ab" class="outline-3">
-<h3 id="org4f906ab"><span class="section-number-3">4.2</span> 第二种方法：实现自定义 Converter</h3>
+<div id="outline-container-orgaa3c5b8" class="outline-3">
+<h3 id="orgaa3c5b8"><span class="section-number-3">4.2</span> 第二种方法：实现自定义 Converter</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 定义:
@@ -682,8 +682,8 @@ Spring 提供了两种方法将资源转换为发送给客户端的表述形式:
 </div>
 </div>
 
-<div id="outline-container-orgd1ddc97" class="outline-3">
-<h3 id="orgd1ddc97"><span class="section-number-3">4.3</span> 第三种方法：使用 @DateTimeFormat 注解</h3>
+<div id="outline-container-orgae81a3e" class="outline-3">
+<h3 id="orgae81a3e"><span class="section-number-3">4.3</span> 第三种方法：使用 @DateTimeFormat 注解</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 在 model 上，增加相应注解：
@@ -706,12 +706,12 @@ Spring 提供了两种方法将资源转换为发送给客户端的表述形式:
 </div>
 </div>
 </section>
-<section id="outline-container-orgbdfa98e" class="outline-2">
-<h2 id="orgbdfa98e"><span class="section-number-2">5</span> DataBinding/Validation (验证)</h2>
+<section id="outline-container-orgd6da645" class="outline-2">
+<h2 id="orgd6da645"><span class="section-number-2">5</span> DataBinding/Validation (验证)</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-org90be96b" class="outline-3">
-<h3 id="org90be96b"><span class="section-number-3">5.1</span> JSR-303</h3>
+<div id="outline-container-org76b052a" class="outline-3">
+<h3 id="org76b052a"><span class="section-number-3">5.1</span> JSR-303</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 JSR-303 是 java 官方推出的一套 Validation 接口。
@@ -794,12 +794,12 @@ Hibernate Validator 附加的 constraint:
 </div>
 </div>
 
-<div id="outline-container-org39e870f" class="outline-3">
-<h3 id="org39e870f"><span class="section-number-3">5.2</span> JSR303 例子</h3>
+<div id="outline-container-orgfe5d026" class="outline-3">
+<h3 id="orgfe5d026"><span class="section-number-3">5.2</span> JSR303 例子</h3>
 <div class="outline-text-3" id="text-5-2">
 </div>
-<div id="outline-container-orgf7bdd84" class="outline-4">
-<h4 id="orgf7bdd84"><span class="section-number-4">5.2.1</span> 一个订单类</h4>
+<div id="outline-container-orgab123bc" class="outline-4">
+<h4 id="orgab123bc"><span class="section-number-4">5.2.1</span> 一个订单类</h4>
 <div class="outline-text-4" id="text-5-2-1">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">Order</span> {
@@ -892,8 +892,8 @@ Hibernate Validator 附加的 constraint:
 </div>
 </div>
 
-<div id="outline-container-org1a32566" class="outline-4">
-<h4 id="org1a32566"><span class="section-number-4">5.2.2</span> 也可以自定义验证器</h4>
+<div id="outline-container-orgcf727af" class="outline-4">
+<h4 id="orgcf727af"><span class="section-number-4">5.2.2</span> 也可以自定义验证器</h4>
 <div class="outline-text-4" id="text-5-2-2">
 <p>
 最简单的，组合已有的验证器:
@@ -1005,8 +1005,8 @@ Hibernate Validator 附加的 constraint:
 </div>
 </div>
 
-<div id="outline-container-org2c5dae9" class="outline-3">
-<h3 id="org2c5dae9"><span class="section-number-3">5.3</span> Spring Validator 接口</h3>
+<div id="outline-container-org37123c2" class="outline-3">
+<h3 id="org37123c2"><span class="section-number-3">5.3</span> Spring Validator 接口</h3>
 <div class="outline-text-3" id="text-5-3">
 <p>
 这是 Spring 验证的标准接口。使用分 <b>3</b> 步:
@@ -1025,15 +1025,15 @@ Hibernate Validator 附加的 constraint:
 </div>
 </section>
 
-<section id="outline-container-orgfc54a25" class="outline-2">
-<h2 id="orgfc54a25"><span class="section-number-2">6</span> Exception (异常处理)</h2>
+<section id="outline-container-orgc28a196" class="outline-2">
+<h2 id="orgc28a196"><span class="section-number-2">6</span> Exception (异常处理)</h2>
 </section>
-<section id="outline-container-orgc49954c" class="outline-2">
-<h2 id="orgc49954c"><span class="section-number-2">7</span> View</h2>
+<section id="outline-container-org2805a75" class="outline-2">
+<h2 id="org2805a75"><span class="section-number-2">7</span> View</h2>
 </section>
 
-<section id="outline-container-org4b9564c" class="outline-2">
-<h2 id="org4b9564c"><span class="section-number-2">8</span> I18N (国际化)</h2>
+<section id="outline-container-orgc93ef49" class="outline-2">
+<h2 id="orgc93ef49"><span class="section-number-2">8</span> I18N (国际化)</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 <b>Internationalization</b> 的缩写。
@@ -1137,8 +1137,8 @@ Spring 提供了两个接口用于国际化文件处理:
 </div>
 </section>
 
-<section id="outline-container-org76ead32" class="outline-2">
-<h2 id="org76ead32"><span class="section-number-2">9</span> Theme (主题)</h2>
+<section id="outline-container-orga12b348" class="outline-2">
+<h2 id="orga12b348"><span class="section-number-2">9</span> Theme (主题)</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 主题指得是一系列的 css 以及影响页面显示效果的图片等资源的集合。
@@ -1214,12 +1214,12 @@ Spring 中可以根据不同情况加载不同主题。它的实现方式跟 i18
 </div>
 </section>
 
-<section id="outline-container-org900cf53" class="outline-2">
-<h2 id="org900cf53"><span class="section-number-2">10</span> File Upload/Download (文件上传、下载)</h2>
+<section id="outline-container-org210fd42" class="outline-2">
+<h2 id="org210fd42"><span class="section-number-2">10</span> File Upload/Download (文件上传、下载)</h2>
 <div class="outline-text-2" id="text-10">
 </div>
-<div id="outline-container-org0fd8166" class="outline-3">
-<h3 id="org0fd8166"><span class="section-number-3">10.1</span> Upload</h3>
+<div id="outline-container-org73ec787" class="outline-3">
+<h3 id="org73ec787"><span class="section-number-3">10.1</span> Upload</h3>
 <div class="outline-text-3" id="text-10-1">
 <p>
 SpringMVC 中，文件的上传是通过 <code>MultipartResolver</code> 实现的，所以要实现上传，只要注册相应的 MultipartResolver 即可。
@@ -1295,8 +1295,8 @@ MultipartResolver 的实现类有两个：
 </div>
 </div>
 
-<div id="outline-container-org33e5d25" class="outline-3">
-<h3 id="org33e5d25"><span class="section-number-3">10.2</span> Download</h3>
+<div id="outline-container-org3234efd" class="outline-3">
+<h3 id="org3234efd"><span class="section-number-3">10.2</span> Download</h3>
 <div class="outline-text-3" id="text-10-2">
 <p>
 使用 ResponseEntity 可以让下载变得简单:
@@ -1329,8 +1329,8 @@ MultipartResolver 的实现类有两个：
 </div>
 </div>
 
-<div id="outline-container-org2287c91" class="outline-3">
-<h3 id="org2287c91"><span class="section-number-3">10.3</span> 示例</h3>
+<div id="outline-container-orgce6a5cd" class="outline-3">
+<h3 id="orgce6a5cd"><span class="section-number-3">10.3</span> 示例</h3>
 <div class="outline-text-3" id="text-10-3">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-c-annotation">@PostMapping</span>(<span class="org-string">"/book"</span>)
@@ -1404,7 +1404,7 @@ MultipartResolver 的实现类有两个：
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-22 周四 01:50</p>
+<p class="date">Created: 2018-11-22 周四 02:00</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
