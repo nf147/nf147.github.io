@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-23 周五 02:39 -->
+<!-- 2018-11-23 周五 02:47 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>_ES6+</title>
@@ -178,6 +178,18 @@ for..var / for..let:
         console.log(<span class="org-string">'id:'</span>, <span class="org-constant">this</span>.id); <span class="org-comment-delimiter">// </span><span class="org-comment">666</span>
     }
 }
+
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">example 2.</span>
+<span class="org-keyword">function</span> <span class="org-function-name">Person</span> () {
+    <span class="org-constant">this</span>.age = 20;
+    <span class="org-constant">this</span>.tell = () =&gt; {
+        console.log(<span class="org-constant">this</span>.age);
+    }
+}
+
+<span class="org-keyword">var</span> <span class="org-variable-name">p</span> = <span class="org-keyword">new</span> <span class="org-type">Person</span>();
+setTimeout(p.tell, 0);
 </pre>
 </div>
 </div>
@@ -434,7 +446,7 @@ cli: command line interface，命令行工具
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-23 周五 02:39</p>
+<p class="date">Created: 2018-11-23 周五 02:47</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

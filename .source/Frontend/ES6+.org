@@ -95,6 +95,18 @@ for..var / for..let:
           console.log('id:', this.id); // 666
       }
   }
+
+
+  // example 2.
+  function Person () {
+      this.age = 20;
+      this.tell = () => {
+          console.log(this.age);
+      }
+  }
+
+  var p = new Person();
+  setTimeout(p.tell, 0);
 #+END_SRC
 
 ** 结构化赋值
