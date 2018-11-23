@@ -100,7 +100,7 @@ for..var / for..let:
   // example 2.
   function Person () {
       this.age = 20;
-      this.tell = () => {
+      this.tell = () => { // 改成 function 方式，会出错，为什么
           console.log(this.age);
       }
   }
