@@ -1,0 +1,144 @@
+#+TITLE: EChart
+
+
+
+
+* EChart
+
+http://echarts.baidu.com/index.html
+
+各种实例:
+- http://echarts.baidu.com/examples/
+
+这是一个使用广泛的图表库，使用 h5 的 canvas 或者 svg 进行绘制渲染。
+
+* 使用示例
+
+首先，准备页面:
+
+#+BEGIN_SRC html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdn.bootcss.com/echarts/4.2.0-rc.2/echarts.js"></script>
+</head>
+<body>
+    <div id="main" style="width: 600px;height:400px;"></div>
+    <script src="./yourChart.js"></script>
+</body>
+</html>
+#+END_SRC
+
+然后，相应的 JS:
+
+#+BEGIN_SRC js
+  var myChart = echarts.init(document.getElementById('main'));
+
+  // 柱形图
+  var bar = {
+      title: { text: '分数图' },
+      tooltip: {},
+      legend: { data: ['你', '她'] },
+      xAxis: {
+          data: ["语文", "数学", "英语"]
+      },
+      yAxis: {},
+      series: [
+          {
+              name: '你',
+              type: 'bar',
+              data: [89, 92, 63]
+          },
+          {
+              name: '她',
+              type: 'bar',
+              data: [68, 91, 89]
+          }
+      ]
+  };
+
+  // 饼形图
+  const pie = {
+      series : [
+          {
+              name: '访问来源',
+              type: 'pie',
+              // roseType: 'angle',
+              radius: '55%',
+              data:[
+                  {name:'视频广告', value:235},
+                  {name:'联盟广告', value:274},
+                  {name:'邮件营销', value:310},
+                  {name:'直接访问', value:335},
+                  {name:'搜索引擎', value:400}
+              ]
+          }
+      ]
+  };
+
+  // 曲线图
+  // 可以添加各种组件，比如:
+  // 图例组件 legend、标题组件 title、视觉映射组件 visualMap、数据区域缩放组件 dataZoom、时间线组件 timeline
+  const line = {
+      title: {
+          text: '日常分数曲线'
+      },
+      textStyle: {
+          color: 'rgba(255, 255, 255, 0.3)'
+      },
+      toolbox: {
+          feature: {
+              dataView: {},
+              saveAsImage: { pixelRatio: 2 },
+              restore: {}
+          }
+      },
+      visualMap: {
+          show: true,
+          min: 80,
+          max: 600,
+          inRange: {
+              colorLightness: [0, 1]
+          }
+      },
+      itemStyle: {
+          shadowBlur: 200,
+          shadowOffsetX: 0,
+          shadowOffsetY: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+      },
+      xAxis: {},
+      yAxis: {},
+      series: [{
+          type: 'line',
+          smooth: true,
+          data: [[12, 5], [24, 20], [36, 36], [48, 10], [60, 10], [72, 20]]
+      }]
+  };
+
+  // 使用 DataSet 形式的数据
+  const dataset = {
+      legend: {},
+      tooltip: {},
+      dataset: {
+          source: [
+              ['product', '2015', '2016', '2017'],
+              ['Matcha Latte', 43.3, 85.8, 93.7],
+              ['Milk Tea', 83.1, 73.4, 55.1],
+              ['Cheese Cocoa', 86.4, 65.2, 82.5],
+              ['Walnut Brownie', 72.4, 53.9, 39.1]
+          ]
+      },
+      xAxis: { type: 'category' },
+      yAxis: {},
+      series: [
+          {type: 'bar'},
+          {type: 'bar'},
+          {type: 'bar'}
+      ]
+  };
+
+  // 使用 setOption 开启渲染
+  myChart.setOption(dataset);
+#+END_SRC
