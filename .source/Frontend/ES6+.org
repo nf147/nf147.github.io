@@ -134,6 +134,15 @@ for..var / for..let:
   const a3 = a1 + a2;
   const a4 = [...a1, 39393939, 444, ...a2];
   console.log(a4);
+
+
+  // 结构化函数参数
+  function tell(name, age) {
+      console.log(name, age);
+  }
+
+  var aaa = ['tom', 333];
+  tell(...aaa);
 #+END_SRC
 
 * 模块
