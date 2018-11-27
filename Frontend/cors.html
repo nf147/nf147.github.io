@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-22 周四 02:19 -->
+<!-- 2018-11-27 周二 06:41 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CORS 跨域</title>
@@ -20,16 +20,158 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org18c60b7">1. 手动解除浏览器跨域限制</a></li>
+<li><a href="#orgf190481">1. 什么是跨域问题</a>
+<ul>
+<li><a href="#org94c1565">1.1. JSONP</a></li>
+<li><a href="#org18cc456">1.2. CORS (Cross Origin Resource Share)</a></li>
+</ul>
+</li>
+<li><a href="#org18c60b7">2. 手动解除浏览器跨域限制</a></li>
 </ul>
 </div>
 </nav>
 
 
 
-<section id="outline-container-org18c60b7" class="outline-2">
-<h2 id="org18c60b7"><span class="section-number-2">1</span> 手动解除浏览器跨域限制</h2>
+<section id="outline-container-orgf190481" class="outline-2">
+<h2 id="orgf190481"><span class="section-number-2">1</span> 什么是跨域问题</h2>
 <div class="outline-text-2" id="text-1">
+<p>
+基于安全考虑，<b>浏览器</b>会限制使用脚本发起任何跨域请求。
+</p>
+<blockquote>
+<p>
+所谓的跨域请求，就是与当前页面的 http/ip/port 不一样的请求。
+</p>
+</blockquote>
+
+<p>
+但在实际运用中，跨域获取数据的需求越来越强烈。
+</p>
+
+<p>
+在标准没有出现之前，就出现了很多方法。广为使用的一种就是 JSONP。
+</p>
+</div>
+
+<div id="outline-container-org94c1565" class="outline-3">
+<h3 id="org94c1565"><span class="section-number-3">1.1</span> JSONP</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+虽然浏览器有跨域请求的限制，但是一直以来，页面中的 src 元素链接的数据是可以跨域的:
+</p>
+<pre class="example">
+&lt;script src="http://jquery.com/jquery.js"&gt;&lt;/script&gt;
+&lt;img src="http://yigehenhaodewangzhan.com/meinv.jpg"/&gt;
+</pre>
+
+<p>
+所以很多人就基于这一漏洞（特性），开发出了一种跨域套路，称为 jsonp。
+</p>
+
+<p>
+很简单:
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-comment-delimiter">// </span><span class="org-comment">&#23450;&#20041;&#20989;&#25968;&#65292;&#29992;&#26469;&#21152;&#36733;&#36328;&#22495;(&#33050;&#26412;)&#25968;&#25454;</span>
+<span class="org-keyword">function</span> <span class="org-function-name">loadScript</span>(<span class="org-variable-name">src</span>) {
+    <span class="org-keyword">const</span> <span class="org-variable-name">script</span> = document.createElement(<span class="org-string">'script'</span>);
+    script.src = src;
+    document.body.appendChild(script);
+}
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#28982;&#21518;&#65292;&#23601;&#21487;&#20197;&#20351;&#29992;&#19978;&#36848;&#20989;&#25968;&#65292;&#20174;&#20219;&#20309;&#26381;&#21153;&#22120;&#33719;&#21462;&#25968;&#25454;&#20102;</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#33719;&#21462;&#30340;&#25968;&#25454;&#34987;&#23884;&#20837;&#21040;&#39029;&#38754;&#30340; &lt;script&gt;&#25968;&#25454;&lt;/script&gt; &#20013;&#65292;&#28982;&#21518;&#34987;&#24403;&#20570;&#33050;&#26412;&#36816;&#34892;</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#25152;&#20197;&#65292;&#25105;&#20204;&#21487;&#20197;&#25226;&#25968;&#25454;&#23553;&#35013;&#20026;&#19968;&#27573;&#21487;&#20197;&#36816;&#34892;&#30340;&#33050;&#26412;&#65292;&#27604;&#22914;:</span>
+<span class="org-comment-delimiter">//   </span><span class="org-comment">foo({'name': '&#24352;&#19977;', 'age': 22})</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#36825;&#26679;&#65292;&#21482;&#35201;&#25105;&#20204;&#22312;&#39029;&#38754;&#20013;&#23384;&#22312; foo &#20989;&#25968;&#65292;&#36825;&#20010;&#20989;&#25968;&#23601;&#20250;&#34987;&#35843;&#29992;&#65292;</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#38388;&#25509;&#22320;&#65292;&#25105;&#20204;&#23601;&#21487;&#20197;&#33719;&#21462;&#24182;&#20351;&#29992;&#26381;&#21153;&#22120;&#24471;&#21040;&#30340;&#8220;&#24618;&#24322;&#30340;&#25968;&#25454;&#8221;&#20102;</span>
+loadScript(<span class="org-string">'http://&#21478;&#19968;&#20010;&#32593;&#31449;.com/api'</span>);
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#36825;&#26159;&#39029;&#38754;&#20013;&#23384;&#22312;&#30340; foo &#26041;&#27861;</span>
+<span class="org-keyword">function</span> <span class="org-function-name">foo</span> (<span class="org-variable-name">data</span>) {
+    console.log(data);
+}
+</pre>
+</div>
+
+<p>
+另外，jQuery 对这种 jsonp 的方式做了很好的封装，使用起来特别简单:
+</p>
+<div class="org-src-container">
+<pre class="src src-js">$.ajax({
+    method: <span class="org-string">'get'</span>,
+    url: <span class="org-string">'http://&#20877;&#19968;&#20010;&#32593;&#31449;.com/api'</span>,
+    dataType: <span class="org-string">'jsonp'</span>,  <span class="org-comment-delimiter">// </span><span class="org-comment">&#36820;&#22238;&#30340;&#31867;&#22411;</span>
+    jsonp: <span class="org-string">'callback'</span>,
+    jsonpCallback=<span class="org-string">'xxx'</span>
+}).done(console.log);
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org18cc456" class="outline-3">
+<h3 id="org18cc456"><span class="section-number-3">1.2</span> CORS (Cross Origin Resource Share)</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+一年一年又一年，过去了很多年，所有人只能忍受跨域的问题，想尽各种办法曲线救国。
+</p>
+
+<p>
+终于，等待了很多年之后，跨域的官方标准出现了，他就是 CORS。
+</p>
+
+<p>
+它的实现原理很简单:
+</p>
+<blockquote>
+<p>
+天王盖地虎，宝塔镇河妖
+</p>
+</blockquote>
+
+<p>
+<b>浏览器</b>说，如果想让我显示跨域请求获取的数据，是可以的，不过要满足我的要求:
+</p>
+<ol class="org-ol">
+<li>我，浏览器，在用户发送跨域请求的时候，会自动在请求 head 里追加 <code>Origin</code> 字段</li>
+<li>你，服务器，如果允许我访问你的数据，你就在返回的时候在响应 head 里添加 <code>Access-Control-Allow-Origin</code> 字段</li>
+<li>我如果能从你返回的数据里发现 <code>Access-Control-Allow-Origin</code> 并核对正确，就向用户渲染数据，否则。。一概跨域错误！！！</li>
+</ol>
+
+<p>
+一个成功的跨域请求的发送、响应信息为:
+</p>
+<pre class="example">
+# ---请求---
+GET /resources/public-data/ HTTP/1.1
+Host: bar.other
+User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; en-US; rv:1.9.1b3pre) Gecko/20081130 Minefield/3.1b3pre
+...
+Origin: http://foo.example
+
+
+# ---响应---
+HTTP/1.1 200 OK
+Content-Type: application/xml
+...
+Access-Control-Allow-Origin: *
+
+# ---数据---
+[XML Data]
+</pre>
+
+<p>
+当然，CORS 跨域方式。
+</p>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org18c60b7" class="outline-2">
+<h2 id="org18c60b7"><span class="section-number-2">2</span> 手动解除浏览器跨域限制</h2>
+<div class="outline-text-2" id="text-2">
 <p>
 将谷歌浏览器的跨域限制给去除，只需要在启动的快捷方式里添加参数即可:
 </p>
@@ -49,7 +191,7 @@
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-22 周四 02:19</p>
+<p class="date">Created: 2018-11-27 周二 06:41</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

@@ -2,6 +2,97 @@
 
 
 
+* 什么是跨域问题
+
+基于安全考虑，*浏览器* 会限制使用脚本发起任何跨域请求。
+#+BEGIN_QUOTE
+所谓的跨域请求，就是与当前页面的 http/ip/port 不一样的请求。
+#+END_QUOTE
+
+但在实际运用中，跨域获取数据的需求越来越强烈。
+
+在标准没有出现之前，就出现了很多方法。广为使用的一种就是 JSONP。
+
+** JSONP
+
+虽然浏览器有跨域请求的限制，但是一直以来，页面中的 src 元素链接的数据是可以跨域的:
+: <script src="http://jquery.com/jquery.js"></script>
+: <img src="http://yigehenhaodewangzhan.com/meinv.jpg"/>
+
+所以很多人就基于这一漏洞（特性），开发出了一种跨域套路，称为 jsonp。
+
+很简单:
+#+BEGIN_SRC js
+  // 定义函数，用来加载跨域(脚本)数据
+  function loadScript(src) {
+      const script = document.createElement('script');
+      script.src = src;
+      document.body.appendChild(script);
+  }
+
+  // 然后，就可以使用上述函数，从任何服务器获取数据了
+  // 获取的数据被嵌入到页面的 <script>数据</script> 中，然后被当做脚本运行
+  // 所以，我们可以把数据封装为一段可以运行的脚本，比如:
+  //   foo({'name': '张三', 'age': 22})
+  // 这样，只要我们在页面中存在 foo 函数，这个函数就会被调用，
+  // 间接地，我们就可以获取并使用服务器得到的“怪异的数据”了
+  loadScript('http://另一个网站.com/api');
+
+  // 这是页面中存在的 foo 方法
+  function foo (data) {
+      console.log(data);
+  }
+#+END_SRC
+
+另外，jQuery 对这种 jsonp 的方式做了很好的封装，使用起来特别简单:
+#+BEGIN_SRC js
+  $.ajax({
+      method: 'get',
+      url: 'http://再一个网站.com/api',
+      dataType: 'jsonp',  // 返回的类型
+      jsonp: 'callback',
+      jsonpCallback='xxx'
+  }).done(console.log);
+#+END_SRC
+
+** CORS (Cross Origin Resource Share)
+
+一年一年又一年，过去了很多年，所有人只能忍受跨域的问题，想尽各种办法曲线救国。
+
+终于，等待了很多年之后，跨域的官方标准出现了，他就是 CORS。
+
+它的实现原理很简单:
+#+BEGIN_QUOTE
+天王盖地虎，宝塔镇河妖
+#+END_QUOTE
+
+*浏览器* 说，如果想让我显示跨域请求获取的数据，是可以的，不过要满足我的要求:
+1. 我，浏览器，在用户发送跨域请求的时候，会自动在请求 head 里追加 ~Origin~ 字段
+2. 你，服务器，如果允许我访问你的数据，你就在返回的时候在响应 head 里添加 ~Access-Control-Allow-Origin~ 字段
+3. 我如果能从你返回的数据里发现 ~Access-Control-Allow-Origin~ 并核对正确，就向用户渲染数据，否则。。一概跨域错误！！！
+
+一个成功的跨域请求的发送、响应信息为:
+#+BEGIN_EXAMPLE
+  # ---请求---
+  GET /resources/public-data/ HTTP/1.1
+  Host: bar.other
+  User-Agent: Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; en-US; rv:1.9.1b3pre) Gecko/20081130 Minefield/3.1b3pre
+  ...
+  Origin: http://foo.example
+
+
+  # ---响应---
+  HTTP/1.1 200 OK
+  Content-Type: application/xml
+  ...
+  Access-Control-Allow-Origin: *
+
+  # ---数据---
+  [XML Data]
+#+END_EXAMPLE
+
+当然，CORS 跨域方式。
+
 * 手动解除浏览器跨域限制
 
 将谷歌浏览器的跨域限制给去除，只需要在启动的快捷方式里添加参数即可:
