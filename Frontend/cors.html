@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-27 周二 06:41 -->
+<!-- 2018-11-27 周二 07:15 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CORS 跨域</title>
@@ -163,8 +163,65 @@ Access-Control-Allow-Origin: *
 </pre>
 
 <p>
-当然，CORS 跨域方式。
+当然，CORS 跨域方式不仅能处理普通的 GET 请求，它也支持其他一些复杂请求。
 </p>
+
+<p>
+对于一些复杂请求，浏览器需要一个预检过程(Preflight)。这主要是防止:
+</p>
+
+<p>
+<b>浏览器费了好大劲把请求发送到服务器；服务器又费了很大劲将响应返回给客户端后；浏览器却发现请求不符合跨域标准，果断抛跨域错误</b>
+</p>
+
+<p>
+这样，那些花费不久白费了吗？？？？
+</p>
+
+<p>
+当然，预检还能从服务器获取自己要发送数据的注意事项（可以以什么 method 发送，要携带什么样的请求 head 等）。如果预检都不合格，那么就没后续了，也就避免浪费了。
+</p>
+
+<p>
+preflight 是一个 Option 请求，不带数据，但带着额外的请求头:
+</p>
+<pre class="example">
+Access-Control-Request-Method: POST
+Access-Control-Request-Headers: X-PINGOTHER, Content-Type
+</pre>
+
+<p>
+对于 preflight 请求，浏览器应该要有相应的回应:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">Access-Control-Allow-Origin: http://foo.example         <span class="org-comment-delimiter"># </span><span class="org-comment">&#26159;&#19981;&#26159;&#25903;&#25345;&#36328;&#22495;</span>
+Access-Control-Allow-Methods: POST, GET, OPTIONS        <span class="org-comment-delimiter"># </span><span class="org-comment">&#20320;&#21518;&#32493;&#30340;&#35831;&#27714;&#21487;&#20197;&#20351;&#29992;&#21861;&#26041;&#27861;</span>
+Access-Control-Allow-Headers: X-PINGOTHER, Content-Type <span class="org-comment-delimiter"># </span><span class="org-comment">&#20320;&#21487;&#20197;&#25658;&#24102;&#20160;&#20040;&#26679;&#30340; http &#22836;</span>
+Access-Control-Max-Age: 86400                           <span class="org-comment-delimiter"># </span><span class="org-comment">&#36825;&#27573;&#39044;&#26816;&#32467;&#26524;&#27983;&#35272;&#22120;&#20320;&#21487;&#20197;&#32531;&#23384;&#65292;&#20294;&#19981;&#35201;&#36229;&#36807;&#36825;&#20010;&#26102;&#38388;</span>
+</pre>
+</div>
+
+<p>
+另外，为了安全（。。。。就是为了安全），默认在跨域请求中，浏览器是不会将 cookie 等信息连带发送的。
+</p>
+
+<p>
+如果想发送这些信息咋办？告知浏览器:
+</p>
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-keyword">var</span> <span class="org-variable-name">invocation</span> = <span class="org-keyword">new</span> <span class="org-type">XMLHttpRequest</span>();
+<span class="org-keyword">var</span> <span class="org-variable-name">url</span> = <span class="org-string">'http://bar.other/resources/credentialed-content/'</span>;
+
+<span class="org-keyword">function</span> <span class="org-function-name">callOtherDomain</span>(){
+  <span class="org-keyword">if</span>(xhr) {
+    xhr.open(<span class="org-string">'GET'</span>, url, <span class="org-constant">true</span>);
+    xhr.withCredentials = <span class="org-constant">true</span>;  <span class="org-comment-delimiter">// </span><span class="org-comment">&#23601;&#26159;&#36825;&#21477;&#12290;&#22312; fetch &#21644; jQuery &#20013;&#26377;&#23545;&#24212;&#65292;&#33258;&#24049;&#23581;&#35797;</span>
+    xhr.onreadystatechange = handler;
+    xhr.send();
+  }
+}
+</pre>
+</div>
 </div>
 </div>
 </section>
@@ -191,7 +248,7 @@ Access-Control-Allow-Origin: *
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-27 周二 06:41</p>
+<p class="date">Created: 2018-11-27 周二 07:15</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

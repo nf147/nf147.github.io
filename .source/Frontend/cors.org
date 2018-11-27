@@ -91,7 +91,47 @@
   [XML Data]
 #+END_EXAMPLE
 
-当然，CORS 跨域方式。
+当然，CORS 跨域方式不仅能处理普通的 GET 请求，它也支持其他一些复杂请求。
+
+对于一些复杂请求，浏览器需要一个预检过程(Preflight)。这主要是防止:
+
+*浏览器费了好大劲把请求发送到服务器；服务器又费了很大劲将响应返回给客户端后；浏览器却发现请求不符合跨域标准，果断抛跨域错误*
+
+这样，那些花费不久白费了吗？？？？
+
+当然，预检还能从服务器获取自己要发送数据的注意事项（可以以什么 method 发送，要携带什么样的请求 head 等）。
+如果预检都不合格，那么就没后续了，也就避免浪费了。
+
+preflight 是一个 Option 请求，不带数据，但带着额外的请求头:
+#+BEGIN_EXAMPLE
+  Access-Control-Request-Method: POST
+  Access-Control-Request-Headers: X-PINGOTHER, Content-Type
+#+END_EXAMPLE
+
+对于 preflight 请求，浏览器应该要有相应的回应:
+#+BEGIN_SRC sh
+  Access-Control-Allow-Origin: http://foo.example         # 是不是支持跨域
+  Access-Control-Allow-Methods: POST, GET, OPTIONS        # 你后续的请求可以使用啥方法
+  Access-Control-Allow-Headers: X-PINGOTHER, Content-Type # 你可以携带什么样的 http 头
+  Access-Control-Max-Age: 86400                           # 这段预检结果浏览器你可以缓存，但不要超过这个时间
+#+END_SRC
+
+另外，为了安全（。。。。就是为了安全），默认在跨域请求中，浏览器是不会将 cookie 等信息连带发送的。
+
+如果想发送这些信息咋办？告知浏览器:
+#+BEGIN_SRC js
+  var invocation = new XMLHttpRequest();
+  var url = 'http://bar.other/resources/credentialed-content/';
+
+  function callOtherDomain(){
+    if(xhr) {
+      xhr.open('GET', url, true);
+      xhr.withCredentials = true;  // 就是这句。在 fetch 和 jQuery 中有对应，自己尝试
+      xhr.onreadystatechange = handler;
+      xhr.send();
+    }
+  }
+#+END_SRC
 
 * 手动解除浏览器跨域限制
 
