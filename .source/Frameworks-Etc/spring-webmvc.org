@@ -944,11 +944,40 @@ MultipartResolver 的实现类有两个：
 
 Spring 提供了三种方式:
 1. ~CorsFilter~ 过滤器
-2. ~CorsConfiguration~ Bean
+2. ~<mvc:cors>~ Bean
 3. ~@CrossOrigin~ 注解
 
-@CrossOrigin 注解本质上也是用来配置 CorsConfiguration。
+这三种方式，本质上都是用来配置 CorsConfiguration。
 
+** CorsFilter
+
+首先，依赖 CorsFilter 创建自己的过滤器:
+#+BEGIN_SRC java
+  public class MyCorsFilter extends CorsFilter {
+      public MyCorsFilter() {
+          super(configurationSource());
+      }
+
+      private static UrlBasedCorsConfigurationSource configurationSource() {
+          UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
+          CorsConfiguration config = new CorsConfiguration();
+          config.setAllowedOrigins(Collections.singletonList("http://domain.com"));
+          config.setAllowCredentials(true);
+
+          CorsConfiguration config2 = new CorsConfiguration();
+          config2.setAllowedOrigins(Collections.singletonList("http://domain.com"));
+          config2.setAllowCredentials(true);
+
+          source.registerCorsConfiguration("/**", config);
+          source.registerCorsConfiguration("/xxx", config2);
+
+          return source;
+      }
+  }
+#+END_SRC
+
+然后，将其注册为一个过滤器即可。
 
 ** <mvc:cors>
 
