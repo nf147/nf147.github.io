@@ -940,3 +940,73 @@ MultipartResolver 的实现类有两个：
 
 
 
+* CORS (Cross Origin Resources Share) 跨域
+
+Spring 提供了三种方式:
+1. ~CorsFilter~ 过滤器
+2. ~CorsConfiguration~ Bean
+3. ~@CrossOrigin~ 注解
+
+@CrossOrigin 注解本质上也是用来配置 CorsConfiguration。
+
+
+** <mvc:cors>
+
+#+BEGIN_SRC sgml
+  <mvc:cors>
+    <mvc:mapping path="/xxx"
+                 allowed-origins="http://localhost:7070"
+                 allowed-methods="GET, POST"
+                 allowed-headers="Accept-Charset, Accept, Content-Type"
+                 allow-credentials="true" />
+    <mvc:mapping path="/yyy/*"
+                 allowed-origins="*"
+                 allowed-methods="*"
+                 allowed-headers="*" />
+  </mvc:cors>
+#+END_SRC
+
+** @CrossOrigin
+
+#+BEGIN_SRC java
+  // 将跨域设置在类上，那么所有的 mapping 都会使用这个策略
+  // 如果不加参数，那么将会使用配置中的默认参数
+  @CrossOrigin
+  public class CORSController {
+      public String cors(@RequestParam(defaultValue = "callback") String callback, HttpServletResponse response) {
+          // 最原始的方式，手动写请求头
+          response.setHeader("Access-Control-Allow-Origin", "http://192.168.163.1:8081");
+          return callback + "('hello')";
+      }
+
+
+      // 将跨域设置在方法上
+      @RequestMapping("/cors")
+      @CrossOrigin(origins = {"http://localhost:8080", "http://remotehost:82323"},
+                   methods = {RequestMethod.GET, RequestMethod.POST},
+                   allowedHeaders = {"Content-Type", "skfjksdjfk"},
+                   allowCredentials = "true",
+                   maxAge = 1898978
+                   )
+      @RequestMapping("/rrr")
+      public String rrr(@RequestParam(defaultValue = "callback") String callback) {
+          return callback + "('rrr')";
+      }
+  }
+
+#+END_SRC
+
+** 结合 @ControllerAdvice 使用，进行全局化
+
+其实也可以采用全注解的方式:
+
+#+BEGIN_SRC java
+  @Component
+  @ControllerAdvice
+  @CrossOrigin
+  public class CorsAdvice {
+  }
+#+END_SRC
+
+
+

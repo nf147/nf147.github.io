@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-22 周四 02:19 -->
+<!-- 2018-11-28 Wed 01:01 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Web MVC</title>
@@ -65,6 +65,13 @@
 <li><a href="#orgb5dd841">10.1. Upload</a></li>
 <li><a href="#org4c13c75">10.2. Download</a></li>
 <li><a href="#org1e450aa">10.3. 示例</a></li>
+</ul>
+</li>
+<li><a href="#orgadada0c">11. CORS (Cross Origin Resources Share) 跨域</a>
+<ul>
+<li><a href="#org3bb037c">11.1. &lt;mvc:cors&gt;</a></li>
+<li><a href="#orgb4c2e33">11.2. @CrossOrigin</a></li>
+<li><a href="#org108b611">11.3. 结合 @ControllerAdvice 使用，进行全局化</a></li>
 </ul>
 </li>
 </ul>
@@ -1401,10 +1408,104 @@ MultipartResolver 的实现类有两个：
 </div>
 </div>
 </section>
+
+
+
+
+<section id="outline-container-orgadada0c" class="outline-2">
+<h2 id="orgadada0c"><span class="section-number-2">11</span> CORS (Cross Origin Resources Share) 跨域</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+Spring 提供了三种方式:
+</p>
+<ol class="org-ol">
+<li><code>CorsFilter</code> 过滤器</li>
+<li><code>CorsConfiguration</code> Bean</li>
+<li><code>@CrossOrigin</code> 注解</li>
+</ol>
+
+<p>
+@CrossOrigin 注解本质上也是用来配置 CorsConfiguration。
+</p>
+</div>
+
+
+<div id="outline-container-org3bb037c" class="outline-3">
+<h3 id="org3bb037c"><span class="section-number-3">11.1</span> &lt;mvc:cors&gt;</h3>
+<div class="outline-text-3" id="text-11-1">
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-sgml-namespace">mvc</span>:<span class="org-function-name">cors</span>&gt;
+  &lt;<span class="org-sgml-namespace">mvc</span>:<span class="org-function-name">mapping</span> <span class="org-variable-name">path</span>=<span class="org-string">"/xxx"</span>
+               <span class="org-variable-name">allowed-origins</span>=<span class="org-string">"http://localhost:7070"</span>
+               <span class="org-variable-name">allowed-methods</span>=<span class="org-string">"GET, POST"</span>
+               <span class="org-variable-name">allowed-headers</span>=<span class="org-string">"Accept-Charset, Accept, Content-Type"</span>
+               <span class="org-variable-name">allow-credentials</span>=<span class="org-string">"true"</span> /&gt;
+  &lt;<span class="org-sgml-namespace">mvc</span>:<span class="org-function-name">mapping</span> <span class="org-variable-name">path</span>=<span class="org-string">"/yyy/*"</span>
+               <span class="org-variable-name">allowed-origins</span>=<span class="org-string">"*"</span>
+               <span class="org-variable-name">allowed-methods</span>=<span class="org-string">"*"</span>
+               <span class="org-variable-name">allowed-headers</span>=<span class="org-string">"*"</span> /&gt;
+&lt;/<span class="org-sgml-namespace">mvc</span>:<span class="org-function-name">cors</span>&gt;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb4c2e33" class="outline-3">
+<h3 id="orgb4c2e33"><span class="section-number-3">11.2</span> @CrossOrigin</h3>
+<div class="outline-text-3" id="text-11-2">
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-comment-delimiter">// </span><span class="org-comment">&#23558;&#36328;&#22495;&#35774;&#32622;&#22312;&#31867;&#19978;&#65292;&#37027;&#20040;&#25152;&#26377;&#30340; mapping &#37117;&#20250;&#20351;&#29992;&#36825;&#20010;&#31574;&#30053;</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#22914;&#26524;&#19981;&#21152;&#21442;&#25968;&#65292;&#37027;&#20040;&#23558;&#20250;&#20351;&#29992;&#37197;&#32622;&#20013;&#30340;&#40664;&#35748;&#21442;&#25968;</span>
+<span class="org-c-annotation">@CrossOrigin</span>
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">CORSController</span> {
+    <span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">cors</span>(<span class="org-c-annotation">@RequestParam</span>(defaultValue = <span class="org-string">"callback"</span>) <span class="org-type">String</span> <span class="org-variable-name">callback</span>, <span class="org-type">HttpServletResponse</span> <span class="org-variable-name">response</span>) {
+        <span class="org-comment-delimiter">// </span><span class="org-comment">&#26368;&#21407;&#22987;&#30340;&#26041;&#24335;&#65292;&#25163;&#21160;&#20889;&#35831;&#27714;&#22836;</span>
+        response.setHeader(<span class="org-string">"Access-Control-Allow-Origin"</span>, <span class="org-string">"http://192.168.163.1:8081"</span>);
+        <span class="org-keyword">return</span> callback + <span class="org-string">"('hello')"</span>;
+    }
+
+
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&#23558;&#36328;&#22495;&#35774;&#32622;&#22312;&#26041;&#27861;&#19978;</span>
+    <span class="org-c-annotation">@RequestMapping</span>(<span class="org-string">"/cors"</span>)
+    <span class="org-c-annotation">@CrossOrigin</span>(origins = {<span class="org-string">"http://localhost:8080"</span>, <span class="org-string">"http://remotehost:82323"</span>},
+                 methods = {<span class="org-constant">RequestMethod</span>.GET, <span class="org-constant">RequestMethod</span>.POST},
+                 allowedHeaders = {<span class="org-string">"Content-Type"</span>, <span class="org-string">"skfjksdjfk"</span>},
+                 allowCredentials = <span class="org-string">"true"</span>,
+                 maxAge = 1898978
+                 )
+    <span class="org-c-annotation">@RequestMapping</span>(<span class="org-string">"/rrr"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">rrr</span>(<span class="org-c-annotation">@RequestParam</span>(defaultValue = <span class="org-string">"callback"</span>) <span class="org-type">String</span> <span class="org-variable-name">callback</span>) {
+        <span class="org-keyword">return</span> callback + <span class="org-string">"('rrr')"</span>;
+    }
+}
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org108b611" class="outline-3">
+<h3 id="org108b611"><span class="section-number-3">11.3</span> 结合 @ControllerAdvice 使用，进行全局化</h3>
+<div class="outline-text-3" id="text-11-3">
+<p>
+其实也可以采用全注解的方式:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Component</span>
+<span class="org-c-annotation">@ControllerAdvice</span>
+<span class="org-c-annotation">@CrossOrigin</span>
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">CorsAdvice</span> {
+}
+</pre>
+</div>
+</div>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-22 周四 02:19</p>
+<p class="date">Created: 2018-11-28 Wed 01:01</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
