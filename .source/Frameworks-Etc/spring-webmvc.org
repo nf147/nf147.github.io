@@ -687,8 +687,9 @@ Hibernate Validator 附加的 constraint:
   }
 #+END_SRC
 
-** 自定义 HandlerExceptionResolver
+** 自定义 HandlerExceptionResolver，用于全局异常处理
 
+首先，定义一个 MyExceptionResolver 异常处理类:
 #+BEGIN_SRC java
   public class MyExceptionResolver extends AbstractHandlerExceptionResolver {
       @Override
@@ -702,6 +703,15 @@ Hibernate Validator 附加的 constraint:
       }
   }
 #+END_SRC
+
+然后，将其在 xml 中注册:
+#+BEGIN_SRC sgml
+  <bean id="exceptionResolver" class="com.nf147.test01.exceptionhandler.MyExceptionResolver" />
+#+END_SRC
+
+然后，容器启动的时候，就不会将 DefaultHandlerExceptionResolver 的实例放到容器里了。
+
+于是，容器里就只有这一个 HandlerExceptionResolver 处理类了。
 
 ** 使用注解的方式 @ExceptionHandler/@ControllerAdvice
 

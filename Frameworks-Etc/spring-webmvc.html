@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-29 周四 01:36 -->
+<!-- 2018-11-29 周四 02:16 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Web MVC</title>
@@ -60,7 +60,7 @@
 <ul>
 <li><a href="#orgcacdd60">6.1. 使用默认的 DefaultHandlerExceptionResolver 异常处理类</a></li>
 <li><a href="#org5bbdf74">6.2. 编程式异常处理</a></li>
-<li><a href="#orga8647e0">6.3. 自定义 HandlerExceptionResolver</a></li>
+<li><a href="#orgd29c5e5">6.3. 自定义 HandlerExceptionResolver，用于全局异常处理</a></li>
 <li><a href="#org585e455">6.4. 使用注解的方式 @ExceptionHandler/@ControllerAdvice</a></li>
 </ul>
 </li>
@@ -1077,9 +1077,12 @@ Hibernate Validator 附加的 constraint:
 </div>
 </div>
 
-<div id="outline-container-orga8647e0" class="outline-3">
-<h3 id="orga8647e0"><span class="section-number-3">6.3</span> 自定义 HandlerExceptionResolver</h3>
+<div id="outline-container-orgd29c5e5" class="outline-3">
+<h3 id="orgd29c5e5"><span class="section-number-3">6.3</span> 自定义 HandlerExceptionResolver，用于全局异常处理</h3>
 <div class="outline-text-3" id="text-6-3">
+<p>
+首先，定义一个 MyExceptionResolver 异常处理类:
+</p>
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">MyExceptionResolver</span> <span class="org-keyword">extends</span> <span class="org-type">AbstractHandlerExceptionResolver</span> {
     <span class="org-c-annotation">@Override</span>
@@ -1094,6 +1097,22 @@ Hibernate Validator 附加的 constraint:
 }
 </pre>
 </div>
+
+<p>
+然后，将其在 xml 中注册:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"exceptionResolver"</span> <span class="org-variable-name">class</span>=<span class="org-string">"com.nf147.test01.exceptionhandler.MyExceptionResolver"</span> /&gt;
+</pre>
+</div>
+
+<p>
+然后，容器启动的时候，就不会将 DefaultHandlerExceptionResolver 的实例放到容器里了。
+</p>
+
+<p>
+于是，容器里就只有这一个 HandlerExceptionResolver 处理类了。
+</p>
 </div>
 </div>
 
@@ -1684,7 +1703,7 @@ Spring 提供了三种方式:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-29 周四 01:36</p>
+<p class="date">Created: 2018-11-29 周四 02:16</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
