@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-11-28 Wed 02:23 -->
+<!-- 2018-11-29 周四 01:36 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Web MVC</title>
@@ -56,7 +56,14 @@
 <li><a href="#org8d3635b">5.3. Spring Validator 接口</a></li>
 </ul>
 </li>
-<li><a href="#org440faf2">6. Exception (异常处理)</a></li>
+<li><a href="#org440faf2">6. Exception (异常处理)</a>
+<ul>
+<li><a href="#orgcacdd60">6.1. 使用默认的 DefaultHandlerExceptionResolver 异常处理类</a></li>
+<li><a href="#org5bbdf74">6.2. 编程式异常处理</a></li>
+<li><a href="#orga8647e0">6.3. 自定义 HandlerExceptionResolver</a></li>
+<li><a href="#org585e455">6.4. 使用注解的方式 @ExceptionHandler/@ControllerAdvice</a></li>
+</ul>
+</li>
 <li><a href="#org0f6ca4a">7. View</a></li>
 <li><a href="#org6f6bdd1">8. I18N (国际化)</a></li>
 <li><a href="#org1575ae9">9. Theme (主题)</a></li>
@@ -1035,7 +1042,141 @@ Hibernate Validator 附加的 constraint:
 
 <section id="outline-container-org440faf2" class="outline-2">
 <h2 id="org440faf2"><span class="section-number-2">6</span> Exception (异常处理)</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+<div id="outline-container-orgcacdd60" class="outline-3">
+<h3 id="orgcacdd60"><span class="section-number-3">6.1</span> 使用默认的 DefaultHandlerExceptionResolver 异常处理类</h3>
+</div>
+<div id="outline-container-org5bbdf74" class="outline-3">
+<h3 id="org5bbdf74"><span class="section-number-3">6.2</span> 编程式异常处理</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+在代码中，使用 try&#x2026;catch 的方式，将所有（相关的）异常，全都处理妥当。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">add</span>(<span class="org-type">Emp</span> <span class="org-variable-name">emp</span>, <span class="org-type">Model</span> <span class="org-variable-name">model</span>) {
+    <span class="org-keyword">try</span> {
+        empService.addEmp(emp);
+    } <span class="org-keyword">catch</span> (<span class="org-type">DbException</span> <span class="org-variable-name">e</span>) {
+        model.addAttribute(<span class="org-string">"msg"</span>, e);
+        <span class="org-keyword">return</span> <span class="org-string">"warn"</span>;
+    } <span class="org-keyword">catch</span> (<span class="org-type">DataException</span> <span class="org-variable-name">e</span>) {
+        model.addAttribute(<span class="org-string">"msg"</span>, e.getMessage());
+        <span class="org-keyword">return</span> <span class="org-string">"input"</span>;
+    } <span class="org-keyword">catch</span> (<span class="org-type">MyBatisSystemException</span> <span class="org-variable-name">e</span>) {
+        <span class="org-keyword">return</span> <span class="org-string">"unknown err"</span>;
+    } <span class="org-keyword">catch</span> (<span class="org-type">Exception</span> <span class="org-variable-name">e</span>) {
+        <span class="org-keyword">return</span> <span class="org-string">"unknown err"</span>;
+    }
+
+    <span class="org-keyword">return</span> <span class="org-string">"success"</span>;
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga8647e0" class="outline-3">
+<h3 id="orga8647e0"><span class="section-number-3">6.3</span> 自定义 HandlerExceptionResolver</h3>
+<div class="outline-text-3" id="text-6-3">
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">MyExceptionResolver</span> <span class="org-keyword">extends</span> <span class="org-type">AbstractHandlerExceptionResolver</span> {
+    <span class="org-c-annotation">@Override</span>
+    <span class="org-keyword">protected</span> <span class="org-type">ModelAndView</span> <span class="org-function-name">doResolveException</span>(<span class="org-type">HttpServletRequest</span> <span class="org-variable-name">request</span>, <span class="org-type">HttpServletResponse</span> <span class="org-variable-name">response</span>, <span class="org-type">Object</span> <span class="org-variable-name">handler</span>, <span class="org-type">Exception</span> <span class="org-variable-name">ex</span>) {
+        <span class="org-keyword">if</span> (ex <span class="org-keyword">instanceof</span> DbException) {
+            <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">ModelAndView</span>(<span class="org-string">"shujukucuowu"</span>);
+        } <span class="org-keyword">else</span> <span class="org-keyword">if</span> (ex <span class="org-keyword">instanceof</span> TypeMismatchException) {
+            <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">ModelAndView</span>(<span class="org-string">"shujukucuowu"</span>);
+        }
+        <span class="org-keyword">return</span> <span class="org-constant">null</span>;
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org585e455" class="outline-3">
+<h3 id="org585e455"><span class="section-number-3">6.4</span> 使用注解的方式 @ExceptionHandler/@ControllerAdvice</h3>
+<div class="outline-text-3" id="text-6-4">
+<p>
+使用 @ExceptionHandler 进行类内异常处理:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Controller</span>
+<span class="org-c-annotation">@RequestMapping</span>(<span class="org-string">"/eee"</span>)
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">Emp3Controller</span> {
+
+    <span class="org-c-annotation">@Autowired</span>
+    <span class="org-keyword">private</span> <span class="org-type">EmpService</span> <span class="org-variable-name">empService</span>;
+
+    <span class="org-c-annotation">@RequestMapping</span>(method = <span class="org-constant">RequestMethod</span>.POST, produces = <span class="org-string">"text/plain; charset=UTF-8"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">add</span>(<span class="org-type">Emp</span> <span class="org-variable-name">emp</span>, <span class="org-type">Model</span> <span class="org-variable-name">model</span>) <span class="org-keyword">throws</span> <span class="org-type">Exception</span> {
+        empService.addEmp(emp);
+        <span class="org-keyword">return</span> <span class="org-string">"success"</span>;
+    }
+
+    <span class="org-c-annotation">@RequestMapping</span>(method = <span class="org-constant">RequestMethod</span>.GET)
+    <span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">selectAll</span>(<span class="org-type">Model</span> <span class="org-variable-name">model</span>) {
+        <span class="org-type">List</span>&lt;<span class="org-type">Emp</span>&gt; <span class="org-variable-name">empList</span> = empService.selectAll();
+        model.addAttribute(<span class="org-string">"empList"</span>, empList);
+        <span class="org-keyword">return</span> <span class="org-string">"emp_index"</span>;
+    }
+
+
+
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&#19979;&#38754;&#36825;&#20123;&#27880;&#35299;&#65292;&#21482;&#33021;&#20316;&#29992;&#20110;&#26412;&#31867;&#20043;&#20013;</span>
+
+    <span class="org-c-annotation">@ExceptionHandler</span>(DbException.<span class="org-keyword">class</span>)
+    <span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">handlerDbException</span> (<span class="org-type">Exception</span> <span class="org-variable-name">ex</span>, <span class="org-type">Model</span> <span class="org-variable-name">model</span>, <span class="org-type">WebRequest</span> <span class="org-variable-name">request</span>) {
+        model.addAttribute(<span class="org-string">"err"</span>, ex.getMessage());
+        <span class="org-keyword">return</span> <span class="org-string">"err1"</span>; <span class="org-comment-delimiter">// </span><span class="org-comment">&#40664;&#35748;&#36820;&#22238; status 200</span>
+    }
+
+    <span class="org-c-annotation">@ExceptionHandler</span>(DataException.<span class="org-keyword">class</span>)
+    <span class="org-c-annotation">@ResponseStatus</span>(value = <span class="org-constant">HttpStatus</span>.NOT_FOUND, reason = <span class="org-string">"&#25968;&#25454;&#24211;&#30340;&#38169;&#35823;"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">ModelAndView</span> <span class="org-function-name">handlerDbException2</span> () {
+        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">ModelAndView</span>(<span class="org-string">"err2"</span>);
+    }
+
+    <span class="org-c-annotation">@ExceptionHandler</span>(Exception.<span class="org-keyword">class</span>)
+    <span class="org-keyword">public</span> <span class="org-type">ResponseEntity</span> <span class="org-function-name">handlerDbException4</span> () {
+        <span class="org-keyword">return</span> ResponseEntity.status(333).body(<span class="org-string">"dkfjs"</span>);
+    }
+}
+
+</pre>
+</div>
+
+
+<p>
+配合 @ControllerAdvice 使用:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Component</span>
+<span class="org-c-annotation">@ControllerAdvice</span>
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">AllControllerAdvice</span> {
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&#36825;&#20010;&#22788;&#29702;&#65292;&#23545;&#25152;&#26377;&#30340; Controller &#37117;&#20250;&#26377;&#25928;</span>
+    <span class="org-c-annotation">@ExceptionHandler</span>(Exception.<span class="org-keyword">class</span>)
+    <span class="org-c-annotation">@ResponseStatus</span>(value = <span class="org-constant">HttpStatus</span>.URI_TOO_LONG)
+    <span class="org-c-annotation">@ResponseBody</span>
+    <span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">handlerDbException3</span> () {
+        <span class="org-keyword">return</span> <span class="org-string">"ksjfksd"</span>;
+    }
+
+    <span class="org-c-annotation">@ExceptionHandler</span>(RuntimeException.<span class="org-keyword">class</span>)
+    <span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">handlerDbException4</span> () {
+        <span class="org-keyword">return</span> <span class="org-string">"runtime"</span>;
+    }
+}
+</pre>
+</div>
+</div>
+</div>
 </section>
+
+
 <section id="outline-container-org0f6ca4a" class="outline-2">
 <h2 id="org0f6ca4a"><span class="section-number-2">7</span> View</h2>
 </section>
@@ -1543,7 +1684,7 @@ Spring 提供了三种方式:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-11-28 Wed 02:23</p>
+<p class="date">Created: 2018-11-29 周四 01:36</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

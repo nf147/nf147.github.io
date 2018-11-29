@@ -662,6 +662,117 @@ Hibernate Validator 附加的 constraint:
 #+HTML: <span style="font-size:4em;color:red;">略</span><br><br><br>
 
 * Exception (异常处理)
+** 使用默认的 DefaultHandlerExceptionResolver 异常处理类
+** 编程式异常处理
+
+在代码中，使用 try...catch 的方式，将所有（相关的）异常，全都处理妥当。
+
+#+BEGIN_SRC java
+  public String add(Emp emp, Model model) {
+      try {
+          empService.addEmp(emp);
+      } catch (DbException e) {
+          model.addAttribute("msg", e);
+          return "warn";
+      } catch (DataException e) {
+          model.addAttribute("msg", e.getMessage());
+          return "input";
+      } catch (MyBatisSystemException e) {
+          return "unknown err";
+      } catch (Exception e) {
+          return "unknown err";
+      }
+
+      return "success";
+  }
+#+END_SRC
+
+** 自定义 HandlerExceptionResolver
+
+#+BEGIN_SRC java
+  public class MyExceptionResolver extends AbstractHandlerExceptionResolver {
+      @Override
+      protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+          if (ex instanceof DbException) {
+              return new ModelAndView("shujukucuowu");
+          } else if (ex instanceof TypeMismatchException) {
+              return new ModelAndView("shujukucuowu");
+          }
+          return null;
+      }
+  }
+#+END_SRC
+
+** 使用注解的方式 @ExceptionHandler/@ControllerAdvice
+
+使用 @ExceptionHandler 进行类内异常处理:
+#+BEGIN_SRC java
+  @Controller
+  @RequestMapping("/eee")
+  public class Emp3Controller {
+
+      @Autowired
+      private EmpService empService;
+
+      @RequestMapping(method = RequestMethod.POST, produces = "text/plain; charset=UTF-8")
+      public String add(Emp emp, Model model) throws Exception {
+          empService.addEmp(emp);
+          return "success";
+      }
+
+      @RequestMapping(method = RequestMethod.GET)
+      public String selectAll(Model model) {
+          List<Emp> empList = empService.selectAll();
+          model.addAttribute("empList", empList);
+          return "emp_index";
+      }
+
+
+
+      // 下面这些注解，只能作用于本类之中
+
+      @ExceptionHandler(DbException.class)
+      public String handlerDbException (Exception ex, Model model, WebRequest request) {
+          model.addAttribute("err", ex.getMessage());
+          return "err1"; // 默认返回 status 200
+      }
+
+      @ExceptionHandler(DataException.class)
+      @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "数据库的错误")
+      public ModelAndView handlerDbException2 () {
+          return new ModelAndView("err2");
+      }
+
+      @ExceptionHandler(Exception.class)
+      public ResponseEntity handlerDbException4 () {
+          return ResponseEntity.status(333).body("dkfjs");
+      }
+  }
+
+#+END_SRC
+
+
+配合 @ControllerAdvice 使用:
+#+BEGIN_SRC java
+  @Component
+  @ControllerAdvice
+  public class AllControllerAdvice {
+      // 这个处理，对所有的 Controller 都会有效
+      @ExceptionHandler(Exception.class)
+      @ResponseStatus(value = HttpStatus.URI_TOO_LONG)
+      @ResponseBody
+      public String handlerDbException3 () {
+          return "ksjfksd";
+      }
+
+      @ExceptionHandler(RuntimeException.class)
+      public String handlerDbException4 () {
+          return "runtime";
+      }
+  }
+#+END_SRC
+
+
 * View
 
 * I18N (国际化)
