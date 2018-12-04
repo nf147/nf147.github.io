@@ -408,6 +408,12 @@ Spring 提供了两种方法将资源转换为发送给客户端的表述形式:
 就可以了。
 
 另外，如果想让返回的 JSON 对象中能够准确处理时间类型，需要用到 @JsonFormat 注解
+
+Spring 还内置了一些 Formatter 实现:
+- NumberFormatter，处理数字类型(比如 1, 000, 1000 格式的数据)
+- PercentFormatter，处理百分号数字
+- CurrencyFormatter，处理货币类型
+
 * DataBinding/Validation (验证)
 ** JSR-303
 
@@ -1160,3 +1166,18 @@ Spring 提供了三种方式:
 
 
 
+* RESTful/前后端分离
+* Task TODO
+
+** DONE task
+** DONE sub-task[2/2]
+*** DONE 任务需要分类
+*** DONE 任务需要制定优先级
+
+** TODO 任务示例[1/5]
+
+- [X] 需求分析
+- [ ] 软件详细设计
+- [ ] 编码实现
+- [ ] 测试
+- [ ] 部署发布
