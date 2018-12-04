@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-12-04 Tue 03:36 -->
+<!-- 2018-12-04 Tue 06:31 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Web MVC</title>
@@ -64,7 +64,13 @@
 <li><a href="#org585e455">6.4. 使用注解的方式 @ExceptionHandler/@ControllerAdvice</a></li>
 </ul>
 </li>
-<li><a href="#org0f6ca4a">7. View</a></li>
+<li><a href="#orgc743c7f">7. View (视图渲染，服务端渲染)</a>
+<ul>
+<li><a href="#org196e127">7.1. ViewResolver</a></li>
+<li><a href="#org9ed37c6">7.2. Spring JSP Taglib</a></li>
+<li><a href="#orgb127db0">7.3. Thymeleaf</a></li>
+</ul>
+</li>
 <li><a href="#org6f6bdd1">8. I18N (国际化)</a></li>
 <li><a href="#org1575ae9">9. Theme (主题)</a></li>
 <li><a href="#org6d00599">10. File Upload/Download (文件上传、下载)</a>
@@ -82,7 +88,11 @@
 <li><a href="#org108b611">11.4. 结合 @ControllerAdvice 使用，进行全局化</a></li>
 </ul>
 </li>
-<li><a href="#org130964b">12. RESTful/前后端分离</a></li>
+<li><a href="#org130964b">12. RESTful/前后端分离</a>
+<ul>
+<li><a href="#org3b5984a">12.1. 编码问题</a></li>
+</ul>
+</li>
 <li><a href="#org5909f07">13. Task TODO</a>
 <ul>
 <li><a href="#orgce4c3eb">13.1. <span class="done DONE">DONE</span> task</a></li>
@@ -1219,8 +1229,85 @@ Hibernate Validator 附加的 constraint:
 </section>
 
 
-<section id="outline-container-org0f6ca4a" class="outline-2">
-<h2 id="org0f6ca4a"><span class="section-number-2">7</span> View</h2>
+<section id="outline-container-orgc743c7f" class="outline-2">
+<h2 id="orgc743c7f"><span class="section-number-2">7</span> View (视图渲染，服务端渲染)</h2>
+<div class="outline-text-2" id="text-7">
+</div>
+<div id="outline-container-org196e127" class="outline-3">
+<h3 id="org196e127"><span class="section-number-3">7.1</span> ViewResolver</h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+可以同时配置多个视图解析器。
+</p>
+
+<p>
+Spring MVC 内部，支持内置的 JSP 解析，还支持经典的 FreeMaker。
+</p>
+
+<p>
+另外一个比较推荐使用的模板引擎是 Thymeleaf。
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9ed37c6" class="outline-3">
+<h3 id="org9ed37c6"><span class="section-number-3">7.2</span> Spring JSP Taglib</h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+通过这些标签，可以节省非常多的逻辑。比如，在 form 表单上，他们提供了:
+</p>
+<ul class="org-ul">
+<li>回显输入</li>
+<li>渲染错误信息</li>
+</ul>
+
+<p>
+相关的标签有很多，比如:
+</p>
+<ul class="org-ul">
+<li>form:form</li>
+<li>form:input</li>
+<li>form:error</li>
+<li>spring:message</li>
+<li>form:select&#x2026;</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb127db0" class="outline-3">
+<h3 id="orgb127db0"><span class="section-number-3">7.3</span> Thymeleaf</h3>
+<div class="outline-text-3" id="text-7-3">
+<p>
+优点:
+</p>
+<ul class="org-ul">
+<li>语法简单</li>
+<li>便与调试</li>
+<li>其他我不说了</li>
+</ul>
+
+<p>
+比如 Thymeleaf 的语法如下:
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;<span class="org-function-name">table</span>&gt;
+  &lt;<span class="org-function-name">thead</span>&gt;
+    &lt;<span class="org-function-name">tr</span>&gt;
+      &lt;<span class="org-function-name">th</span> <span class="org-sgml-namespace">th</span>:<span class="org-variable-name">text</span>=<span class="org-string">"#{msgs.headers.name}"</span>&gt;Name&lt;/<span class="org-function-name">th</span>&gt;
+      &lt;<span class="org-function-name">th</span> <span class="org-sgml-namespace">th</span>:<span class="org-variable-name">text</span>=<span class="org-string">"#{msgs.headers.price}"</span>&gt;Price&lt;/<span class="org-function-name">th</span>&gt;
+    &lt;/<span class="org-function-name">tr</span>&gt;
+  &lt;/<span class="org-function-name">thead</span>&gt;
+  &lt;<span class="org-function-name">tbody</span>&gt;
+    &lt;<span class="org-function-name">tr</span> <span class="org-sgml-namespace">th</span>:<span class="org-variable-name">each</span>=<span class="org-string">"prod: ${allProducts}"</span>&gt;
+      &lt;<span class="org-function-name">td</span> <span class="org-sgml-namespace">th</span>:<span class="org-variable-name">text</span>=<span class="org-string">"${prod.name}"</span>&gt;Oranges&lt;/<span class="org-function-name">td</span>&gt;
+      &lt;<span class="org-function-name">td</span> <span class="org-sgml-namespace">th</span>:<span class="org-variable-name">text</span>=<span class="org-string">"${#numbers.formatDecimal(prod.price, 1, 2)}"</span>&gt;0.99&lt;/<span class="org-function-name">td</span>&gt;
+    &lt;/<span class="org-function-name">tr</span>&gt;
+  &lt;/<span class="org-function-name">tbody</span>&gt;
+&lt;/<span class="org-function-name">table</span>&gt;
+</pre>
+</div>
+</div>
+</div>
 </section>
 
 <section id="outline-container-org6f6bdd1" class="outline-2">
@@ -1728,7 +1815,30 @@ Spring 提供了三种方式:
 
 <section id="outline-container-org130964b" class="outline-2">
 <h2 id="org130964b"><span class="section-number-2">12</span> RESTful/前后端分离</h2>
+<div class="outline-text-2" id="text-12">
+</div>
+<div id="outline-container-org3b5984a" class="outline-3">
+<h3 id="org3b5984a"><span class="section-number-3">12.1</span> 编码问题</h3>
+<div class="outline-text-3" id="text-12-1">
+<p>
+如何设置，才能避免乱码？
+</p>
+
+<p>
+Producer/Consumer (生成/消费模式)。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-comment-delimiter">// </span><span class="org-comment">&#35831;&#27714;&#20869;&#23481;&#31867;&#22411;&#24517;&#39035;&#20026; text/html</span>
+<span class="org-c-annotation">@RequestMapping</span>(value=<span class="org-string">"/aaa"</span>, consumes=<span class="org-string">"text/html"</span>);
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#23458;&#25143;&#31471;&#25509;&#25910; json &#19988;&#32534;&#30721;&#20026; utf-8</span>
+<span class="org-c-annotation">@RequestMapping</span>(value=<span class="org-string">"/bbb"</span>, produces=<span class="org-string">"application/json; charset=UTF-8"</span>);
+</pre>
+</div>
+</div>
+</div>
 </section>
+
 <section id="outline-container-org5909f07" class="outline-2">
 <h2 id="org5909f07"><span class="section-number-2">13</span> Task TODO</h2>
 <div class="outline-text-2" id="text-13">
@@ -1773,7 +1883,7 @@ Spring 提供了三种方式:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-12-04 Tue 03:36</p>
+<p class="date">Created: 2018-12-04 Tue 06:31</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

@@ -789,7 +789,52 @@ Hibernate Validator 附加的 constraint:
 #+END_SRC
 
 
-* View
+* View (视图渲染，服务端渲染)
+** ViewResolver
+
+可以同时配置多个视图解析器。
+
+Spring MVC 内部，支持内置的 JSP 解析，还支持经典的 FreeMaker。
+
+另外一个比较推荐使用的模板引擎是 Thymeleaf。
+
+** Spring JSP Taglib
+
+通过这些标签，可以节省非常多的逻辑。比如，在 form 表单上，他们提供了:
+- 回显输入
+- 渲染错误信息
+
+相关的标签有很多，比如:
+- form:form
+- form:input
+- form:error
+- spring:message
+- form:select...
+
+** Thymeleaf
+
+优点:
+- 语法简单
+- 便与调试
+- 其他我不说了
+
+比如 Thymeleaf 的语法如下:
+#+BEGIN_SRC html
+  <table>
+    <thead>
+      <tr>
+        <th th:text="#{msgs.headers.name}">Name</th>
+        <th th:text="#{msgs.headers.price}">Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="prod: ${allProducts}">
+        <td th:text="${prod.name}">Oranges</td>
+        <td th:text="${#numbers.formatDecimal(prod.price, 1, 2)}">0.99</td>
+      </tr>
+    </tbody>
+  </table>
+#+END_SRC
 
 * I18N (国际化)
 
@@ -1167,6 +1212,19 @@ Spring 提供了三种方式:
 
 
 * RESTful/前后端分离
+** 编码问题
+
+如何设置，才能避免乱码？
+
+Producer/Consumer (生成/消费模式)。
+
+#+BEGIN_SRC java
+  // 请求内容类型必须为 text/html
+  @RequestMapping(value="/aaa", consumes="text/html");
+  // 客户端接收 json 且编码为 utf-8
+  @RequestMapping(value="/bbb", produces="application/json; charset=UTF-8");
+#+END_SRC
+
 * Task TODO
 ** DONE task
 
