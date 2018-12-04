@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-12-04 Tue 06:31 -->
+<!-- 2018-12-04 Tue 06:33 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Web MVC</title>
@@ -85,12 +85,14 @@
 <li><a href="#org4816590">11.1. CorsFilter</a></li>
 <li><a href="#org3bb037c">11.2. &lt;mvc:cors&gt;</a></li>
 <li><a href="#orgb4c2e33">11.3. @CrossOrigin</a></li>
-<li><a href="#org108b611">11.4. 结合 @ControllerAdvice 使用，进行全局化</a></li>
 </ul>
 </li>
 <li><a href="#org130964b">12. RESTful/前后端分离</a>
 <ul>
 <li><a href="#org3b5984a">12.1. 编码问题</a></li>
+<li><a href="#orgdc78c76">12.2. 跨域问题</a></li>
+<li><a href="#org9448e3e">12.3. 结果封装</a></li>
+<li><a href="#org1979542">12.4. 统一异常处理</a></li>
 </ul>
 </li>
 <li><a href="#org5909f07">13. Task TODO</a>
@@ -1791,27 +1793,7 @@ Spring 提供了三种方式:
 </div>
 </div>
 </div>
-
-<div id="outline-container-org108b611" class="outline-3">
-<h3 id="org108b611"><span class="section-number-3">11.4</span> 结合 @ControllerAdvice 使用，进行全局化</h3>
-<div class="outline-text-3" id="text-11-4">
-<p>
-其实也可以采用全注解的方式:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-java"><span class="org-c-annotation">@Component</span>
-<span class="org-c-annotation">@ControllerAdvice</span>
-<span class="org-c-annotation">@CrossOrigin</span>
-<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">CorsAdvice</span> {
-}
-</pre>
-</div>
-</div>
-</div>
 </section>
-
-
 
 <section id="outline-container-org130964b" class="outline-2">
 <h2 id="org130964b"><span class="section-number-2">12</span> RESTful/前后端分离</h2>
@@ -1837,7 +1819,26 @@ Producer/Consumer (生成/消费模式)。
 </div>
 </div>
 </div>
+
+<div id="outline-container-orgdc78c76" class="outline-3">
+<h3 id="orgdc78c76"><span class="section-number-3">12.2</span> 跨域问题</h3>
+<div class="outline-text-3" id="text-12-2">
+<p>
+@Cors
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9448e3e" class="outline-3">
+<h3 id="org9448e3e"><span class="section-number-3">12.3</span> 结果封装</h3>
+</div>
+
+
+<div id="outline-container-org1979542" class="outline-3">
+<h3 id="org1979542"><span class="section-number-3">12.4</span> 统一异常处理</h3>
+</div>
 </section>
+
 
 <section id="outline-container-org5909f07" class="outline-2">
 <h2 id="org5909f07"><span class="section-number-2">13</span> Task TODO</h2>
@@ -1883,7 +1884,7 @@ Producer/Consumer (生成/消费模式)。
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-12-04 Tue 06:31</p>
+<p class="date">Created: 2018-12-04 Tue 06:33</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

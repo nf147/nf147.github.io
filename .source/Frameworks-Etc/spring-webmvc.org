@@ -1197,20 +1197,6 @@ Spring 提供了三种方式:
 
 #+END_SRC
 
-** 结合 @ControllerAdvice 使用，进行全局化
-
-其实也可以采用全注解的方式:
-
-#+BEGIN_SRC java
-  @Component
-  @ControllerAdvice
-  @CrossOrigin
-  public class CorsAdvice {
-  }
-#+END_SRC
-
-
-
 * RESTful/前后端分离
 ** 编码问题
 
@@ -1224,6 +1210,16 @@ Producer/Consumer (生成/消费模式)。
   // 客户端接收 json 且编码为 utf-8
   @RequestMapping(value="/bbb", produces="application/json; charset=UTF-8");
 #+END_SRC
+
+** 跨域问题
+
+@Cors
+
+** 结果封装
+
+
+** 统一异常处理
+
 
 * Task TODO
 ** DONE task
