@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-12-04 Tue 06:33 -->
+<!-- 2018-12-04 Tue 08:24 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Web MVC</title>
@@ -16,101 +16,7 @@
 <div id="content">
 <header>
 <h1 class="title">Spring Web MVC</h1>
-</header><nav id="table-of-contents">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents">
-<ul>
-<li><a href="#org8d99729">1. 基本配置</a></li>
-<li><a href="#orga84e408">2. DispatcherServlet</a></li>
-<li><a href="#org5f5d6f6">3. Controller</a>
-<ul>
-<li><a href="#orgeb9cd52">3.1. Hello, World</a></li>
-<li><a href="#org0048550">3.2. RequestMapping</a></li>
-<li><a href="#orgdbd272d">3.3. Handler 参数</a></li>
-<li><a href="#orgfbd0030">3.4. Handler 返回</a></li>
-<li><a href="#orgff04097">3.5. reqeust data bind to Collection</a>
-<ul>
-<li><a href="#orgf692307">3.5.1. via FormBean</a></li>
-<li><a href="#org88ef04e">3.5.2. via FormBean with Validation</a></li>
-<li><a href="#orgbecb932">3.5.3. via Ajax and RequestBody</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#orgbd19a86">4. DataBinding/Conversion (类型转换)</a>
-<ul>
-<li><a href="#orgf6e76f0">4.1. 第一种方法：利用内置的 CustomDateEditor</a></li>
-<li><a href="#org38b7b82">4.2. 第二种方法：实现自定义 Converter</a></li>
-<li><a href="#org666293e">4.3. 第三种方法：使用 @DateTimeFormat 注解</a></li>
-</ul>
-</li>
-<li><a href="#org84eb173">5. DataBinding/Validation (验证)</a>
-<ul>
-<li><a href="#org30441e4">5.1. JSR-303</a></li>
-<li><a href="#orgd1a2d9a">5.2. JSR303 例子</a>
-<ul>
-<li><a href="#orgc68e743">5.2.1. 一个订单类</a></li>
-<li><a href="#orgf62ff4c">5.2.2. 也可以自定义验证器</a></li>
-</ul>
-</li>
-<li><a href="#org8d3635b">5.3. Spring Validator 接口</a></li>
-</ul>
-</li>
-<li><a href="#org440faf2">6. Exception (异常处理)</a>
-<ul>
-<li><a href="#orgcacdd60">6.1. 使用默认的 DefaultHandlerExceptionResolver 异常处理类</a></li>
-<li><a href="#org5bbdf74">6.2. 编程式异常处理</a></li>
-<li><a href="#orgd29c5e5">6.3. 自定义 HandlerExceptionResolver，用于全局异常处理</a></li>
-<li><a href="#org585e455">6.4. 使用注解的方式 @ExceptionHandler/@ControllerAdvice</a></li>
-</ul>
-</li>
-<li><a href="#orgc743c7f">7. View (视图渲染，服务端渲染)</a>
-<ul>
-<li><a href="#org196e127">7.1. ViewResolver</a></li>
-<li><a href="#org9ed37c6">7.2. Spring JSP Taglib</a></li>
-<li><a href="#orgb127db0">7.3. Thymeleaf</a></li>
-</ul>
-</li>
-<li><a href="#org6f6bdd1">8. I18N (国际化)</a></li>
-<li><a href="#org1575ae9">9. Theme (主题)</a></li>
-<li><a href="#org6d00599">10. File Upload/Download (文件上传、下载)</a>
-<ul>
-<li><a href="#orgb5dd841">10.1. Upload</a></li>
-<li><a href="#org4c13c75">10.2. Download</a></li>
-<li><a href="#org1e450aa">10.3. 示例</a></li>
-</ul>
-</li>
-<li><a href="#orgadada0c">11. CORS (Cross Origin Resources Share) 跨域</a>
-<ul>
-<li><a href="#org4816590">11.1. CorsFilter</a></li>
-<li><a href="#org3bb037c">11.2. &lt;mvc:cors&gt;</a></li>
-<li><a href="#orgb4c2e33">11.3. @CrossOrigin</a></li>
-</ul>
-</li>
-<li><a href="#org130964b">12. RESTful/前后端分离</a>
-<ul>
-<li><a href="#org3b5984a">12.1. 编码问题</a></li>
-<li><a href="#orgdc78c76">12.2. 跨域问题</a></li>
-<li><a href="#org9448e3e">12.3. 结果封装</a></li>
-<li><a href="#org1979542">12.4. 统一异常处理</a></li>
-</ul>
-</li>
-<li><a href="#org5909f07">13. Task TODO</a>
-<ul>
-<li><a href="#orgce4c3eb">13.1. <span class="done DONE">DONE</span> task</a></li>
-<li><a href="#org3ca5fdc">13.2. <span class="done DONE">DONE</span> sub-task<code>[2/2]</code></a>
-<ul>
-<li><a href="#org18171aa">13.2.1. <span class="done DONE">DONE</span> 任务需要分类</a></li>
-<li><a href="#org9e9bbb7">13.2.2. <span class="done DONE">DONE</span> 任务需要制定优先级</a></li>
-</ul>
-</li>
-<li><a href="#orgf41a010">13.3. <span class="todo TODO">TODO</span> 任务示例<code>[1/5]</code></a></li>
-</ul>
-</li>
-</ul>
-</div>
-</nav>
-
+</header>
 
 
 <section id="outline-container-org8d99729" class="outline-2">
@@ -1817,6 +1723,30 @@ Producer/Consumer (生成/消费模式)。
 <span class="org-c-annotation">@RequestMapping</span>(value=<span class="org-string">"/bbb"</span>, produces=<span class="org-string">"application/json; charset=UTF-8"</span>);
 </pre>
 </div>
+
+<p>
+全局设置的方式:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml"><span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&#21551;&#29992; mvc &#30340;&#24120;&#29992;&#27880;&#35299;</span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-sgml-namespace">mvc</span>:<span class="org-function-name">annotation-driven</span> <span class="org-variable-name">validator</span>=<span class="org-string">"myValidator"</span> <span class="org-variable-name">conversion-service</span>=<span class="org-string">"conversionService"</span>&gt;
+    &lt;<span class="org-sgml-namespace">mvc</span>:<span class="org-function-name">message-converters</span>&gt;
+        <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">@ResponseBody &#30340; UTF-8 &#32534;&#30721;</span><span class="org-comment-delimiter">--&gt;</span>
+        &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.springframework.http.converter.StringHttpMessageConverter"</span>&gt;
+            &lt;<span class="org-function-name">constructor-arg</span> <span class="org-variable-name">value</span>=<span class="org-string">"UTF-8"</span>/&gt;
+        &lt;/<span class="org-function-name">bean</span>&gt;
+        <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">Fail On Empty Beans... </span><span class="org-comment-delimiter">--&gt;</span>
+        &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"</span>&gt;
+            &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"objectMapper"</span>&gt;
+                &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean"</span>&gt;
+                    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"failOnEmptyBeans"</span> <span class="org-variable-name">value</span>=<span class="org-string">"false"</span>/&gt;
+                &lt;/<span class="org-function-name">bean</span>&gt;
+            &lt;/<span class="org-function-name">property</span>&gt;
+        &lt;/<span class="org-function-name">bean</span>&gt;
+    &lt;/<span class="org-sgml-namespace">mvc</span>:<span class="org-function-name">message-converters</span>&gt;
+&lt;/<span class="org-sgml-namespace">mvc</span>:<span class="org-function-name">annotation-driven</span>&gt;
+</pre>
+</div>
 </div>
 </div>
 
@@ -1884,7 +1814,7 @@ Producer/Consumer (生成/消费模式)。
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-12-04 Tue 06:33</p>
+<p class="date">Created: 2018-12-04 Tue 08:24</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

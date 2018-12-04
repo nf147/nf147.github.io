@@ -1,4 +1,5 @@
 #+TITLE: Spring Web MVC
+#+ANIM: zoom 1000
 
 
 
@@ -1209,6 +1210,27 @@ Producer/Consumer (生成/消费模式)。
   @RequestMapping(value="/aaa", consumes="text/html");
   // 客户端接收 json 且编码为 utf-8
   @RequestMapping(value="/bbb", produces="application/json; charset=UTF-8");
+#+END_SRC
+
+全局设置的方式:
+#+BEGIN_SRC sgml
+  <!--启用 mvc 的常用注解-->
+  <mvc:annotation-driven validator="myValidator" conversion-service="conversionService">
+      <mvc:message-converters>
+          <!--@ResponseBody 的 UTF-8 编码-->
+          <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+              <constructor-arg value="UTF-8"/>
+          </bean>
+          <!-- Fail On Empty Beans... -->
+          <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+              <property name="objectMapper">
+                  <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+                      <property name="failOnEmptyBeans" value="false"/>
+                  </bean>
+              </property>
+          </bean>
+      </mvc:message-converters>
+  </mvc:annotation-driven>
 #+END_SRC
 
 ** 跨域问题
