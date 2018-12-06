@@ -1234,6 +1234,8 @@ Producer/Consumer (生产/消费模式)。
   </mvc:annotation-driven>
 #+END_SRC
 
+@JsonFormat/@JsonIgnore/...
+
 ** 跨域问题
 
 @Cors

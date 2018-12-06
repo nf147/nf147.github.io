@@ -1,0 +1,31 @@
+#+TITLE: Builder 构造者模式
+
+
+
+* 
+
+最为 Java，基于类。
+
+类，只是一种模板。它描述了，你要创建什么样的数据。
+
+var ren_tou = "ksdjfk ,, ksajdfksk";
+var ren_jiao = ksdjfk;
+var ren_nainling = 32;
+
+function aaa () {
+}
+
+function bbb() {
+   ...
+   aaa()-
+   ....
+}
+
+function ccc() {
+   ...
+   bbb()-
+   aaa()
+   ....
+}
+
+ccc();
