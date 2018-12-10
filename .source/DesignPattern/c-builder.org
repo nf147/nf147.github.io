@@ -78,7 +78,7 @@
   return result.status(400).err("数据错误");
 
   // 4. 可以添加更多错误信息
-  return Result.status(400)
+  return Result
       .addError("参数不能为空")
       .addError("参数类型不对")
       .err(411);
