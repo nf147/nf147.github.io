@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-12-06 Thu 03:46 -->
+<!-- 2018-12-10 Mon 01:54 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Builder 构造者模式</title>
@@ -20,15 +20,19 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgdba9b05">1. </a></li>
+<li><a href="#orgbd9e349">1. prelude</a></li>
+<li><a href="#org0f6b104">2. 什么是构建者模式</a></li>
+<li><a href="#org93342fe">3. 使用示例</a></li>
+<li><a href="#org66efa4d">4. 运用场景</a></li>
+<li><a href="#org794b3fe">5. 优点缺点分析</a></li>
 </ul>
 </div>
 </nav>
 
 
 
-<section id="outline-container-orgdba9b05" class="outline-2">
-<h2 id="orgdba9b05"><span class="section-number-2">1</span> </h2>
+<section id="outline-container-orgbd9e349" class="outline-2">
+<h2 id="orgbd9e349"><span class="section-number-2">1</span> prelude</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 最为 Java，基于类。
@@ -38,43 +42,109 @@
 类，只是一种模板。它描述了，你要创建什么样的数据。
 </p>
 
-<p>
-var ren_tou = "ksdjfk ,, ksajdfksk";
-var ren_jiao = ksdjfk;
-var ren_nainling = 32;
-</p>
 
-<p>
-function aaa () {
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-type">var</span> <span class="org-variable-name">ren_tou</span> = <span class="org-string">"ksdjfk ,, ksajdfksk"</span>;
+<span class="org-type">var</span> <span class="org-variable-name">ren_jiao</span> = ksdjfk;
+<span class="org-type">var</span> <span class="org-variable-name">ren_nainling</span> = 32;
+
+<span class="org-type">function</span> <span class="org-function-name">aaa</span> () {
 }
-</p>
 
-<p>
-function bbb() {
-   &#x2026;
+<span class="org-type">function</span> <span class="org-function-name">bbb</span>() {
+   ...
    aaa()-
-   &#x2026;.
+   ....
 }
-</p>
 
-<p>
-function ccc() {
-   &#x2026;
+<span class="org-type">function</span> <span class="org-function-name">ccc</span>() {
+   ...
    bbb()-
    aaa()
-   &#x2026;.
+   ....
 }
+
+ccc();
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org0f6b104" class="outline-2">
+<h2 id="org0f6b104"><span class="section-number-2">2</span> 什么是构建者模式</h2>
+</section>
+
+<section id="outline-container-org93342fe" class="outline-2">
+<h2 id="org93342fe"><span class="section-number-2">3</span> 使用示例</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+为 RESTful 的返回结果构建一个返回结果对象，它封装了返回的数据、分页数据、错误信息等。
 </p>
 
 <p>
-ccc();
+它的 class 大致如下:
 </p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">Result</span>&lt;<span class="org-type">T</span>&gt; {
+    <span class="org-keyword">private</span> <span class="org-type">int</span> <span class="org-variable-name">code</span>;
+    <span class="org-keyword">private</span> <span class="org-type">T</span> <span class="org-variable-name">data</span>;
+    <span class="org-keyword">private</span> <span class="org-type">Page</span>&lt;<span class="org-type">T</span>&gt; <span class="org-variable-name">pager</span>;
+
+    <span class="org-keyword">private</span> <span class="org-type">String</span> <span class="org-variable-name">errMsg</span>;
+    <span class="org-keyword">private</span> <span class="org-type">List</span>&lt;<span class="org-type">ErrorDetail</span>&gt; <span class="org-variable-name">errors</span>;
+
+    <span class="org-keyword">private</span> <span class="org-type">long</span> <span class="org-variable-name">dataTimestamp</span>;
+
+    <span class="org-doc">/** getters/setters **/</span>
+}
+<span class="org-keyword">class</span> <span class="org-type">ErrorDetail</span> {
+    <span class="org-keyword">private</span> <span class="org-type">String</span> <span class="org-variable-name">type</span>;
+    <span class="org-keyword">private</span> <span class="org-type">String</span> <span class="org-variable-name">message</span>;
+    <span class="org-keyword">private</span> <span class="org-type">int</span> <span class="org-variable-name">code</span>;
+
+    <span class="org-doc">/** getters/setters **/</span>
+}
+</pre>
 </div>
+
+<p>
+为了简化 Result&lt;T&gt; 的使用，请使用某种手段对其封装，使得下面调用可行:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-comment-delimiter">// </span><span class="org-comment">&#19979;&#38754;&#21482;&#26159;&#31034;&#20363; API</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">&#23454;&#38469;&#36816;&#29992;&#35831;&#37196;&#24773;&#33258;&#34892;&#35774;&#35745;&#12289;&#23553;&#35013;</span>
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">1. &#26368;&#31616;&#21333;&#30340;&#24773;&#20917;&#65292;&#36820;&#22238;&#27491;&#24120;&#25968;&#25454;</span>
+<span class="org-keyword">return</span> Result.ok(<span class="org-string">"hello"</span>);
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">2. &#28155;&#21152;&#20998;&#39029;&#20449;&#24687;</span>
+<span class="org-keyword">return</span> Result.ok(<span class="org-string">"hello"</span>, pager);
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">3. &#36820;&#22238;&#38750;&#27491;&#24120;&#25968;&#25454;</span>
+<span class="org-keyword">return</span> result.err(400, <span class="org-string">"&#25968;&#25454;&#38169;&#35823;"</span>);
+<span class="org-keyword">return</span> result.status(400).err(<span class="org-string">"&#25968;&#25454;&#38169;&#35823;"</span>);
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">4. &#21487;&#20197;&#28155;&#21152;&#26356;&#22810;&#38169;&#35823;&#20449;&#24687;</span>
+<span class="org-keyword">return</span> Result.status(400)
+    .addError(<span class="org-string">"&#21442;&#25968;&#19981;&#33021;&#20026;&#31354;"</span>)
+    .addError(<span class="org-string">"&#21442;&#25968;&#31867;&#22411;&#19981;&#23545;"</span>)
+    .err(411);
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org66efa4d" class="outline-2">
+<h2 id="org66efa4d"><span class="section-number-2">4</span> 运用场景</h2>
+</section>
+
+<section id="outline-container-org794b3fe" class="outline-2">
+<h2 id="org794b3fe"><span class="section-number-2">5</span> 优点缺点分析</h2>
 </section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-12-06 Thu 03:46</p>
+<p class="date">Created: 2018-12-10 Mon 01:54</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

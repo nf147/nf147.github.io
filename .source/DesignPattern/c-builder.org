@@ -2,30 +2,88 @@
 
 
 
-* 
+* prelude
 
 最为 Java，基于类。
 
 类，只是一种模板。它描述了，你要创建什么样的数据。
 
-var ren_tou = "ksdjfk ,, ksajdfksk";
-var ren_jiao = ksdjfk;
-var ren_nainling = 32;
 
-function aaa () {
-}
+#+BEGIN_SRC java
+  var ren_tou = "ksdjfk ,, ksajdfksk";
+  var ren_jiao = ksdjfk;
+  var ren_nainling = 32;
 
-function bbb() {
-   ...
-   aaa()-
-   ....
-}
+  function aaa () {
+  }
 
-function ccc() {
-   ...
-   bbb()-
-   aaa()
-   ....
-}
+  function bbb() {
+     ...
+     aaa()-
+     ....
+  }
 
-ccc();
+  function ccc() {
+     ...
+     bbb()-
+     aaa()
+     ....
+  }
+
+  ccc();
+#+END_SRC
+
+* 什么是构建者模式
+
+* 使用示例
+
+为 RESTful 的返回结果构建一个返回结果对象，它封装了返回的数据、分页数据、错误信息等。
+
+它的 class 大致如下:
+#+BEGIN_SRC java
+  public class Result<T> {
+      private int code;
+      private T data;
+      private Page<T> pager;
+
+      private String errMsg;
+      private List<ErrorDetail> errors;
+
+      private long dataTimestamp;
+
+      /** getters/setters **/
+  }
+  class ErrorDetail {
+      private String type;
+      private String message;
+      private int code;
+
+      /** getters/setters **/
+  }
+#+END_SRC
+
+为了简化 Result<T> 的使用，请使用某种手段对其封装，使得下面调用可行:
+#+BEGIN_SRC java
+  // 下面只是示例 API
+  // 实际运用请酌情自行设计、封装
+
+  // 1. 最简单的情况，返回正常数据
+  return Result.ok("hello");
+
+  // 2. 添加分页信息
+  return Result.ok("hello", pager);
+
+  // 3. 返回非正常数据
+  return result.err(400, "数据错误");
+  return result.status(400).err("数据错误");
+
+  // 4. 可以添加更多错误信息
+  return Result.status(400)
+      .addError("参数不能为空")
+      .addError("参数类型不对")
+      .err(411);
+#+END_SRC
+
+* 运用场景
+
+* 优点缺点分析
