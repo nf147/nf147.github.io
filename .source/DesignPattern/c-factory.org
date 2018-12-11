@@ -137,10 +137,10 @@
 客户端的调用:
 #+BEGIN_SRC java
   PhoneFactory hwPf = new HuaweiFactory();
-  hwPf.play();
+  hwPf.createPhone().play();
 
   PhoneFactory pgPf = new IphoneFactory();
-  pgPf.play();
+  pgPf.createPhone().play();
 #+END_SRC
 
 工厂方法模式，是最标准的一种工厂模式，也是应用广泛的一种模式。

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-12-11 Tue 02:47 -->
+<!-- 2018-12-11 Tue 03:30 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>工厂模式</title>
@@ -233,10 +233,10 @@ pf.createPhone(<span class="org-string">"xm"</span>).play();
 </p>
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-type">PhoneFactory</span> <span class="org-variable-name">hwPf</span> = <span class="org-keyword">new</span> <span class="org-type">HuaweiFactory</span>();
-hwPf.play();
+hwPf.createPhone().play();
 
 <span class="org-type">PhoneFactory</span> <span class="org-variable-name">pgPf</span> = <span class="org-keyword">new</span> <span class="org-type">IphoneFactory</span>();
-pgPf.play();
+pgPf.createPhone().play();
 </pre>
 </div>
 
@@ -255,7 +255,7 @@ pgPf.play();
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-12-11 Tue 02:47</p>
+<p class="date">Created: 2018-12-11 Tue 03:30</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
