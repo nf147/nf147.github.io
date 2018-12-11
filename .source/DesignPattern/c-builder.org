@@ -69,19 +69,22 @@
 
   // 1. 最简单的情况，返回正常数据
   return Result.ok("hello");
+  return Result.status(203).data("hello");
 
   // 2. 添加分页信息
   return Result.ok("hello", pager);
+  return Result.status(202).data("world");
+  return Result.status(202).data("world", pager);
 
   // 3. 返回非正常数据
-  return result.err(400, "数据错误");
-  return result.status(400).err("数据错误");
+  return Result.err(400, "数据错误");
+  return Result.status(400).err("数据错误");
 
   // 4. 可以添加更多错误信息
   return Result
       .addError("参数不能为空")
       .addError("参数类型不对")
-      .err(411);
+      .err(411, "验证参数错误");
 #+END_SRC
 
 * 运用场景

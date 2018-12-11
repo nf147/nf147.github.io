@@ -1,0 +1,149 @@
+#+TITLE: 工厂模式
+
+
+
+代码编写出来是为了给别人 (client) 调用的:
+- 调用者 (client) 跟代码编写者 (provider)，可能是同一个人，也可能是不同的人
+- 提供给调用者的代码，有可能是源码可见的，也可能是源码不可见、不可修改的(比如 jar 包)
+
+所以，为了简化代码的协作使用及管理维护，必须想尽办法简化代码逻辑，实现必要的 *分离*。
+
+
+* 最原始的方式
+
+比如说，有一系列的代码，是用来创建不同品牌的手机。代码是这样的:
+#+BEGIN_SRC java
+  public class Iphone {
+      public void xxx () {}
+  }
+  public class Huawei {
+      public void yyy () {}
+  }
+  public class Lennovo {}
+  public class Xiaomi {}
+  public class Vivo {}
+#+END_SRC
+
+如果这样的代码提供给客户端调用，那么提供者必须要将 *所有类的名称* 以及 *对应的方法* 暴露给客户端。
+
+客户端的调用示例如下:
+#+BEGIN_SRC java
+  Iphone phone1 = new Iphone();
+  phone1.xxx();
+
+  Huawei phone2 = new Huawei();
+  phone2.yyy();
+#+END_SRC
+
+这样的方式非常原始，也很简单，但是代码的逻辑不清晰，暴露的内容过多。
+
+解决的方案:
+- 抽象逻辑，提供 *接口*
+
+* 有了接口之后
+
+为了减少方法调用的复杂度，也为了便于抽象跟代码管理，咱们额外提供一个接口:
+#+BEGIN_SRC java
+  public interface Phone {
+      void play();
+  }
+#+END_SRC
+
+然后，将所有手机类都实现 Phone 接口，将暴露给客户端调用的逻辑都封装在 play 方法里。
+
+那么，客户端需要知道的调用 API 就减少到了两种:
+1. Phone 接口的信息
+2. Phone 接口有哪些实现类
+
+调用的逻辑就变简单了:
+#+BEGIN_SRC java
+  Phone phone1 = new Iphone();
+  phone1.play();
+
+  Phone phone2 = new Lianxiang();
+  phone2.play();
+
+  Phone phone3 = new Xiaomii();
+  phone3.play();
+#+END_SRC
+
+这种方式有缺点:
+1. 客户端，必须要知道手机类的具体名字
+2. 客户端的调用，跟提供的代码是耦合的
+
+所以，自然产生了简单工厂的这种策略
+
+* 简单工厂
+
+在中间加一层:
+
+#+BEGIN_SRC java
+  public class PhoneFactory {
+      public Phone createPhone(String tag) {
+          if (tag.equals("lx")) {
+              return new Lenovo();
+          } else if (tag.equals("pg")) {
+              return new Iphone();
+          } else if (tag.equals("hw")) {
+              return new Huawei();
+          }
+      }
+  }
+#+END_SRC
+
+客户端的调用:
+
+#+BEGIN_SRC java
+  PhoneFactory pf = new PhoneFactory();
+
+  pf.createPhone("hw").play();
+  pf.createPhone("pg").play();
+  pf.createPhone("xm").play();
+#+END_SRC
+
+简单工厂模式，本身已经为解耦合做出了很好的方案。但是它有缺点:
+- PhoneFactory 代码跟 Phone 代码紧耦合
+- 每次要添加/删除/修改某一个 Phone，*都* 需要修改 PhoneFactory 这个类
+
+解决方案就是 *工厂方法模式*
+
+* 工厂方法模式
+
+为 Phone 工厂，创建一个接口:
+#+BEGIN_SRC java
+  public interface PhoneFactory {
+      Phone createPhone();
+  }
+#+END_SRC
+
+如果增加了一款产品，比如是 iPhone，那么，只需要为 iPhone 创建一个工厂类就可以了:
+#+BEGIN_SRC java
+  public class IphoneFactory implements PhoneFactory {
+      public phone createPhone() {
+          return new IphoneX();
+      }
+  }
+#+END_SRC
+
+如果再增加另外一款产品，比如 Huawei，那么只需要另外一个工厂就可以了:
+#+BEGIN_SRC java
+  public class HuaweiFactory implements PhoneFactory {
+      public phone createPhone() {
+          return new Huawei();
+      }
+  }
+#+END_SRC
+
+客户端的调用:
+#+BEGIN_SRC java
+  PhoneFactory hwPf = new HuaweiFactory();
+  hwPf.play();
+
+  PhoneFactory pgPf = new IphoneFactory();
+  pgPf.play();
+#+END_SRC
+
+工厂方法模式，是最标准的一种工厂模式，也是应用广泛的一种模式。
+
+但是工厂方法模式，有一个很大的缺点:
+- 

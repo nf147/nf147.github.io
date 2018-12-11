@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-12-10 Mon 01:57 -->
+<!-- 2018-12-11 Tue 02:47 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Builder 构造者模式</title>
@@ -116,19 +116,22 @@ ccc();
 
 <span class="org-comment-delimiter">// </span><span class="org-comment">1. &#26368;&#31616;&#21333;&#30340;&#24773;&#20917;&#65292;&#36820;&#22238;&#27491;&#24120;&#25968;&#25454;</span>
 <span class="org-keyword">return</span> Result.ok(<span class="org-string">"hello"</span>);
+<span class="org-keyword">return</span> Result.status(203).data(<span class="org-string">"hello"</span>);
 
 <span class="org-comment-delimiter">// </span><span class="org-comment">2. &#28155;&#21152;&#20998;&#39029;&#20449;&#24687;</span>
 <span class="org-keyword">return</span> Result.ok(<span class="org-string">"hello"</span>, pager);
+<span class="org-keyword">return</span> Result.status(202).data(<span class="org-string">"world"</span>);
+<span class="org-keyword">return</span> Result.status(202).data(<span class="org-string">"world"</span>, pager);
 
 <span class="org-comment-delimiter">// </span><span class="org-comment">3. &#36820;&#22238;&#38750;&#27491;&#24120;&#25968;&#25454;</span>
-<span class="org-keyword">return</span> result.err(400, <span class="org-string">"&#25968;&#25454;&#38169;&#35823;"</span>);
-<span class="org-keyword">return</span> result.status(400).err(<span class="org-string">"&#25968;&#25454;&#38169;&#35823;"</span>);
+<span class="org-keyword">return</span> Result.err(400, <span class="org-string">"&#25968;&#25454;&#38169;&#35823;"</span>);
+<span class="org-keyword">return</span> Result.status(400).err(<span class="org-string">"&#25968;&#25454;&#38169;&#35823;"</span>);
 
 <span class="org-comment-delimiter">// </span><span class="org-comment">4. &#21487;&#20197;&#28155;&#21152;&#26356;&#22810;&#38169;&#35823;&#20449;&#24687;</span>
 <span class="org-keyword">return</span> Result
     .addError(<span class="org-string">"&#21442;&#25968;&#19981;&#33021;&#20026;&#31354;"</span>)
     .addError(<span class="org-string">"&#21442;&#25968;&#31867;&#22411;&#19981;&#23545;"</span>)
-    .err(411);
+    .err(411, <span class="org-string">"&#39564;&#35777;&#21442;&#25968;&#38169;&#35823;"</span>);
 </pre>
 </div>
 </div>
@@ -144,7 +147,7 @@ ccc();
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-12-10 Mon 01:57</p>
+<p class="date">Created: 2018-12-11 Tue 02:47</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
