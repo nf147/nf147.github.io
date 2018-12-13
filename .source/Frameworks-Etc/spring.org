@@ -1,0 +1,57 @@
+#+TITLE: Spring Framework
+
+
+* vs. 工厂模式
+
+#+BEGIN_SRC java
+  public class ServiceFactory {
+      public Object getServiceObject (String name) {
+          if (name.equals("bs")) {
+              A a = new A();
+              B b = new B(a); // 构造器
+              MyBatiscConnection conn = new MyBatiscConnection();
+              LogUtil log = new LogUtil();
+              BookService bookservice = new BookService();
+
+              b.setA(a); // setter
+              conn.setB(b);
+              bookservice.setConn(conn);
+              LogUtil.setConn(conn);
+              bookservice.setLogger(log);
+
+              return bookservice;
+          }
+      }
+  }
+
+  main () {
+      ServiceFactory sf = new ServiceFactory();
+
+      BookService bookservice = sf.getServiceObject("bs");
+      bookservice.sellBook();
+  }
+#+END_SRC
+
+将工厂模式切割，分为解析程序和 xml 文件。
+
+xml 暴露出来，用来 *描述* 工厂需要实例化的类以及他们之间的关系。
+
+#+BEGIN_SRC sgml
+  <xml>
+    <!-- 之前命令；描述 -->
+    <bean id="a" class="xxx.yyy.A" />
+    <bean id="b" class="xxx.yyy.B">
+      <property name="a" bean="a" />
+    </bean>
+    <bean id="conn" class="xxx.yyy.MyBConn">
+      <property name="b" bean="b" />
+    </bean>
+    <bean id="log" class="xxx.yyy.LogUtil">
+      <property name="conn" bean="conn" />
+    </bean>
+    <bean id="bookservice" class="xxx.BookService">
+      <property name="conn" bean="conn" />
+      <property name="log" bean="log" />
+    </bean>
+  </xml>
+#+END_SRC
