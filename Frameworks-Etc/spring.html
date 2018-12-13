@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-12-13 Thu 06:40 -->
+<!-- 2018-12-13 Thu 07:39 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Framework</title>
@@ -319,9 +319,70 @@ XML style 中混入 Java Style:
 装配:
 </p>
 <div class="org-src-container">
-<pre class="src src-sgml">
+<pre class="src src-sgml"><span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#26368;&#31616;&#21333;&#30340;&#22768;&#26126; </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"package.Dog"</span> /&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">Class.forName("package.Dog").newInstance(); </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"xxx"</span> <span class="org-variable-name">class</span>=<span class="org-string">"&#21253;&#21517;.&#31867;&#30340;&#21517;&#23383;"</span> /&gt;
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#23545;&#35937;&#20869;&#37096;&#24517;&#39035;&#35201;&#26377;&#25968;&#25454;&#65292;&#25152;&#20197;&#35201;&#32473;&#20182;&#25968;&#25454; </span><span class="org-comment-delimiter">--&gt;</span>
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#26500;&#36896;&#22120;&#27880;&#20837; </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"donkey"</span> <span class="org-variable-name">class</span>=<span class="org-string">"learning.components.Donkey"</span>&gt;
+  &lt;<span class="org-function-name">constructor-arg</span> <span class="org-variable-name">index</span>=<span class="org-string">"0"</span> <span class="org-variable-name">value</span>=<span class="org-string">"&#24471;&#27700;"</span> /&gt;
+  &lt;<span class="org-function-name">constructor-arg</span> <span class="org-variable-name">index</span>=<span class="org-string">"1"</span> <span class="org-variable-name">value</span>=<span class="org-string">"333"</span> /&gt;
+&lt;/<span class="org-function-name">bean</span>&gt;
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#23646;&#24615;&#27880;&#20837; </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"learning.components.Goal"</span> <span class="org-variable-name">id</span>=<span class="org-string">"goal"</span>&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"name"</span> <span class="org-variable-name">value</span>=<span class="org-string">"&#22810;&#21033;"</span> /&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"countOfLegs"</span> <span class="org-variable-name">value</span>=<span class="org-string">"4"</span> /&gt;
+&lt;/<span class="org-function-name">bean</span>&gt;
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#38598;&#21512;&#30340;&#27880;&#20837; </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"learning.components.Goal"</span> <span class="org-variable-name">id</span>=<span class="org-string">"goal"</span>&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"name"</span> <span class="org-variable-name">value</span>=<span class="org-string">"&#22810;&#21033;"</span> /&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"legs"</span>&gt;
+     &lt;<span class="org-function-name">list</span>&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">map/arrary/set/prop &#21516;&#29702; </span><span class="org-comment-delimiter">--&gt;</span>
+        &lt;<span class="org-function-name">value</span>&gt;leg1&lt;/<span class="org-function-name">value</span>&gt;
+        &lt;<span class="org-function-name">value</span>&gt;leg2&lt;/<span class="org-function-name">value</span>&gt;
+        &lt;<span class="org-function-name">value</span>&gt;leg3&lt;/<span class="org-function-name">value</span>&gt;
+     &lt;/<span class="org-function-name">list</span>&gt;
+  &lt;/<span class="org-function-name">property</span>&gt;
+&lt;/<span class="org-function-name">bean</span>&gt;
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">Bean &#30340;&#20381;&#36182; </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"learning.components.Goal"</span> <span class="org-variable-name">id</span>=<span class="org-string">"goal"</span>&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"xxx"</span>&gt;
+      &lt;<span class="org-function-name">ref</span> <span class="org-variable-name">bean</span>=<span class="org-string">"xxx"</span> /&gt;
+  &lt;/<span class="org-function-name">property</span>&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"yyy"</span> <span class="org-variable-name">ref</span>=<span class="org-string">"yyy"</span> /&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"zzz"</span>&gt;
+      &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"package.Zzz"</span> /&gt;
+  &lt;/<span class="org-function-name">property</span>&gt;
+&lt;/<span class="org-function-name">bean</span>&gt;
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#20351;&#29992; C/P/UTIL &#21629;&#21517;&#31354;&#38388;&#31616;&#21270;&#20351;&#29992; </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"learning.components.Goal"</span> <span class="org-variable-name">id</span>=<span class="org-string">"goal"</span>
+      <span class="org-sgml-namespace">p</span>:<span class="org-variable-name">name</span>=<span class="org-string">"&#22810;&#21033;"</span> <span class="org-sgml-namespace">p</span>:<span class="org-variable-name">countOfLegs</span>=<span class="org-string">"4"</span>
+      <span class="org-sgml-namespace">p</span>:<span class="org-variable-name">xxx-ref</span>=<span class="org-string">"xxx"</span> <span class="org-sgml-namespace">p</span>:<span class="org-variable-name">aliases-ref</span>=<span class="org-string">"aliaslist"</span> /&gt;
+
+&lt;<span class="org-sgml-namespace">util</span>:<span class="org-function-name">list</span> <span class="org-variable-name">id</span>=<span class="org-string">"aliaslist"</span>&gt;
+  &lt;<span class="org-function-name">value</span>&gt;kkkk1&lt;/<span class="org-function-name">value</span>&gt;
+  &lt;<span class="org-function-name">value</span>&gt;kkkk2&lt;/<span class="org-function-name">value</span>&gt;
+  &lt;<span class="org-function-name">value</span>&gt;kkkk3&lt;/<span class="org-function-name">value</span>&gt;
+&lt;/<span class="org-sgml-namespace">util</span>:<span class="org-function-name">list</span>&gt;
 </pre>
 </div>
+
+<p>
+另外:
+</p>
+<ul class="org-ul">
+<li>denpend-on 定义顺序</li>
+<li>parent 定义继承</li>
+<li>scope 定义初始化策略</li>
+<li>alias 定义别名</li>
+<li>import 引入其他的定义文件</li>
+</ul>
 </div>
 </div>
 
@@ -411,7 +472,7 @@ XML style 中混入 Java Style:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-12-13 Thu 06:40</p>
+<p class="date">Created: 2018-12-13 Thu 07:39</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

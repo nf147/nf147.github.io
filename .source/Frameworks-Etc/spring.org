@@ -198,8 +198,65 @@ XML style 中混入 Java Style:
 
 装配:
 #+BEGIN_SRC sgml
+  <!-- 最简单的声明 -->
+  <bean class="package.Dog" /> <!-- Class.forName("package.Dog").newInstance(); -->
+  <bean id="xxx" class="包名.类的名字" />
 
+  <!-- 对象内部必须要有数据，所以要给他数据 -->
+
+  <!-- 构造器注入 -->
+  <bean id="donkey" class="learning.components.Donkey">
+    <constructor-arg index="0" value="得水" />
+    <constructor-arg index="1" value="333" />
+  </bean>
+
+  <!-- 属性注入 -->
+  <bean class="learning.components.Goal" id="goal">
+    <property name="name" value="多利" />
+    <property name="countOfLegs" value="4" />
+  </bean>
+
+  <!-- 集合的注入 -->
+  <bean class="learning.components.Goal" id="goal">
+    <property name="name" value="多利" />
+    <property name="legs">
+       <list> <!-- map/arrary/set/prop 同理 -->
+          <value>leg1</value>
+          <value>leg2</value>
+          <value>leg3</value>
+       </list>
+    </property>
+  </bean>
+
+  <!-- Bean 的依赖 -->
+  <bean class="learning.components.Goal" id="goal">
+    <property name="xxx">
+        <ref bean="xxx" />
+    </property>
+    <property name="yyy" ref="yyy" />
+    <property name="zzz">
+        <bean class="package.Zzz" />
+    </property>
+  </bean>
+
+  <!-- 使用 C/P/UTIL 命名空间简化使用 -->
+  <bean class="learning.components.Goal" id="goal"
+        p:name="多利" p:countOfLegs="4"
+        p:xxx-ref="xxx" p:aliases-ref="aliaslist" />
+
+  <util:list id="aliaslist">
+    <value>kkkk1</value>
+    <value>kkkk2</value>
+    <value>kkkk3</value>
+  </util:list>
 #+END_SRC
+
+另外:
+- denpend-on 定义顺序
+- parent 定义继承
+- scope 定义初始化策略
+- alias 定义别名
+- import 引入其他的定义文件
 
 ** Wiring in JavaConfig
 
