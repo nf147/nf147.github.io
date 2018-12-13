@@ -249,6 +249,10 @@ XML style 中混入 Java Style:
     <value>kkkk2</value>
     <value>kkkk3</value>
   </util:list>
+
+  <!-- 将实例化的工作，委托给工厂 -->
+  <bean class="learning.components.AnimalFactory" id="goalmiemie" factory-method="xxx" />
+  <bean class="learning.components.AnimalFactory" id="deshui" factory-method="yyy" />
 #+END_SRC
 
 另外:
