@@ -183,6 +183,7 @@ XML style 中混入 Java Style:
 * 装配 (Wiring)
 
 #+BEGIN_QUOTE
+
 创建应用对象之间协作关系的行为，通常称为装配 (Wiring)。这是依赖注入 (DI) 的本质。
 #+END_QUOTE
 
