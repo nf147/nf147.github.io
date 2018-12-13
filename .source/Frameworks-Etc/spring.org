@@ -255,6 +255,7 @@ XML style 中混入 Java Style:
 - denpend-on 定义顺序
 - parent 定义继承
 - scope 定义初始化策略
+- lazy 延迟初始化
 - alias 定义别名
 - import 引入其他的定义文件
 
