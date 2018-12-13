@@ -1,0 +1,118 @@
+#+TITLE: JS 对数组的常规操作
+
+
+* 示例数据
+
+#+BEGIN_SRC json
+  var array=[
+    {
+      id: 1,
+      name: 'ohzri',
+      birth: '1999.09.09',
+      city: '湖北',
+      salary: 3379
+    },
+    {
+      id: 2,
+      name: 'rqgfd',
+      birth: '1999.10.28',
+      city: '湖南',
+      salary: 4060
+    },
+    {
+      id: 3,
+      name: 'fwfsh',
+      birth: '1999.09.17',
+      city: '广西',
+      salary: 3236
+    }
+  ]
+#+END_SRC
+
+* 基本问题
+
+1. 过滤，3000-3500之内的工资？
+2. 除去，湖南的城市。
+3. 修改，为每个人增加age字段。
+
+* 问题一
+
+可以用三种方法
+
+** 使用 for 循环
+
+#+BEGIN_SRC js
+  var arr1 = [];
+  for(var i = 0; i < array.length; i++){
+      if(array[i].salary >= 3000 && array[i].salary <= 3500){
+          arr1.push(array[i]);
+      };
+  }
+#+END_SRC
+
+** 使用 forEach 循环（有两种形式）
+
+#+BEGIN_SRC js
+  var arr2 = [];
+  for(var i of array){
+      if(i.salary >= 3000 && i.salary <=3500){
+          arr2.push(i)
+      }
+  }
+
+  var arr3 = [];
+  array.forEach(function(v){
+      if(v.salary >= 3000 && v.salary <=3500){
+          arr3.push(v)
+      }
+  })
+#+END_SRC
+
+** 使用 filter 方式实现
+
+#+BEGIN_SRC js
+  var array1 = array.filter(function(v) {
+      return v.salary >= 3000 && v.salary <= 3500;
+  });
+
+  // 简写为:
+  const array2 = array.filter(v => v.salary >= 3000 && v.salary <= 3500);
+#+END_SRC
+
+* 问题二
+
+可以转换为上述的 filter 问题
+
+#+BEGIN_SRC js
+  var arr4 = array.filter((v) => v.city != '湖南');
+  console.log(arr4);
+#+END_SRC
+
+* 问题三
+** 首先，封装 getAge 方法:
+
+#+BEGIN_SRC js
+  function getAge(birthday){
+      return new Date().getYear() + 1900 - parseInt(birthday.substring(0, birthday.indexOf('.')));
+  }
+#+END_SRC
+
+** 用 concat/map 方法实现
+
+#+BEGIN_SRC js
+  var arr5 = array.concat();
+  for(var i of arr5){
+      i.age = getAge(i.birth);
+  }
+
+  var arrayMap = array.map((e) => {
+      e.age = getAge(e.birth);
+      return e;
+  });
+#+END_SRC
+
+** 使用 ES6 语法实现
+
+#+BEGIN_SRC js
+  this.data = array.map(e => ({ ...e, age: getAge(e.birth) }));
+#+END_SRC
