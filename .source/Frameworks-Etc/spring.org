@@ -225,7 +225,7 @@ XML style 中混入 Java Style:
 3. @Service
 4. @Repository
 
-如果再某个 Bean 中注入另一个 Bean，则有如下方法:
+在注解的方式中，要确定 Bean 之间的关系，需要使用下面注解进行 “注入”:
 - @Autowired
 - @Inject
 - @Resource
