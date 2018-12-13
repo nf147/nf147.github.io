@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-12-13 Thu 03:44 -->
+<!-- 2018-12-13 Thu 06:38 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Framework</title>
@@ -27,6 +27,13 @@
 <li><a href="#orgacd61ef">3.1. 传统的方式 xml</a></li>
 <li><a href="#orgdaf4698">3.2. 基于 Java 的方式进行配置</a></li>
 <li><a href="#orgc89bd36">3.3. 混合双打</a></li>
+</ul>
+</li>
+<li><a href="#orgbfc911f">4. 装配 (Wiring)</a>
+<ul>
+<li><a href="#org04c06e1">4.1. Wiring in XML</a></li>
+<li><a href="#org4d36aa6">4.2. Wiring in JavaConfig</a></li>
+<li><a href="#org580d7b1">4.3. Wiring with Annotation</a></li>
 </ul>
 </li>
 </ul>
@@ -278,10 +285,129 @@ XML style 中混入 Java Style:
 </div>
 </div>
 </section>
+<section id="outline-container-orgbfc911f" class="outline-2">
+<h2 id="orgbfc911f"><span class="section-number-2">4</span> 装配 (Wiring)</h2>
+<div class="outline-text-2" id="text-4">
+<blockquote>
+<p>
+创建应用对象之间协作关系的行为，通常称为装配 (Wiring)。这是依赖注入 (DI) 的本质。
+</p>
+</blockquote>
+
+<p>
+装配的基础，是使用配置文件对 Bean 的关系进行声明。
+</p>
+
+<p>
+总结起来，在 Spring 中，声明 Bean 一共有三种方式:
+</p>
+<ol class="org-ol">
+<li>在 XML Style 的配置中，使用 <code>&lt;bean /&gt;</code> 节点</li>
+<li>在 Java Style 的配置中，使用 <code>@Bean</code> 注解</li>
+<li>开启 Component 扫描，然后使用相关注解: <code>@Component/@Controller/@Service/@Repository</code></li>
+</ol>
+</div>
+
+<div id="outline-container-org04c06e1" class="outline-3">
+<h3 id="org04c06e1"><span class="section-number-3">4.1</span> Wiring in XML</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+装配:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml">
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4d36aa6" class="outline-3">
+<h3 id="org4d36aa6"><span class="section-number-3">4.2</span> Wiring in JavaConfig</h3>
+</div>
+
+<div id="outline-container-org580d7b1" class="outline-3">
+<h3 id="org580d7b1"><span class="section-number-3">4.3</span> Wiring with Annotation</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+首先，需要开启 Component Scanning，即组件扫描:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-comment-delimiter">// </span><span class="org-comment">JavaConfig</span>
+<span class="org-c-annotation">@Configuration</span>
+<span class="org-c-annotation">@ComponentScan</span>(<span class="org-string">"xxx.components"</span>)
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">SpringConfig</span> {
+    <span class="org-comment-delimiter">// </span><span class="org-comment">...</span>
+}
+
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">XMLConfig:</span>
+<span class="org-comment-delimiter">//</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">&lt;context:component-scan base-package="xxx.components" /&gt;</span>
+</pre>
+</div>
+
+<p>
+声明 Bean 有四个注解:
+</p>
+<ol class="org-ol">
+<li>@Component</li>
+<li>@Controller</li>
+<li>@Service</li>
+<li>@Repository</li>
+</ol>
+
+<p>
+如果再某个 Bean 中注入另一个 Bean，则有如下方法:
+</p>
+<ul class="org-ul">
+<li>@Autowired</li>
+<li>@Inject</li>
+<li>@Resource</li>
+</ul>
+
+<p>
+注入的注解：
+</p>
+<ul class="org-ul">
+<li>可以放在 field 上，称作属性注入</li>
+<li>可以放在 constructor 上，称作构造器注入</li>
+<li>可以放在 setter 方法上，称作 setter 注入</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Controller</span>
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">BookController</span> {
+    <span class="org-c-annotation">@Autowired</span> <span class="org-comment-delimiter">// </span><span class="org-comment">&#23646;&#24615;&#27880;&#20837;</span>
+    <span class="org-type">BookDAO</span> <span class="org-variable-name">bookDAO</span>;
+
+    <span class="org-c-annotation">@Autowired</span> <span class="org-comment-delimiter">// </span><span class="org-comment">&#26500;&#36896;&#22120;&#27880;&#20837;</span>
+    <span class="org-keyword">public</span> <span class="org-function-name">BookController</span>(<span class="org-type">BookDAO</span> <span class="org-variable-name">bookDAO</span>) {
+        <span class="org-keyword">this</span>.bookDAO = bookDAO;
+    }
+
+    <span class="org-c-annotation">@Autowired</span> <span class="org-comment-delimiter">// </span><span class="org-comment">setter &#27880;&#20837;</span>
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">setBookDAO</span>(<span class="org-type">BookDAO</span> <span class="org-variable-name">bookDAO</span>) {
+        <span class="org-keyword">this</span>.bookDAO = bookDAO;
+    }
+}
+</pre>
+</div>
+
+<p>
+属性注入的写法是最简单的，但不建议使用。原因:
+</p>
+<ol class="org-ol">
+<li>&#x2026;</li>
+<li>&#x2026;</li>
+<li>&#x2026;</li>
+</ol>
+</div>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-12-13 Thu 03:44</p>
+<p class="date">Created: 2018-12-13 Thu 06:38</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

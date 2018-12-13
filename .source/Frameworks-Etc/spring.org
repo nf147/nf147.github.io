@@ -180,3 +180,84 @@ XML style 中混入 Java Style:
       <bean class="learning.spring.configuration.SuibianSpringConfig" />
   </beans>
 #+END_SRC
+* 装配 (Wiring)
+
+#+BEGIN_QUOTE
+创建应用对象之间协作关系的行为，通常称为装配 (Wiring)。这是依赖注入 (DI) 的本质。
+#+END_QUOTE
+
+装配的基础，是使用配置文件对 Bean 的关系进行声明。
+
+总结起来，在 Spring 中，声明 Bean 一共有三种方式:
+1. 在 XML Style 的配置中，使用 ~<bean />~ 节点
+2. 在 Java Style 的配置中，使用 ~@Bean~ 注解
+3. 开启 Component 扫描，然后使用相关注解: ~@Component/@Controller/@Service/@Repository~
+
+** Wiring in XML
+
+装配:
+#+BEGIN_SRC sgml
+
+#+END_SRC
+
+** Wiring in JavaConfig
+
+** Wiring with Annotation
+
+首先，需要开启 Component Scanning，即组件扫描:
+#+BEGIN_SRC java
+  // JavaConfig
+  @Configuration
+  @ComponentScan("xxx.components")
+  public class SpringConfig {
+      // ...
+  }
+
+
+  // XMLConfig:
+  //
+  // <context:component-scan base-package="xxx.components" />
+#+END_SRC
+
+声明 Bean 有四个注解:
+1. @Component
+2. @Controller
+3. @Service
+4. @Repository
+
+如果再某个 Bean 中注入另一个 Bean，则有如下方法:
+- @Autowired
+- @Inject
+- @Resource
+
+注入的注解：
+- 可以放在 field 上，称作属性注入
+- 可以放在 constructor 上，称作构造器注入
+- 可以放在 setter 方法上，称作 setter 注入
+
+#+BEGIN_SRC java
+  @Controller
+  public class BookController {
+      @Autowired // 属性注入
+      BookDAO bookDAO;
+
+      @Autowired // 构造器注入
+      public BookController(BookDAO bookDAO) {
+          this.bookDAO = bookDAO;
+      }
+
+      @Autowired // setter 注入
+      public void setBookDAO(BookDAO bookDAO) {
+          this.bookDAO = bookDAO;
+      }
+  }
+#+END_SRC
+
+属性注入的写法是最简单的，但不建议使用。原因:
+1. ...
+2. ...
+3. ...
+
+
+
+
