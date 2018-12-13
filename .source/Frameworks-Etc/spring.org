@@ -123,11 +123,14 @@ xml 暴露出来，用来 *描述* 工厂需要实例化的类以及他们之间
       // <bean id="bs1" class="learning.spring.BookServiceImpl" />
       @Bean
       public BookService bs1() {
-          System.out.println(bookDAO());
           if (Math.random() > 0.5) {
-              return new BookService2Impl();
+              // 接口注入
+              return new BookService2Impl(bookDAO());
           } else {
-              return new BookServiceImpl();
+              // setter 注入
+              BookService bs = new BookServiceImpl();
+              bs.setBookDAO(bookDAO());
+              return bs;
           }
       }
     
