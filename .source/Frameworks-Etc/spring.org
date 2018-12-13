@@ -124,7 +124,7 @@ xml 暴露出来，用来 *描述* 工厂需要实例化的类以及他们之间
       @Bean
       public BookService bs1() {
           if (Math.random() > 0.5) {
-              // 接口注入
+              // 构造器注入
               return new BookService2Impl(bookDAO());
           } else {
               // setter 注入
