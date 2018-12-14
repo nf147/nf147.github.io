@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-12-13 Thu 08:08 -->
+<!-- 2018-12-14 Fri 00:54 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Framework</title>
@@ -374,6 +374,9 @@ XML style 中混入 Java Style:
 <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#23558;&#23454;&#20363;&#21270;&#30340;&#24037;&#20316;&#65292;&#22996;&#25176;&#32473;&#24037;&#21378; </span><span class="org-comment-delimiter">--&gt;</span>
 &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"learning.components.AnimalFactory"</span> <span class="org-variable-name">id</span>=<span class="org-string">"goalmiemie"</span> <span class="org-variable-name">factory-method</span>=<span class="org-string">"xxx"</span> /&gt;
 &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"learning.components.AnimalFactory"</span> <span class="org-variable-name">id</span>=<span class="org-string">"deshui"</span> <span class="org-variable-name">factory-method</span>=<span class="org-string">"yyy"</span> /&gt;
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#21253;&#21547;&#20854;&#20182;&#30340;&#37197;&#32622;&#25991;&#20214;&#21040;&#36825;&#37324; </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">import</span> <span class="org-variable-name">resource</span>=<span class="org-string">"xxxxx.xml"</span> /&gt;
 </pre>
 </div>
 
@@ -393,6 +396,31 @@ XML style 中混入 Java Style:
 
 <div id="outline-container-org4d36aa6" class="outline-3">
 <h3 id="org4d36aa6"><span class="section-number-3">4.2</span> Wiring in JavaConfig</h3>
+<div class="outline-text-3" id="text-4-2">
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Configuration</span>
+<span class="org-c-annotation">@ComponentScan</span>(<span class="org-string">"&#21253;&#21517;"</span>)
+<span class="org-c-annotation">@ImportResource</span>(<span class="org-string">"..../xxx.xml"</span>)
+<span class="org-c-annotation">@Import</span>({ShiroConfig.<span class="org-keyword">class</span>, MybatisConfig.<span class="org-keyword">class</span>, ScheduleConfig.<span class="org-keyword">class</span>})
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">SpringConfig</span> {
+    <span class="org-c-annotation">@Bean</span>
+    <span class="org-keyword">public</span> <span class="org-type">Author</span> <span class="org-function-name">author</span> () {
+        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">Author</span>(<span class="org-string">"luxun"</span>);
+    }
+
+    <span class="org-c-annotation">@Bean</span>
+    <span class="org-keyword">public</span> <span class="org-type">Book</span> <span class="org-function-name">book1</span> (<span class="org-type">Author</span> <span class="org-variable-name">author</span>) {
+        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">Book</span>(<span class="org-string">"&#21584;&#21898;"</span>, author);  <span class="org-comment-delimiter">// </span><span class="org-comment">&#21442;&#25968;&#27880;&#20837;</span>
+    }
+
+    <span class="org-c-annotation">@Bean</span>(name = <span class="org-string">"book3"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">Book</span> <span class="org-function-name">book2</span> () {
+        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">Book</span>(<span class="org-string">"&#21584;&#21898;"</span>, author());  <span class="org-comment-delimiter">// </span><span class="org-comment">&#26041;&#27861;&#35843;&#29992;&#27880;&#20837;</span>
+    }
+}
+</pre>
+</div>
+</div>
 </div>
 
 <div id="outline-container-org580d7b1" class="outline-3">
@@ -477,7 +505,7 @@ XML style 中混入 Java Style:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-12-13 Thu 08:08</p>
+<p class="date">Created: 2018-12-14 Fri 00:54</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

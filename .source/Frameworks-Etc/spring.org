@@ -253,6 +253,9 @@ XML style 中混入 Java Style:
   <!-- 将实例化的工作，委托给工厂 -->
   <bean class="learning.components.AnimalFactory" id="goalmiemie" factory-method="xxx" />
   <bean class="learning.components.AnimalFactory" id="deshui" factory-method="yyy" />
+
+  <!-- 包含其他的配置文件到这里 -->
+  <import resource="xxxxx.xml" />
 #+END_SRC
 
 另外:
@@ -264,6 +267,29 @@ XML style 中混入 Java Style:
 - import 引入其他的定义文件
 
 ** Wiring in JavaConfig
+
+#+BEGIN_SRC java
+  @Configuration
+  @ComponentScan("包名")
+  @ImportResource("..../xxx.xml")
+  @Import({ShiroConfig.class, MybatisConfig.class, ScheduleConfig.class})
+  public class SpringConfig {
+      @Bean
+      public Author author () {
+          return new Author("luxun");
+      }
+
+      @Bean
+      public Book book1 (Author author) {
+          return new Book("呐喊", author);  // 参数注入
+      }
+
+      @Bean(name = "book3")
+      public Book book2 () {
+          return new Book("呐喊", author());  // 方法调用注入
+      }
+  }
+#+END_SRC
 
 ** Wiring with Annotation
 
