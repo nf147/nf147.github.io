@@ -347,12 +347,9 @@ XML style 中混入 Java Style:
 2. ...
 3. ...
 
-
-
-
-
 * 生命周期
 
+#+ATTR_HTML: :style width: 400px
 [[file:img/clip_2018-12-14_01-43-10.png]]
 
 一个 Bean 从产生到消亡经历了这些过程:
