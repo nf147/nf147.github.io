@@ -350,3 +350,20 @@ XML style 中混入 Java Style:
 
 
 
+
+* 生命周期
+
+[[file:img/clip_2018-12-14_01-43-10.png]]
+
+一个 Bean 从产生到消亡经历了这些过程:
+
+1. Spring 对 bean 进行实例化 (~Instance~)
+2. Spring 对 bean 的值或引用进行注入 (~Populate Properties~)
+3. 若实现了 BeanNameAware 接口，则调用 setBeanName 方法，即 ~BeanNameAware.setBeanName()~
+4. ~BeanFactoryAware.setBeanFactory()~
+5. ~ApplicationContextAware.setApplicationContext()~
+6. ~BeanPostProcessor.postProcessBeforeInitialization()~
+7. ~InitializingBean.afterPropertiesSet()~。若声明了 ~init-method~ 方法，调用之
+8. ~BeanPostProcessor.postProcessAfterInitialzation()~
+9. *此时 bean 准备就绪，就可以使用了，直到销毁*
+10. ~DisposableBean.destroy()~。若 bean 声明了 destory-method 属性，调用之

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-12-14 Fri 00:54 -->
+<!-- 2018-12-14 Fri 01:43 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Framework</title>
@@ -36,6 +36,7 @@
 <li><a href="#org580d7b1">4.3. Wiring with Annotation</a></li>
 </ul>
 </li>
+<li><a href="#org20369c0">5. 生命周期</a></li>
 </ul>
 </div>
 </nav>
@@ -502,10 +503,42 @@ XML style 中混入 Java Style:
 </div>
 </div>
 </section>
+
+
+
+
+
+<section id="outline-container-org20369c0" class="outline-2">
+<h2 id="org20369c0"><span class="section-number-2">5</span> 生命周期</h2>
+<div class="outline-text-2" id="text-5">
+
+<figure>
+<img src="img/clip_2018-12-14_01-43-10.png" alt="clip_2018-12-14_01-43-10.png">
+
+</figure>
+
+<p>
+一个 Bean 从产生到消亡经历了这些过程:
+</p>
+
+<ol class="org-ol">
+<li>Spring 对 bean 进行实例化 (<code>Instance</code>)</li>
+<li>Spring 对 bean 的值或引用进行注入 (<code>Populate Properties</code>)</li>
+<li>若实现了 BeanNameAware 接口，则调用 setBeanName 方法，即 <code>BeanNameAware.setBeanName()</code></li>
+<li><code>BeanFactoryAware.setBeanFactory()</code></li>
+<li><code>ApplicationContextAware.setApplicationContext()</code></li>
+<li><code>BeanPostProcessor.postProcessBeforeInitialization()</code></li>
+<li><code>InitializingBean.afterPropertiesSet()</code>。若声明了 <code>init-method</code> 方法，调用之</li>
+<li><code>BeanPostProcessor.postProcessAfterInitialzation()</code></li>
+<li><b>此时 bean 准备就绪，就可以使用了，直到销毁</b></li>
+<li><code>DisposableBean.destroy()</code>。若 bean 声明了 destory-method 属性，调用之</li>
+</ol>
+</div>
+</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-12-14 Fri 00:54</p>
+<p class="date">Created: 2018-12-14 Fri 01:43</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
