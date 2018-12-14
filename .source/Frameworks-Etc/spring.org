@@ -318,6 +318,7 @@ XML style 中混入 Java Style:
 - @Autowired
 - @Inject
 - @Resource
+- @Value
 
 注入的注解：
 - 可以放在 field 上，称作属性注入

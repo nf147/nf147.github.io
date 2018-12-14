@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-12-14 Fri 02:26 -->
+<!-- 2018-12-14 Fri 07:30 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Framework</title>
@@ -36,7 +36,6 @@
 <li><a href="#org580d7b1">4.3. Wiring with Annotation</a></li>
 </ul>
 </li>
-<li><a href="#org2146a0a">5. 生命周期 (Lifecycle)</a></li>
 </ul>
 </div>
 </nav>
@@ -462,87 +461,15 @@ XML style 中混入 Java Style:
 <li>@Autowired</li>
 <li>@Inject</li>
 <li>@Resource</li>
+<li>@Value</li>
 </ul>
-
-<p>
-注入的注解：
-</p>
-<ul class="org-ul">
-<li>可以放在 field 上，称作属性注入</li>
-<li>可以放在 constructor 上，称作构造器注入</li>
-<li>可以放在 setter 方法上，称作 setter 注入</li>
-</ul>
-
-<div class="org-src-container">
-<pre class="src src-java"><span class="org-c-annotation">@Controller</span>
-<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">BookController</span> {
-    <span class="org-c-annotation">@Autowired</span> <span class="org-comment-delimiter">// </span><span class="org-comment">&#23646;&#24615;&#27880;&#20837;</span>
-    <span class="org-type">BookDAO</span> <span class="org-variable-name">bookDAO</span>;
-
-    <span class="org-c-annotation">@Autowired</span> <span class="org-comment-delimiter">// </span><span class="org-comment">&#26500;&#36896;&#22120;&#27880;&#20837;</span>
-    <span class="org-keyword">public</span> <span class="org-function-name">BookController</span>(<span class="org-type">BookDAO</span> <span class="org-variable-name">bookDAO</span>) {
-        <span class="org-keyword">this</span>.bookDAO = bookDAO;
-    }
-
-    <span class="org-c-annotation">@Autowired</span> <span class="org-comment-delimiter">// </span><span class="org-comment">setter &#27880;&#20837;</span>
-    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">setBookDAO</span>(<span class="org-type">BookDAO</span> <span class="org-variable-name">bookDAO</span>) {
-        <span class="org-keyword">this</span>.bookDAO = bookDAO;
-    }
-}
-</pre>
 </div>
-
-<p>
-属性注入的写法是最简单的，但不建议使用。原因:
-</p>
-<ol class="org-ol">
-<li>&#x2026;</li>
-<li>&#x2026;</li>
-<li>&#x2026;</li>
-</ol>
-</div>
-</div>
-</section>
-
-<section id="outline-container-org2146a0a" class="outline-2">
-<h2 id="org2146a0a"><span class="section-number-2">5</span> 生命周期 (Lifecycle)</h2>
-<div class="outline-text-2" id="text-5">
-<p>
-如果想在 Bean 实例化过程中，做一些额外的事情，就需要了解 Bean 从产生，到使用，到最后销毁的整个过程。
-</p>
-
-<p>
-也就是 Bean 的生命周期。
-</p>
-
-
-<figure>
-<img src="img/clip_2018-12-14_01-43-10.png" alt="clip_2018-12-14_01-43-10.png" style="width: 500px">
-
-</figure>
-
-<p>
-一个 Bean 从产生到消亡经历了这些过程:
-</p>
-
-<ol class="org-ol">
-<li>Spring 对 bean 进行实例化 (<code>Instance</code>)</li>
-<li>Spring 对 bean 的值或引用进行注入 (<code>Populate Properties</code>)</li>
-<li>若实现了 BeanNameAware 接口，则调用 setBeanName 方法，即 <code>BeanNameAware.setBeanName()</code></li>
-<li><code>BeanFactoryAware.setBeanFactory()</code></li>
-<li><code>ApplicationContextAware.setApplicationContext()</code></li>
-<li><code>BeanPostProcessor.postProcessBeforeInitialization()</code></li>
-<li><code>InitializingBean.afterPropertiesSet()</code>。若声明了 <code>init-method</code> 方法，调用之</li>
-<li><code>BeanPostProcessor.postProcessAfterInitialzation()</code></li>
-<li><b>此时 bean 准备就绪，就可以使用了，直到销毁</b></li>
-<li><code>DisposableBean.destroy()</code>。若 bean 声明了 destory-method 属性，调用之</li>
-</ol>
 </div>
 </section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-12-14 Fri 02:26</p>
+<p class="date">Created: 2018-12-14 Fri 07:30</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
