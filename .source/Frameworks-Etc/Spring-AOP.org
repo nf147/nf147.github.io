@@ -142,3 +142,6 @@
     </aop:aspect>
   </aop:config>
 #+END_SRC
+
+* 声明式事务管理
+** @Transactional
