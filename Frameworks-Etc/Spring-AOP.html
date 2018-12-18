@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-12-18 Tue 07:22 -->
+<!-- 2018-12-18 Tue 08:04 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring.AOP</title>
@@ -22,8 +22,8 @@
 <ul>
 <li><a href="#org19a7139">1. 面向切面编程 (AOP, Aspect Oriten Program)</a></li>
 <li><a href="#org33e4640">2. 概念</a></li>
-<li><a href="#org713a3bb">3. 使用 @AspectJ 注解</a></li>
-<li><a href="#orge36debb">4. 使用 XML 配置的示例</a></li>
+<li><a href="#orge880343">3. 使用 @AspectJ 注解实现</a></li>
+<li><a href="#org61ebf9d">4. 使用 XML 配置的方式实现</a></li>
 </ul>
 </div>
 </nav>
@@ -121,13 +121,15 @@
 </div>
 </section>
 
-<section id="outline-container-org713a3bb" class="outline-2">
-<h2 id="org713a3bb"><span class="section-number-2">3</span> 使用 @AspectJ 注解</h2>
+<section id="outline-container-orge880343" class="outline-2">
+<h2 id="orge880343"><span class="section-number-2">3</span> 使用 @AspectJ 注解实现</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 使用 @AspectJ 的注解，需要相关 jar 包支持:
-:org.aspectj:aspectjweaver:1.8.9
 </p>
+<pre class="example">
+org.aspectj:aspectjweaver:1.8.9
+</pre>
 
 <p>
 而且需要在配置文件中添加:
@@ -264,8 +266,8 @@
 </div>
 </section>
 
-<section id="outline-container-orge36debb" class="outline-2">
-<h2 id="orge36debb"><span class="section-number-2">4</span> 使用 XML 配置的示例</h2>
+<section id="outline-container-org61ebf9d" class="outline-2">
+<h2 id="org61ebf9d"><span class="section-number-2">4</span> 使用 XML 配置的方式实现</h2>
 <div class="outline-text-2" id="text-4">
 <div class="org-src-container">
 <pre class="src src-sgml">&lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">config</span>&gt;
@@ -284,7 +286,7 @@
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-12-18 Tue 07:22</p>
+<p class="date">Created: 2018-12-18 Tue 08:04</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

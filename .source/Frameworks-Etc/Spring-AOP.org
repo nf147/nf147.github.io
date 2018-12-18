@@ -52,10 +52,10 @@
 - 最终通知(After (finally) advice): 当某连接点退出的时候执行的通知（不论是正常返回还是异常退出）。
 - 环绕通知(Around Advice): 包围一个连接点的通知，如方法调用
 
-* 使用 @AspectJ 注解
+* 使用 @AspectJ 注解实现
 
 使用 @AspectJ 的注解，需要相关 jar 包支持:
-:org.aspectj:aspectjweaver:1.8.9
+: org.aspectj:aspectjweaver:1.8.9
 
 而且需要在配置文件中添加:
 #+BEGIN_SRC sgml
@@ -129,7 +129,7 @@
 | @target       | @target(sss.Test), 所有当前目标对象使用 Test 注解的类的所有方法 |
 | this()        | this(sss.Test), 当前 AOP 对象实现了 Test 接口的所有方法         |
 
-* 使用 XML 配置的示例
+* 使用 XML 配置的方式实现
 
 #+BEGIN_SRC sgml
   <aop:config>
