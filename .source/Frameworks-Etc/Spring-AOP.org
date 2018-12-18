@@ -104,14 +104,16 @@
       }
 
       @Around("xxx()")
-      public void yyyy(ProceedingJoinPoint jp) {
+      public Object yyyy(ProceedingJoinPoint jp) {
+          Object ret = null;
           try {
               System.out.println("aaaa");
-              jp.proceed();
+              ret = jp.proceed();
               System.out.println("bbb");
           } catch(Throwable e) {
               System.out.println("error");
           }
+          return ret;
       }
   }
 #+END_SRC

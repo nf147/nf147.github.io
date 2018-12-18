@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-12-18 Tue 08:05 -->
+<!-- 2018-12-18 Tue 08:25 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring.AOP</title>
@@ -191,14 +191,16 @@ org.aspectj:aspectjweaver:1.8.9
     }
 
     <span class="org-c-annotation">@Around</span>(<span class="org-string">"xxx()"</span>)
-    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">yyyy</span>(<span class="org-type">ProceedingJoinPoint</span> <span class="org-variable-name">jp</span>) {
+    <span class="org-keyword">public</span> <span class="org-type">Object</span> <span class="org-function-name">yyyy</span>(<span class="org-type">ProceedingJoinPoint</span> <span class="org-variable-name">jp</span>) {
+        <span class="org-type">Object</span> <span class="org-variable-name">ret</span> = <span class="org-constant">null</span>;
         <span class="org-keyword">try</span> {
             System.out.println(<span class="org-string">"aaaa"</span>);
-            jp.proceed();
+            ret = jp.proceed();
             System.out.println(<span class="org-string">"bbb"</span>);
         } <span class="org-keyword">catch</span>(<span class="org-type">Throwable</span> <span class="org-variable-name">e</span>) {
             System.out.println(<span class="org-string">"error"</span>);
         }
+        <span class="org-keyword">return</span> ret;
     }
 }
 </pre>
@@ -300,7 +302,7 @@ org.aspectj:aspectjweaver:1.8.9
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-12-18 Tue 08:05</p>
+<p class="date">Created: 2018-12-18 Tue 08:25</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
