@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2018-12-18 Tue 07:22 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spring.IOC</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="孙悟空">
+<link rel='stylesheet' href='/asset/common.css' />
+<script src='https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+<script src='/asset/common.js'></script>
+</head>
+<body>
+<div id="content">
+<header>
+<h1 class="title">Spring.IOC</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgc947e65">1. vs. 工厂模式</a></li>
+<li><a href="#org8e409e7">2. 接口</a></li>
+<li><a href="#org4c0875f">3. 配置</a>
+<ul>
+<li><a href="#org14b29a3">3.1. 传统的方式 xml</a></li>
+<li><a href="#org91ad614">3.2. 基于 Java 的方式进行配置</a></li>
+<li><a href="#org9595d03">3.3. 混合双打</a></li>
+</ul>
+</li>
+<li><a href="#orgb82d83d">4. 装配 (Wiring)</a>
+<ul>
+<li><a href="#orge32a8c5">4.1. Wiring in XML</a></li>
+<li><a href="#org88591c8">4.2. Wiring in JavaConfig</a></li>
+<li><a href="#orgd329fa9">4.3. Wiring with Annotation</a></li>
+</ul>
+</li>
+<li><a href="#org9828a94">5. 生命周期 (Lifecycle)</a></li>
+</ul>
+</div>
+</nav>
+
+
+<section id="outline-container-orgc947e65" class="outline-2">
+<h2 id="orgc947e65"><span class="section-number-2">1</span> vs. 工厂模式</h2>
+<div class="outline-text-2" id="text-1">
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">ServiceFactory</span> {
+    <span class="org-keyword">public</span> <span class="org-type">Object</span> <span class="org-function-name">getServiceObject</span> (<span class="org-type">String</span> <span class="org-variable-name">name</span>) {
+        <span class="org-keyword">if</span> (name.equals(<span class="org-string">"bs"</span>)) {
+            <span class="org-type">A</span> <span class="org-variable-name">a</span> = <span class="org-keyword">new</span> <span class="org-type">A</span>();
+            <span class="org-type">B</span> <span class="org-variable-name">b</span> = <span class="org-keyword">new</span> <span class="org-type">B</span>(a); <span class="org-comment-delimiter">// </span><span class="org-comment">&#26500;&#36896;&#22120;</span>
+            <span class="org-type">MyBatiscConnection</span> <span class="org-variable-name">conn</span> = <span class="org-keyword">new</span> <span class="org-type">MyBatiscConnection</span>();
+            <span class="org-type">LogUtil</span> <span class="org-variable-name">log</span> = <span class="org-keyword">new</span> <span class="org-type">LogUtil</span>();
+            <span class="org-type">BookService</span> <span class="org-variable-name">bookservice</span> = <span class="org-keyword">new</span> <span class="org-type">BookService</span>();
+
+            b.setA(a); <span class="org-comment-delimiter">// </span><span class="org-comment">setter</span>
+            conn.setB(b);
+            bookservice.setConn(conn);
+            LogUtil.setConn(conn);
+            bookservice.setLogger(log);
+
+            <span class="org-keyword">return</span> bookservice;
+        }
+    }
+}
+
+<span class="org-function-name">main</span> () {
+    <span class="org-type">ServiceFactory</span> <span class="org-variable-name">sf</span> = <span class="org-keyword">new</span> <span class="org-type">ServiceFactory</span>();
+
+    <span class="org-type">BookService</span> <span class="org-variable-name">bookservice</span> = sf.getServiceObject(<span class="org-string">"bs"</span>);
+    bookservice.sellBook();
+}
+</pre>
+</div>
+
+<p>
+将工厂模式切割，分为解析程序和 xml 文件。
+</p>
+
+<p>
+xml 暴露出来，用来<b>描述</b>工厂需要实例化的类以及他们之间的关系。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-function-name">xml</span>&gt;
+  <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#20043;&#21069;&#21629;&#20196;&#65307;&#25551;&#36848; </span><span class="org-comment-delimiter">--&gt;</span>
+  &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"a"</span> <span class="org-variable-name">class</span>=<span class="org-string">"xxx.yyy.A"</span> /&gt;
+  &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"b"</span> <span class="org-variable-name">class</span>=<span class="org-string">"xxx.yyy.B"</span>&gt;
+    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"a"</span> <span class="org-variable-name">bean</span>=<span class="org-string">"a"</span> /&gt;
+  &lt;/<span class="org-function-name">bean</span>&gt;
+  &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"conn"</span> <span class="org-variable-name">class</span>=<span class="org-string">"xxx.yyy.MyBConn"</span>&gt;
+    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"b"</span> <span class="org-variable-name">bean</span>=<span class="org-string">"b"</span> /&gt;
+  &lt;/<span class="org-function-name">bean</span>&gt;
+  &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"log"</span> <span class="org-variable-name">class</span>=<span class="org-string">"xxx.yyy.LogUtil"</span>&gt;
+    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"conn"</span> <span class="org-variable-name">bean</span>=<span class="org-string">"conn"</span> /&gt;
+  &lt;/<span class="org-function-name">bean</span>&gt;
+  &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"bookservice"</span> <span class="org-variable-name">class</span>=<span class="org-string">"xxx.BookService"</span>&gt;
+    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"conn"</span> <span class="org-variable-name">bean</span>=<span class="org-string">"conn"</span> /&gt;
+    &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"log"</span> <span class="org-variable-name">bean</span>=<span class="org-string">"log"</span> /&gt;
+  &lt;/<span class="org-function-name">bean</span>&gt;
+&lt;/<span class="org-function-name">xml</span>&gt;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org8e409e7" class="outline-2">
+<h2 id="org8e409e7"><span class="section-number-2">2</span> 接口</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+最核心的 jar 包:
+</p>
+<ul class="org-ul">
+<li>spring-core</li>
+<li>spring-bean</li>
+<li>spring-context</li>
+</ul>
+
+<p>
+最核心的接口是 <code>BeanFactory</code>，它用来描述 IOC 容器:
+</p>
+
+
+<figure>
+<img src="img/clip_2018-12-13_03-01-52.png" alt="clip_2018-12-13_03-01-52.png">
+
+</figure>
+
+<p>
+它很干净，很纯粹，最主要的方法是 <code>getBean</code> 用来给调用方返回一个实例化好的对象。
+</p>
+
+<p>
+在实际运用中，需要一些周边功能，比如加载资源/国际化/等等，Spring 为此提供了 <code>ApplicatinContext</code>
+接口。它本身是 BeanFactory 的一个实现:
+</p>
+
+
+<figure>
+<img src="img/clip_2018-12-13_03-04-54.png" alt="clip_2018-12-13_03-04-54.png">
+
+</figure>
+
+<p>
+可以看到，ApplicationContext 除了实现了 BeanFactory，还实现了其他一些实用的接口。因此，它是在 Spring 中操作一切的核心。
+</p>
+
+<p>
+这是<b>门面模式</b>的一种典型使用。
+</p>
+</div>
+</section>
+
+
+<section id="outline-container-org4c0875f" class="outline-2">
+<h2 id="org4c0875f"><span class="section-number-2">3</span> 配置</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org14b29a3" class="outline-3">
+<h3 id="org14b29a3"><span class="section-number-3">3.1</span> 传统的方式 xml</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+这种方式，充分利用了 xml 文件的优势:
+</p>
+<ul class="org-ul">
+<li>接受度比较高，语法简单</li>
+<li>表达能力比较强</li>
+<li>生态比较完整，基于 xml 的校验、解析等比较完善</li>
+</ul>
+
+<p>
+所以，最开始的时候，描述工厂里 bean 声明的方式，选用的就是 xml
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sgml"><span class="org-string">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+&lt;<span class="org-function-name">beans</span> <span class="org-variable-name">xmlns</span>=<span class="org-string">"http://www.springframework.org/schema/beans"</span>
+       <span class="org-sgml-namespace">xmlns</span>:<span class="org-variable-name">xsi</span>=<span class="org-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+       <span class="org-sgml-namespace">xsi</span>:<span class="org-variable-name">schemaLocation</span>=<span class="org-string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"</span>&gt;
+
+    &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"bs1"</span> <span class="org-variable-name">class</span>=<span class="org-string">"learning.spring.BookServiceImpl"</span> /&gt;
+    &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"bs2"</span> <span class="org-variable-name">class</span>=<span class="org-string">"learning.spring.BookService2Impl"</span> /&gt;
+
+    <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&lt;bean id="bs2" class="learning.spring.BookServiceImplImpl" /&gt;</span><span class="org-comment-delimiter">--&gt;</span>
+
+    <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&lt;bean id="bs3" class="learning.spring.BookServiceImplImpl" /&gt;</span><span class="org-comment-delimiter">--&gt;</span>
+&lt;/<span class="org-function-name">beans</span>&gt;
+</pre>
+</div>
+
+<p>
+但是:
+</p>
+<ul class="org-ul">
+<li>很多人不喜欢 xml 这种标签式的语法。写起来麻烦，看起来不舒服</li>
+<li>xml 方式过于重型</li>
+<li>xml 语法校验虽然强大，但不够强大</li>
+<li>xml 虽然灵活，但不够灵活</li>
+</ul>
+
+<p>
+所以，就产生了很多其他的叛逆的想法
+</p>
+</div>
+</div>
+
+<div id="outline-container-org91ad614" class="outline-3">
+<h3 id="org91ad614"><span class="section-number-3">3.2</span> 基于 Java 的方式进行配置</h3>
+<div class="outline-text-3" id="text-3-2">
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Configuration</span>
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">SuibianSpringConfig</span> {
+
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&lt;bean id="bs1" class="learning.spring.BookServiceImpl" /&gt;</span>
+    <span class="org-c-annotation">@Bean</span>
+    <span class="org-keyword">public</span> <span class="org-type">BookService</span> <span class="org-function-name">bs1</span>() {
+        <span class="org-keyword">if</span> (Math.random() &gt; 0.5) {
+            <span class="org-comment-delimiter">// </span><span class="org-comment">&#26500;&#36896;&#22120;&#27880;&#20837;</span>
+            <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">BookService2Impl</span>(bookDAO());
+        } <span class="org-keyword">else</span> {
+            <span class="org-comment-delimiter">// </span><span class="org-comment">setter &#27880;&#20837;</span>
+            <span class="org-type">BookService</span> <span class="org-variable-name">bs</span> = <span class="org-keyword">new</span> <span class="org-type">BookServiceImpl</span>();
+            bs.setBookDAO(bookDAO());
+            <span class="org-keyword">return</span> bs;
+        }
+    }
+
+    <span class="org-c-annotation">@Bean</span>
+    <span class="org-keyword">public</span> <span class="org-type">BookDAO</span> <span class="org-function-name">bookDAO</span> () {
+        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">BookDAO</span>();
+    }
+}
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9595d03" class="outline-3">
+<h3 id="org9595d03"><span class="section-number-3">3.3</span> 混合双打</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+Java Style 中混入 XML Style:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Configuration</span>
+<span class="org-c-annotation">@ImportResource</span>(locations = <span class="org-string">"learning/spring/my-spring.xml"</span>)
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">SuibianSpringConfig</span> {
+
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&lt;bean id="bs1" class="learning.spring.BookServiceImpl" /&gt;</span>
+    <span class="org-c-annotation">@Bean</span>
+    <span class="org-keyword">public</span> <span class="org-type">BookService</span> <span class="org-function-name">bs1</span>() {
+        System.out.println(bookDAO());
+        <span class="org-keyword">if</span> (Math.random() &gt; 0.5) {
+            <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">BookService2Impl</span>();
+        } <span class="org-keyword">else</span> {
+            <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">BookServiceImpl</span>();
+        }
+    }
+
+    <span class="org-c-annotation">@Bean</span>
+    <span class="org-keyword">public</span> <span class="org-type">BookDAO</span> <span class="org-function-name">bookDAO</span> () {
+        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">BookDAO</span>();
+    }
+}
+
+</pre>
+</div>
+
+<p>
+XML style 中混入 Java Style:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml"><span class="org-string">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+&lt;<span class="org-function-name">beans</span> <span class="org-variable-name">xmlns</span>=<span class="org-string">"http://www.springframework.org/schema/beans"</span>
+       <span class="org-sgml-namespace">xmlns</span>:<span class="org-variable-name">xsi</span>=<span class="org-string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+       <span class="org-sgml-namespace">xsi</span>:<span class="org-variable-name">schemaLocation</span>=<span class="org-string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"</span>&gt;
+
+    &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"bs2"</span> <span class="org-variable-name">class</span>=<span class="org-string">"learning.spring.BookService2Impl"</span> /&gt;
+    &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"learning.spring.configuration.SuibianSpringConfig"</span> /&gt;
+&lt;/<span class="org-function-name">beans</span>&gt;
+</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="outline-container-orgb82d83d" class="outline-2">
+<h2 id="orgb82d83d"><span class="section-number-2">4</span> 装配 (Wiring)</h2>
+<div class="outline-text-2" id="text-4">
+<blockquote>
+<p>
+
+</p>
+
+<p>
+创建应用对象之间协作关系的行为，通常称为装配 (Wiring)。这是依赖注入 (DI) 的本质。
+</p>
+</blockquote>
+
+<p>
+装配的基础，是使用配置文件对 Bean 的关系进行声明。
+</p>
+
+<p>
+总结起来，在 Spring 中，声明 Bean 一共有三种方式:
+</p>
+<ol class="org-ol">
+<li>在 XML Style 的配置中，使用 <code>&lt;bean /&gt;</code> 节点</li>
+<li>在 Java Style 的配置中，使用 <code>@Bean</code> 注解</li>
+<li>开启 Component 扫描，然后使用相关注解: <code>@Component/@Controller/@Service/@Repository</code></li>
+</ol>
+</div>
+
+<div id="outline-container-orge32a8c5" class="outline-3">
+<h3 id="orge32a8c5"><span class="section-number-3">4.1</span> Wiring in XML</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+装配:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml"><span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#26368;&#31616;&#21333;&#30340;&#22768;&#26126; </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"package.Dog"</span> /&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">Class.forName("package.Dog").newInstance(); </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"xxx"</span> <span class="org-variable-name">class</span>=<span class="org-string">"&#21253;&#21517;.&#31867;&#30340;&#21517;&#23383;"</span> /&gt;
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#23545;&#35937;&#20869;&#37096;&#24517;&#39035;&#35201;&#26377;&#25968;&#25454;&#65292;&#25152;&#20197;&#35201;&#32473;&#20182;&#25968;&#25454; </span><span class="org-comment-delimiter">--&gt;</span>
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#26500;&#36896;&#22120;&#27880;&#20837; </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"donkey"</span> <span class="org-variable-name">class</span>=<span class="org-string">"learning.components.Donkey"</span>&gt;
+  &lt;<span class="org-function-name">constructor-arg</span> <span class="org-variable-name">index</span>=<span class="org-string">"0"</span> <span class="org-variable-name">value</span>=<span class="org-string">"&#24471;&#27700;"</span> /&gt;
+  &lt;<span class="org-function-name">constructor-arg</span> <span class="org-variable-name">index</span>=<span class="org-string">"1"</span> <span class="org-variable-name">value</span>=<span class="org-string">"333"</span> /&gt;
+&lt;/<span class="org-function-name">bean</span>&gt;
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#23646;&#24615;&#27880;&#20837; </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"learning.components.Goal"</span> <span class="org-variable-name">id</span>=<span class="org-string">"goal"</span>&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"name"</span> <span class="org-variable-name">value</span>=<span class="org-string">"&#22810;&#21033;"</span> /&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"countOfLegs"</span> <span class="org-variable-name">value</span>=<span class="org-string">"4"</span> /&gt;
+&lt;/<span class="org-function-name">bean</span>&gt;
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#38598;&#21512;&#30340;&#27880;&#20837; </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"learning.components.Goal"</span> <span class="org-variable-name">id</span>=<span class="org-string">"goal"</span>&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"name"</span> <span class="org-variable-name">value</span>=<span class="org-string">"&#22810;&#21033;"</span> /&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"legs"</span>&gt;
+     &lt;<span class="org-function-name">list</span>&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">map/arrary/set/prop &#21516;&#29702; </span><span class="org-comment-delimiter">--&gt;</span>
+        &lt;<span class="org-function-name">value</span>&gt;leg1&lt;/<span class="org-function-name">value</span>&gt;
+        &lt;<span class="org-function-name">value</span>&gt;leg2&lt;/<span class="org-function-name">value</span>&gt;
+        &lt;<span class="org-function-name">value</span>&gt;leg3&lt;/<span class="org-function-name">value</span>&gt;
+     &lt;/<span class="org-function-name">list</span>&gt;
+  &lt;/<span class="org-function-name">property</span>&gt;
+&lt;/<span class="org-function-name">bean</span>&gt;
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">Bean &#30340;&#20381;&#36182; </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"learning.components.Goal"</span> <span class="org-variable-name">id</span>=<span class="org-string">"goal"</span>&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"xxx"</span>&gt;
+      &lt;<span class="org-function-name">ref</span> <span class="org-variable-name">bean</span>=<span class="org-string">"xxx"</span> /&gt;
+  &lt;/<span class="org-function-name">property</span>&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"yyy"</span> <span class="org-variable-name">ref</span>=<span class="org-string">"yyy"</span> /&gt;
+  &lt;<span class="org-function-name">property</span> <span class="org-variable-name">name</span>=<span class="org-string">"zzz"</span>&gt;
+      &lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"package.Zzz"</span> /&gt;
+  &lt;/<span class="org-function-name">property</span>&gt;
+&lt;/<span class="org-function-name">bean</span>&gt;
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#20351;&#29992; C/P/UTIL &#21629;&#21517;&#31354;&#38388;&#31616;&#21270;&#20351;&#29992; </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"learning.components.Goal"</span> <span class="org-variable-name">id</span>=<span class="org-string">"goal"</span>
+      <span class="org-sgml-namespace">p</span>:<span class="org-variable-name">name</span>=<span class="org-string">"&#22810;&#21033;"</span> <span class="org-sgml-namespace">p</span>:<span class="org-variable-name">countOfLegs</span>=<span class="org-string">"4"</span>
+      <span class="org-sgml-namespace">p</span>:<span class="org-variable-name">xxx-ref</span>=<span class="org-string">"xxx"</span> <span class="org-sgml-namespace">p</span>:<span class="org-variable-name">aliases-ref</span>=<span class="org-string">"aliaslist"</span> /&gt;
+
+&lt;<span class="org-sgml-namespace">util</span>:<span class="org-function-name">list</span> <span class="org-variable-name">id</span>=<span class="org-string">"aliaslist"</span>&gt;
+  &lt;<span class="org-function-name">value</span>&gt;kkkk1&lt;/<span class="org-function-name">value</span>&gt;
+  &lt;<span class="org-function-name">value</span>&gt;kkkk2&lt;/<span class="org-function-name">value</span>&gt;
+  &lt;<span class="org-function-name">value</span>&gt;kkkk3&lt;/<span class="org-function-name">value</span>&gt;
+&lt;/<span class="org-sgml-namespace">util</span>:<span class="org-function-name">list</span>&gt;
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#23558;&#23454;&#20363;&#21270;&#30340;&#24037;&#20316;&#65292;&#22996;&#25176;&#32473;&#24037;&#21378; </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"learning.components.AnimalFactory"</span> <span class="org-variable-name">id</span>=<span class="org-string">"goalmiemie"</span> <span class="org-variable-name">factory-method</span>=<span class="org-string">"xxx"</span> /&gt;
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"learning.components.AnimalFactory"</span> <span class="org-variable-name">id</span>=<span class="org-string">"deshui"</span> <span class="org-variable-name">factory-method</span>=<span class="org-string">"yyy"</span> /&gt;
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#21253;&#21547;&#20854;&#20182;&#30340;&#37197;&#32622;&#25991;&#20214;&#21040;&#36825;&#37324; </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">import</span> <span class="org-variable-name">resource</span>=<span class="org-string">"xxxxx.xml"</span> /&gt;
+</pre>
+</div>
+
+<p>
+另外:
+</p>
+<ul class="org-ul">
+<li>denpend-on 定义顺序</li>
+<li>parent 定义继承</li>
+<li>scope 定义初始化策略</li>
+<li>lazy 延迟初始化</li>
+<li>alias 定义别名</li>
+<li>import 引入其他的定义文件</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org88591c8" class="outline-3">
+<h3 id="org88591c8"><span class="section-number-3">4.2</span> Wiring in JavaConfig</h3>
+<div class="outline-text-3" id="text-4-2">
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Configuration</span>
+<span class="org-c-annotation">@ComponentScan</span>(<span class="org-string">"&#21253;&#21517;"</span>)
+<span class="org-c-annotation">@ImportResource</span>(<span class="org-string">"..../xxx.xml"</span>)
+<span class="org-c-annotation">@Import</span>({ShiroConfig.<span class="org-keyword">class</span>, MybatisConfig.<span class="org-keyword">class</span>, ScheduleConfig.<span class="org-keyword">class</span>})
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">SpringConfig</span> {
+    <span class="org-c-annotation">@Bean</span>
+    <span class="org-keyword">public</span> <span class="org-type">Author</span> <span class="org-function-name">author</span> () {
+        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">Author</span>(<span class="org-string">"luxun"</span>);
+    }
+
+    <span class="org-c-annotation">@Bean</span>
+    <span class="org-keyword">public</span> <span class="org-type">Book</span> <span class="org-function-name">book1</span> (<span class="org-type">Author</span> <span class="org-variable-name">author</span>) {
+        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">Book</span>(<span class="org-string">"&#21584;&#21898;"</span>, author);  <span class="org-comment-delimiter">// </span><span class="org-comment">&#21442;&#25968;&#27880;&#20837;</span>
+    }
+
+    <span class="org-c-annotation">@Bean</span>(name = <span class="org-string">"book3"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">Book</span> <span class="org-function-name">book2</span> () {
+        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">Book</span>(<span class="org-string">"&#21584;&#21898;"</span>, author());  <span class="org-comment-delimiter">// </span><span class="org-comment">&#26041;&#27861;&#35843;&#29992;&#27880;&#20837;</span>
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd329fa9" class="outline-3">
+<h3 id="orgd329fa9"><span class="section-number-3">4.3</span> Wiring with Annotation</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+首先，需要开启 Component Scanning，即组件扫描:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-comment-delimiter">// </span><span class="org-comment">JavaConfig</span>
+<span class="org-c-annotation">@Configuration</span>
+<span class="org-c-annotation">@ComponentScan</span>(<span class="org-string">"xxx.components"</span>)
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">SpringConfig</span> {
+    <span class="org-comment-delimiter">// </span><span class="org-comment">...</span>
+}
+
+
+<span class="org-comment-delimiter">// </span><span class="org-comment">XMLConfig:</span>
+<span class="org-comment-delimiter">//</span>
+<span class="org-comment-delimiter">// </span><span class="org-comment">&lt;context:component-scan base-package="xxx.components" /&gt;</span>
+</pre>
+</div>
+
+<p>
+声明 Bean 有四个注解:
+</p>
+<ol class="org-ol">
+<li>@Component</li>
+<li>@Controller</li>
+<li>@Service</li>
+<li>@Repository</li>
+</ol>
+
+<p>
+在注解的方式中，要确定 Bean 之间的关系，需要使用下面注解进行 “注入”:
+</p>
+<ul class="org-ul">
+<li>@Autowired</li>
+<li>@Inject</li>
+<li>@Resource</li>
+<li>@Value</li>
+</ul>
+
+<p>
+注入的注解：
+</p>
+<ul class="org-ul">
+<li>可以放在 field 上，称作属性注入</li>
+<li>可以放在 constructor 上，称作构造器注入</li>
+<li>可以放在 setter 方法上，称作 setter 注入</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Controller</span>
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">BookController</span> {
+    <span class="org-c-annotation">@Autowired</span> <span class="org-comment-delimiter">// </span><span class="org-comment">&#23646;&#24615;&#27880;&#20837;</span>
+    <span class="org-type">BookDAO</span> <span class="org-variable-name">bookDAO</span>;
+
+    <span class="org-c-annotation">@Autowired</span> <span class="org-comment-delimiter">// </span><span class="org-comment">&#26500;&#36896;&#22120;&#27880;&#20837;</span>
+    <span class="org-keyword">public</span> <span class="org-function-name">BookController</span>(<span class="org-type">BookDAO</span> <span class="org-variable-name">bookDAO</span>) {
+        <span class="org-keyword">this</span>.bookDAO = bookDAO;
+    }
+
+    <span class="org-c-annotation">@Autowired</span> <span class="org-comment-delimiter">// </span><span class="org-comment">setter &#27880;&#20837;</span>
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">setBookDAO</span>(<span class="org-type">BookDAO</span> <span class="org-variable-name">bookDAO</span>) {
+        <span class="org-keyword">this</span>.bookDAO = bookDAO;
+    }
+}
+</pre>
+</div>
+
+<p>
+属性注入的写法是最简单的，但不建议使用。原因:
+</p>
+<ol class="org-ol">
+<li>&#x2026;</li>
+<li>&#x2026;</li>
+<li>&#x2026;</li>
+</ol>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org9828a94" class="outline-2">
+<h2 id="org9828a94"><span class="section-number-2">5</span> 生命周期 (Lifecycle)</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+如果想在 Bean 实例化过程中，做一些额外的事情，就需要了解 Bean 从产生，到使用，到最后销毁的整个过程。
+</p>
+
+<p>
+也就是 Bean 的生命周期。
+</p>
+
+
+<figure>
+<img src="img/clip_2018-12-14_01-43-10.png" alt="clip_2018-12-14_01-43-10.png" style="width: 500px">
+
+</figure>
+
+<p>
+一个 Bean 从产生到消亡经历了这些过程:
+</p>
+
+<ol class="org-ol">
+<li>Spring 对 bean 进行实例化 (<code>Instance</code>)</li>
+<li>Spring 对 bean 的值或引用进行注入 (<code>Populate Properties</code>)</li>
+<li>若实现了 BeanNameAware 接口，则调用 setBeanName 方法，即 <code>BeanNameAware.setBeanName()</code></li>
+<li><code>BeanFactoryAware.setBeanFactory()</code></li>
+<li><code>ApplicationContextAware.setApplicationContext()</code></li>
+<li><code>BeanPostProcessor.postProcessBeforeInitialization()</code></li>
+<li><code>InitializingBean.afterPropertiesSet()</code>。若声明了 <code>init-method</code> 方法，调用之</li>
+<li><code>BeanPostProcessor.postProcessAfterInitialzation()</code></li>
+<li><b>此时 bean 准备就绪，就可以使用了，直到销毁</b></li>
+<li><code>DisposableBean.destroy()</code>。若 bean 声明了 destory-method 属性，调用之</li>
+</ol>
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: 孙悟空</p>
+<p class="date">Created: 2018-12-18 Tue 07:22</p>
+<p class="validation">Go ahead, never stop.</p>
+</div>
+</body>
+</html>
