@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-12-14 Fri 07:30 -->
+<!-- 2018-12-18 Tue 07:19 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Framework</title>
@@ -36,6 +36,11 @@
 <li><a href="#org580d7b1">4.3. Wiring with Annotation</a></li>
 </ul>
 </li>
+<li><a href="#orgff8392d">5. 生命周期 (Lifecycle)</a></li>
+<li><a href="#orgd96689a">6. 面向切面编程 (AOP, Aspect Oriten Program)</a></li>
+<li><a href="#org80086d2">7. 概念</a></li>
+<li><a href="#org847d884">8. 使用 @AspectJ 注解</a></li>
+<li><a href="#orgef39585">9. 使用 XML 配置的示例</a></li>
 </ul>
 </div>
 </nav>
@@ -463,13 +468,338 @@ XML style 中混入 Java Style:
 <li>@Resource</li>
 <li>@Value</li>
 </ul>
+
+<p>
+注入的注解：
+</p>
+<ul class="org-ul">
+<li>可以放在 field 上，称作属性注入</li>
+<li>可以放在 constructor 上，称作构造器注入</li>
+<li>可以放在 setter 方法上，称作 setter 注入</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Controller</span>
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">BookController</span> {
+    <span class="org-c-annotation">@Autowired</span> <span class="org-comment-delimiter">// </span><span class="org-comment">&#23646;&#24615;&#27880;&#20837;</span>
+    <span class="org-type">BookDAO</span> <span class="org-variable-name">bookDAO</span>;
+
+    <span class="org-c-annotation">@Autowired</span> <span class="org-comment-delimiter">// </span><span class="org-comment">&#26500;&#36896;&#22120;&#27880;&#20837;</span>
+    <span class="org-keyword">public</span> <span class="org-function-name">BookController</span>(<span class="org-type">BookDAO</span> <span class="org-variable-name">bookDAO</span>) {
+        <span class="org-keyword">this</span>.bookDAO = bookDAO;
+    }
+
+    <span class="org-c-annotation">@Autowired</span> <span class="org-comment-delimiter">// </span><span class="org-comment">setter &#27880;&#20837;</span>
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">setBookDAO</span>(<span class="org-type">BookDAO</span> <span class="org-variable-name">bookDAO</span>) {
+        <span class="org-keyword">this</span>.bookDAO = bookDAO;
+    }
+}
+</pre>
+</div>
+
+<p>
+属性注入的写法是最简单的，但不建议使用。原因:
+</p>
+<ol class="org-ol">
+<li>&#x2026;</li>
+<li>&#x2026;</li>
+<li>&#x2026;</li>
+</ol>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgff8392d" class="outline-2">
+<h2 id="orgff8392d"><span class="section-number-2">5</span> 生命周期 (Lifecycle)</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+如果想在 Bean 实例化过程中，做一些额外的事情，就需要了解 Bean 从产生，到使用，到最后销毁的整个过程。
+</p>
+
+<p>
+也就是 Bean 的生命周期。
+</p>
+
+
+<figure>
+<img src="img/clip_2018-12-14_01-43-10.png" alt="clip_2018-12-14_01-43-10.png" style="width: 500px">
+
+</figure>
+
+<p>
+一个 Bean 从产生到消亡经历了这些过程:
+</p>
+
+<ol class="org-ol">
+<li>Spring 对 bean 进行实例化 (<code>Instance</code>)</li>
+<li>Spring 对 bean 的值或引用进行注入 (<code>Populate Properties</code>)</li>
+<li>若实现了 BeanNameAware 接口，则调用 setBeanName 方法，即 <code>BeanNameAware.setBeanName()</code></li>
+<li><code>BeanFactoryAware.setBeanFactory()</code></li>
+<li><code>ApplicationContextAware.setApplicationContext()</code></li>
+<li><code>BeanPostProcessor.postProcessBeforeInitialization()</code></li>
+<li><code>InitializingBean.afterPropertiesSet()</code>。若声明了 <code>init-method</code> 方法，调用之</li>
+<li><code>BeanPostProcessor.postProcessAfterInitialzation()</code></li>
+<li><b>此时 bean 准备就绪，就可以使用了，直到销毁</b></li>
+<li><code>DisposableBean.destroy()</code>。若 bean 声明了 destory-method 属性，调用之</li>
+</ol>
+</div>
+</section>
+<section id="outline-container-orgd96689a" class="outline-2">
+<h2 id="orgd96689a"><span class="section-number-2">6</span> 面向切面编程 (AOP, Aspect Oriten Program)</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+如果对一个对象的方法进行<b>扩充</b>（不改变源码的情况之下，增加或修改行为）的话，一般使用代理模式：
+</p>
+<ol class="org-ol">
+<li><del>静态代理（太麻烦，一般不会用）</del></li>
+<li>JDK 的动态代理</li>
+<li>CGLib 的动态代理</li>
+</ol>
+
+<p>
+但是，直接写代理生成太麻烦了，所以，基于动态代理，产生了 AOP 的编程思想。
+</p>
+
+<blockquote>
+<p>
+
+</p>
+
+<p>
+扩充 = 功能分离。主线功能，支线功能，分开来，实现解耦。
+</p>
+</blockquote>
+
+<p>
+实际中，基于代理实现的 AOP 方案有很多，比如:
+</p>
+<ol class="org-ol">
+<li>AspectJ 实现</li>
+<li>Jboss AOP 实现</li>
+<li>Spring AOP 实现</li>
+</ol>
+
+<p>
+关于 Spring AOP:
+</p>
+<ul class="org-ul">
+<li>默认情况下，它基于 JDK 动态代理，所以它需要有接口。</li>
+<li>但是，也可以调用 CGLib 的代理方式。</li>
+<li>一般情况下，要为一个类产生代理。如果它有接口，那么 Spring 会采取 JDK 动态代理方式；如果没接口，这时候它会尝试使用 CGLib 的方式产生代理</li>
+<li>Spring AOP 实现，它的功能<b>相对来说</b>比较弱，只能基于方法进行织入</li>
+<li>Spring AOP 压根就没有想过成为一个全能的 AOP 实现来取代 AspectJ，它主要的精力放在怎么跟容器结合起来更好用，怎么才能更好得配合企业级开发</li>
+<li>Spring AOP 借鉴了 AspectJ 的非常多的特性，比如说，Spring AOP 可以使用跟 AspectJ 完全一样的注解来声明切面。当然要明白，虽然我们可以使用 @AspectJ 的注解，但后面运行的还是实打实的 Spring AOP。</li>
+<li>Spring 中可以非常简单的将其他 AOP 的实现无缝整合到框架中，所以，如果你觉得 Spring AOP 的实现太逊，你完全可以将其他实现整合进来，取代 Spring AOP。</li>
+</ul>
+</div>
+</section>
+
+
+<section id="outline-container-org80086d2" class="outline-2">
+<h2 id="org80086d2"><span class="section-number-2">7</span> 概念</h2>
+<div class="outline-text-2" id="text-7">
+
+<figure>
+<img src="img/clip_2018-12-18_07-19-33.png" alt="clip_2018-12-18_07-19-33.png">
+
+</figure>
+
+<p>
+基本概念:
+</p>
+<ul class="org-ul">
+<li><b>Advice</b>: 要向目标位置加入什么</li>
+<li><b>Pointcut</b>: 要加到哪些位置</li>
+<li><b>Aspect</b>: 一系列 Advice + Pointcut 的集合。</li>
+<li><b>Joinpoint</b>: Pointcut 中的具体某个位置</li>
+</ul>
+
+<p>
+<b>织入(Weaving)</b> 是把切面应用到目标对象并创建新的代理对象的过程:
+</p>
+<ul class="org-ul">
+<li>编译期。切面在目标类编译时被织入。这需要特殊的编译器，比如 AspectJ</li>
+<li>类加载期。需要特殊的 Classloader。AspectJ 的加载时织入就支持这种方式织入切面</li>
+<li>运行期。使用动态代理的方式织入。Spring AOP 就是用这种方式织入的</li>
+</ul>
+
+<p>
+<b>通知类型</b>:
+</p>
+<ul class="org-ul">
+<li>前置通知(Before advice): 在某连接点之前执行的通知，但这个通知不能阻止连接点之前的执行流程（除非它抛出一个异常）</li>
+<li>后置通知(After returning advice): 在某连接点正常完成后执行的通知</li>
+<li>异常通知(After throwing advice): 在方法抛出异常退出时执行的通知</li>
+<li>最终通知(After (finally) advice): 当某连接点退出的时候执行的通知（不论是正常返回还是异常退出）。</li>
+<li>环绕通知(Around Advice): 包围一个连接点的通知，如方法调用</li>
+</ul>
+</div>
+</section>
+
+<section id="outline-container-org847d884" class="outline-2">
+<h2 id="org847d884"><span class="section-number-2">8</span> 使用 @AspectJ 注解</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+使用 @AspectJ 的注解，需要相关 jar 包支持:
+:org.aspectj:aspectjweaver:1.8.9
+</p>
+
+<p>
+而且需要在配置文件中添加:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">aspectj-autoproxy</span>/&gt;
+&lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">aspectj-autoproxy</span> <span class="org-variable-name">proxy-target-class</span>=<span class="org-string">"true"</span>/&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">cglib support </span><span class="org-comment-delimiter">--&gt;</span>
+
+<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">or </span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator"</span>/&gt;
+</pre>
+</div>
+
+<p>
+如果使用 Java 配置，需要添加:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Configuration</span>
+<span class="org-c-annotation">@ComponentScan</span>(basePackages = <span class="org-string">"the.aop"</span>)
+<span class="org-c-annotation">@EnableAspectJAutoProxy</span>
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">SpringConfig</span> {
+}
+</pre>
+</div>
+
+<p>
+代码示例:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Component</span>
+<span class="org-c-annotation">@Aspect</span>
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">Audience</span> {
+    <span class="org-c-annotation">@Pointcut</span>(<span class="org-string">"execution(** concert.Performance.perform(..))"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">xxx</span>();
+
+    <span class="org-c-annotation">@Before</span>(<span class="org-string">"xxx()"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">silenceCellPhones</span>() {
+        System.out.println(<span class="org-string">"Silencing cell phones"</span>);
+    }
+
+    <span class="org-c-annotation">@Before</span>(<span class="org-string">"execution(** concert.Performance.perform(..))"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">takeSeats</span>() {
+        System.out.println(<span class="org-string">"Taking seats"</span>);
+    }
+
+    <span class="org-c-annotation">@AfterReturning</span>(<span class="org-string">"execution(** concert.Performance.perform(..))"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">applause</span>() {
+        System.out.println(<span class="org-string">"CLAP CLAP CLAP!!!"</span>);
+    }
+
+    <span class="org-c-annotation">@AfterThrowing</span>(<span class="org-string">"execution(** concert.Performance.perform(..))"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">demandRefund</span>() {
+        System.out.println(<span class="org-string">"Demanding a refund"</span>);
+    }
+
+    <span class="org-c-annotation">@Around</span>(<span class="org-string">"xxx()"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">yyyy</span>(<span class="org-type">ProceedingJoinPoint</span> <span class="org-variable-name">jp</span>) {
+        <span class="org-keyword">try</span> {
+            System.out.println(<span class="org-string">"aaaa"</span>);
+            jp.proceed();
+            System.out.println(<span class="org-string">"bbb"</span>);
+        } <span class="org-keyword">catch</span>(<span class="org-type">Throwable</span> <span class="org-variable-name">e</span>) {
+            System.out.println(<span class="org-string">"error"</span>);
+        }
+    }
+}
+</pre>
+</div>
+
+<p>
+切点表达式:
+</p>
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">函数</th>
+<th scope="col" class="org-left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">execution()</td>
+<td class="org-left">execution(* com.*.*(..)), 表示匹配 com 包下所有方法</td>
+</tr>
+
+<tr>
+<td class="org-left">@annotation()</td>
+<td class="org-left">@annotation(com.Test), 表示匹配所有标注了 @Test 的方法</td>
+</tr>
+
+<tr>
+<td class="org-left">args()</td>
+<td class="org-left">arg(int, int), 表示匹配所有参数为 int, int 的方法</td>
+</tr>
+
+<tr>
+<td class="org-left">@args()</td>
+<td class="org-left">@arg(Test), 匹配参数注解为 Test 的方法</td>
+</tr>
+
+<tr>
+<td class="org-left">within()</td>
+<td class="org-left">within(sss.*), 匹配 sss 包下所有的类下的所有方法</td>
+</tr>
+
+<tr>
+<td class="org-left">target()</td>
+<td class="org-left">target(sss.Test), 匹配所有的类及其子类</td>
+</tr>
+
+<tr>
+<td class="org-left">@within()</td>
+<td class="org-left">@within(sss.Test), 匹配所有使用 Test 注解的类的所有方法</td>
+</tr>
+
+<tr>
+<td class="org-left">@target</td>
+<td class="org-left">@target(sss.Test), 所有当前目标对象使用 Test 注解的类的所有方法</td>
+</tr>
+
+<tr>
+<td class="org-left">this()</td>
+<td class="org-left">this(sss.Test), 当前 AOP 对象实现了 Test 接口的所有方法</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="outline-container-orgef39585" class="outline-2">
+<h2 id="orgef39585"><span class="section-number-2">9</span> 使用 XML 配置的示例</h2>
+<div class="outline-text-2" id="text-9">
+<div class="org-src-container">
+<pre class="src src-sgml">&lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">config</span>&gt;
+  &lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">aspect</span> <span class="org-variable-name">ref</span>=<span class="org-string">"loggingAspect"</span>&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#20999;&#38754;&#31867; </span><span class="org-comment-delimiter">--&gt;</span>
+    &lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">pointcut</span> <span class="org-variable-name">id</span>=<span class="org-string">"persons"</span> <span class="org-variable-name">expression</span>=<span class="org-string">"execution(* xxx.*.*(..))"</span> /&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#20999;&#28857; </span><span class="org-comment-delimiter">--&gt;</span>
+
+    &lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">before</span> <span class="org-variable-name">method</span>=<span class="org-string">"beforeEat"</span> <span class="org-variable-name">pointcut-ref</span>=<span class="org-string">"persons"</span> /&gt;
+    &lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">after-returning</span> <span class="org-variable-name">method</span>=<span class="org-string">"endIt"</span> <span class="org-variable-name">pointcut-ref</span>=<span class="org-string">"persons"</span> /&gt;
+    &lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">after-throwing</span> <span class="org-variable-name">method</span>=<span class="org-string">"whenError"</span> <span class="org-variable-name">pointcut-ref</span>=<span class="org-string">"execution(** concert.Performance.perform(..))"</span> /&gt;
+  &lt;/<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">aspect</span>&gt;
+&lt;/<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">config</span>&gt;
+</pre>
 </div>
 </div>
 </section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-12-14 Fri 07:30</p>
+<p class="date">Created: 2018-12-18 Tue 07:19</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
