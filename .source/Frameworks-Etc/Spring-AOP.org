@@ -146,4 +146,60 @@
 #+END_SRC
 
 * 声明式事务管理
-** @Transactional
+
+这是 AOP 的一种典型运用场景:
+
+** XML Style
+
+#+BEGIN_SRC sgml
+  <!--1.配置事务管理器-->
+  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" />
+
+  <!--2.配置通知-->
+  <tx:advice id="txAdvice" transaction-manager="transactionManager">
+    <tx:attributes>
+      <tx:method name="get*" timeout="1000" isolation="READ_COMMITTED" read-only="true"/>
+      <tx:method name="save*" read-only="false" />
+    </tx:attributes>
+  </tx:advice>
+
+  <!--3.将通知切入到相应位置-->
+  <aop:config>
+    <!--<aop:pointcut id="dbOp" expression="execution(* the.jdbc_aop.*(..))" />-->
+    <aop:advisor advice-ref="txAdvice" pointcut="execution(* the.jdbc_aop.*(..))" />
+  </aop:config>
+#+END_SRC
+
+** @Transactional Style
+
+首先，开启注解支持:
+#+BEGIN_SRC sgml
+  <!--1.配置事务管理器-->
+  <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" />
+
+  <!--2.启用注解-->
+  <tx:annotation-driven proxy-target-class="true" />
+#+END_SRC
+
+其次，就可以使用 @Transactional 注解了:
+#+BEGIN_SRC java
+  @Service
+  @Transactional(readOnly = true)
+  public class GoodServcie {
+
+      @Transactional(timeout = 1000, readOnly = false)
+      public void saveGood(String good) {
+          // 1. 保存日志
+
+          // 2. 查询货物状态
+
+          // 3. 保存货物
+      }
+
+      public void lingwaiyige() {
+
+      }
+  }
+#+END_SRC
+
+一般加在 Service 层上。

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-12-18 Tue 08:25 -->
+<!-- 2018-12-19 Wed 08:35 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring.AOP</title>
@@ -26,7 +26,8 @@
 <li><a href="#org61ebf9d">4. 使用 XML 配置的方式实现</a></li>
 <li><a href="#orge12994e">5. 声明式事务管理</a>
 <ul>
-<li><a href="#org74ebe97">5.1. @Transactional</a></li>
+<li><a href="#orgd410e63">5.1. XML Style</a></li>
+<li><a href="#org26c7d24">5.2. @Transactional Style</a></li>
 </ul>
 </li>
 </ul>
@@ -294,15 +295,85 @@ org.aspectj:aspectjweaver:1.8.9
 <section id="outline-container-orge12994e" class="outline-2">
 <h2 id="orge12994e"><span class="section-number-2">5</span> 声明式事务管理</h2>
 <div class="outline-text-2" id="text-5">
+<p>
+这是 AOP 的一种典型运用场景:
+</p>
 </div>
-<div id="outline-container-org74ebe97" class="outline-3">
-<h3 id="org74ebe97"><span class="section-number-3">5.1</span> @Transactional</h3>
+
+<div id="outline-container-orgd410e63" class="outline-3">
+<h3 id="orgd410e63"><span class="section-number-3">5.1</span> XML Style</h3>
+<div class="outline-text-3" id="text-5-1">
+<div class="org-src-container">
+<pre class="src src-sgml"><span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">1.&#37197;&#32622;&#20107;&#21153;&#31649;&#29702;&#22120;</span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"transactionManager"</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span> /&gt;
+
+<span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">2.&#37197;&#32622;&#36890;&#30693;</span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-sgml-namespace">tx</span>:<span class="org-function-name">advice</span> <span class="org-variable-name">id</span>=<span class="org-string">"txAdvice"</span> <span class="org-variable-name">transaction-manager</span>=<span class="org-string">"transactionManager"</span>&gt;
+  &lt;<span class="org-sgml-namespace">tx</span>:<span class="org-function-name">attributes</span>&gt;
+    &lt;<span class="org-sgml-namespace">tx</span>:<span class="org-function-name">method</span> <span class="org-variable-name">name</span>=<span class="org-string">"get*"</span> <span class="org-variable-name">timeout</span>=<span class="org-string">"1000"</span> <span class="org-variable-name">isolation</span>=<span class="org-string">"READ_COMMITTED"</span> <span class="org-variable-name">read-only</span>=<span class="org-string">"true"</span>/&gt;
+    &lt;<span class="org-sgml-namespace">tx</span>:<span class="org-function-name">method</span> <span class="org-variable-name">name</span>=<span class="org-string">"save*"</span> <span class="org-variable-name">read-only</span>=<span class="org-string">"false"</span> /&gt;
+  &lt;/<span class="org-sgml-namespace">tx</span>:<span class="org-function-name">attributes</span>&gt;
+&lt;/<span class="org-sgml-namespace">tx</span>:<span class="org-function-name">advice</span>&gt;
+
+<span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">3.&#23558;&#36890;&#30693;&#20999;&#20837;&#21040;&#30456;&#24212;&#20301;&#32622;</span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">config</span>&gt;
+  <span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">&lt;aop:pointcut id="dbOp" expression="execution(* the.jdbc_aop.*(..))" /&gt;</span><span class="org-comment-delimiter">--&gt;</span>
+  &lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">advisor</span> <span class="org-variable-name">advice-ref</span>=<span class="org-string">"txAdvice"</span> <span class="org-variable-name">pointcut</span>=<span class="org-string">"execution(* the.jdbc_aop.*(..))"</span> /&gt;
+&lt;/<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">config</span>&gt;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org26c7d24" class="outline-3">
+<h3 id="org26c7d24"><span class="section-number-3">5.2</span> @Transactional Style</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+首先，开启注解支持:
+</p>
+<div class="org-src-container">
+<pre class="src src-sgml"><span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">1.&#37197;&#32622;&#20107;&#21153;&#31649;&#29702;&#22120;</span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"transactionManager"</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span> /&gt;
+
+<span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">2.&#21551;&#29992;&#27880;&#35299;</span><span class="org-comment-delimiter">--&gt;</span>
+&lt;<span class="org-sgml-namespace">tx</span>:<span class="org-function-name">annotation-driven</span> <span class="org-variable-name">proxy-target-class</span>=<span class="org-string">"true"</span> /&gt;
+</pre>
+</div>
+
+<p>
+其次，就可以使用 @Transactional 注解了:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Service</span>
+<span class="org-c-annotation">@Transactional</span>(readOnly = <span class="org-constant">true</span>)
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">GoodServcie</span> {
+
+    <span class="org-c-annotation">@Transactional</span>(timeout = 1000, readOnly = <span class="org-constant">false</span>)
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">saveGood</span>(<span class="org-type">String</span> <span class="org-variable-name">good</span>) {
+        <span class="org-comment-delimiter">// </span><span class="org-comment">1. &#20445;&#23384;&#26085;&#24535;</span>
+
+        <span class="org-comment-delimiter">// </span><span class="org-comment">2. &#26597;&#35810;&#36135;&#29289;&#29366;&#24577;</span>
+
+        <span class="org-comment-delimiter">// </span><span class="org-comment">3. &#20445;&#23384;&#36135;&#29289;</span>
+    }
+
+    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">lingwaiyige</span>() {
+
+    }
+}
+</pre>
+</div>
+
+<p>
+一般加在 Service 层上。
+</p>
+</div>
 </div>
 </section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-12-18 Tue 08:25</p>
+<p class="date">Created: 2018-12-19 Wed 08:35</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
