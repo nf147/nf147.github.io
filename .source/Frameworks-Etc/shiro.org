@@ -9,7 +9,6 @@
 
 Shiro 的架构如下图所示:
 
-#+DOWNLOADED: c:/Users/nf147/AppData/Local/Temp/clip.png @ 2019-01-14 03:23:14
 [[file:img/clip_2019-01-14_03-23-14.png]]
 
 Shiro 的核心是 SecurityManager，获取数据的途径是 Realm:
