@@ -1,6 +1,125 @@
 #+TITLE: Shiro
 
 
+* Shiro 架构及概念
+
+在 Shiro 中，认证的对象用 *Subject* 表示，它相当于请求过来的用户，主要包含两个信息:
+- *Principal*：主题，类比用户名，代表 Subject 的一个标识属性。
+- *Credential*：凭证，类比密码，代表用来验证 Subject 的信息。
+
+Shiro 的架构如下图所示:
+
+#+DOWNLOADED: c:/Users/nf147/AppData/Local/Temp/clip.png @ 2019-01-14 03:23:14
+[[file:img/clip_2019-01-14_03-23-14.png]]
+
+Shiro 的核心是 SecurityManager，获取数据的途径是 Realm:
+- *SecurityManager*：它管理着所有 Subject、且负责进行认证和授权、及会话、缓存的管理
+- *Realm*：它是数据访问的接口，用来获取鉴权、授权相关的数据（帐号、密码、权限、角色等）
+- *Authenticator*：认证器，负责 Subject 认证的，即确定用户是否登录成功
+- *Authorizer*：授权器，即权限授权，给 Subject 分配权限，以此控制可访问的资源
+- *SessionManager*：它可以帮助在不同的环境下使用 session 功能，比如非 web 环境下和分布式环境下等
+- *SessionDAO*：对 session 的 CURD 操作
+- *CacheManager*：缓存控制器，来管理如用户、角色、权限等的缓存的
+- *Cryptography*：密码模块，用于加密解密
+- *Permission/Role*：权限是描述功能的一种声明；角色代表权限的集合
+- *AuthenticationToken/AuthenticationInfo/AuthorizationInfo/SecurityUtils*：Others.
+
+* 验证方式
+** URL级别验证
+
+#+BEGIN_SRC conf
+  /index.html = anon
+  /user/create = anon
+  /user/** = authc
+  /admin/** = authc, roles[administrator]
+  /rest/** = authc, rest
+  /remoting/rpc/** = authc, perms["remote:invoke"]
+#+END_SRC
+
+其中:
+- anon,authc,authcBasic,user 是认证过滤器
+- perms,port,rest,roles,ssl 是授权过滤器
+
+它们本质都是些 Filter，定义在 DefaultFilter 里:
+#+BEGIN_SRC java
+  public enum DefaultFilter {
+      anon(AnonymousFilter.class),
+      authc(FormAuthenticationFilter.class),
+      authcBasic(BasicHttpAuthenticationFilter.class),
+      logout(LogoutFilter.class),
+      noSessionCreation(NoSessionCreationFilter.class),
+      perms(PermissionsAuthorizationFilter.class),
+      port(PortFilter.class),
+      rest(HttpMethodPermissionFilter.class),
+      roles(RolesAuthorizationFilter.class),
+      ssl(SslFilter.class),
+      user(UserFilter.class);
+  }
+#+END_SRC
+
+
+** 编程式验证
+
+#+BEGIN_SRC java
+  Subject subject = SecurityUtils.getSubject();
+  if(subject.hasRole(“admin”)) {
+      //有权限
+  } else {
+      //无权限
+  }
+#+END_SRC
+
+** JSP标签 / Annotation
+
+这是为了能够简化使用:
+- 标签用在 jsp 中
+- 注解用在方法上，结合 AOP 功能实现
+
+-----------------------
+
+引入标签:
+: @ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+
+标签示例:
+#+BEGIN_SRC html
+  Hello, <shiro:principal type|property />.
+
+  <shiro:guest|user>
+    Hi there!  Please <a href="login.jsp">Login</a> or <a href="signup.jsp">Signup</a> today!
+  </shiro:guest|user>
+
+  <shiro:authenticated|notAuthenticated>
+    <a href="updateAccount.jsp">Update your contact information</a>.
+  </shiro:authenticated|notAuthenticated>
+
+  <shiro:hasRole|lacksRole|hasAnyRoles name="administrator">
+    <a href="admin.jsp">Administer the system</a>
+  </shiro:hasRole|lacksRole|hasAnyRoles>
+
+  <shiro:hasPermission|lacksPermission name="user:create">
+    <a href="createUser.jsp">Create a new User</a>
+  </shiro:hasPermission|lacksPermission>
+#+END_SRC
+
+
+------------------------------
+
+常用注解:
+- ~@RequiresAuthentication~
+- ~@RequiresGuest~
+- ~@RequiresPermissions("account:create")~
+- ~@RequiresRoles("administrator")~
+- ~@RequiresUser~
+
+简单示例:
+#+BEGIN_SRC java
+  @RequiresRoles("admin")
+  public void hello() {
+      // 有权限
+  }
+#+END_SRC
+
+
 * Spring MVC + Shiro
 ** 首先，添加 jar 包
 
@@ -15,4 +134,421 @@
 
 ** 其次，为项目添加过滤器
 
+主要配置 SecurityManager 和 ShiroFilter 两个 Bean:
+#+BEGIN_SRC java
+  @Override
+  protected Filter[] getServletFilters() {
+      // encoding
+      CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter("UTF-8", true);
 
+      // delegate to bean named 'shiroFilter'
+      DelegatingFilterProxy shiroFilter = new DelegatingFilterProxy("shiroFilter");
+      shiroFilter.setTargetFilterLifecycle(true);
+
+      return new Filter[] { shiroFilter, encodingFilter };
+  }
+#+END_SRC
+
+** 配置容器
+
+#+BEGIN_SRC java
+  @Configuration
+  @Import({ShiroBeanConfiguration.class, ShiroAnnotationProcessorConfiguration.class})
+  public class ShiroConfig {
+      @Bean DefaultWebSecurityManager securityManager() {
+          DefaultWebSecurityManager manager = new DefaultWebSecurityManager();
+          manager.setRealm(new MyRealm());
+          manager.setSessionManager(sessionManager());
+          return manager;
+      }
+
+      @Bean ShiroFilterFactoryBean shiroFilter() {
+          ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
+          bean.setSecurityManager(securityManager());
+
+          bean.setLoginUrl("/login");
+          bean.setSuccessUrl("/home");
+          bean.setUnauthorizedUrl("/unauth");
+
+          bean.setFilterChainDefinitionMap(new LinkedHashMap<String, String>() {{
+              put("/login", "anon");
+              put("/admin*", "authc");
+              put("/jobs/**", "perms[JOB:CREATE]");
+          }});
+
+          bean.setFilters(new LinkedHashMap<String, Filter>() {{
+              put("logout", new LogoutFilter());
+          }});
+
+          return bean;
+      }
+
+      ////////// 一些可选的 //////////
+
+      @Bean DefaultWebSessionManager sessionManager() {
+          DefaultWebSessionManager manager = new DefaultWebSessionManager();
+          manager.setCacheManager(cacheManager());
+          manager.setSessionDAO(new MemorySessionDAO());
+          manager.setDeleteInvalidSessions(true);
+          manager.setSessionValidationSchedulerEnabled(true);
+          return manager;
+      }
+
+      @Bean MemoryConstrainedCacheManager cacheManager() {
+          return new MemoryConstrainedCacheManager();
+      }
+
+      @Bean CookieRememberMeManager rememberMeManager() {
+          CookieRememberMeManager manager = new CookieRememberMeManager();
+          manager.setCookie(new SimpleCookie("rememberMe"));
+          manager.setCipherKey(Base64.getDecoder().decode("5AvVhmFLUs0KTA3Kprsdag=="));
+          return manager;
+      }
+  }
+#+END_SRC
+
+** 可自定义 Realm / CredentialsMatcher
+
+定义 Realm，只需要实现 AuthorizingRealm 接口:
+
+#+BEGIN_SRC java
+  @Component
+  public class MyRealm extends AuthorizingRealm {
+      @Resource
+      private UserService userService;
+
+      /**
+       ,* 验证当前登录的用户
+       ,*/
+      @Override
+      protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+          String userName = (String) token.getPrincipal();
+          User user = userService.getByUserName(userName);
+          if (user != null) {
+              return new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), getName());
+          }
+          return null;
+      }
+
+      /**
+       ,* 为当前登录的用户授予角色和权限
+       ,*/
+      @Override
+      protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+          String userName = (String) principals.getPrimaryPrincipal();
+          SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+          authorizationInfo.setRoles(userService.getRoles(userName));
+          authorizationInfo.setStringPermissions(userService.getPermissions(userName));
+          return authorizationInfo;
+      }
+  }
+#+END_SRC
+
+** 登录示例
+
+Controller
+
+#+BEGIN_SRC java
+  @GetMapping("/login")
+  public String login (User user) {
+      return "login";
+  }
+
+  @PostMapping("/login")
+  public String doLogin (User user, Model model) {
+      String message = null;
+      Subject subject = SecurityUtils.getSubject();
+      UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword(), true);
+      try {
+          subject.login(token);
+          return subject.isAuthenticated() ? "redirect: /" : "login";
+      } catch (IncorrectCredentialsException e) {
+          message = "登录密码错误. Password for account " + token.getPrincipal() + " was incorrect.";
+      } catch (ExcessiveAttemptsException e) {
+          message = "登录失败次数过多";
+      } catch (LockedAccountException e) {
+          message = "帐号已被锁定. The account for username " + token.getPrincipal() + " was locked.";
+      } catch (DisabledAccountException e) {
+          message = "帐号已被禁用. The account for username " + token.getPrincipal() + " was disabled.";
+      } catch (ExpiredCredentialsException e) {
+          message = "帐号已过期. the account for username " + token.getPrincipal() + "  was expired.";
+      } catch (UnknownAccountException e) {
+          message = "帐号不存在. There is no user with username of " + token.getPrincipal();
+      } catch (UnauthorizedException e) {
+          message = "您没有得到相应的授权！" + e.getMessage();
+      }
+      model.addAttribute("message", message);
+      return "login";
+  }
+#+END_SRC
+
+login.jsp:
+#+BEGIN_SRC html
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta charset="utf-8" />
+      <title>Login Page</title>
+    </head>
+    <body>
+      <h1>login page</h1>
+      <form action="/login" method="post">
+        <input tyep="text" name="userName" />
+        <input type="password" name="password" />
+        <input type="submit" value="login" />
+      </form>
+      <P>${message}</P>
+    </body>
+  </html>
+#+END_SRC
+
+* Spring + Shiro + JWT 实现无状态鉴权
+** 基本流程（参考）
+
+基本流程:
+1. 首先 Post 用户名与密码到 user/login 进行登入，如果成功返回一个加密的 AccessToken，失败的话直接返回 401错误(帐号或密码不正确)
+2. 以后访问都带上这个 AccessToken 即可
+3. 鉴权流程主要是重写了 Shiro 的入口过滤器 JWTFilter(BasicHttpAuthenticationFilter)
+4. 判断请求 Header 里面是否包含 Authorization 字段，有就进行 Shiro 的 Token 登录认证授权，没有就以游客直接访问
+
+结合 Redis 实现登录控制:
+1. 登录认证通过后返回 AccessToken 信息 (在 AccessToken 中保存当前的时间戳和帐号)
+2. 同时在 Redis 中设置一条 Key 为账号，Value 为当前时间戳(登录时间)的 RefreshToken
+3. 现在认证时必须 AccessToken 没失效以及 Redis 存在所对应的 RefreshToken，且 RefreshToken 时间戳和 AccessToken 信息中时间戳一致才算认证通过
+4. 这样可以做到 JWT 的可控性，如果重新登录获取了新的 AccessToken，旧的 AccessToken 就认证不了，因为 Redis 中所存放的的 RefreshToken 时间戳信息只会和最新的 AccessToken 信息中携带的时间戳一致，这样每个用户就只能使用最新的 AccessToken 认证
+5. Redis 的 RefreshToken 也可以用来判断用户是否在线，如果删除 Redis 的某个 RefreshToken，那这个 RefreshToken 所对应的 AccessToken 之后也无法通过认证了，就相当于控制了用户的登录，可以剔除用户
+
+实现自动刷新:
+1. 本身 AccessToken 的过期时间为 5 分钟(可配置)，RefreshToken 过期时间为30分钟 (可配置)
+2. 当登录后时间过了 5 分钟之后，当前 AccessToken 便会过期失效，再次带上 AccessToken 访问 JWT 会抛出 TokenExpiredException 异常
+3. Token 过期，开始判断是否要进行 AccessToken 刷新，首先 Redis 查询 RefreshToken 是否存在，以及时间戳和过期 AccessToken 所携带的时间戳是否一致
+4. 如果存在且一致就进行 AccessToken 刷新，时间戳为当前最新时间戳，同时也设置 RefreshToken 中的时间戳为当前最新时间戳
+5. 最终将刷新的 AccessToken 存放在 Response 的 Header 中的 Authorization 字段返回 (前端进行获取替换，下次用新的 AccessToken 进行访问)
+
+** UserController 示例
+
+#+BEGIN_SRC java
+  @RestController
+  @RequestMapping("/user")
+  @PropertySource("classpath:config.properties")
+  public class UserController {
+      @Value("${refreshTokenExpireTime}")
+      private String refreshTokenExpireTime;
+
+      @Resource
+      private UserService userService;
+
+      /**
+       ,* 登录授权
+       ,*/
+      @PostMapping("/login")
+      public ResponseBean login(@Validated(UserLoginValidGroup.class) @RequestBody UserDto userDto, HttpServletResponse httpServletResponse) {
+          UserDto userDtoTemp = new UserDto();
+          userDtoTemp.setAccount(userDto.getAccount());
+          userDtoTemp = userService.selectOne(userDtoTemp);
+
+          if (userDtoTemp == null) {
+              throw new CustomUnauthorizedException("该帐号不存在(The account does not exist.)");
+          }
+
+          String key = AesCipherUtil.deCrypto(userDtoTemp.getPassword());
+          if (key.equals(userDto.getAccount() + userDto.getPassword())) {
+              if (JedisUtil.exists(Constant.PREFIX_SHIRO_CACHE + userDto.getAccount())) {
+                  JedisUtil.delKey(Constant.PREFIX_SHIRO_CACHE + userDto.getAccount());
+              }
+              String currentTimeMillis = String.valueOf(System.currentTimeMillis());
+              JedisUtil.setObject(Constant.PREFIX_SHIRO_REFRESH_TOKEN + userDto.getAccount(), currentTimeMillis, Integer.parseInt(refreshTokenExpireTime));
+              String token = JwtUtil.sign(userDto.getAccount(), currentTimeMillis);
+              httpServletResponse.setHeader("Authorization", token);
+              httpServletResponse.setHeader("Access-Control-Expose-Headers", "Authorization");
+              return new ResponseBean(200, "登录成功(Login Success.)", null);
+          } else {
+              throw new CustomUnauthorizedException("帐号或密码错误(Account or Password Error.)");
+          }
+      }
+
+      /**
+       ,* 测试登录
+       ,*/
+      @GetMapping("/article")
+      public ResponseBean article() {
+          Subject subject = SecurityUtils.getSubject();
+          if (subject.isAuthenticated()) {
+              return new ResponseBean(200, "您已经登录了(You are already logged in)", null);
+          } else {
+              return new ResponseBean(200, "你是游客(You are guest)", null);
+          }
+      }
+
+      /**
+       ,* 获取用户列表
+       ,*/
+      @GetMapping
+      @RequiresPermissions(logical = Logical.AND, value = {"user:view"})
+      public ResponseBean user(@Validated BaseDto baseDto) {
+          PageHelper.startPage(baseDto.getPage(), baseDto.getRows());
+          List<UserDto> userDtos = userService.selectAll();
+          PageInfo<UserDto> selectPage = new PageInfo<UserDto>(userDtos);
+          if (userDtos == null || userDtos.size() <= 0) {
+              throw new CustomException("查询失败(Query Failure)");
+          }
+          Map<String, Object> result = new HashMap<String, Object>(16);
+          result.put("count", selectPage.getTotal());
+          result.put("data", selectPage.getList());
+          return new ResponseBean(200, "查询成功(Query was successful)", result);
+      }
+
+      /**
+       ,* 获取在线用户(查询 Redis 中的 RefreshToken)
+       ,*/
+      @GetMapping("/online")
+      @RequiresPermissions(logical = Logical.AND, value = {"user:view"})
+      public ResponseBean online() {
+          List<Object> userDtos = new ArrayList<>();
+          Set<String> keys = JedisUtil.keysS(Constant.PREFIX_SHIRO_REFRESH_TOKEN + "*");
+          for (String key : keys) {
+              if (JedisUtil.exists(key)) {
+                  String[] strArray = key.split(":");
+                  UserDto userDto = new UserDto();
+                  userDto.setAccount(strArray[strArray.length - 1]);
+                  userDto = userService.selectOne(userDto);
+                  userDto.setLoginTime(new Date(Long.parseLong(JedisUtil.getObject(key).toString())));
+                  userDtos.add(userDto);
+              }
+          }
+          if (userDtos.size() <= 0) {
+              throw new CustomException("查询失败(Query Failure)");
+          }
+          return new ResponseBean(200, "查询成功(Query was successful)", userDtos);
+      }
+
+      /**
+       ,* 获取指定用户
+       ,*/
+      @GetMapping("/{id}")
+      @RequiresPermissions(logical = Logical.AND, value = {"user:view"})
+      public ResponseBean findById(@PathVariable("id") Integer id) {
+          UserDto userDto = userService.selectByPrimaryKey(id);
+          if (userDto == null) {
+              throw new CustomException("查询失败(Query Failure)");
+          }
+          return new ResponseBean(200, "查询成功(Query was successful)", userDto);
+      }
+
+      /**
+       ,* 新增用户
+       ,*/
+      @PostMapping
+      @RequiresPermissions(logical = Logical.AND, value = {"user:edit"})
+      public ResponseBean add(@Validated(UserEditValidGroup.class) @RequestBody UserDto userDto) {
+          UserDto userDtoTemp = new UserDto();
+          userDtoTemp.setAccount(userDto.getAccount());
+          userDtoTemp = userService.selectOne(userDtoTemp);
+          if (userDtoTemp != null && StringUtil.isNotBlank(userDtoTemp.getPassword())) {
+              throw new CustomUnauthorizedException("该帐号已存在(Account exist.)");
+          }
+          userDto.setRegTime(new Date());
+          if (userDto.getPassword().length() > 8) {
+              throw new CustomException("密码最多8位(Password up to 8 bits.)");
+          }
+          String key = AesCipherUtil.enCrypto(userDto.getAccount() + userDto.getPassword());
+          userDto.setPassword(key);
+          int count = userService.insert(userDto);
+          if (count <= 0) {
+              throw new CustomException("新增失败(Insert Failure)");
+          }
+          return new ResponseBean(200, "新增成功(Insert Success)", userDto);
+      }
+
+      /**
+       ,* 更新用户
+       ,*/
+      @PutMapping
+      @RequiresPermissions(logical = Logical.AND, value = {"user:edit"})
+      public ResponseBean update(@Validated(UserEditValidGroup.class) @RequestBody UserDto userDto) {
+          UserDto userDtoTemp = new UserDto();
+          userDtoTemp.setAccount(userDto.getAccount());
+          userDtoTemp = userService.selectOne(userDtoTemp);
+          if (userDtoTemp == null) {
+              throw new CustomUnauthorizedException("该帐号不存在(Account not exist.)");
+          } else {
+              userDto.setId(userDtoTemp.getId());
+          }
+          if (!userDtoTemp.getPassword().equals(userDto.getPassword())) {
+              if (userDto.getPassword().length() > 8) {
+                  throw new CustomException("密码最多8位(Password up to 8 bits.)");
+              }
+              String key = AesCipherUtil.enCrypto(userDto.getAccount() + userDto.getPassword());
+              userDto.setPassword(key);
+          }
+          int count = userService.updateByPrimaryKeySelective(userDto);
+          if (count <= 0) {
+              throw new CustomException("更新失败(Update Failure)");
+          }
+          return new ResponseBean(200, "更新成功(Update Success)", userDto);
+      }
+
+      /**
+       ,* 删除用户
+       ,*/
+      @DeleteMapping("/{id}")
+      @RequiresPermissions(logical = Logical.AND, value = {"user:edit"})
+      public ResponseBean delete(@PathVariable("id") Integer id) {
+          int count = userService.deleteByPrimaryKey(id);
+          if (count <= 0) {
+              throw new CustomException("删除失败，ID不存在(Deletion Failed. ID does not exist.)");
+          }
+          return new ResponseBean(200, "删除成功(Delete Success)", null);
+      }
+
+      /**
+       ,* 踢除在线用户
+       ,*/
+      @DeleteMapping("/online/{id}")
+      @RequiresPermissions(logical = Logical.AND, value = {"user:edit"})
+      public ResponseBean deleteOnline(@PathVariable("id") Integer id) {
+          UserDto userDto = userService.selectByPrimaryKey(id);
+          if (JedisUtil.exists(Constant.PREFIX_SHIRO_REFRESH_TOKEN + userDto.getAccount())) {
+              if (JedisUtil.delKey(Constant.PREFIX_SHIRO_REFRESH_TOKEN + userDto.getAccount()) > 0) {
+                  return new ResponseBean(200, "剔除成功(Delete Success)", null);
+              }
+          }
+          throw new CustomException("剔除失败，Account不存在(Deletion Failed. Account does not exist.)");
+      }
+  }
+#+END_SRC
+
+** 前端接收/发送 token 示例
+
+在 Vue 中设置 axios 的拦截器，来获取/刷新登录:
+
+#+BEGIN_SRC js
+  created: function () {
+      this.$axios.defaults.baseURL = 'http://localhost:8080';
+      this.$axios.defaults.timeout = 10000;
+      this.$root.loginStatus = this.cookies.get('accessToken') ? false : true;
+
+      // 请求拦截器设置 headers
+      this.$axios.interceptors.request.use(config => {
+          var accessToken = this.cookies.get('accessToken');
+          if (accessToken && accessToken !== '') {
+              config.headers.common['Authorization'] = accessToken;
+          }
+          return config;
+      }, error => {
+          return Promise.reject(error);
+      })
+
+      // 响应拦截器获取 headers，设置(刷新) Token
+      this.$axios.interceptors.response.use(response => {
+          var accessToken = response.headers['authorization'];
+          if (accessToken && accessToken !== '') {
+              this.cookies.set('accessToken', accessToken, { expires: 1, path: '/' });
+          }
+          return response;
+      }, error => {
+          return Promise.reject(error)
+      })
+  },
+  //...
+#+END_SRC

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-01-07 周一 02:28 -->
+<!-- 2019-01-14 Mon 06:17 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shiro</title>
@@ -20,10 +20,28 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org085a750">1. Spring MVC + Shiro</a>
+<li><a href="#org747b57d">1. Shiro 架构及概念</a></li>
+<li><a href="#orge2afe1b">2. 验证方式</a>
 <ul>
-<li><a href="#org5bf1b1d">1.1. 首先，添加 jar 包</a></li>
-<li><a href="#org3f5868d">1.2. 其次，为项目添加过滤器</a></li>
+<li><a href="#orgb41979d">2.1. URL级别验证</a></li>
+<li><a href="#org5cdf53b">2.2. 编程式验证</a></li>
+<li><a href="#orgfa536ec">2.3. JSP标签 / Annotation</a></li>
+</ul>
+</li>
+<li><a href="#org085a750">3. Spring MVC + Shiro</a>
+<ul>
+<li><a href="#org5bf1b1d">3.1. 首先，添加 jar 包</a></li>
+<li><a href="#org3f5868d">3.2. 其次，为项目添加过滤器</a></li>
+<li><a href="#org125cd5b">3.3. 配置容器</a></li>
+<li><a href="#org577a77b">3.4. 可自定义 Realm / CredentialsMatcher</a></li>
+<li><a href="#org07fd4b0">3.5. 登录示例</a></li>
+</ul>
+</li>
+<li><a href="#orgc5d8cb6">4. Spring + Shiro + JWT 实现无状态鉴权</a>
+<ul>
+<li><a href="#orgbed25c6">4.1. 基本流程（参考）</a></li>
+<li><a href="#orgd577e21">4.2. UserController 示例</a></li>
+<li><a href="#org2c07b34">4.3. 前端接收/发送 token 示例</a></li>
 </ul>
 </li>
 </ul>
@@ -31,13 +49,188 @@
 </nav>
 
 
-<section id="outline-container-org085a750" class="outline-2">
-<h2 id="org085a750"><span class="section-number-2">1</span> Spring MVC + Shiro</h2>
+<section id="outline-container-org747b57d" class="outline-2">
+<h2 id="org747b57d"><span class="section-number-2">1</span> Shiro 架构及概念</h2>
 <div class="outline-text-2" id="text-1">
+<p>
+在 Shiro 中，认证的对象用 <b>Subject</b> 表示，它相当于请求过来的用户，主要包含两个信息:
+</p>
+<ul class="org-ul">
+<li><b>Principal</b>：主题，类比用户名，代表 Subject 的一个标识属性。</li>
+<li><b>Credential</b>：凭证，类比密码，代表用来验证 Subject 的信息。</li>
+</ul>
+
+<p>
+Shiro 的架构如下图所示:
+</p>
+
+
+<figure>
+<img src="img/clip_2019-01-14_03-23-14.png" alt="clip_2019-01-14_03-23-14.png">
+
+</figure>
+
+<p>
+Shiro 的核心是 SecurityManager，获取数据的途径是 Realm:
+</p>
+<ul class="org-ul">
+<li><b>SecurityManager</b>：它管理着所有 Subject、且负责进行认证和授权、及会话、缓存的管理</li>
+<li><b>Realm</b>：它是数据访问的接口，用来获取鉴权、授权相关的数据（帐号、密码、权限、角色等）</li>
+<li><b>Authenticator</b>：认证器，负责 Subject 认证的，即确定用户是否登录成功</li>
+<li><b>Authorizer</b>：授权器，即权限授权，给 Subject 分配权限，以此控制可访问的资源</li>
+<li><b>SessionManager</b>：它可以帮助在不同的环境下使用 session 功能，比如非 web 环境下和分布式环境下等</li>
+<li><b>SessionDAO</b>：对 session 的 CURD 操作</li>
+<li><b>CacheManager</b>：缓存控制器，来管理如用户、角色、权限等的缓存的</li>
+<li><b>Cryptography</b>：密码模块，用于加密解密</li>
+<li><b>Permission/Role</b>：权限是描述功能的一种声明；角色代表权限的集合</li>
+<li><b>AuthenticationToken/AuthenticationInfo/AuthorizationInfo/SecurityUtils</b>：Others.</li>
+</ul>
+</div>
+</section>
+
+<section id="outline-container-orge2afe1b" class="outline-2">
+<h2 id="orge2afe1b"><span class="section-number-2">2</span> 验证方式</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-orgb41979d" class="outline-3">
+<h3 id="orgb41979d"><span class="section-number-3">2.1</span> URL级别验证</h3>
+<div class="outline-text-3" id="text-2-1">
+<div class="org-src-container">
+<pre class="src src-conf"><span class="org-variable-name">/index.html</span> = anon
+<span class="org-variable-name">/user/create</span> = anon
+<span class="org-variable-name">/user/**</span> = authc
+<span class="org-variable-name">/admin/**</span> = authc, roles[administrator]
+<span class="org-variable-name">/rest/**</span> = authc, rest
+<span class="org-variable-name">/remoting/rpc/**</span> = authc, perms[<span class="org-string">"remote:invoke"</span>]
+</pre>
+</div>
+
+<p>
+其中:
+</p>
+<ul class="org-ul">
+<li>anon,authc,authcBasic,user 是认证过滤器</li>
+<li>perms,port,rest,roles,ssl 是授权过滤器</li>
+</ul>
+
+<p>
+它们本质都是些 Filter，定义在 DefaultFilter 里:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">enum</span> <span class="org-type">DefaultFilter</span> {
+    <span class="org-function-name">anon</span>(AnonymousFilter.<span class="org-keyword">class</span>),
+    <span class="org-function-name">authc</span>(FormAuthenticationFilter.<span class="org-keyword">class</span>),
+    <span class="org-function-name">authcBasic</span>(BasicHttpAuthenticationFilter.<span class="org-keyword">class</span>),
+    <span class="org-function-name">logout</span>(LogoutFilter.<span class="org-keyword">class</span>),
+    <span class="org-function-name">noSessionCreation</span>(NoSessionCreationFilter.<span class="org-keyword">class</span>),
+    <span class="org-function-name">perms</span>(PermissionsAuthorizationFilter.<span class="org-keyword">class</span>),
+    <span class="org-function-name">port</span>(PortFilter.<span class="org-keyword">class</span>),
+    <span class="org-function-name">rest</span>(HttpMethodPermissionFilter.<span class="org-keyword">class</span>),
+    <span class="org-function-name">roles</span>(RolesAuthorizationFilter.<span class="org-keyword">class</span>),
+    <span class="org-function-name">ssl</span>(SslFilter.<span class="org-keyword">class</span>),
+    <span class="org-function-name">user</span>(UserFilter.<span class="org-keyword">class</span>);
+}
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org5cdf53b" class="outline-3">
+<h3 id="org5cdf53b"><span class="section-number-3">2.2</span> 编程式验证</h3>
+<div class="outline-text-3" id="text-2-2">
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-type">Subject</span> <span class="org-variable-name">subject</span> = SecurityUtils.getSubject();
+<span class="org-keyword">if</span>(subject.hasRole(&#8220;admin&#8221;)) {
+    <span class="org-comment-delimiter">//</span><span class="org-comment">&#26377;&#26435;&#38480;</span>
+} <span class="org-keyword">else</span> {
+    <span class="org-comment-delimiter">//</span><span class="org-comment">&#26080;&#26435;&#38480;</span>
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfa536ec" class="outline-3">
+<h3 id="orgfa536ec"><span class="section-number-3">2.3</span> JSP标签 / Annotation</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+这是为了能够简化使用:
+</p>
+<ul class="org-ul">
+<li>标签用在 jsp 中</li>
+<li>注解用在方法上，结合 AOP 功能实现</li>
+</ul>
+
+<hr>
+
+<p>
+引入标签:
+</p>
+<pre class="example">
+@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %&gt;
+</pre>
+
+<p>
+标签示例:
+</p>
+<div class="org-src-container">
+<pre class="src src-html">Hello, &lt;<span class="org-sgml-namespace">shiro</span>:<span class="org-function-name">principal</span> type|property /&gt;.
+
+&lt;<span class="org-sgml-namespace">shiro</span>:<span class="org-function-name">guest</span>|user&gt;
+  Hi there!  Please &lt;<span class="org-function-name">a</span> <span class="org-variable-name">href</span>=<span class="org-string">"login.jsp"</span>&gt;Login&lt;/<span class="org-function-name">a</span>&gt; or &lt;<span class="org-function-name">a</span> <span class="org-variable-name">href</span>=<span class="org-string">"signup.jsp"</span>&gt;Signup&lt;/<span class="org-function-name">a</span>&gt; today!
+&lt;/<span class="org-sgml-namespace">shiro</span>:<span class="org-function-name">guest</span>|user&gt;
+
+&lt;<span class="org-sgml-namespace">shiro</span>:<span class="org-function-name">authenticated</span>|notAuthenticated&gt;
+  &lt;<span class="org-function-name">a</span> <span class="org-variable-name">href</span>=<span class="org-string">"updateAccount.jsp"</span>&gt;Update your contact information&lt;/<span class="org-function-name">a</span>&gt;.
+&lt;/<span class="org-sgml-namespace">shiro</span>:<span class="org-function-name">authenticated</span>|notAuthenticated&gt;
+
+&lt;<span class="org-sgml-namespace">shiro</span>:<span class="org-function-name">hasRole</span>|lacksRole|hasAnyRoles <span class="org-variable-name">name</span>=<span class="org-string">"administrator"</span>&gt;
+  &lt;<span class="org-function-name">a</span> <span class="org-variable-name">href</span>=<span class="org-string">"admin.jsp"</span>&gt;Administer the system&lt;/<span class="org-function-name">a</span>&gt;
+&lt;/<span class="org-sgml-namespace">shiro</span>:<span class="org-function-name">hasRole</span>|lacksRole|hasAnyRoles&gt;
+
+&lt;<span class="org-sgml-namespace">shiro</span>:<span class="org-function-name">hasPermission</span>|lacksPermission <span class="org-variable-name">name</span>=<span class="org-string">"user:create"</span>&gt;
+  &lt;<span class="org-function-name">a</span> <span class="org-variable-name">href</span>=<span class="org-string">"createUser.jsp"</span>&gt;Create a new User&lt;/<span class="org-function-name">a</span>&gt;
+&lt;/<span class="org-sgml-namespace">shiro</span>:<span class="org-function-name">hasPermission</span>|lacksPermission&gt;
+</pre>
+</div>
+
+
+<hr>
+
+<p>
+常用注解:
+</p>
+<ul class="org-ul">
+<li><code>@RequiresAuthentication</code></li>
+<li><code>@RequiresGuest</code></li>
+<li><code>@RequiresPermissions("account:create")</code></li>
+<li><code>@RequiresRoles("administrator")</code></li>
+<li><code>@RequiresUser</code></li>
+</ul>
+
+<p>
+简单示例:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@RequiresRoles</span>(<span class="org-string">"admin"</span>)
+<span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">hello</span>() {
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&#26377;&#26435;&#38480;</span>
+}
+</pre>
+</div>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-org085a750" class="outline-2">
+<h2 id="org085a750"><span class="section-number-2">3</span> Spring MVC + Shiro</h2>
+<div class="outline-text-2" id="text-3">
 </div>
 <div id="outline-container-org5bf1b1d" class="outline-3">
-<h3 id="org5bf1b1d"><span class="section-number-3">1.1</span> 首先，添加 jar 包</h3>
-<div class="outline-text-3" id="text-1-1">
+<h3 id="org5bf1b1d"><span class="section-number-3">3.1</span> 首先，添加 jar 包</h3>
+<div class="outline-text-3" id="text-3-1">
 <div class="org-src-container">
 <pre class="src src-sgml"><span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">https://mvnrepository.com/artifact/org.apache.shiro/shiro-spring </span><span class="org-comment-delimiter">--&gt;</span>
 &lt;<span class="org-function-name">dependency</span>&gt;
@@ -51,13 +244,484 @@
 </div>
 
 <div id="outline-container-org3f5868d" class="outline-3">
-<h3 id="org3f5868d"><span class="section-number-3">1.2</span> 其次，为项目添加过滤器</h3>
+<h3 id="org3f5868d"><span class="section-number-3">3.2</span> 其次，为项目添加过滤器</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+主要配置 SecurityManager 和 ShiroFilter 两个 Bean:
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Override</span>
+<span class="org-keyword">protected</span> <span class="org-type">Filter</span>[] <span class="org-function-name">getServletFilters</span>() {
+    <span class="org-comment-delimiter">// </span><span class="org-comment">encoding</span>
+    <span class="org-type">CharacterEncodingFilter</span> <span class="org-variable-name">encodingFilter</span> = <span class="org-keyword">new</span> <span class="org-type">CharacterEncodingFilter</span>(<span class="org-string">"UTF-8"</span>, <span class="org-constant">true</span>);
+
+    <span class="org-comment-delimiter">// </span><span class="org-comment">delegate to bean named 'shiroFilter'</span>
+    <span class="org-type">DelegatingFilterProxy</span> <span class="org-variable-name">shiroFilter</span> = <span class="org-keyword">new</span> <span class="org-type">DelegatingFilterProxy</span>(<span class="org-string">"shiroFilter"</span>);
+    shiroFilter.setTargetFilterLifecycle(<span class="org-constant">true</span>);
+
+    <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">Filter</span>[] { shiroFilter, encodingFilter };
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org125cd5b" class="outline-3">
+<h3 id="org125cd5b"><span class="section-number-3">3.3</span> 配置容器</h3>
+<div class="outline-text-3" id="text-3-3">
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Configuration</span>
+<span class="org-c-annotation">@Import</span>({ShiroBeanConfiguration.<span class="org-keyword">class</span>, ShiroAnnotationProcessorConfiguration.<span class="org-keyword">class</span>})
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">ShiroConfig</span> {
+    <span class="org-c-annotation">@Bean</span> <span class="org-type">DefaultWebSecurityManager</span> <span class="org-function-name">securityManager</span>() {
+        <span class="org-type">DefaultWebSecurityManager</span> <span class="org-variable-name">manager</span> = <span class="org-keyword">new</span> <span class="org-type">DefaultWebSecurityManager</span>();
+        manager.setRealm(<span class="org-keyword">new</span> <span class="org-type">MyRealm</span>());
+        manager.setSessionManager(sessionManager());
+        <span class="org-keyword">return</span> manager;
+    }
+
+    <span class="org-c-annotation">@Bean</span> <span class="org-type">ShiroFilterFactoryBean</span> <span class="org-function-name">shiroFilter</span>() {
+        <span class="org-type">ShiroFilterFactoryBean</span> <span class="org-variable-name">bean</span> = <span class="org-keyword">new</span> <span class="org-type">ShiroFilterFactoryBean</span>();
+        bean.setSecurityManager(securityManager());
+
+        bean.setLoginUrl(<span class="org-string">"/login"</span>);
+        bean.setSuccessUrl(<span class="org-string">"/home"</span>);
+        bean.setUnauthorizedUrl(<span class="org-string">"/unauth"</span>);
+
+        bean.setFilterChainDefinitionMap(<span class="org-keyword">new</span> <span class="org-type">LinkedHashMap</span>&lt;<span class="org-type">String</span>, <span class="org-type">String</span>&gt;() {{
+            put(<span class="org-string">"/login"</span>, <span class="org-string">"anon"</span>);
+            put(<span class="org-string">"/admin*"</span>, <span class="org-string">"authc"</span>);
+            put(<span class="org-string">"/jobs/**"</span>, <span class="org-string">"perms[JOB:CREATE]"</span>);
+        }});
+
+        bean.setFilters(<span class="org-keyword">new</span> <span class="org-type">LinkedHashMap</span>&lt;<span class="org-type">String</span>, <span class="org-type">Filter</span>&gt;() {{
+            put(<span class="org-string">"logout"</span>, <span class="org-keyword">new</span> <span class="org-type">LogoutFilter</span>());
+        }});
+
+        <span class="org-keyword">return</span> bean;
+    }
+
+    <span class="org-comment-delimiter">////////// </span><span class="org-comment">&#19968;&#20123;&#21487;&#36873;&#30340; //////////</span>
+
+    <span class="org-c-annotation">@Bean</span> <span class="org-type">DefaultWebSessionManager</span> <span class="org-function-name">sessionManager</span>() {
+        <span class="org-type">DefaultWebSessionManager</span> <span class="org-variable-name">manager</span> = <span class="org-keyword">new</span> <span class="org-type">DefaultWebSessionManager</span>();
+        manager.setCacheManager(cacheManager());
+        manager.setSessionDAO(<span class="org-keyword">new</span> <span class="org-type">MemorySessionDAO</span>());
+        manager.setDeleteInvalidSessions(<span class="org-constant">true</span>);
+        manager.setSessionValidationSchedulerEnabled(<span class="org-constant">true</span>);
+        <span class="org-keyword">return</span> manager;
+    }
+
+    <span class="org-c-annotation">@Bean</span> <span class="org-type">MemoryConstrainedCacheManager</span> <span class="org-function-name">cacheManager</span>() {
+        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">MemoryConstrainedCacheManager</span>();
+    }
+
+    <span class="org-c-annotation">@Bean</span> <span class="org-type">CookieRememberMeManager</span> <span class="org-function-name">rememberMeManager</span>() {
+        <span class="org-type">CookieRememberMeManager</span> <span class="org-variable-name">manager</span> = <span class="org-keyword">new</span> <span class="org-type">CookieRememberMeManager</span>();
+        manager.setCookie(<span class="org-keyword">new</span> <span class="org-type">SimpleCookie</span>(<span class="org-string">"rememberMe"</span>));
+        manager.setCipherKey(Base64.getDecoder().decode(<span class="org-string">"5AvVhmFLUs0KTA3Kprsdag=="</span>));
+        <span class="org-keyword">return</span> manager;
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org577a77b" class="outline-3">
+<h3 id="org577a77b"><span class="section-number-3">3.4</span> 可自定义 Realm / CredentialsMatcher</h3>
+<div class="outline-text-3" id="text-3-4">
+<p>
+定义 Realm，只需要实现 AuthorizingRealm 接口:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Component</span>
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">MyRealm</span> <span class="org-keyword">extends</span> <span class="org-type">AuthorizingRealm</span> {
+    <span class="org-c-annotation">@Resource</span>
+    <span class="org-keyword">private</span> <span class="org-type">UserService</span> <span class="org-variable-name">userService</span>;
+
+    <span class="org-doc">/**</span>
+<span class="org-doc">     * &#39564;&#35777;&#24403;&#21069;&#30331;&#24405;&#30340;&#29992;&#25143;</span>
+<span class="org-doc">     */</span>
+    <span class="org-c-annotation">@Override</span>
+    <span class="org-keyword">protected</span> <span class="org-type">AuthenticationInfo</span> <span class="org-function-name">doGetAuthenticationInfo</span>(<span class="org-type">AuthenticationToken</span> <span class="org-variable-name">token</span>) <span class="org-keyword">throws</span> <span class="org-type">AuthenticationException</span> {
+        <span class="org-type">String</span> <span class="org-variable-name">userName</span> = (<span class="org-type">String</span>) token.getPrincipal();
+        <span class="org-type">User</span> <span class="org-variable-name">user</span> = userService.getByUserName(userName);
+        <span class="org-keyword">if</span> (user != <span class="org-constant">null</span>) {
+            <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">SimpleAuthenticationInfo</span>(user.getUsername(), user.getPassword(), getName());
+        }
+        <span class="org-keyword">return</span> <span class="org-constant">null</span>;
+    }
+
+    <span class="org-doc">/**</span>
+<span class="org-doc">     * &#20026;&#24403;&#21069;&#30331;&#24405;&#30340;&#29992;&#25143;&#25480;&#20104;&#35282;&#33394;&#21644;&#26435;&#38480;</span>
+<span class="org-doc">     */</span>
+    <span class="org-c-annotation">@Override</span>
+    <span class="org-keyword">protected</span> <span class="org-type">AuthorizationInfo</span> <span class="org-function-name">doGetAuthorizationInfo</span>(<span class="org-type">PrincipalCollection</span> <span class="org-variable-name">principals</span>) {
+        <span class="org-type">String</span> <span class="org-variable-name">userName</span> = (<span class="org-type">String</span>) principals.getPrimaryPrincipal();
+        <span class="org-type">SimpleAuthorizationInfo</span> <span class="org-variable-name">authorizationInfo</span> = <span class="org-keyword">new</span> <span class="org-type">SimpleAuthorizationInfo</span>();
+        authorizationInfo.setRoles(userService.getRoles(userName));
+        authorizationInfo.setStringPermissions(userService.getPermissions(userName));
+        <span class="org-keyword">return</span> authorizationInfo;
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org07fd4b0" class="outline-3">
+<h3 id="org07fd4b0"><span class="section-number-3">3.5</span> 登录示例</h3>
+<div class="outline-text-3" id="text-3-5">
+<p>
+Controller
+</p>
+
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@GetMapping</span>(<span class="org-string">"/login"</span>)
+<span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">login</span> (<span class="org-type">User</span> <span class="org-variable-name">user</span>) {
+    <span class="org-keyword">return</span> <span class="org-string">"login"</span>;
+}
+
+<span class="org-c-annotation">@PostMapping</span>(<span class="org-string">"/login"</span>)
+<span class="org-keyword">public</span> <span class="org-type">String</span> <span class="org-function-name">doLogin</span> (<span class="org-type">User</span> <span class="org-variable-name">user</span>, <span class="org-type">Model</span> <span class="org-variable-name">model</span>) {
+    <span class="org-type">String</span> <span class="org-variable-name">message</span> = <span class="org-constant">null</span>;
+    <span class="org-type">Subject</span> <span class="org-variable-name">subject</span> = SecurityUtils.getSubject();
+    <span class="org-type">UsernamePasswordToken</span> <span class="org-variable-name">token</span> = <span class="org-keyword">new</span> <span class="org-type">UsernamePasswordToken</span>(user.getUsername(), user.getPassword(), <span class="org-constant">true</span>);
+    <span class="org-keyword">try</span> {
+        subject.login(token);
+        <span class="org-keyword">return</span> subject.isAuthenticated() ? <span class="org-string">"redirect: /"</span> : <span class="org-string">"login"</span>;
+    } <span class="org-keyword">catch</span> (<span class="org-type">IncorrectCredentialsException</span> <span class="org-variable-name">e</span>) {
+        message = <span class="org-string">"&#30331;&#24405;&#23494;&#30721;&#38169;&#35823;. Password for account "</span> + token.getPrincipal() + <span class="org-string">" was incorrect."</span>;
+    } <span class="org-keyword">catch</span> (<span class="org-type">ExcessiveAttemptsException</span> <span class="org-variable-name">e</span>) {
+        message = <span class="org-string">"&#30331;&#24405;&#22833;&#36133;&#27425;&#25968;&#36807;&#22810;"</span>;
+    } <span class="org-keyword">catch</span> (<span class="org-type">LockedAccountException</span> <span class="org-variable-name">e</span>) {
+        message = <span class="org-string">"&#24080;&#21495;&#24050;&#34987;&#38145;&#23450;. The account for username "</span> + token.getPrincipal() + <span class="org-string">" was locked."</span>;
+    } <span class="org-keyword">catch</span> (<span class="org-type">DisabledAccountException</span> <span class="org-variable-name">e</span>) {
+        message = <span class="org-string">"&#24080;&#21495;&#24050;&#34987;&#31105;&#29992;. The account for username "</span> + token.getPrincipal() + <span class="org-string">" was disabled."</span>;
+    } <span class="org-keyword">catch</span> (<span class="org-type">ExpiredCredentialsException</span> <span class="org-variable-name">e</span>) {
+        message = <span class="org-string">"&#24080;&#21495;&#24050;&#36807;&#26399;. the account for username "</span> + token.getPrincipal() + <span class="org-string">"  was expired."</span>;
+    } <span class="org-keyword">catch</span> (<span class="org-type">UnknownAccountException</span> <span class="org-variable-name">e</span>) {
+        message = <span class="org-string">"&#24080;&#21495;&#19981;&#23384;&#22312;. There is no user with username of "</span> + token.getPrincipal();
+    } <span class="org-keyword">catch</span> (<span class="org-type">UnauthorizedException</span> <span class="org-variable-name">e</span>) {
+        message = <span class="org-string">"&#24744;&#27809;&#26377;&#24471;&#21040;&#30456;&#24212;&#30340;&#25480;&#26435;&#65281;"</span> + e.getMessage();
+    }
+    model.addAttribute(<span class="org-string">"message"</span>, message);
+    <span class="org-keyword">return</span> <span class="org-string">"login"</span>;
+}
+</pre>
+</div>
+
+<p>
+login.jsp:
+</p>
+<div class="org-src-container">
+<pre class="src src-html"><span class="org-string">&lt;!DOCTYPE html&gt;</span>
+&lt;<span class="org-function-name">html</span>&gt;
+  &lt;<span class="org-function-name">head</span>&gt;
+    &lt;<span class="org-function-name">meta</span> <span class="org-variable-name">charset</span>=<span class="org-string">"utf-8"</span> /&gt;
+    &lt;<span class="org-function-name">title</span>&gt;<span class="org-underline"><span class="org-bold">Login Page</span></span>&lt;/<span class="org-function-name">title</span>&gt;
+  &lt;/<span class="org-function-name">head</span>&gt;
+  &lt;<span class="org-function-name">body</span>&gt;
+    &lt;<span class="org-function-name">h1</span>&gt;<span class="org-underline"><span class="org-bold">login page</span></span>&lt;/<span class="org-function-name">h1</span>&gt;
+    &lt;<span class="org-function-name">form</span> <span class="org-variable-name">action</span>=<span class="org-string">"/login"</span> <span class="org-variable-name">method</span>=<span class="org-string">"post"</span>&gt;
+      &lt;<span class="org-function-name">input</span> <span class="org-variable-name">tyep</span>=<span class="org-string">"text"</span> <span class="org-variable-name">name</span>=<span class="org-string">"userName"</span> /&gt;
+      &lt;<span class="org-function-name">input</span> <span class="org-variable-name">type</span>=<span class="org-string">"password"</span> <span class="org-variable-name">name</span>=<span class="org-string">"password"</span> /&gt;
+      &lt;<span class="org-function-name">input</span> <span class="org-variable-name">type</span>=<span class="org-string">"submit"</span> <span class="org-variable-name">value</span>=<span class="org-string">"login"</span> /&gt;
+    &lt;/<span class="org-function-name">form</span>&gt;
+    &lt;<span class="org-function-name">P</span>&gt;${message}&lt;/<span class="org-function-name">P</span>&gt;
+  &lt;/<span class="org-function-name">body</span>&gt;
+&lt;/<span class="org-function-name">html</span>&gt;
+</pre>
+</div>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgc5d8cb6" class="outline-2">
+<h2 id="orgc5d8cb6"><span class="section-number-2">4</span> Spring + Shiro + JWT 实现无状态鉴权</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-orgbed25c6" class="outline-3">
+<h3 id="orgbed25c6"><span class="section-number-3">4.1</span> 基本流程（参考）</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+基本流程:
+</p>
+<ol class="org-ol">
+<li>首先 Post 用户名与密码到 user/login 进行登入，如果成功返回一个加密的 AccessToken，失败的话直接返回 401错误(帐号或密码不正确)</li>
+<li>以后访问都带上这个 AccessToken 即可</li>
+<li>鉴权流程主要是重写了 Shiro 的入口过滤器 JWTFilter(BasicHttpAuthenticationFilter)</li>
+<li>判断请求 Header 里面是否包含 Authorization 字段，有就进行 Shiro 的 Token 登录认证授权，没有就以游客直接访问</li>
+</ol>
+
+<p>
+结合 Redis 实现登录控制:
+</p>
+<ol class="org-ol">
+<li>登录认证通过后返回 AccessToken 信息 (在 AccessToken 中保存当前的时间戳和帐号)</li>
+<li>同时在 Redis 中设置一条 Key 为账号，Value 为当前时间戳(登录时间)的 RefreshToken</li>
+<li>现在认证时必须 AccessToken 没失效以及 Redis 存在所对应的 RefreshToken，且 RefreshToken 时间戳和 AccessToken 信息中时间戳一致才算认证通过</li>
+<li>这样可以做到 JWT 的可控性，如果重新登录获取了新的 AccessToken，旧的 AccessToken 就认证不了，因为 Redis 中所存放的的 RefreshToken 时间戳信息只会和最新的 AccessToken 信息中携带的时间戳一致，这样每个用户就只能使用最新的 AccessToken 认证</li>
+<li>Redis 的 RefreshToken 也可以用来判断用户是否在线，如果删除 Redis 的某个 RefreshToken，那这个 RefreshToken 所对应的 AccessToken 之后也无法通过认证了，就相当于控制了用户的登录，可以剔除用户</li>
+</ol>
+
+<p>
+实现自动刷新:
+</p>
+<ol class="org-ol">
+<li>本身 AccessToken 的过期时间为 5 分钟(可配置)，RefreshToken 过期时间为30分钟 (可配置)</li>
+<li>当登录后时间过了 5 分钟之后，当前 AccessToken 便会过期失效，再次带上 AccessToken 访问 JWT 会抛出 TokenExpiredException 异常</li>
+<li>Token 过期，开始判断是否要进行 AccessToken 刷新，首先 Redis 查询 RefreshToken 是否存在，以及时间戳和过期 AccessToken 所携带的时间戳是否一致</li>
+<li>如果存在且一致就进行 AccessToken 刷新，时间戳为当前最新时间戳，同时也设置 RefreshToken 中的时间戳为当前最新时间戳</li>
+<li>最终将刷新的 AccessToken 存放在 Response 的 Header 中的 Authorization 字段返回 (前端进行获取替换，下次用新的 AccessToken 进行访问)</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orgd577e21" class="outline-3">
+<h3 id="orgd577e21"><span class="section-number-3">4.2</span> UserController 示例</h3>
+<div class="outline-text-3" id="text-4-2">
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@RestController</span>
+<span class="org-c-annotation">@RequestMapping</span>(<span class="org-string">"/user"</span>)
+<span class="org-c-annotation">@PropertySource</span>(<span class="org-string">"classpath:config.properties"</span>)
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">UserController</span> {
+    <span class="org-c-annotation">@Value</span>(<span class="org-string">"${refreshTokenExpireTime}"</span>)
+    <span class="org-keyword">private</span> <span class="org-type">String</span> <span class="org-variable-name">refreshTokenExpireTime</span>;
+
+    <span class="org-c-annotation">@Resource</span>
+    <span class="org-keyword">private</span> <span class="org-type">UserService</span> <span class="org-variable-name">userService</span>;
+
+    <span class="org-doc">/**</span>
+<span class="org-doc">     * &#30331;&#24405;&#25480;&#26435;</span>
+<span class="org-doc">     */</span>
+    <span class="org-c-annotation">@PostMapping</span>(<span class="org-string">"/login"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">ResponseBean</span> <span class="org-function-name">login</span>(<span class="org-c-annotation">@Validated</span>(UserLoginValidGroup.<span class="org-keyword">class</span>) <span class="org-c-annotation">@RequestBody</span> <span class="org-type">UserDto</span> <span class="org-variable-name">userDto</span>, <span class="org-type">HttpServletResponse</span> <span class="org-variable-name">httpServletResponse</span>) {
+        <span class="org-type">UserDto</span> <span class="org-variable-name">userDtoTemp</span> = <span class="org-keyword">new</span> <span class="org-type">UserDto</span>();
+        userDtoTemp.setAccount(userDto.getAccount());
+        userDtoTemp = userService.selectOne(userDtoTemp);
+
+        <span class="org-keyword">if</span> (userDtoTemp == <span class="org-constant">null</span>) {
+            <span class="org-keyword">throw</span> <span class="org-keyword">new</span> <span class="org-type">CustomUnauthorizedException</span>(<span class="org-string">"&#35813;&#24080;&#21495;&#19981;&#23384;&#22312;(The account does not exist.)"</span>);
+        }
+
+        <span class="org-type">String</span> <span class="org-variable-name">key</span> = AesCipherUtil.deCrypto(userDtoTemp.getPassword());
+        <span class="org-keyword">if</span> (key.equals(userDto.getAccount() + userDto.getPassword())) {
+            <span class="org-keyword">if</span> (JedisUtil.exists(<span class="org-constant">Constant</span>.PREFIX_SHIRO_CACHE + userDto.getAccount())) {
+                JedisUtil.delKey(<span class="org-constant">Constant</span>.PREFIX_SHIRO_CACHE + userDto.getAccount());
+            }
+            <span class="org-type">String</span> <span class="org-variable-name">currentTimeMillis</span> = String.valueOf(System.currentTimeMillis());
+            JedisUtil.setObject(<span class="org-constant">Constant</span>.PREFIX_SHIRO_REFRESH_TOKEN + userDto.getAccount(), currentTimeMillis, Integer.parseInt(refreshTokenExpireTime));
+            <span class="org-type">String</span> <span class="org-variable-name">token</span> = JwtUtil.sign(userDto.getAccount(), currentTimeMillis);
+            httpServletResponse.setHeader(<span class="org-string">"Authorization"</span>, token);
+            httpServletResponse.setHeader(<span class="org-string">"Access-Control-Expose-Headers"</span>, <span class="org-string">"Authorization"</span>);
+            <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">ResponseBean</span>(200, <span class="org-string">"&#30331;&#24405;&#25104;&#21151;(Login Success.)"</span>, <span class="org-constant">null</span>);
+        } <span class="org-keyword">else</span> {
+            <span class="org-keyword">throw</span> <span class="org-keyword">new</span> <span class="org-type">CustomUnauthorizedException</span>(<span class="org-string">"&#24080;&#21495;&#25110;&#23494;&#30721;&#38169;&#35823;(Account or Password Error.)"</span>);
+        }
+    }
+
+    <span class="org-doc">/**</span>
+<span class="org-doc">     * &#27979;&#35797;&#30331;&#24405;</span>
+<span class="org-doc">     */</span>
+    <span class="org-c-annotation">@GetMapping</span>(<span class="org-string">"/article"</span>)
+    <span class="org-keyword">public</span> <span class="org-type">ResponseBean</span> <span class="org-function-name">article</span>() {
+        <span class="org-type">Subject</span> <span class="org-variable-name">subject</span> = SecurityUtils.getSubject();
+        <span class="org-keyword">if</span> (subject.isAuthenticated()) {
+            <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">ResponseBean</span>(200, <span class="org-string">"&#24744;&#24050;&#32463;&#30331;&#24405;&#20102;(You are already logged in)"</span>, <span class="org-constant">null</span>);
+        } <span class="org-keyword">else</span> {
+            <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">ResponseBean</span>(200, <span class="org-string">"&#20320;&#26159;&#28216;&#23458;(You are guest)"</span>, <span class="org-constant">null</span>);
+        }
+    }
+
+    <span class="org-doc">/**</span>
+<span class="org-doc">     * &#33719;&#21462;&#29992;&#25143;&#21015;&#34920;</span>
+<span class="org-doc">     */</span>
+    <span class="org-c-annotation">@GetMapping</span>
+    <span class="org-c-annotation">@RequiresPermissions</span>(logical = <span class="org-constant">Logical</span>.AND, value = {<span class="org-string">"user:view"</span>})
+    <span class="org-keyword">public</span> <span class="org-type">ResponseBean</span> <span class="org-function-name">user</span>(<span class="org-c-annotation">@Validated</span> <span class="org-type">BaseDto</span> <span class="org-variable-name">baseDto</span>) {
+        PageHelper.startPage(baseDto.getPage(), baseDto.getRows());
+        <span class="org-type">List</span>&lt;<span class="org-type">UserDto</span>&gt; <span class="org-variable-name">userDtos</span> = userService.selectAll();
+        <span class="org-type">PageInfo</span>&lt;<span class="org-type">UserDto</span>&gt; <span class="org-variable-name">selectPage</span> = <span class="org-keyword">new</span> <span class="org-type">PageInfo</span>&lt;<span class="org-type">UserDto</span>&gt;(userDtos);
+        <span class="org-keyword">if</span> (userDtos == <span class="org-constant">null</span> || userDtos.size() &lt;= 0) {
+            <span class="org-keyword">throw</span> <span class="org-keyword">new</span> <span class="org-type">CustomException</span>(<span class="org-string">"&#26597;&#35810;&#22833;&#36133;(Query Failure)"</span>);
+        }
+        <span class="org-type">Map</span>&lt;<span class="org-type">String</span>, <span class="org-type">Object</span>&gt; <span class="org-variable-name">result</span> = <span class="org-keyword">new</span> <span class="org-type">HashMap</span>&lt;<span class="org-type">String</span>, <span class="org-type">Object</span>&gt;(16);
+        result.put(<span class="org-string">"count"</span>, selectPage.getTotal());
+        result.put(<span class="org-string">"data"</span>, selectPage.getList());
+        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">ResponseBean</span>(200, <span class="org-string">"&#26597;&#35810;&#25104;&#21151;(Query was successful)"</span>, result);
+    }
+
+    <span class="org-doc">/**</span>
+<span class="org-doc">     * &#33719;&#21462;&#22312;&#32447;&#29992;&#25143;(&#26597;&#35810; Redis &#20013;&#30340; RefreshToken)</span>
+<span class="org-doc">     */</span>
+    <span class="org-c-annotation">@GetMapping</span>(<span class="org-string">"/online"</span>)
+    <span class="org-c-annotation">@RequiresPermissions</span>(logical = <span class="org-constant">Logical</span>.AND, value = {<span class="org-string">"user:view"</span>})
+    <span class="org-keyword">public</span> <span class="org-type">ResponseBean</span> <span class="org-function-name">online</span>() {
+        <span class="org-type">List</span>&lt;<span class="org-type">Object</span>&gt; <span class="org-variable-name">userDtos</span> = <span class="org-keyword">new</span> <span class="org-type">ArrayList</span>&lt;&gt;();
+        <span class="org-type">Set</span>&lt;<span class="org-type">String</span>&gt; <span class="org-variable-name">keys</span> = JedisUtil.keysS(<span class="org-constant">Constant</span>.PREFIX_SHIRO_REFRESH_TOKEN + <span class="org-string">"*"</span>);
+        <span class="org-keyword">for</span> (<span class="org-type">String</span> <span class="org-variable-name">key</span> : keys) {
+            <span class="org-keyword">if</span> (JedisUtil.exists(key)) {
+                <span class="org-type">String</span>[] <span class="org-variable-name">strArray</span> = key.split(<span class="org-string">":"</span>);
+                <span class="org-type">UserDto</span> <span class="org-variable-name">userDto</span> = <span class="org-keyword">new</span> <span class="org-type">UserDto</span>();
+                userDto.setAccount(strArray[strArray.length - 1]);
+                userDto = userService.selectOne(userDto);
+                userDto.setLoginTime(<span class="org-keyword">new</span> <span class="org-type">Date</span>(Long.parseLong(JedisUtil.getObject(key).toString())));
+                userDtos.add(userDto);
+            }
+        }
+        <span class="org-keyword">if</span> (userDtos.size() &lt;= 0) {
+            <span class="org-keyword">throw</span> <span class="org-keyword">new</span> <span class="org-type">CustomException</span>(<span class="org-string">"&#26597;&#35810;&#22833;&#36133;(Query Failure)"</span>);
+        }
+        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">ResponseBean</span>(200, <span class="org-string">"&#26597;&#35810;&#25104;&#21151;(Query was successful)"</span>, userDtos);
+    }
+
+    <span class="org-doc">/**</span>
+<span class="org-doc">     * &#33719;&#21462;&#25351;&#23450;&#29992;&#25143;</span>
+<span class="org-doc">     */</span>
+    <span class="org-c-annotation">@GetMapping</span>(<span class="org-string">"/{id}"</span>)
+    <span class="org-c-annotation">@RequiresPermissions</span>(logical = <span class="org-constant">Logical</span>.AND, value = {<span class="org-string">"user:view"</span>})
+    <span class="org-keyword">public</span> <span class="org-type">ResponseBean</span> <span class="org-function-name">findById</span>(<span class="org-c-annotation">@PathVariable</span>(<span class="org-string">"id"</span>) <span class="org-type">Integer</span> <span class="org-variable-name">id</span>) {
+        <span class="org-type">UserDto</span> <span class="org-variable-name">userDto</span> = userService.selectByPrimaryKey(id);
+        <span class="org-keyword">if</span> (userDto == <span class="org-constant">null</span>) {
+            <span class="org-keyword">throw</span> <span class="org-keyword">new</span> <span class="org-type">CustomException</span>(<span class="org-string">"&#26597;&#35810;&#22833;&#36133;(Query Failure)"</span>);
+        }
+        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">ResponseBean</span>(200, <span class="org-string">"&#26597;&#35810;&#25104;&#21151;(Query was successful)"</span>, userDto);
+    }
+
+    <span class="org-doc">/**</span>
+<span class="org-doc">     * &#26032;&#22686;&#29992;&#25143;</span>
+<span class="org-doc">     */</span>
+    <span class="org-c-annotation">@PostMapping</span>
+    <span class="org-c-annotation">@RequiresPermissions</span>(logical = <span class="org-constant">Logical</span>.AND, value = {<span class="org-string">"user:edit"</span>})
+    <span class="org-keyword">public</span> <span class="org-type">ResponseBean</span> <span class="org-function-name">add</span>(<span class="org-c-annotation">@Validated</span>(UserEditValidGroup.<span class="org-keyword">class</span>) <span class="org-c-annotation">@RequestBody</span> <span class="org-type">UserDto</span> <span class="org-variable-name">userDto</span>) {
+        <span class="org-type">UserDto</span> <span class="org-variable-name">userDtoTemp</span> = <span class="org-keyword">new</span> <span class="org-type">UserDto</span>();
+        userDtoTemp.setAccount(userDto.getAccount());
+        userDtoTemp = userService.selectOne(userDtoTemp);
+        <span class="org-keyword">if</span> (userDtoTemp != <span class="org-constant">null</span> &amp;&amp; StringUtil.isNotBlank(userDtoTemp.getPassword())) {
+            <span class="org-keyword">throw</span> <span class="org-keyword">new</span> <span class="org-type">CustomUnauthorizedException</span>(<span class="org-string">"&#35813;&#24080;&#21495;&#24050;&#23384;&#22312;(Account exist.)"</span>);
+        }
+        userDto.setRegTime(<span class="org-keyword">new</span> <span class="org-type">Date</span>());
+        <span class="org-keyword">if</span> (userDto.getPassword().length() &gt; 8) {
+            <span class="org-keyword">throw</span> <span class="org-keyword">new</span> <span class="org-type">CustomException</span>(<span class="org-string">"&#23494;&#30721;&#26368;&#22810;8&#20301;(Password up to 8 bits.)"</span>);
+        }
+        <span class="org-type">String</span> <span class="org-variable-name">key</span> = AesCipherUtil.enCrypto(userDto.getAccount() + userDto.getPassword());
+        userDto.setPassword(key);
+        <span class="org-type">int</span> <span class="org-variable-name">count</span> = userService.insert(userDto);
+        <span class="org-keyword">if</span> (count &lt;= 0) {
+            <span class="org-keyword">throw</span> <span class="org-keyword">new</span> <span class="org-type">CustomException</span>(<span class="org-string">"&#26032;&#22686;&#22833;&#36133;(Insert Failure)"</span>);
+        }
+        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">ResponseBean</span>(200, <span class="org-string">"&#26032;&#22686;&#25104;&#21151;(Insert Success)"</span>, userDto);
+    }
+
+    <span class="org-doc">/**</span>
+<span class="org-doc">     * &#26356;&#26032;&#29992;&#25143;</span>
+<span class="org-doc">     */</span>
+    <span class="org-c-annotation">@PutMapping</span>
+    <span class="org-c-annotation">@RequiresPermissions</span>(logical = <span class="org-constant">Logical</span>.AND, value = {<span class="org-string">"user:edit"</span>})
+    <span class="org-keyword">public</span> <span class="org-type">ResponseBean</span> <span class="org-function-name">update</span>(<span class="org-c-annotation">@Validated</span>(UserEditValidGroup.<span class="org-keyword">class</span>) <span class="org-c-annotation">@RequestBody</span> <span class="org-type">UserDto</span> <span class="org-variable-name">userDto</span>) {
+        <span class="org-type">UserDto</span> <span class="org-variable-name">userDtoTemp</span> = <span class="org-keyword">new</span> <span class="org-type">UserDto</span>();
+        userDtoTemp.setAccount(userDto.getAccount());
+        userDtoTemp = userService.selectOne(userDtoTemp);
+        <span class="org-keyword">if</span> (userDtoTemp == <span class="org-constant">null</span>) {
+            <span class="org-keyword">throw</span> <span class="org-keyword">new</span> <span class="org-type">CustomUnauthorizedException</span>(<span class="org-string">"&#35813;&#24080;&#21495;&#19981;&#23384;&#22312;(Account not exist.)"</span>);
+        } <span class="org-keyword">else</span> {
+            userDto.setId(userDtoTemp.getId());
+        }
+        <span class="org-keyword">if</span> (<span class="org-negation-char">!</span>userDtoTemp.getPassword().equals(userDto.getPassword())) {
+            <span class="org-keyword">if</span> (userDto.getPassword().length() &gt; 8) {
+                <span class="org-keyword">throw</span> <span class="org-keyword">new</span> <span class="org-type">CustomException</span>(<span class="org-string">"&#23494;&#30721;&#26368;&#22810;8&#20301;(Password up to 8 bits.)"</span>);
+            }
+            <span class="org-type">String</span> <span class="org-variable-name">key</span> = AesCipherUtil.enCrypto(userDto.getAccount() + userDto.getPassword());
+            userDto.setPassword(key);
+        }
+        <span class="org-type">int</span> <span class="org-variable-name">count</span> = userService.updateByPrimaryKeySelective(userDto);
+        <span class="org-keyword">if</span> (count &lt;= 0) {
+            <span class="org-keyword">throw</span> <span class="org-keyword">new</span> <span class="org-type">CustomException</span>(<span class="org-string">"&#26356;&#26032;&#22833;&#36133;(Update Failure)"</span>);
+        }
+        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">ResponseBean</span>(200, <span class="org-string">"&#26356;&#26032;&#25104;&#21151;(Update Success)"</span>, userDto);
+    }
+
+    <span class="org-doc">/**</span>
+<span class="org-doc">     * &#21024;&#38500;&#29992;&#25143;</span>
+<span class="org-doc">     */</span>
+    <span class="org-c-annotation">@DeleteMapping</span>(<span class="org-string">"/{id}"</span>)
+    <span class="org-c-annotation">@RequiresPermissions</span>(logical = <span class="org-constant">Logical</span>.AND, value = {<span class="org-string">"user:edit"</span>})
+    <span class="org-keyword">public</span> <span class="org-type">ResponseBean</span> <span class="org-function-name">delete</span>(<span class="org-c-annotation">@PathVariable</span>(<span class="org-string">"id"</span>) <span class="org-type">Integer</span> <span class="org-variable-name">id</span>) {
+        <span class="org-type">int</span> <span class="org-variable-name">count</span> = userService.deleteByPrimaryKey(id);
+        <span class="org-keyword">if</span> (count &lt;= 0) {
+            <span class="org-keyword">throw</span> <span class="org-keyword">new</span> <span class="org-type">CustomException</span>(<span class="org-string">"&#21024;&#38500;&#22833;&#36133;&#65292;ID&#19981;&#23384;&#22312;(Deletion Failed. ID does not exist.)"</span>);
+        }
+        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">ResponseBean</span>(200, <span class="org-string">"&#21024;&#38500;&#25104;&#21151;(Delete Success)"</span>, <span class="org-constant">null</span>);
+    }
+
+    <span class="org-doc">/**</span>
+<span class="org-doc">     * &#36386;&#38500;&#22312;&#32447;&#29992;&#25143;</span>
+<span class="org-doc">     */</span>
+    <span class="org-c-annotation">@DeleteMapping</span>(<span class="org-string">"/online/{id}"</span>)
+    <span class="org-c-annotation">@RequiresPermissions</span>(logical = <span class="org-constant">Logical</span>.AND, value = {<span class="org-string">"user:edit"</span>})
+    <span class="org-keyword">public</span> <span class="org-type">ResponseBean</span> <span class="org-function-name">deleteOnline</span>(<span class="org-c-annotation">@PathVariable</span>(<span class="org-string">"id"</span>) <span class="org-type">Integer</span> <span class="org-variable-name">id</span>) {
+        <span class="org-type">UserDto</span> <span class="org-variable-name">userDto</span> = userService.selectByPrimaryKey(id);
+        <span class="org-keyword">if</span> (JedisUtil.exists(<span class="org-constant">Constant</span>.PREFIX_SHIRO_REFRESH_TOKEN + userDto.getAccount())) {
+            <span class="org-keyword">if</span> (JedisUtil.delKey(<span class="org-constant">Constant</span>.PREFIX_SHIRO_REFRESH_TOKEN + userDto.getAccount()) &gt; 0) {
+                <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">ResponseBean</span>(200, <span class="org-string">"&#21076;&#38500;&#25104;&#21151;(Delete Success)"</span>, <span class="org-constant">null</span>);
+            }
+        }
+        <span class="org-keyword">throw</span> <span class="org-keyword">new</span> <span class="org-type">CustomException</span>(<span class="org-string">"&#21076;&#38500;&#22833;&#36133;&#65292;Account&#19981;&#23384;&#22312;(Deletion Failed. Account does not exist.)"</span>);
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2c07b34" class="outline-3">
+<h3 id="org2c07b34"><span class="section-number-3">4.3</span> 前端接收/发送 token 示例</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+在 Vue 中设置 axios 的拦截器，来获取/刷新登录:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js"><span class="org-function-name">created</span>: <span class="org-keyword">function</span> () {
+    <span class="org-constant">this</span>.$axios.defaults.baseURL = <span class="org-string">'http://localhost:8080'</span>;
+    <span class="org-constant">this</span>.$axios.defaults.timeout = 10000;
+    <span class="org-constant">this</span>.$root.loginStatus = <span class="org-constant">this</span>.cookies.get(<span class="org-string">'accessToken'</span>) ? <span class="org-constant">false</span> : <span class="org-constant">true</span>;
+
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&#35831;&#27714;&#25318;&#25130;&#22120;&#35774;&#32622; headers</span>
+    <span class="org-constant">this</span>.$axios.interceptors.request.use(config =&gt; {
+        <span class="org-keyword">var</span> <span class="org-variable-name">accessToken</span> = <span class="org-constant">this</span>.cookies.get(<span class="org-string">'accessToken'</span>);
+        <span class="org-keyword">if</span> (accessToken &amp;&amp; accessToken !== <span class="org-string">''</span>) {
+            config.headers.common[<span class="org-string">'Authorization'</span>] = accessToken;
+        }
+        <span class="org-keyword">return</span> config;
+    }, error =&gt; {
+        <span class="org-keyword">return</span> Promise.reject(error);
+    })
+
+    <span class="org-comment-delimiter">// </span><span class="org-comment">&#21709;&#24212;&#25318;&#25130;&#22120;&#33719;&#21462; headers&#65292;&#35774;&#32622;(&#21047;&#26032;) Token</span>
+    <span class="org-constant">this</span>.$axios.interceptors.response.use(response =&gt; {
+        <span class="org-keyword">var</span> <span class="org-variable-name">accessToken</span> = response.headers[<span class="org-string">'authorization'</span>];
+        <span class="org-keyword">if</span> (accessToken &amp;&amp; accessToken !== <span class="org-string">''</span>) {
+            <span class="org-constant">this</span>.cookies.set(<span class="org-string">'accessToken'</span>, accessToken, { expires: 1, path: <span class="org-string">'/'</span> });
+        }
+        <span class="org-keyword">return</span> response;
+    }, error =&gt; {
+        <span class="org-keyword">return</span> Promise.reject(error)
+    })
+},
+<span class="org-comment-delimiter">//</span><span class="org-comment">...</span>
+</pre>
+</div>
+</div>
 </div>
 </section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2019-01-07 周一 02:28</p>
+<p class="date">Created: 2019-01-14 Mon 06:17</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
