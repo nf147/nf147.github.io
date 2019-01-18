@@ -12,3 +12,9 @@
 - 能够熟练使用 SSM 框架进行后端开发，熟悉常用的后端技术，比如 SpringBoot, Spring-Data-JPA 等
 - 了解消息队列和缓存的基本概念，熟练使用 Redis 进行开发，能够使用 Shiro 进行最基本的权限控制
 - 熟练使用 Maven 进行项目的搭建，熟练使用 Git 版本工具，熟悉基于 Github 的协作开发流程
+
+- Ioc、AoP、MVC、MVVM 的概念，RESTful，跨域，NoSQL
+- 数据库能力，SQL 的编写能力，存储过程的能力
+- 移动端(跨平台) 开发，混合式开发
+- 文档能力，思维导图，设计工具，测试工具等等
+- Junit/log4j/Nginx/Tomcat/Idea/。。。
