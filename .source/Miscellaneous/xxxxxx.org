@@ -1,9 +1,6 @@
 #+TITLE: xxxxxxx
 
 
-
-
-
 * 只是示例
 
 - 熟练使用 jQuery 和 Bootstrap 构建页面，掌握 layui/xxx 等框架，熟悉 echart/.. 等插件的使用
@@ -18,3 +15,4 @@
 - 移动端(跨平台) 开发，混合式开发
 - 文档能力，思维导图，设计工具，测试工具等等
 - Junit/log4j/Nginx/Tomcat/Idea/。。。
+- Java 爬虫
