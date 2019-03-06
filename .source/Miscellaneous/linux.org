@@ -117,7 +117,7 @@ apt 命令是一些更加底层的命令，比如 ~apt-get/apt-cache~ 的进一�
 
 然后，就可以在任何网络可达的机器上，通过 ssh 客户端连接服务器了。
 
-在 windows 上，一般使用 putty 工具。
+在 windows 上，一般使用 [[https://www.chiark.greenend.org.uk/~sgtatham/putty/][PuTTY]] 工具。
 
 连接语法:
 #+BEGIN_SRC sh
