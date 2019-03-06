@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-03-06 Wed 06:43 -->
+<!-- 2019-03-06 Wed 07:16 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GNU/Linux</title>
@@ -20,15 +20,74 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org38d68e2">1. 国内源</a></li>
+<li><a href="#orgba20d58">1. APT</a>
+<ul>
+<li><a href="#org68cbd69">1.1. 设置国内源</a></li>
+<li><a href="#orgafba976">1.2. 基本命令</a></li>
+</ul>
+</li>
+<li><a href="#org4aa4145">2. 常用命令</a>
+<ul>
+<li><a href="#org2c7336c">2.1. 文件相关</a></li>
+<li><a href="#org6602f6d">2.2. 归档、压缩</a></li>
+<li><a href="#org3e2d935">2.3. 远程连接</a></li>
+</ul>
+</li>
+<li><a href="#org54b3f12">3. 命令行下常用快捷键</a></li>
+<li><a href="#org68f5a2f">4. Linux 的目录结构</a>
+<ul>
+<li><a href="#orgc77785f">4.1. /bin</a></li>
+<li><a href="#org9bab17d">4.2. /etc</a></li>
+<li><a href="#orgc1439e3">4.3. /usr</a>
+<ul>
+<li><a href="#orgef60a99">4.3.1. /usr/share</a></li>
+<li><a href="#org66cdc18">4.3.2. /usr/lib</a></li>
+<li><a href="#org249e601">4.3.3. /usr/local</a></li>
+</ul>
+</li>
+<li><a href="#org1da9a01">4.4. /home</a></li>
+<li><a href="#org45d1a8d">4.5. /dev</a></li>
+<li><a href="#org29fd16b">4.6. /opt</a></li>
+</ul>
+</li>
+<li><a href="#org30b654e">5. Miscellaneous</a>
+<ul>
+<li><a href="#orge56bcb5">5.1. Linux 常用命令 (add by 成盛文)</a>
+<ul>
+<li><a href="#org59f165a">5.1.1. 文件与目录操作</a></li>
+<li><a href="#orge809162">5.1.2. 备份与压缩</a></li>
+<li><a href="#org07a7f2f">5.1.3. 文本处理</a></li>
+<li><a href="#org5930a4e">5.1.4. shell指令</a></li>
+<li><a href="#orgc4db4c7">5.1.5. 打印相关指令</a></li>
+<li><a href="#org9a673d9">5.1.6. 其他基础指令</a></li>
+<li><a href="#org375efd8">5.1.7. 用户管理</a></li>
+<li><a href="#org18b49b0">5.1.8. 进程管理</a></li>
+<li><a href="#org8874b11">5.1.9. 磁盘与文件系统管理</a></li>
+<li><a href="#org207d7c4">5.1.10. 内核与性能</a></li>
+<li><a href="#org3f0623e">5.1.11. X-Window系统</a></li>
+<li><a href="#orgfc880ca">5.1.12. 系统安全</a></li>
+<li><a href="#org9f9e6ab">5.1.13. 编程相关指令</a></li>
+<li><a href="#org71ce1a1">5.1.14. 其他系统管理与维护指令</a></li>
+<li><a href="#orgfd55102">5.1.15. 网络配置</a></li>
+<li><a href="#org2ae3da3">5.1.16. 网络测试与应用</a></li>
+<li><a href="#orgd850a64">5.1.17. 高级网络指令</a></li>
+<li><a href="#orgbebb432">5.1.18. 网络服务器指令</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </nav>
 
 
-<section id="outline-container-org38d68e2" class="outline-2">
-<h2 id="org38d68e2"><span class="section-number-2">1</span> 国内源</h2>
+<section id="outline-container-orgba20d58" class="outline-2">
+<h2 id="orgba20d58"><span class="section-number-2">1</span> APT</h2>
 <div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-org68cbd69" class="outline-3">
+<h3 id="org68cbd69"><span class="section-number-3">1.1</span> 设置国内源</h3>
+<div class="outline-text-3" id="text-1-1">
 <p>
 sudo gedit /etc/apt/sources.list:
 </p>
@@ -46,11 +105,761 @@ deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted unive
 </pre>
 </div>
 </div>
+</div>
+
+<div id="outline-container-orgafba976" class="outline-3">
+<h3 id="orgafba976"><span class="section-number-3">1.2</span> 基本命令</h3>
+<div class="outline-text-3" id="text-1-2">
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">&#20174;&#36828;&#31243;&#26356;&#26032;&#36719;&#20214;&#21015;&#34920;</span>
+apt update
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#35810;&#26159;&#21542;&#23384;&#22312;&#26576;&#36719;&#20214;</span>
+apt search tomcat
+apt search ^tomcat
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#23433;&#35013;&#36719;&#20214;</span>
+apt install tomcat8
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21368;&#36733;&#36719;&#20214;</span>
+apt remove tomcat8
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#28165;&#29702;</span>
+apt autoclean
+apt autoremove
+</pre>
+</div>
+
+<p>
+apt 命令是一些更加底层的命令，比如 <code>apt-get/apt-cache</code> 的进一步封装。
+</p>
+
+<p>
+在一些旧的系统中，只有 <code>apt-get/apt-cache</code> 并没有 apt 命令，但它们使用时类似的。
+</p>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org4aa4145" class="outline-2">
+<h2 id="org4aa4145"><span class="section-number-2">2</span> 常用命令</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-org2c7336c" class="outline-3">
+<h3 id="org2c7336c"><span class="section-number-3">2.1</span> 文件相关</h3>
+<div class="outline-text-3" id="text-2-1">
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">list, &#26597;&#30475;&#30446;&#24405;&#25991;&#20214;</span>
+ls
+ls -a
+ls --all <span class="org-comment-delimiter"># </span><span class="org-comment">&#31561;&#21516;&#20110;&#19978;&#38754;</span>
+ls -l
+ls -al
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">move, &#37325;&#21629;&#21517;&#25110;&#31227;&#21160;</span>
+mv aaa.txt bbb.txt
+mv /tmp/xxx.txt ~/
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">copy, &#22797;&#21046;&#25991;&#20214;</span>
+cp /tmp/xxx.txt ~/aaa/yyy.txt
+cp /tmp/xxx.txt ~/aaa/  <span class="org-comment-delimiter"># </span><span class="org-comment">&#21487;&#20197;&#21482;&#25351;&#23450;&#30446;&#26631;&#25991;&#20214;&#22841;</span>
+cp -r /tmp/xxx ~/bbb/   <span class="org-comment-delimiter"># </span><span class="org-comment">&#20351;&#29992; -r &#31227;&#21160;&#25972;&#20010;&#25991;&#20214;&#22841;</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">remove, &#21024;&#38500;&#25991;&#20214;</span>
+rm xxx.txt
+rm -r /sss/   <span class="org-comment-delimiter"># </span><span class="org-comment">&#21024;&#38500;&#25991;&#20214;&#22841;&#65292;&#20351;&#29992; -r</span>
+rm -rf /sss/ <span class="org-comment-delimiter"># </span><span class="org-comment">&#24378;&#21024;&#65292;&#21363;&#20351;&#20986;&#38169;&#20063;&#20250;&#32487;&#32493;&#12290;&#21361;&#38505;&#25805;&#20316;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6602f6d" class="outline-3">
+<h3 id="org6602f6d"><span class="section-number-3">2.2</span> 归档、压缩</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+归档、压缩是两个不同的阶段：
+</p>
+<ul class="org-ul">
+<li>tar 用来归档</li>
+<li>gzip 用来压缩</li>
+</ul>
+
+<p>
+在 tar 中，可以使用 -z 参数让其自动调用 gzip 处理压缩。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">&#23558;&#33509;&#24178;&#25991;&#20214;&#21387;&#32553;&#20026; xxx.tar.gz</span>
+tar czf xxx.tar.gz a.txt b.txt c.txt   <span class="org-comment-delimiter"># </span><span class="org-comment">c &#20026; create&#65292;&#26159;&#21019;&#24314;&#30340;&#24847;&#24605;</span>
+tar czvf xxx.tar.gz a.txt b.txt c.txt  <span class="org-comment-delimiter"># </span><span class="org-comment">v &#21442;&#25968;&#29992;&#26469;&#35774;&#32622;&#25171;&#21360;&#21387;&#32553;&#36807;&#31243; (verbose)</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#35299;&#21387;&#32553;</span>
+tar xzf xxx.tar.gz  <span class="org-comment-delimiter"># </span><span class="org-comment">x &#34920;&#31034; extract&#65292;&#26159;&#35299;&#21387;&#32553;&#30340;&#24847;&#24605;</span>
+tar xzvf xxx.tar.gz  <span class="org-comment-delimiter"># </span><span class="org-comment">x &#34920;&#31034; extract&#65292;&#26159;&#35299;&#21387;&#32553;&#30340;&#24847;&#24605;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3e2d935" class="outline-3">
+<h3 id="org3e2d935"><span class="section-number-3">2.3</span> 远程连接</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+首先，在服务端安装并开启 ssh 服务:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">&#23433;&#35013; openssh-server</span>
+sudo apt update
+sudo apt install openssh-server
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#30830;&#20445; sshd &#26381;&#21153;&#24320;&#21551;</span>
+sudo systemctl status sshd
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#22914;&#26524;&#26381;&#21153;&#22120;&#27809;&#26377;&#24320;&#21551;&#65292;&#37027;&#20040;&#38656;&#35201;&#24320;&#21551;</span>
+sudo systemctl start sshd
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21487;&#20197;&#35774;&#32622; sshd &#26381;&#21153;&#24320;&#26426;&#33258;&#21160;&#21551;&#21160;</span>
+sudo systemctl enable sshd
+</pre>
+</div>
+
+<p>
+其次，确定服务器的 ip 地址:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">ip addr
+</pre>
+</div>
+
+<p>
+然后，就可以在任何网络可达的机器上，通过 ssh 客户端连接服务器了。
+</p>
+
+<p>
+在 windows 上，一般使用 putty 工具。
+</p>
+
+<p>
+连接语法:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">ssh name@192.168.3.44
+</pre>
+</div>
+
+<p>
+另外，可以使用 <code>scp</code> 命令实现文件传输:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">scp aaa.zip user@192.168.3.3:~/target/
+scp -r user@192.168.3.3:~/target/ ~/ <span class="org-comment-delimiter"># </span><span class="org-comment">&#22797;&#21046;&#25991;&#20214;&#22841;&#21040;&#26412;&#22320;</span>
+</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="outline-container-org54b3f12" class="outline-2">
+<h2 id="org54b3f12"><span class="section-number-2">3</span> 命令行下常用快捷键</h2>
+<div class="outline-text-2" id="text-3">
+<ul class="org-ul">
+<li><code>Ctrl-a</code>, 返回行首</li>
+<li><code>Ctrl-e</code>, 到行尾</li>
+<li><code>Ctrl-n</code>, 下一页</li>
+<li><code>Ctrl-p</code>, 上一页</li>
+<li><code>Ctrl-l</code>, 刷新屏幕</li>
+<li><code>Ctrl-k</code>, 删除到行尾</li>
+<li><code>Ctrl-y</code>, 粘贴上一次删除的内容</li>
+<li><code>Alt-b</code>, 后退一个单词</li>
+<li><code>Alt-f</code>, 前进一个单词</li>
+<li><code>Alt-d</code>, 删除下一个单词</li>
+</ul>
+
+<p>
+另外，如果要检索历史 (history) 命令，使用 <code>Ctrl-r</code>
+</p>
+</div>
+</section>
+
+<section id="outline-container-org68f5a2f" class="outline-2">
+<h2 id="org68f5a2f"><span class="section-number-2">4</span> Linux 的目录结构</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+目录树
+</p>
+</div>
+
+<div id="outline-container-orgc77785f" class="outline-3">
+<h3 id="orgc77785f"><span class="section-number-3">4.1</span> /bin</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+全局可执行文件
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9bab17d" class="outline-3">
+<h3 id="org9bab17d"><span class="section-number-3">4.2</span> /etc</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+全局配置文件
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc1439e3" class="outline-3">
+<h3 id="orgc1439e3"><span class="section-number-3">4.3</span> /usr</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+User Resources，用户的资源文件
+</p>
+</div>
+
+<div id="outline-container-orgef60a99" class="outline-4">
+<h4 id="orgef60a99"><span class="section-number-4">4.3.1</span> /usr/share</h4>
+</div>
+<div id="outline-container-org66cdc18" class="outline-4">
+<h4 id="org66cdc18"><span class="section-number-4">4.3.2</span> /usr/lib</h4>
+</div>
+<div id="outline-container-org249e601" class="outline-4">
+<h4 id="org249e601"><span class="section-number-4">4.3.3</span> /usr/local</h4>
+</div>
+</div>
+<div id="outline-container-org1da9a01" class="outline-3">
+<h3 id="org1da9a01"><span class="section-number-3">4.4</span> /home</h3>
+<div class="outline-text-3" id="text-4-4">
+<p>
+用户的主目录
+</p>
+</div>
+</div>
+
+<div id="outline-container-org45d1a8d" class="outline-3">
+<h3 id="org45d1a8d"><span class="section-number-3">4.5</span> /dev</h3>
+<div class="outline-text-3" id="text-4-5">
+<p>
+硬件
+</p>
+</div>
+</div>
+
+<div id="outline-container-org29fd16b" class="outline-3">
+<h3 id="org29fd16b"><span class="section-number-3">4.6</span> /opt</h3>
+<div class="outline-text-3" id="text-4-6">
+<p>
+一般用来放置一些第三方的软件，比如自己下载的 tomcat 等
+</p>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org30b654e" class="outline-2">
+<h2 id="org30b654e"><span class="section-number-2">5</span> Miscellaneous</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-orge56bcb5" class="outline-3">
+<h3 id="orge56bcb5"><span class="section-number-3">5.1</span> Linux 常用命令 (add by 成盛文)</h3>
+<div class="outline-text-3" id="text-5-1">
+</div>
+<div id="outline-container-org59f165a" class="outline-4">
+<h4 id="org59f165a"><span class="section-number-4">5.1.1</span> 文件与目录操作</h4>
+<div class="outline-text-4" id="text-5-1-1">
+<ul class="org-ul">
+<li>basename：从文件名中去掉路径和扩展名</li>
+<li>cd：切换当前工作目录到指定目录</li>
+<li>chgrp：改变文件所属组</li>
+<li>chmod：改变文件的权限</li>
+<li>chown：改变文件的所有者和组</li>
+<li>cp：复制文件或目录</li>
+<li>dd：复制文件并转换文件内容</li>
+<li>file：确定文件类型</li>
+<li>find：在指定目录下查找文件并执行指定的操作</li>
+<li>ln：创建文件链接</li>
+<li>locate/slocate：快速定位文件的路径</li>
+<li>ls/dir/vdir：显示目录内容</li>
+<li>mkdir：创建目录</li>
+<li>mv：移动或重命名文件</li>
+<li>pwd：显示当前工作目录</li>
+<li>rename：重命名文件</li>
+<li>rm：删除文件或目录</li>
+<li>rmdir：删除空目录</li>
+<li>touch：修改文件的时间属性</li>
+<li>updatedb：创建或更新slocate数据库</li>
+<li>whereis：显示指令程序、源代码和man手册页</li>
+<li>which：显示指令的绝对路径</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orge809162" class="outline-4">
+<h4 id="orge809162"><span class="section-number-4">5.1.2</span> 备份与压缩</h4>
+<div class="outline-text-4" id="text-5-1-2">
+<ul class="org-ul">
+<li>ar：创建、修改归档文件和从归档文件中提取文件</li>
+<li>arj：.arj文件压缩指令</li>
+<li>bunzip2：压缩bzip2格式的压缩文件</li>
+<li>bzcat：解压缩文件到标准输出</li>
+<li>bzip2：创建.bz2格式的压缩文件</li>
+<li>bzip2recover：修复损坏的.bz2文件</li>
+<li>bzless/bzmore：解压缩.bz2文件并分屏显示内容</li>
+<li>compress：压缩数据文件</li>
+<li>cpio：存取归档包中的文件</li>
+<li>dump：文件系统备份</li>
+<li>gunzip：解压缩由gzip压缩的文件</li>
+<li>gzexe：压缩可执行程序</li>
+<li>gzip：GNU的压缩和解压缩工具</li>
+<li>lha：压缩和解压缩指令</li>
+<li>resotre：还原由dump备份的文件或文件系统</li>
+<li>tar：创建备份档案文件</li>
+<li>unarj：解压缩.arj文件</li>
+<li>uncompress：解压缩.Z文件</li>
+<li>unzip：解压缩.zip文件</li>
+<li>zcat：解压缩文件并送到标准输出</li>
+<li>zforce：强制gzip格式的文件加上.gz扩展名</li>
+<li>zip：压缩文件</li>
+<li>zipinfo：显示zip压缩文件的详细信息</li>
+<li>znew：将“.Z”文件转换成“.gz”文件</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org07a7f2f" class="outline-4">
+<h4 id="org07a7f2f"><span class="section-number-4">5.1.3</span> 文本处理</h4>
+<div class="outline-text-4" id="text-5-1-3">
+<ul class="org-ul">
+<li>cat：链接文件并显示到标准输出</li>
+<li>cksum：检查和计算文件循环冗余校验码</li>
+<li>cmp：比较两个文件的差异</li>
+<li>col：过滤控制字符</li>
+<li>colrm：从输入中过滤掉指定的列</li>
+<li>comm：比较两个有序文件的不同</li>
+<li>csplit：分割文件</li>
+<li>cut：显示文件中每行的指定内容</li>
+<li>diff3：比较3个文件的不同</li>
+<li>diff：比较并显示两个文件的不同</li>
+<li>diffstat：根据diff指令的结果显示统计信息</li>
+<li>ed：行文本编辑器</li>
+<li>emacs：全屏文本编辑器</li>
+<li>ex：文本编辑器</li>
+<li>expand：将Tab转换为空白（Space）</li>
+<li>fmt：最优化文本格式</li>
+<li>fold：设置文件显示的行宽</li>
+<li>grep/egrep/fgrep：显示文件中匹配的行</li>
+<li>head：输出文件开头部分内容</li>
+<li>ispell：交互式拼写检查程序</li>
+<li>jed：文本编辑器</li>
+<li>joe：编辑文本文件</li>
+<li>join：合并两个文件的相同字段</li>
+<li>less：分屏查看文本文件</li>
+<li>look：显示文件中以特定字符串开头的行</li>
+<li>more：分屏查看文本文件</li>
+<li>od：以数字编码输出文件内容</li>
+<li>paste：合并文件的内容</li>
+<li>pico：文本编辑器</li>
+<li>sed：流文件编辑器</li>
+<li>sort：排序数据文件</li>
+<li>spell：拼写检查</li>
+<li>split：分割文件</li>
+<li>sum：计算并显示文件的校验码</li>
+<li>tac：反序显示文件内容</li>
+<li>tail：输出文件尾部部分内容</li>
+<li>tee：将输入内容复制到标准输出和指定文件</li>
+<li>tr：转换或删除文件中的字符</li>
+<li>unexpand：将空白（Space）转换为Tab</li>
+<li>uniq：删除文件中的重复行</li>
+<li>vi：全屏文本编辑器</li>
+<li>wc：计算文件的字节数、单词数和行数</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org5930a4e" class="outline-4">
+<h4 id="org5930a4e"><span class="section-number-4">5.1.4</span> shell指令</h4>
+<div class="outline-text-4" id="text-5-1-4">
+<ul class="org-ul">
+<li>alias：定义命令别名</li>
+<li>bg：将作业（或任务）放到后台运行</li>
+<li>bind：显示或设置键盘配置</li>
+<li>declare：声明shell变量</li>
+<li>dirs：显示shell目录堆栈中的记录</li>
+<li>echo：打印字符串到标准输出</li>
+<li>enable：激活与关闭shell内部命令</li>
+<li>eval：执行指定指令并返回结果</li>
+<li>exec：执行给定指令后退出登录</li>
+<li>exit：退出当前shell</li>
+<li>export：设置与显示环境变量</li>
+<li>fc：编辑并执行历史命令</li>
+<li>fg：将后台任务（或作业）切换到前台运行</li>
+<li>hash：显示与清除指令时运行查询的哈希表</li>
+<li>history：显示与操纵历史命令</li>
+<li>jobs：显示shell的作业信息</li>
+<li>kill：杀死进程或作业</li>
+<li>logout：退出登录shell</li>
+<li>popd：从shell目录堆栈中删除记录</li>
+<li>pushd：向shell目录堆栈中添加记录</li>
+<li>set：设置shell的执行方式</li>
+<li>shopt：设置控制shell行为变量的开关值</li>
+<li>ulimit：设置shell的资源限制</li>
+<li>umask：设置创建文件的权限掩码</li>
+<li>unalias：取消由alias定义的命令别名</li>
+<li>unset：删除定义的变量或函数</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgc4db4c7" class="outline-4">
+<h4 id="orgc4db4c7"><span class="section-number-4">5.1.5</span> 打印相关指令</h4>
+<div class="outline-text-4" id="text-5-1-5">
+<ul class="org-ul">
+<li>accept：接受打印请求</li>
+<li>cancel：取消打印任务</li>
+<li>disable：停止打印机</li>
+<li>enable：启动打印机</li>
+<li>lp：打印文件</li>
+<li>lpadmin：配置cups打印机和类</li>
+<li>lpc：控制打印机</li>
+<li>lpq：显示当前打印队列</li>
+<li>lpr：打印文件</li>
+<li>lprm：删除当前打印队列中的作业</li>
+<li>lpstat：显示CUPS的状态信息</li>
+<li>pr：打印前转换文本格式</li>
+<li>reject：拒绝打印请求</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9a673d9" class="outline-4">
+<h4 id="org9a673d9"><span class="section-number-4">5.1.6</span> 其他基础指令</h4>
+<div class="outline-text-4" id="text-5-1-6">
+<ul class="org-ul">
+<li>bc：实现精确计算的计算器</li>
+<li>cal：显示日历</li>
+<li>clear：清屏指令</li>
+<li>consoletype：显示当前使用的终端类型</li>
+<li>ctrlaltdel：设置热键Ctrl+Alt+Del的功能</li>
+<li>date：显示和设置系统日期时间</li>
+<li>dircolors：设置ls指令显示时的颜色</li>
+<li>eject：弹出可移动设备的介质</li>
+<li>halt：关闭计算机</li>
+<li>hostid：显示当前主机的数字标识</li>
+<li>hwclock：查询和设置系统硬件时钟</li>
+<li>info：读取帮助文档</li>
+<li>login：登录系统</li>
+<li>man：显示联机帮助手册</li>
+<li>md5sum：计算并显示文件的md5摘要信息</li>
+<li>mesg：设置终端写权限</li>
+<li>mtools：显示mtools软件包的指令</li>
+<li>mtoolstest：测试并显示mtools工具包的配置</li>
+<li>poweroff：关闭计算机并切断电源</li>
+<li>reboot：重新启动计算机</li>
+<li>shutdown：关闭计算机</li>
+<li>sleep：睡眠指定长的时间</li>
+<li>stat：显示文件或文件系统的状态</li>
+<li>talk：与其他用户交谈</li>
+<li>wall：向所有终端发送信息</li>
+<li>whatis：在数据库中查询关键字</li>
+<li>who：显示当前已登录用户的信息</li>
+<li>whoami：显示当前用户名</li>
+<li>write：向指定用户终端发送信息</li>
+<li>yes：不断输出指定字符串</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org375efd8" class="outline-4">
+<h4 id="org375efd8"><span class="section-number-4">5.1.7</span> 用户管理</h4>
+<div class="outline-text-4" id="text-5-1-7">
+<ul class="org-ul">
+<li>chfn：改变用户的finger信息</li>
+<li>chsh：改变用户登录时的默认shell</li>
+<li>finger：用户信息查询程序</li>
+<li>gpasswd：管理组文件/etc/group</li>
+<li>groupadd：创建组</li>
+<li>groupdel：删除组</li>
+<li>groupmod：修改组信息</li>
+<li>groups：显示用户所属的组</li>
+<li>grpck：验证组文件/etc/group的完整性</li>
+<li>grpconv：启用组的影子口令文件</li>
+<li>grpunconv：关闭组的影子口令文件</li>
+<li>logname：显示登录用户名</li>
+<li>passwd：设置用户密码</li>
+<li>pwck：验证用户文件密码文件的完整性</li>
+<li>pwconv：启用用户的影子口令文件</li>
+<li>pwunconv：关闭用户的影子口令文件</li>
+<li>su：切换用户</li>
+<li>useradd：创建用户</li>
+<li>userdel：删除用户</li>
+<li>usermod：修改用户的配置信息</li>
+<li>users：显示当前登录系统的用户名</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org18b49b0" class="outline-4">
+<h4 id="org18b49b0"><span class="section-number-4">5.1.8</span> 进程管理</h4>
+<div class="outline-text-4" id="text-5-1-8">
+<ul class="org-ul">
+<li>init：进程初始化控制</li>
+<li>killall：根据名称结束进程</li>
+<li>nice：设置进程优先级</li>
+<li>nohup：以忽略挂起信号方式运行程序</li>
+<li>pgrep：基于名字查询并显示进程号</li>
+<li>pidof：查找正在运行程序的进程号</li>
+<li>pkill：向指定的进程发送信号</li>
+<li>ps：显示系统当前的进程状态</li>
+<li>pstree：用树形图显示进程的父子关系</li>
+<li>renice：调整进程优先级</li>
+<li>w：显示当前登录用户的相关信息</li>
+<li>watch：全屏方式显示指定命令的输出信息</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org8874b11" class="outline-4">
+<h4 id="org8874b11"><span class="section-number-4">5.1.9</span> 磁盘与文件系统管理</h4>
+<div class="outline-text-4" id="text-5-1-9">
+<ul class="org-ul">
+<li>badblocks：磁盘坏块检查工具</li>
+<li>blockdev：从命令行调用块设备的ioctl函数</li>
+<li>chattr：改变文件的第2扩展文件系统属性</li>
+<li>convertquota：转换quota文件格式</li>
+<li>df：报告磁盘剩余空间情况</li>
+<li>dumpe2fs：显示ext2/ext3文件系统信息</li>
+<li>e2fsck：检查ext2/ext3文件系统</li>
+<li>e2image：保存ext2/ext3源数据到文件</li>
+<li>e2label：设置ext2/ext3文件系统标签</li>
+<li>edquota：编辑用户的磁盘空间配额</li>
+<li>fdisk：Linux下的分区工具</li>
+<li>findfs：查找文件系统</li>
+<li>fsck：检查与修复Linux文件系统</li>
+<li>grub：Linux下的引导加载器</li>
+<li>hdparm：调整硬盘I/O性能</li>
+<li>lilo：Linux加载器</li>
+<li>lsattr：显示文件的ext2文件系统属性</li>
+<li>mkbootdisk：为当前系统创建专门的引导软盘</li>
+<li>mke2fs：创建第2扩展文件系统</li>
+<li>mkfs：创建各种文件系统</li>
+<li>mkinitrd：创建初始化ram磁盘映像文件</li>
+<li>mkisofs：创建光盘映像文件</li>
+<li>mknod：创建块设备或字符设备文件</li>
+<li>mkswap：创建交换分区文件系统</li>
+<li>mktemp：创建临时文件</li>
+<li>mount：加载文件系统</li>
+<li>parted：磁盘分区管理工具</li>
+<li>quota：显示用户磁盘配额</li>
+<li>quotacheck：创建、检查和修复配额文件</li>
+<li>quotaoff：关闭文件系统的磁盘配额功能</li>
+<li>quotaon：打开文件系统的磁盘配额功能</li>
+<li>quotastat：显示磁盘配额状态</li>
+<li>repquota：显示文件系统磁盘配额信息报表</li>
+<li>swapoff：关闭交换空间</li>
+<li>swapon：激活交换空间</li>
+<li>sync：强制将缓存数据写入磁盘</li>
+<li>tune2fs：调整ext2/ext3文件系统的参数</li>
+<li>umount：卸载已经加载的文件系统</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org207d7c4" class="outline-4">
+<h4 id="org207d7c4"><span class="section-number-4">5.1.10</span> 内核与性能</h4>
+<div class="outline-text-4" id="text-5-1-10">
+<ul class="org-ul">
+<li>depmod：处理内核可加载模块的依赖关系</li>
+<li>dmesg：显示内核的输出信息</li>
+<li>free：显示内存使用情况</li>
+<li>insmod：加载模块到内核</li>
+<li>iostat：报告CPU、I/O设备及分区状态</li>
+<li>ipcs：显示进程间通信的状态信息</li>
+<li>kernelversion：显示内核主版本号</li>
+<li>lsmod：显示已加载的模块</li>
+<li>modinfo：显示内核模块信息</li>
+<li>modprobe：加载内核模块并解决依赖关系</li>
+<li>mpstat：显示进程相关状态信息</li>
+<li>rmmod：从内核中删除模块</li>
+<li>sar：收集、显示和保存系统活动信息</li>
+<li>slabtop：实时显示内核的slab缓存信息</li>
+<li>sysctl：运行时修改内核参数</li>
+<li>tload：监视系统平均负载情况</li>
+<li>top：显示和管理系统进程</li>
+<li>uname：显示系统信息</li>
+<li>uptime：显示系统运行时间及平均负载</li>
+<li>vmstat：显示虚拟内存的状态</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org3f0623e" class="outline-4">
+<h4 id="org3f0623e"><span class="section-number-4">5.1.11</span> X-Window系统</h4>
+<div class="outline-text-4" id="text-5-1-11">
+<ul class="org-ul">
+<li>startx：初始化X-Window会话</li>
+<li>xauth：X系统授权许可文件管理工具</li>
+<li>xhost：显示和配置X服务器的访问权限</li>
+<li>xinit：X-Window系统初始化程序</li>
+<li>xlsatoms：显示X服务器原子数据定义</li>
+<li>xlsclients：显示指定显示器上运行的X程序</li>
+<li>xlsfonts：显示X服务器使用的字体信息</li>
+<li>xset：设置X系统的用户偏爱属性</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgfc880ca" class="outline-4">
+<h4 id="orgfc880ca"><span class="section-number-4">5.1.12</span> 系统安全</h4>
+<div class="outline-text-4" id="text-5-1-12">
+<ul class="org-ul">
+<li>chroot：以指定根目录运行指令</li>
+<li>nmap：网络探测工具和安全扫描器</li>
+<li>scp：加密的远程复制工具</li>
+<li>sftp：安全文件传输工具</li>
+<li>slogin：加密的远程登录工具</li>
+<li>ssh：加密的远程登录工具</li>
+<li>sudo：以另一个用户身份执行指令</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9f9e6ab" class="outline-4">
+<h4 id="org9f9e6ab"><span class="section-number-4">5.1.13</span> 编程相关指令</h4>
+<div class="outline-text-4" id="text-5-1-13">
+<ul class="org-ul">
+<li>awk/gawk：模式扫描与处理语言</li>
+<li>expr：计算表达式的值</li>
+<li>gcc：GNU的C语言编译器</li>
+<li>gdb：GNU调试器</li>
+<li>ldd：显示共享库依赖</li>
+<li>make：工程编译工具</li>
+<li>nm：显示目标文件的符号表</li>
+<li>perl：perl语言的命令行工具</li>
+<li>php：PHP脚本语言命令行接口</li>
+<li>test：条件测试</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org71ce1a1" class="outline-4">
+<h4 id="org71ce1a1"><span class="section-number-4">5.1.14</span> 其他系统管理与维护指令</h4>
+<div class="outline-text-4" id="text-5-1-14">
+<ul class="org-ul">
+<li>arch：显示当前主机的硬件架构</li>
+<li>at：按照时间安排任务的执行</li>
+<li>atq：查询待执行的任务</li>
+<li>atrm：删除待执行的任务</li>
+<li>batch：在指定时间运行任务</li>
+<li>chkconfig：设置系统在不同运行等级下所执行的服务</li>
+<li>crontab：按照时间设置计划任务</li>
+<li>last：显示以前登录过系统的用户相关信息</li>
+<li>lastb：显示登录系统失败的用户相关信息</li>
+<li>logrotate：系统日志的轮循工具</li>
+<li>logsave：将命令的输出信息保存到日志文件</li>
+<li>logwatch：报告和分析系统日志</li>
+<li>lsusb：显示所有的USB设备</li>
+<li>patch：补丁与更新文件</li>
+<li>rpm：Red Hat软件包管理器</li>
+<li>runlevel：显示当前系统的运行等级</li>
+<li>service：Linux服务管理和控制工具</li>
+<li>telinit：切换当前系统的运行等级</li>
+<li>yum：RPM软件包自动化管理工具</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgfd55102" class="outline-4">
+<h4 id="orgfd55102"><span class="section-number-4">5.1.15</span> 网络配置</h4>
+<div class="outline-text-4" id="text-5-1-15">
+<ul class="org-ul">
+<li>dnsdomainname：显示系统的DNS域名</li>
+<li>domainname：显示和设置主机域名</li>
+<li>hostname：显示或者设置系统主机名</li>
+<li>ifcfg：配置网络接口</li>
+<li>ifconfig：配置网络接口的网络参数</li>
+<li>ifdown：关闭指定网络接口</li>
+<li>ifup：启动指定网络接口</li>
+<li>nisdomainname：显示和设置主机域名</li>
+<li>route：显示与操纵本机的IP路由表</li>
+<li>ypdomainname：显示和设置主机域名</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org2ae3da3" class="outline-4">
+<h4 id="org2ae3da3"><span class="section-number-4">5.1.16</span> 网络测试与应用</h4>
+<div class="outline-text-4" id="text-5-1-16">
+<ul class="org-ul">
+<li>arp：管理本机arp缓冲区</li>
+<li>arping：向相邻主机发送ARP请求报文</li>
+<li>arpwatch：监听网络上的ARP信息</li>
+<li>dig：域名查询工具</li>
+<li>elinks：纯文本网页浏览器</li>
+<li>elm：电子邮件客户端程序</li>
+<li>ftp：文件传输协议客户端</li>
+<li>host：DNS域名查询工具</li>
+<li>ipcalc：IP地址计算器</li>
+<li>lynx：纯文本网页浏览器</li>
+<li>mail：电子邮件管理程序</li>
+<li>ncftp：增强的FTP客户端工具</li>
+<li>netstat：显示网络状态</li>
+<li>nslookup：DNS域名查询工具</li>
+<li>pine：电子邮件和新闻组处理程序</li>
+<li>ping：测试到达目标主机的网络是否通畅</li>
+<li>rsh：远程shell</li>
+<li>telnet：远程登录工具</li>
+<li>tftp：简单文件传输协议客户端</li>
+<li>tracepath：追踪数据经过的路由</li>
+<li>traceroute：追踪数据包到达目的主机经过的路由</li>
+<li>wget：从指定URL地址下载文件</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd850a64" class="outline-4">
+<h4 id="orgd850a64"><span class="section-number-4">5.1.17</span> 高级网络指令</h4>
+<div class="outline-text-4" id="text-5-1-17">
+<ul class="org-ul">
+<li>arptables：管理内核的ARP规则表</li>
+<li>ip：强大的多功能网络配置工具</li>
+<li>iptables：IP包过滤与NAT管理工具</li>
+<li>iptables-save：保存内核中iptables的配置</li>
+<li>iptables-restore：还原iptables的配置信息</li>
+<li>tcpdump：监听网络流量</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgbebb432" class="outline-4">
+<h4 id="orgbebb432"><span class="section-number-4">5.1.18</span> 网络服务器指令</h4>
+<div class="outline-text-4" id="text-5-1-18">
+<ul class="org-ul">
+<li>ab：Web服务器性能测试</li>
+<li>apachectl：Apache HTTP服务器控制接口</li>
+<li>exportfs：管理NFS服务器共享的文件系统</li>
+<li>htdigest：管理用于摘要认证的用户文件</li>
+<li>htpasswd：管理用于基本认证的用户文件</li>
+<li>httpd：Apache超文本传输协议服务器</li>
+<li>mailq：显示待发送的邮件队列</li>
+<li>mysql：MySQL服务器的客户端工具</li>
+<li>mysqladmin：MySQL服务器管理工具</li>
+<li>msqldump：MySQL服务器备份工具</li>
+<li>mysqlimport：MySQL数据库导入工具</li>
+<li>mysqlshow：显示MySQL数据库、表和字段信息</li>
+<li>nfsstat：显示网络文件系统状态</li>
+<li>sendmail：电子邮件传送代理程序</li>
+<li>showmount：显示NFS服务器上的加载信息</li>
+<li>smbclient：samba服务器客户端工具</li>
+<li>smbmount：加载samba文件系统</li>
+<li>smbpasswd：改变samba用户的密码</li>
+<li>squid：HTTP代理服务器程序</li>
+<li>sshd：OpenSSH守护进程</li>
+</ul>
+</div>
+</div>
+</div>
 </section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2019-03-06 Wed 06:43</p>
+<p class="date">Created: 2019-03-06 Wed 07:16</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
