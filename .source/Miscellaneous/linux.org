@@ -18,6 +18,11 @@ sudo gedit /etc/apt/sources.list:
   deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse
 #+END_SRC
 
+上述源里的 ~bionic~ 是当前版本的别名，需要正确。
+
+版本名使用如下命令查看:
+: lsb_release -a
+
 ** 基本命令
 
 #+BEGIN_SRC sh
