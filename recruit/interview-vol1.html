@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-03-14 周四 03:59 -->
+<!-- 2019-03-14 周四 04:03 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>208道面试题</title>
@@ -196,110 +196,134 @@
 <li><a href="#orgff875eb">11.7. 什么是 spring cloud？</a></li>
 <li><a href="#org3326a3b">11.8. spring cloud 断路器的作用是什么？</a></li>
 <li><a href="#orgde083c5">11.9. spring cloud 的核心组件有哪些？</a></li>
-<li><a href="#org2791f0c">11.10. 数据库的三范式是什么？</a></li>
-<li><a href="#org97cc1fe">11.11. 一张自增表里面总共有 7 条数据，删除了最后 2 条数据，重启 MySQL 数据库，又插入了一条数据，此时 id 是几？</a></li>
-<li><a href="#org7e180c4">11.12. 如何获取当前数据库版本？</a></li>
-<li><a href="#org2b4d40c">11.13. 说一下 ACID 是什么？</a></li>
-<li><a href="#orgb7fb5c4">11.14. char 和 varchar 的区别是什么？</a></li>
-<li><a href="#org4e92945">11.15. float 和 double 的区别是什么？</a></li>
-<li><a href="#orgbc0a1d6">11.16. MySQL 的内连接、左连接、右连接有什么区别？</a></li>
-<li><a href="#orgfbd8d4a">11.17. MySQL 索引是怎么实现的？</a></li>
-<li><a href="#org8ee0047">11.18. 怎么验证 MySQL 的索引是否满足需求？</a></li>
-<li><a href="#org9152713">11.19. 说一下数据库的事务隔离？</a></li>
-<li><a href="#org09eab94">11.20. 说一下 MySQL 常用的引擎？</a></li>
-<li><a href="#org79a00d4">11.21. 说一下 MySQL 的行锁和表锁？</a></li>
-<li><a href="#orgd13f52a">11.22. 说一下乐观锁和悲观锁？</a></li>
-<li><a href="#org27e4d3f">11.23. MySQL 问题排查都有哪些手段？</a></li>
-<li><a href="#org75ab90b">11.24. 如何做 MySQL 的性能优化？</a></li>
-<li><a href="#org7414302">11.25. Redis 是什么？都有哪些使用场景？</a></li>
-<li><a href="#orgff39f84">11.26. Redis 有哪些功能？</a></li>
-<li><a href="#orge98aa9a">11.27. Redis 和 memcache 有什么区别？</a></li>
-<li><a href="#orge025a2c">11.28. Redis 为什么是单线程的？</a></li>
-<li><a href="#orga1fa511">11.29. 什么是缓存穿透？怎么解决？</a></li>
-<li><a href="#orga5bc12d">11.30. Redis 支持的数据类型有哪些？</a></li>
-<li><a href="#org17c4fd5">11.31. Redis 支持的 Java 客户端都有哪些？</a></li>
-<li><a href="#orgdbfb2b6">11.32. jedis 和 Redisson 有哪些区别？</a></li>
-<li><a href="#org1f19fd8">11.33. 怎么保证缓存和数据库数据的一致性？</a></li>
-<li><a href="#org2322779">11.34. Redis 持久化有几种方式？</a></li>
-<li><a href="#org4b45e4c">11.35. Redis 怎么实现分布式锁？</a></li>
-<li><a href="#orgdaf882f">11.36. Redis 分布式锁有什么缺陷？</a></li>
-<li><a href="#org6bd3944">11.37. Redis 如何做内存优化？</a></li>
-<li><a href="#orgb01f98f">11.38. Redis 淘汰策略有哪些？</a></li>
-<li><a href="#orgb6c4e6a">11.39. Redis 常见的性能问题有哪些？该如何解决？</a></li>
-<li><a href="#orgeb59578">11.40. 为什么要使用 hibernate？</a></li>
-<li><a href="#org6e30fe5">11.41. 什么是 ORM 框架？</a></li>
-<li><a href="#orgb845f7f">11.42. hibernate 中如何在控制台查看打印的 SQL 语句？</a></li>
-<li><a href="#org45c3336">11.43. hibernate 有几种查询方式？</a></li>
-<li><a href="#org6dda784">11.44. hibernate 实体类可以被定义为 final 吗？</a></li>
-<li><a href="#org22446a3">11.45. 在 hibernate 中使用 Integer 和 int 做映射有什么区别？</a></li>
-<li><a href="#org0fe19da">11.46. hibernate 是如何工作的？</a></li>
-<li><a href="#org5ee0bfc">11.47. get()和 load()的区别？</a></li>
-<li><a href="#orgd8c819e">11.48. 说一下 hibernate 的缓存机制？</a></li>
-<li><a href="#org1f2dc7c">11.49. hibernate 对象有哪些状态？</a></li>
-<li><a href="#org5e4ad75">11.50. 在 hibernate 中 getCurrentSession 和 openSession 的区别是什么？</a></li>
-<li><a href="#org29d70f3">11.51. hibernate 实体类必须要有无参构造函数吗？为什么？</a></li>
-<li><a href="#org9ea8349">11.52. MyBatis 中 #{}和 ${}的区别是什么？</a></li>
-<li><a href="#orgb954a3b">11.53. MyBatis 有几种分页方式？</a></li>
-<li><a href="#org330d77a">11.54. RowBounds 是一次性查询全部结果吗？为什么？</a></li>
-<li><a href="#org24bbbfc">11.55. MyBatis 逻辑分页和物理分页的区别是什么？</a></li>
-<li><a href="#org35995c4">11.56. MyBatis 是否支持延迟加载？延迟加载的原理是什么？</a></li>
-<li><a href="#org5cabb10">11.57. 说一下 MyBatis 的一级缓存和二级缓存？</a></li>
-<li><a href="#org763627a">11.58. MyBatis 和 hibernate 的区别有哪些？</a></li>
-<li><a href="#orgeea0d49">11.59. MyBatis 有哪些执行器（Executor）？</a></li>
-<li><a href="#orgbdaa491">11.60. MyBatis 分页插件的实现原理是什么？</a></li>
-<li><a href="#org79fe8ca">11.61. MyBatis 如何编写一个自定义插件？</a></li>
-<li><a href="#org4999058">11.62. RabbitMQ 的使用场景有哪些？</a></li>
-<li><a href="#org0ccee60">11.63. RabbitMQ 有哪些重要的角色？</a></li>
-<li><a href="#orga05867f">11.64. RabbitMQ 有哪些重要的组件？</a></li>
-<li><a href="#org0474510">11.65. RabbitMQ 中 vhost 的作用是什么？</a></li>
-<li><a href="#org9040f24">11.66. RabbitMQ 的消息是怎么发送的？</a></li>
-<li><a href="#orge8296f5">11.67. RabbitMQ 怎么保证消息的稳定性？</a></li>
-<li><a href="#orgc5ce44d">11.68. RabbitMQ 怎么避免消息丢失？</a></li>
-<li><a href="#org7fd2bb7">11.69. 要保证消息持久化成功的条件有哪些？</a></li>
-<li><a href="#orge5a6758">11.70. RabbitMQ 持久化有什么缺点？</a></li>
-<li><a href="#orgb0b2f60">11.71. RabbitMQ 有几种广播类型？</a></li>
-<li><a href="#org3843a29">11.72. RabbitMQ 怎么实现延迟消息队列？</a></li>
-<li><a href="#orgc919715">11.73. RabbitMQ 集群有什么用？</a></li>
-<li><a href="#org917698b">11.74. RabbitMQ 节点的类型有哪些？</a></li>
-<li><a href="#org4f9b505">11.75. RabbitMQ 集群搭建需要注意哪些问题？</a></li>
-<li><a href="#org81559a6">11.76. RabbitMQ 每个节点是其他节点的完整拷贝吗？为什么？</a></li>
-<li><a href="#org9b23d8e">11.77. RabbitMQ 集群中唯一一个磁盘节点崩溃了会发生什么情况？</a></li>
-<li><a href="#org77f87d0">11.78. RabbitMQ 对集群节点停止顺序有要求吗？</a></li>
-<li><a href="#orga7f8d11">11.79. kafka 可以脱离 zookeeper 单独使用吗？为什么？</a></li>
-<li><a href="#org4bde414">11.80. kafka 有几种数据保留的策略？</a></li>
-<li><a href="#org33aa278">11.81. kafka 同时设置了 7 天和 10G 清除数据，到第五天的时候消息达到了 10G，这个时候 kafka 将如何处理？</a></li>
-<li><a href="#orgd599d66">11.82. 什么情况会导致 kafka 运行变慢？</a></li>
-<li><a href="#orga875cea">11.83. 使用 kafka 集群需要注意什么？</a></li>
 </ul>
 </li>
-<li><a href="#orge7c3b13">12. Zookeeper</a>
+<li><a href="#orgb2d2dd8">12. MySQL</a>
 <ul>
-<li><a href="#org3ad7adb">12.1. zookeeper 是什么？</a></li>
-<li><a href="#org4e7cd12">12.2. zookeeper 都有哪些功能？</a></li>
-<li><a href="#org67a3e84">12.3. zookeeper 有几种部署模式？</a></li>
-<li><a href="#org7200c42">12.4. zookeeper 怎么保证主从节点的状态同步？</a></li>
-<li><a href="#org08ce561">12.5. 集群中为什么要有主节点？</a></li>
-<li><a href="#orgbe259dc">12.6. 集群中有 3 台服务器，其中一个节点宕机，这个时候 zookeeper 还可以使用吗？</a></li>
-<li><a href="#orgfdca9db">12.7. 说一下 zookeeper 的通知机制？</a></li>
+<li><a href="#org2791f0c">12.1. 数据库的三范式是什么？</a></li>
+<li><a href="#org97cc1fe">12.2. 一张自增表里面总共有 7 条数据，删除了最后 2 条数据，重启 MySQL 数据库，又插入了一条数据，此时 id 是几？</a></li>
+<li><a href="#org7e180c4">12.3. 如何获取当前数据库版本？</a></li>
+<li><a href="#org2b4d40c">12.4. 说一下 ACID 是什么？</a></li>
+<li><a href="#orgb7fb5c4">12.5. char 和 varchar 的区别是什么？</a></li>
+<li><a href="#org4e92945">12.6. float 和 double 的区别是什么？</a></li>
+<li><a href="#orgbc0a1d6">12.7. MySQL 的内连接、左连接、右连接有什么区别？</a></li>
+<li><a href="#orgfbd8d4a">12.8. MySQL 索引是怎么实现的？</a></li>
+<li><a href="#org8ee0047">12.9. 怎么验证 MySQL 的索引是否满足需求？</a></li>
+<li><a href="#org9152713">12.10. 说一下数据库的事务隔离？</a></li>
+<li><a href="#org09eab94">12.11. 说一下 MySQL 常用的引擎？</a></li>
+<li><a href="#org79a00d4">12.12. 说一下 MySQL 的行锁和表锁？</a></li>
+<li><a href="#orgd13f52a">12.13. 说一下乐观锁和悲观锁？</a></li>
+<li><a href="#org27e4d3f">12.14. MySQL 问题排查都有哪些手段？</a></li>
+<li><a href="#org75ab90b">12.15. 如何做 MySQL 的性能优化？</a></li>
 </ul>
 </li>
-<li><a href="#org65e9d2a">13. JVM</a>
+<li><a href="#orgcc14b4a">13. Redis</a>
 <ul>
-<li><a href="#org74c0d66">13.1. 说一下 JVM 的主要组成部分？及其作用？</a></li>
-<li><a href="#org9601c25">13.2. 说一下 JVM 运行时数据区？</a></li>
-<li><a href="#org60a1422">13.3. 说一下堆栈的区别？</a></li>
-<li><a href="#orgefe8790">13.4. 队列和栈是什么？有什么区别？</a></li>
-<li><a href="#orga2f5a3d">13.5. 什么是双亲委派模型？</a></li>
-<li><a href="#org1e4f97c">13.6. 说一下类装载的执行过程？</a></li>
-<li><a href="#orgef4ed8b">13.7. 怎么判断对象是否可以被回收？</a></li>
-<li><a href="#org9ae252d">13.8. Java 中都有哪些引用类型？</a></li>
-<li><a href="#org7ed8358">13.9. 说一下 JVM 有哪些垃圾回收算法？</a></li>
-<li><a href="#org10b8d67">13.10. 说一下 JVM 有哪些垃圾回收器？</a></li>
-<li><a href="#orgb9218ea">13.11. 详细介绍一下 CMS 垃圾回收器？</a></li>
-<li><a href="#org2bef7c1">13.12. 新生代垃圾回收器和老生代垃圾回收器都有哪些？有什么区别？</a></li>
-<li><a href="#org14babe5">13.13. 简述分代垃圾回收器是怎么工作的？</a></li>
-<li><a href="#org78d30f5">13.14. 说一下 JVM 调优的工具？</a></li>
-<li><a href="#org2860b75">13.15. 常用的 JVM 调优的参数都有哪些？</a></li>
+<li><a href="#org7414302">13.1. Redis 是什么？都有哪些使用场景？</a></li>
+<li><a href="#orgff39f84">13.2. Redis 有哪些功能？</a></li>
+<li><a href="#orge98aa9a">13.3. Redis 和 memcache 有什么区别？</a></li>
+<li><a href="#orge025a2c">13.4. Redis 为什么是单线程的？</a></li>
+<li><a href="#orga1fa511">13.5. 什么是缓存穿透？怎么解决？</a></li>
+<li><a href="#orga5bc12d">13.6. Redis 支持的数据类型有哪些？</a></li>
+<li><a href="#org17c4fd5">13.7. Redis 支持的 Java 客户端都有哪些？</a></li>
+<li><a href="#orgdbfb2b6">13.8. jedis 和 Redisson 有哪些区别？</a></li>
+<li><a href="#org1f19fd8">13.9. 怎么保证缓存和数据库数据的一致性？</a></li>
+<li><a href="#org2322779">13.10. Redis 持久化有几种方式？</a></li>
+<li><a href="#org4b45e4c">13.11. Redis 怎么实现分布式锁？</a></li>
+<li><a href="#orgdaf882f">13.12. Redis 分布式锁有什么缺陷？</a></li>
+<li><a href="#org6bd3944">13.13. Redis 如何做内存优化？</a></li>
+<li><a href="#orgb01f98f">13.14. Redis 淘汰策略有哪些？</a></li>
+<li><a href="#orgb6c4e6a">13.15. Redis 常见的性能问题有哪些？该如何解决？</a></li>
+</ul>
+</li>
+<li><a href="#orga910a38">14. Hibernate</a>
+<ul>
+<li><a href="#orgeb59578">14.1. 为什么要使用 hibernate？</a></li>
+<li><a href="#org6e30fe5">14.2. 什么是 ORM 框架？</a></li>
+<li><a href="#orgb845f7f">14.3. hibernate 中如何在控制台查看打印的 SQL 语句？</a></li>
+<li><a href="#org45c3336">14.4. hibernate 有几种查询方式？</a></li>
+<li><a href="#org6dda784">14.5. hibernate 实体类可以被定义为 final 吗？</a></li>
+<li><a href="#org22446a3">14.6. 在 hibernate 中使用 Integer 和 int 做映射有什么区别？</a></li>
+<li><a href="#org0fe19da">14.7. hibernate 是如何工作的？</a></li>
+<li><a href="#org5ee0bfc">14.8. get()和 load()的区别？</a></li>
+<li><a href="#orgd8c819e">14.9. 说一下 hibernate 的缓存机制？</a></li>
+<li><a href="#org1f2dc7c">14.10. hibernate 对象有哪些状态？</a></li>
+<li><a href="#org5e4ad75">14.11. 在 hibernate 中 getCurrentSession 和 openSession 的区别是什么？</a></li>
+<li><a href="#org29d70f3">14.12. hibernate 实体类必须要有无参构造函数吗？为什么？</a></li>
+</ul>
+</li>
+<li><a href="#org39255d1">15. MyBatis</a>
+<ul>
+<li><a href="#org9ea8349">15.1. MyBatis 中 #{}和 ${}的区别是什么？</a></li>
+<li><a href="#orgb954a3b">15.2. MyBatis 有几种分页方式？</a></li>
+<li><a href="#org330d77a">15.3. RowBounds 是一次性查询全部结果吗？为什么？</a></li>
+<li><a href="#org24bbbfc">15.4. MyBatis 逻辑分页和物理分页的区别是什么？</a></li>
+<li><a href="#org35995c4">15.5. MyBatis 是否支持延迟加载？延迟加载的原理是什么？</a></li>
+<li><a href="#org5cabb10">15.6. 说一下 MyBatis 的一级缓存和二级缓存？</a></li>
+<li><a href="#org763627a">15.7. MyBatis 和 hibernate 的区别有哪些？</a></li>
+<li><a href="#orgeea0d49">15.8. MyBatis 有哪些执行器（Executor）？</a></li>
+<li><a href="#orgbdaa491">15.9. MyBatis 分页插件的实现原理是什么？</a></li>
+<li><a href="#org79fe8ca">15.10. MyBatis 如何编写一个自定义插件？</a></li>
+</ul>
+</li>
+<li><a href="#orgd623272">16. RabbitMQ</a>
+<ul>
+<li><a href="#org4999058">16.1. RabbitMQ 的使用场景有哪些？</a></li>
+<li><a href="#org0ccee60">16.2. RabbitMQ 有哪些重要的角色？</a></li>
+<li><a href="#orga05867f">16.3. RabbitMQ 有哪些重要的组件？</a></li>
+<li><a href="#org0474510">16.4. RabbitMQ 中 vhost 的作用是什么？</a></li>
+<li><a href="#org9040f24">16.5. RabbitMQ 的消息是怎么发送的？</a></li>
+<li><a href="#orge8296f5">16.6. RabbitMQ 怎么保证消息的稳定性？</a></li>
+<li><a href="#orgc5ce44d">16.7. RabbitMQ 怎么避免消息丢失？</a></li>
+<li><a href="#org7fd2bb7">16.8. 要保证消息持久化成功的条件有哪些？</a></li>
+<li><a href="#orge5a6758">16.9. RabbitMQ 持久化有什么缺点？</a></li>
+<li><a href="#orgb0b2f60">16.10. RabbitMQ 有几种广播类型？</a></li>
+<li><a href="#org3843a29">16.11. RabbitMQ 怎么实现延迟消息队列？</a></li>
+<li><a href="#orgc919715">16.12. RabbitMQ 集群有什么用？</a></li>
+<li><a href="#org917698b">16.13. RabbitMQ 节点的类型有哪些？</a></li>
+<li><a href="#org4f9b505">16.14. RabbitMQ 集群搭建需要注意哪些问题？</a></li>
+<li><a href="#org81559a6">16.15. RabbitMQ 每个节点是其他节点的完整拷贝吗？为什么？</a></li>
+<li><a href="#org9b23d8e">16.16. RabbitMQ 集群中唯一一个磁盘节点崩溃了会发生什么情况？</a></li>
+<li><a href="#org77f87d0">16.17. RabbitMQ 对集群节点停止顺序有要求吗？</a></li>
+</ul>
+</li>
+<li><a href="#orgbe2d3e5">17. Kafka</a>
+<ul>
+<li><a href="#orga7f8d11">17.1. kafka 可以脱离 zookeeper 单独使用吗？为什么？</a></li>
+<li><a href="#org4bde414">17.2. kafka 有几种数据保留的策略？</a></li>
+<li><a href="#org33aa278">17.3. kafka 同时设置了 7 天和 10G 清除数据，到第五天的时候消息达到了 10G，这个时候 kafka 将如何处理？</a></li>
+<li><a href="#orgd599d66">17.4. 什么情况会导致 kafka 运行变慢？</a></li>
+<li><a href="#orga875cea">17.5. 使用 kafka 集群需要注意什么？</a></li>
+</ul>
+</li>
+<li><a href="#orge7c3b13">18. Zookeeper</a>
+<ul>
+<li><a href="#org3ad7adb">18.1. zookeeper 是什么？</a></li>
+<li><a href="#org4e7cd12">18.2. zookeeper 都有哪些功能？</a></li>
+<li><a href="#org67a3e84">18.3. zookeeper 有几种部署模式？</a></li>
+<li><a href="#org7200c42">18.4. zookeeper 怎么保证主从节点的状态同步？</a></li>
+<li><a href="#org08ce561">18.5. 集群中为什么要有主节点？</a></li>
+<li><a href="#orgbe259dc">18.6. 集群中有 3 台服务器，其中一个节点宕机，这个时候 zookeeper 还可以使用吗？</a></li>
+<li><a href="#orgfdca9db">18.7. 说一下 zookeeper 的通知机制？</a></li>
+</ul>
+</li>
+<li><a href="#org65e9d2a">19. JVM</a>
+<ul>
+<li><a href="#org74c0d66">19.1. 说一下 JVM 的主要组成部分？及其作用？</a></li>
+<li><a href="#org9601c25">19.2. 说一下 JVM 运行时数据区？</a></li>
+<li><a href="#org60a1422">19.3. 说一下堆栈的区别？</a></li>
+<li><a href="#orgefe8790">19.4. 队列和栈是什么？有什么区别？</a></li>
+<li><a href="#orga2f5a3d">19.5. 什么是双亲委派模型？</a></li>
+<li><a href="#org1e4f97c">19.6. 说一下类装载的执行过程？</a></li>
+<li><a href="#orgef4ed8b">19.7. 怎么判断对象是否可以被回收？</a></li>
+<li><a href="#org9ae252d">19.8. Java 中都有哪些引用类型？</a></li>
+<li><a href="#org7ed8358">19.9. 说一下 JVM 有哪些垃圾回收算法？</a></li>
+<li><a href="#org10b8d67">19.10. 说一下 JVM 有哪些垃圾回收器？</a></li>
+<li><a href="#orgb9218ea">19.11. 详细介绍一下 CMS 垃圾回收器？</a></li>
+<li><a href="#org2bef7c1">19.12. 新生代垃圾回收器和老生代垃圾回收器都有哪些？有什么区别？</a></li>
+<li><a href="#org14babe5">19.13. 简述分代垃圾回收器是怎么工作的？</a></li>
+<li><a href="#org78d30f5">19.14. 说一下 JVM 调优的工具？</a></li>
+<li><a href="#org2860b75">19.15. 常用的 JVM 调优的参数都有哪些？</a></li>
 </ul>
 </li>
 </ul>
@@ -1969,6 +1993,7 @@ spring cloud 是一系列框架的有序集合。它利用 spring boot 的开发
 </p>
 </div>
 </div>
+
 <div id="outline-container-orgde083c5" class="outline-3">
 <h3 id="orgde083c5"><span class="section-number-3">11.9</span> spring cloud 的核心组件有哪些？</h3>
 <div class="outline-text-3" id="text-11-9">
@@ -1979,14 +2004,17 @@ spring cloud 是一系列框架的有序集合。它利用 spring boot 的开发
 <li>Hystrix：提供线程池，不同的服务走不同的线程池，实现了不同服务调用的隔离，避免了服务雪崩的问题。</li>
 <li>Zuul：网关管理，由 Zuul 网关转发请求给对应的服务。</li>
 </ul>
-<p>
-MySQL
-</p>
 </div>
+</div>
+</section>
+
+<section id="outline-container-orgb2d2dd8" class="outline-2">
+<h2 id="orgb2d2dd8"><span class="section-number-2">12</span> MySQL</h2>
+<div class="outline-text-2" id="text-12">
 </div>
 <div id="outline-container-org2791f0c" class="outline-3">
-<h3 id="org2791f0c"><span class="section-number-3">11.10</span> 数据库的三范式是什么？</h3>
-<div class="outline-text-3" id="text-11-10">
+<h3 id="org2791f0c"><span class="section-number-3">12.1</span> 数据库的三范式是什么？</h3>
+<div class="outline-text-3" id="text-12-1">
 <ul class="org-ul">
 <li>第一范式：强调的是列的原子性，即数据库表的每一列都是不可分割的原子数据项。</li>
 <li>第二范式：要求实体的属性完全依赖于主关键字。所谓完全依赖是指不能存在仅依赖主关键字一部分的属性。</li>
@@ -1994,9 +2022,10 @@ MySQL
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org97cc1fe" class="outline-3">
-<h3 id="org97cc1fe"><span class="section-number-3">11.11</span> 一张自增表里面总共有 7 条数据，删除了最后 2 条数据，重启 MySQL 数据库，又插入了一条数据，此时 id 是几？</h3>
-<div class="outline-text-3" id="text-11-11">
+<h3 id="org97cc1fe"><span class="section-number-3">12.2</span> 一张自增表里面总共有 7 条数据，删除了最后 2 条数据，重启 MySQL 数据库，又插入了一条数据，此时 id 是几？</h3>
+<div class="outline-text-3" id="text-12-2">
 <ul class="org-ul">
 <li>表类型如果是 MyISAM ，那 id 就是 8。</li>
 <li>表类型如果是 InnoDB，那 id 就是 6。</li>
@@ -2006,17 +2035,19 @@ InnoDB 表只会把自增主键的最大 id 记录在内存中，所以重启之
 </p>
 </div>
 </div>
+
 <div id="outline-container-org7e180c4" class="outline-3">
-<h3 id="org7e180c4"><span class="section-number-3">11.12</span> 如何获取当前数据库版本？</h3>
-<div class="outline-text-3" id="text-11-12">
+<h3 id="org7e180c4"><span class="section-number-3">12.3</span> 如何获取当前数据库版本？</h3>
+<div class="outline-text-3" id="text-12-3">
 <p>
 使用 select version() 获取当前 MySQL 数据库版本。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org2b4d40c" class="outline-3">
-<h3 id="org2b4d40c"><span class="section-number-3">11.13</span> 说一下 ACID 是什么？</h3>
-<div class="outline-text-3" id="text-11-13">
+<h3 id="org2b4d40c"><span class="section-number-3">12.4</span> 说一下 ACID 是什么？</h3>
+<div class="outline-text-3" id="text-12-4">
 <ul class="org-ul">
 <li>Atomicity（原子性）：一个事务（transaction）中的所有操作，或者全部完成，或者全部不完成，不会结束在中间某个环节。事务在执行过程中发生错误，会被恢复（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样。即，事务不可分割、不可约简。</li>
 <li>Consistency（一致性）：在事务开始之前和事务结束以后，数据库的完整性没有被破坏。这表示写入的资料必须完全符合所有的预设约束、触发器、级联回滚等。</li>
@@ -2025,65 +2056,84 @@ InnoDB 表只会把自增主键的最大 id 记录在内存中，所以重启之
 </ul>
 </div>
 </div>
+
 <div id="outline-container-orgb7fb5c4" class="outline-3">
-<h3 id="orgb7fb5c4"><span class="section-number-3">11.14</span> char 和 varchar 的区别是什么？</h3>
-<div class="outline-text-3" id="text-11-14">
+<h3 id="orgb7fb5c4"><span class="section-number-3">12.5</span> char 和 varchar 的区别是什么？</h3>
+<div class="outline-text-3" id="text-12-5">
 <ul class="org-ul">
 <li>char(n) ：固定长度类型，比如订阅 char(10)，当你输入"abc"三个字符的时候，它们占的空间还是 10 个字节，其他 7 个是空字节。</li>
 </ul>
+
 <p>
 chat 优点：效率高；缺点：占用空间；适用场景：存储密码的 md5 值，固定长度的，使用 char 非常合适。
 </p>
 <ul class="org-ul">
 <li>varchar(n) ：可变长度，存储的值是每个值占用的字节再加上一个用来记录其长度的字节的长度。</li>
 </ul>
+
 <p>
 所以，从空间上考虑 varcahr 比较合适；从效率上考虑 char 比较合适，二者使用需要权衡。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org4e92945" class="outline-3">
-<h3 id="org4e92945"><span class="section-number-3">11.15</span> float 和 double 的区别是什么？</h3>
-<div class="outline-text-3" id="text-11-15">
+<h3 id="org4e92945"><span class="section-number-3">12.6</span> float 和 double 的区别是什么？</h3>
+<div class="outline-text-3" id="text-12-6">
 <ul class="org-ul">
 <li>float 最多可以存储 8 位的十进制数，并在内存中占 4 字节。</li>
 <li>double 最可可以存储 16 位的十进制数，并在内存中占 8 字节。</li>
 </ul>
 </div>
 </div>
+
 <div id="outline-container-orgbc0a1d6" class="outline-3">
-<h3 id="orgbc0a1d6"><span class="section-number-3">11.16</span> MySQL 的内连接、左连接、右连接有什么区别？</h3>
-<div class="outline-text-3" id="text-11-16">
+<h3 id="orgbc0a1d6"><span class="section-number-3">12.7</span> MySQL 的内连接、左连接、右连接有什么区别？</h3>
+<div class="outline-text-3" id="text-12-7">
 <p>
 内连接关键字：inner join；左连接：left join；右连接：right join。
 内连接是把匹配的关联数据显示出来；左连接是左边的表全部显示出来，右边的表显示出符合条件的数据；右连接正好相反。
 </p>
 </div>
 </div>
+
 <div id="outline-container-orgfbd8d4a" class="outline-3">
-<h3 id="orgfbd8d4a"><span class="section-number-3">11.17</span> MySQL 索引是怎么实现的？</h3>
-<div class="outline-text-3" id="text-11-17">
+<h3 id="orgfbd8d4a"><span class="section-number-3">12.8</span> MySQL 索引是怎么实现的？</h3>
+<div class="outline-text-3" id="text-12-8">
 <p>
 索引是满足某种特定查找算法的数据结构，而这些数据结构会以某种方式指向数据，从而实现高效查找数据。
 具体来说 MySQL 中的索引，不同的数据引擎实现有所不同，但目前主流的数据库引擎的索引都是 B+ 树实现的，B+ 树的搜索效率，可以到达二分法的性能，找到数据区域之后就找到了完整的数据结构了，所有索引的性能也是更好的。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org8ee0047" class="outline-3">
-<h3 id="org8ee0047"><span class="section-number-3">11.18</span> 怎么验证 MySQL 的索引是否满足需求？</h3>
-<div class="outline-text-3" id="text-11-18">
+<h3 id="org8ee0047"><span class="section-number-3">12.9</span> 怎么验证 MySQL 的索引是否满足需求？</h3>
+<div class="outline-text-3" id="text-12-9">
 <p>
 使用 explain 查看 SQL 是如何执行查询语句的，从而分析你的索引是否满足需求。
-explain 语法：explain select * from table where type=1。
 </p>
+
+<p>
+explain 语法：
+</p>
+<pre class="example">
+explain select * from table where type=1。
+</pre>
 </div>
 </div>
+
 <div id="outline-container-org9152713" class="outline-3">
-<h3 id="org9152713"><span class="section-number-3">11.19</span> 说一下数据库的事务隔离？</h3>
-<div class="outline-text-3" id="text-11-19">
+<h3 id="org9152713"><span class="section-number-3">12.10</span> 说一下数据库的事务隔离？</h3>
+<div class="outline-text-3" id="text-12-10">
 <p>
 MySQL 的事务隔离是在 MySQL. ini 配置文件里添加的，在文件的最后添加：
+</p>
+<pre class="example">
 transaction-isolation = REPEATABLE-READ
+</pre>
+
+<p>
 可用的配置值：READ-UNCOMMITTED、READ-COMMITTED、REPEATABLE-READ、SERIALIZABLE。
 </p>
 <ul class="org-ul">
@@ -2092,25 +2142,34 @@ transaction-isolation = REPEATABLE-READ
 <li>REPEATABLE-READ：可重复读，默认级别，保证多次读取同一个数据时，其值都和事务开始时候的内容是一致，禁止读取到别的事务未提交的数据（会造成幻读）。</li>
 <li>SERIALIZABLE：序列化，代价最高最可靠的隔离级别，该隔离级别能防止脏读、不可重复读、幻读。</li>
 </ul>
+
 <p>
 脏读 ：表示一个事务能够读取另一个事务中还未提交的数据。比如，某个事务尝试插入记录 A，此时该事务还未提交，然后另一个事务尝试读取到了记录 A。
+</p>
+
+<p>
 不可重复读 ：是指在一个事务内，多次读同一数据。
+</p>
+
+<p>
 幻读 ：指同一个事务内多次查询返回的结果集不一样。比如同一个事务 A 第一次查询时候有 n 条记录，但是第二次同等条件下查询却有 n+1 条记录，这就好像产生了幻觉。发生幻读的原因也是另外一个事务新增或者删除或者修改了第一个事务结果集里面的数据，同一个记录的数据内容被修改了，所有数据行的记录就变多或者变少了。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org09eab94" class="outline-3">
-<h3 id="org09eab94"><span class="section-number-3">11.20</span> 说一下 MySQL 常用的引擎？</h3>
-<div class="outline-text-3" id="text-11-20">
+<h3 id="org09eab94"><span class="section-number-3">12.11</span> 说一下 MySQL 常用的引擎？</h3>
+<div class="outline-text-3" id="text-12-11">
 <ul class="org-ul">
 <li>InnoDB 引擎：InnoDB 引擎提供了对数据库 acid 事务的支持，并且还提供了行级锁和外键的约束，它的设计的目标就是处理大数据容量的数据库系统。MySQL 运行的时候，InnoDB 会在内存中建立缓冲池，用于缓冲数据和索引。但是该引擎是不支持全文搜索，同时启动也比较的慢，它是不会保存表的行数的，所以当进行 select count(*) from table 指令的时候，需要进行扫描全表。由于锁的粒度小，写操作是不会锁定全表的,所以在并发度较高的场景下使用会提升效率的。</li>
 <li>MyIASM 引擎：MySQL 的默认引擎，但不提供事务的支持，也不支持行级锁和外键。因此当执行插入和更新语句时，即执行写操作的时候需要锁定这个表，所以会导致效率会降低。不过和 InnoDB 不同的是，MyIASM 引擎是保存了表的行数，于是当进行 select count(*) from table 语句时，可以直接的读取已经保存的值而不需要进行扫描全表。所以，如果表的读操作远远多于写操作时，并且不需要事务的支持的，可以将 MyIASM 作为数据库引擎的首选。</li>
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org79a00d4" class="outline-3">
-<h3 id="org79a00d4"><span class="section-number-3">11.21</span> 说一下 MySQL 的行锁和表锁？</h3>
-<div class="outline-text-3" id="text-11-21">
+<h3 id="org79a00d4"><span class="section-number-3">12.12</span> 说一下 MySQL 的行锁和表锁？</h3>
+<div class="outline-text-3" id="text-12-12">
 <p>
 MyISAM 只支持表锁，InnoDB 支持表锁和行锁，默认为行锁。
 </p>
@@ -2120,21 +2179,24 @@ MyISAM 只支持表锁，InnoDB 支持表锁和行锁，默认为行锁。
 </ul>
 </div>
 </div>
+
 <div id="outline-container-orgd13f52a" class="outline-3">
-<h3 id="orgd13f52a"><span class="section-number-3">11.22</span> 说一下乐观锁和悲观锁？</h3>
-<div class="outline-text-3" id="text-11-22">
+<h3 id="orgd13f52a"><span class="section-number-3">12.13</span> 说一下乐观锁和悲观锁？</h3>
+<div class="outline-text-3" id="text-12-13">
 <ul class="org-ul">
 <li>乐观锁：每次去拿数据的时候都认为别人不会修改，所以不会上锁，但是在提交更新的时候会判断一下在此期间别人有没有去更新这个数据。</li>
 <li>悲观锁：每次去拿数据的时候都认为别人会修改，所以每次在拿数据的时候都会上锁，这样别人想拿这个数据就会阻止，直到这个锁被释放。</li>
 </ul>
+
 <p>
 数据库的乐观锁需要自己实现，在表里面添加一个 version 字段，每次修改成功值加 1，这样每次修改的时候先对比一下，自己拥有的 version 和数据库现在的 version 是否一致，如果不一致就不修改，这样就实现了乐观锁。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org27e4d3f" class="outline-3">
-<h3 id="org27e4d3f"><span class="section-number-3">11.23</span> MySQL 问题排查都有哪些手段？</h3>
-<div class="outline-text-3" id="text-11-23">
+<h3 id="org27e4d3f"><span class="section-number-3">12.14</span> MySQL 问题排查都有哪些手段？</h3>
+<div class="outline-text-3" id="text-12-14">
 <ul class="org-ul">
 <li>使用 show processlist 命令查看当前所有连接信息。</li>
 <li>使用 explain 命令查询 SQL 语句执行计划。</li>
@@ -2142,25 +2204,32 @@ MyISAM 只支持表锁，InnoDB 支持表锁和行锁，默认为行锁。
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org75ab90b" class="outline-3">
-<h3 id="org75ab90b"><span class="section-number-3">11.24</span> 如何做 MySQL 的性能优化？</h3>
-<div class="outline-text-3" id="text-11-24">
+<h3 id="org75ab90b"><span class="section-number-3">12.15</span> 如何做 MySQL 的性能优化？</h3>
+<div class="outline-text-3" id="text-12-15">
 <ul class="org-ul">
 <li>为搜索字段创建索引。</li>
 <li>避免使用 select *，列出需要查询的字段。</li>
 <li>垂直分割分表。</li>
 <li>选择正确的存储引擎。</li>
 </ul>
-<p>
-Redis
-</p>
 </div>
+</div>
+</section>
+
+<section id="outline-container-orgcc14b4a" class="outline-2">
+<h2 id="orgcc14b4a"><span class="section-number-2">13</span> Redis</h2>
+<div class="outline-text-2" id="text-13">
 </div>
 <div id="outline-container-org7414302" class="outline-3">
-<h3 id="org7414302"><span class="section-number-3">11.25</span> Redis 是什么？都有哪些使用场景？</h3>
-<div class="outline-text-3" id="text-11-25">
+<h3 id="org7414302"><span class="section-number-3">13.1</span> Redis 是什么？都有哪些使用场景？</h3>
+<div class="outline-text-3" id="text-13-1">
 <p>
 Redis 是一个使用 C 语言开发的高速缓存数据库。
+</p>
+
+<p>
 Redis 使用场景：
 </p>
 <ul class="org-ul">
@@ -2171,9 +2240,10 @@ Redis 使用场景：
 </ul>
 </div>
 </div>
+
 <div id="outline-container-orgff39f84" class="outline-3">
-<h3 id="orgff39f84"><span class="section-number-3">11.26</span> Redis 有哪些功能？</h3>
-<div class="outline-text-3" id="text-11-26">
+<h3 id="orgff39f84"><span class="section-number-3">13.2</span> Redis 有哪些功能？</h3>
+<div class="outline-text-3" id="text-13-2">
 <ul class="org-ul">
 <li>数据缓存功能</li>
 <li>分布式锁的功能</li>
@@ -2183,9 +2253,10 @@ Redis 使用场景：
 </ul>
 </div>
 </div>
+
 <div id="outline-container-orge98aa9a" class="outline-3">
-<h3 id="orge98aa9a"><span class="section-number-3">11.27</span> Redis 和 memcache 有什么区别？</h3>
-<div class="outline-text-3" id="text-11-27">
+<h3 id="orge98aa9a"><span class="section-number-3">13.3</span> Redis 和 memcache 有什么区别？</h3>
+<div class="outline-text-3" id="text-13-3">
 <ul class="org-ul">
 <li>存储方式不同：memcache 把数据全部存在内存之中，断电后会挂掉，数据不能超过内存大小；Redis 有部份存在硬盘上，这样能保证数据的持久性。</li>
 <li>数据支持类型：memcache 对数据类型支持相对简单；Redis 有复杂的数据类型。</li>
@@ -2194,9 +2265,10 @@ Redis 使用场景：
 </ul>
 </div>
 </div>
+
 <div id="outline-container-orge025a2c" class="outline-3">
-<h3 id="orge025a2c"><span class="section-number-3">11.28</span> Redis 为什么是单线程的？</h3>
-<div class="outline-text-3" id="text-11-28">
+<h3 id="orge025a2c"><span class="section-number-3">13.4</span> Redis 为什么是单线程的？</h3>
+<div class="outline-text-3" id="text-13-4">
 <p>
 因为 cpu 不是 Redis 的瓶颈，Redis 的瓶颈最有可能是机器内存或者网络带宽。既然单线程容易实现，而且 cpu 又不会成为瓶颈，那就顺理成章地采用单线程的方案了。
 关于 Redis 的性能，官方网站也有，普通笔记本轻松处理每秒几十万的请求。
@@ -2204,52 +2276,61 @@ Redis 使用场景：
 </p>
 </div>
 </div>
+
 <div id="outline-container-orga1fa511" class="outline-3">
-<h3 id="orga1fa511"><span class="section-number-3">11.29</span> 什么是缓存穿透？怎么解决？</h3>
-<div class="outline-text-3" id="text-11-29">
+<h3 id="orga1fa511"><span class="section-number-3">13.5</span> 什么是缓存穿透？怎么解决？</h3>
+<div class="outline-text-3" id="text-13-5">
 <p>
 缓存穿透：指查询一个一定不存在的数据，由于缓存是不命中时需要从数据库查询，查不到数据则不写入缓存，这将导致这个不存在的数据每次请求都要到数据库去查询，造成缓存穿透。
+</p>
+
+<p>
 解决方案：最简单粗暴的方法如果一个查询返回的数据为空（不管是数据不存在，还是系统故障），我们就把这个空结果进行缓存，但它的过期时间会很短，最长不超过五分钟。
 </p>
 </div>
 </div>
+
 <div id="outline-container-orga5bc12d" class="outline-3">
-<h3 id="orga5bc12d"><span class="section-number-3">11.30</span> Redis 支持的数据类型有哪些？</h3>
-<div class="outline-text-3" id="text-11-30">
+<h3 id="orga5bc12d"><span class="section-number-3">13.6</span> Redis 支持的数据类型有哪些？</h3>
+<div class="outline-text-3" id="text-13-6">
 <p>
 Redis 支持的数据类型：string（字符串）、list（列表）、hash（字典）、set（集合）、zset（有序集合）。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org17c4fd5" class="outline-3">
-<h3 id="org17c4fd5"><span class="section-number-3">11.31</span> Redis 支持的 Java 客户端都有哪些？</h3>
-<div class="outline-text-3" id="text-11-31">
+<h3 id="org17c4fd5"><span class="section-number-3">13.7</span> Redis 支持的 Java 客户端都有哪些？</h3>
+<div class="outline-text-3" id="text-13-7">
 <p>
 支持的 Java 客户端有 Redisson、jedis、lettuce 等。
 </p>
 </div>
 </div>
+
 <div id="outline-container-orgdbfb2b6" class="outline-3">
-<h3 id="orgdbfb2b6"><span class="section-number-3">11.32</span> jedis 和 Redisson 有哪些区别？</h3>
-<div class="outline-text-3" id="text-11-32">
+<h3 id="orgdbfb2b6"><span class="section-number-3">13.8</span> jedis 和 Redisson 有哪些区别？</h3>
+<div class="outline-text-3" id="text-13-8">
 <ul class="org-ul">
 <li>jedis：提供了比较全面的 Redis 命令的支持。</li>
 <li>Redisson：实现了分布式和可扩展的 Java 数据结构，与 jedis 相比 Redisson 的功能相对简单，不支持排序、事务、管道、分区等 Redis 特性。</li>
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org1f19fd8" class="outline-3">
-<h3 id="org1f19fd8"><span class="section-number-3">11.33</span> 怎么保证缓存和数据库数据的一致性？</h3>
-<div class="outline-text-3" id="text-11-33">
+<h3 id="org1f19fd8"><span class="section-number-3">13.9</span> 怎么保证缓存和数据库数据的一致性？</h3>
+<div class="outline-text-3" id="text-13-9">
 <ul class="org-ul">
 <li>合理设置缓存的过期时间。</li>
 <li>新增、更改、删除数据库操作时同步更新 Redis，可以使用事物机制来保证数据的一致性。</li>
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org2322779" class="outline-3">
-<h3 id="org2322779"><span class="section-number-3">11.34</span> Redis 持久化有几种方式？</h3>
-<div class="outline-text-3" id="text-11-34">
+<h3 id="org2322779"><span class="section-number-3">13.10</span> Redis 持久化有几种方式？</h3>
+<div class="outline-text-3" id="text-13-10">
 <p>
 Redis 的持久化有两种方式，或者说有两种策略：
 </p>
@@ -2259,34 +2340,38 @@ Redis 的持久化有两种方式，或者说有两种策略：
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org4b45e4c" class="outline-3">
-<h3 id="org4b45e4c"><span class="section-number-3">11.35</span> Redis 怎么实现分布式锁？</h3>
-<div class="outline-text-3" id="text-11-35">
+<h3 id="org4b45e4c"><span class="section-number-3">13.11</span> Redis 怎么实现分布式锁？</h3>
+<div class="outline-text-3" id="text-13-11">
 <p>
 Redis 分布式锁其实就是在系统里面占一个“坑”，其他程序也要占“坑”的时候，占用成功了就可以继续执行，失败了就只能放弃或稍后重试。
 占坑一般使用 setnx(set if not exists)指令，只允许被一个程序占有，使用完调用 del 释放锁。
 </p>
 </div>
 </div>
+
 <div id="outline-container-orgdaf882f" class="outline-3">
-<h3 id="orgdaf882f"><span class="section-number-3">11.36</span> Redis 分布式锁有什么缺陷？</h3>
-<div class="outline-text-3" id="text-11-36">
+<h3 id="orgdaf882f"><span class="section-number-3">13.12</span> Redis 分布式锁有什么缺陷？</h3>
+<div class="outline-text-3" id="text-13-12">
 <p>
 Redis 分布式锁不能解决超时的问题，分布式锁有一个超时时间，程序的执行如果超出了锁的超时时间就会出现问题。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org6bd3944" class="outline-3">
-<h3 id="org6bd3944"><span class="section-number-3">11.37</span> Redis 如何做内存优化？</h3>
-<div class="outline-text-3" id="text-11-37">
+<h3 id="org6bd3944"><span class="section-number-3">13.13</span> Redis 如何做内存优化？</h3>
+<div class="outline-text-3" id="text-13-13">
 <p>
 尽量使用 Redis 的散列表，把相关的信息放到散列表里面存储，而不是把每个字段单独存储，这样可以有效的减少内存使用。比如将 Web 系统的用户对象，应该放到散列表里面再整体存储到 Redis，而不是把用户的姓名、年龄、密码、邮箱等字段分别设置 key 进行存储。
 </p>
 </div>
 </div>
+
 <div id="outline-container-orgb01f98f" class="outline-3">
-<h3 id="orgb01f98f"><span class="section-number-3">11.38</span> Redis 淘汰策略有哪些？</h3>
-<div class="outline-text-3" id="text-11-38">
+<h3 id="orgb01f98f"><span class="section-number-3">13.14</span> Redis 淘汰策略有哪些？</h3>
+<div class="outline-text-3" id="text-13-14">
 <ul class="org-ul">
 <li>volatile-lru：从已设置过期时间的数据集（server. db[i]. expires）中挑选最近最少使用的数据淘汰。</li>
 <li>volatile-ttl：从已设置过期时间的数据集（server. db[i]. expires）中挑选将要过期的数据淘汰。</li>
@@ -2297,21 +2382,25 @@ Redis 分布式锁不能解决超时的问题，分布式锁有一个超时时�
 </ul>
 </div>
 </div>
+
 <div id="outline-container-orgb6c4e6a" class="outline-3">
-<h3 id="orgb6c4e6a"><span class="section-number-3">11.39</span> Redis 常见的性能问题有哪些？该如何解决？</h3>
-<div class="outline-text-3" id="text-11-39">
+<h3 id="orgb6c4e6a"><span class="section-number-3">13.15</span> Redis 常见的性能问题有哪些？该如何解决？</h3>
+<div class="outline-text-3" id="text-13-15">
 <ul class="org-ul">
 <li>主服务器写内存快照，会阻塞主线程的工作，当快照比较大时对性能影响是非常大的，会间断性暂停服务，所以主服务器最好不要写内存快照。</li>
 <li>Redis 主从复制的性能问题，为了主从复制的速度和连接的稳定性，主从库最好在同一个局域网内。</li>
 </ul>
-<p>
-Hibernate
-</p>
 </div>
+</div>
+</section>
+
+<section id="outline-container-orga910a38" class="outline-2">
+<h2 id="orga910a38"><span class="section-number-2">14</span> Hibernate</h2>
+<div class="outline-text-2" id="text-14">
 </div>
 <div id="outline-container-orgeb59578" class="outline-3">
-<h3 id="orgeb59578"><span class="section-number-3">11.40</span> 为什么要使用 hibernate？</h3>
-<div class="outline-text-3" id="text-11-40">
+<h3 id="orgeb59578"><span class="section-number-3">14.1</span> 为什么要使用 hibernate？</h3>
+<div class="outline-text-3" id="text-14-1">
 <ul class="org-ul">
 <li>hibernate 是对 jdbc 的封装，大大简化了数据访问层的繁琐的重复性代码。</li>
 <li>hibernate 是一个优秀的 ORM 实现，很多程度上简化了 DAO 层的编码功能。</li>
@@ -2320,50 +2409,59 @@ Hibernate
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org6e30fe5" class="outline-3">
-<h3 id="org6e30fe5"><span class="section-number-3">11.41</span> 什么是 ORM 框架？</h3>
-<div class="outline-text-3" id="text-11-41">
+<h3 id="org6e30fe5"><span class="section-number-3">14.2</span> 什么是 ORM 框架？</h3>
+<div class="outline-text-3" id="text-14-2">
 <p>
 ORM（Object Relation Mapping）对象关系映射，是把数据库中的关系数据映射成为程序中的对象。
+</p>
+
+<p>
 使用 ORM 的优点：提高了开发效率降低了开发成本、开发更简单更对象化、可移植更强。
 </p>
 </div>
 </div>
+
 <div id="outline-container-orgb845f7f" class="outline-3">
-<h3 id="orgb845f7f"><span class="section-number-3">11.42</span> hibernate 中如何在控制台查看打印的 SQL 语句？</h3>
-<div class="outline-text-3" id="text-11-42">
+<h3 id="orgb845f7f"><span class="section-number-3">14.3</span> hibernate 中如何在控制台查看打印的 SQL 语句？</h3>
+<div class="outline-text-3" id="text-14-3">
 <p>
 在 Config 里面把 hibernate. show_SQL 设置为 true 就可以。但不建议开启，开启之后会降低程序的运行效率。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org45c3336" class="outline-3">
-<h3 id="org45c3336"><span class="section-number-3">11.43</span> hibernate 有几种查询方式？</h3>
-<div class="outline-text-3" id="text-11-43">
+<h3 id="org45c3336"><span class="section-number-3">14.4</span> hibernate 有几种查询方式？</h3>
+<div class="outline-text-3" id="text-14-4">
 <p>
 三种：hql、原生 SQL、条件查询 Criteria。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org6dda784" class="outline-3">
-<h3 id="org6dda784"><span class="section-number-3">11.44</span> hibernate 实体类可以被定义为 final 吗？</h3>
-<div class="outline-text-3" id="text-11-44">
+<h3 id="org6dda784"><span class="section-number-3">14.5</span> hibernate 实体类可以被定义为 final 吗？</h3>
+<div class="outline-text-3" id="text-14-5">
 <p>
 实体类可以定义为 final 类，但这样的话就不能使用 hibernate 代理模式下的延迟关联提供性能了，所以不建议定义实体类为 final。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org22446a3" class="outline-3">
-<h3 id="org22446a3"><span class="section-number-3">11.45</span> 在 hibernate 中使用 Integer 和 int 做映射有什么区别？</h3>
-<div class="outline-text-3" id="text-11-45">
+<h3 id="org22446a3"><span class="section-number-3">14.6</span> 在 hibernate 中使用 Integer 和 int 做映射有什么区别？</h3>
+<div class="outline-text-3" id="text-14-6">
 <p>
 Integer 类型为对象，它的值允许为 null，而 int 属于基础数据类型，值不能为 null。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org0fe19da" class="outline-3">
-<h3 id="org0fe19da"><span class="section-number-3">11.46</span> hibernate 是如何工作的？</h3>
-<div class="outline-text-3" id="text-11-46">
+<h3 id="org0fe19da"><span class="section-number-3">14.7</span> hibernate 是如何工作的？</h3>
+<div class="outline-text-3" id="text-14-7">
 <ul class="org-ul">
 <li>读取并解析配置文件。</li>
 <li>读取并解析映射文件，创建 SessionFactory。</li>
@@ -2376,28 +2474,37 @@ Integer 类型为对象，它的值允许为 null，而 int 属于基础数据�
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org5ee0bfc" class="outline-3">
-<h3 id="org5ee0bfc"><span class="section-number-3">11.47</span> get()和 load()的区别？</h3>
-<div class="outline-text-3" id="text-11-47">
+<h3 id="org5ee0bfc"><span class="section-number-3">14.8</span> get()和 load()的区别？</h3>
+<div class="outline-text-3" id="text-14-8">
 <ul class="org-ul">
 <li>数据查询时，没有 OID 指定的对象，get() 返回 null；load() 返回一个代理对象。</li>
 <li>load()支持延迟加载；get() 不支持延迟加载。</li>
 </ul>
 </div>
 </div>
+
 <div id="outline-container-orgd8c819e" class="outline-3">
-<h3 id="orgd8c819e"><span class="section-number-3">11.48</span> 说一下 hibernate 的缓存机制？</h3>
-<div class="outline-text-3" id="text-11-48">
+<h3 id="orgd8c819e"><span class="section-number-3">14.9</span> 说一下 hibernate 的缓存机制？</h3>
+<div class="outline-text-3" id="text-14-9">
 <p>
 hibernate 常用的缓存有一级缓存和二级缓存：
+</p>
+
+<p>
 一级缓存：也叫 Session 缓存，只在 Session 作用范围内有效，不需要用户干涉，由 hibernate 自身维护，可以通过：evict(object)清除 object 的缓存；clear()清除一级缓存中的所有缓存；flush()刷出缓存；
+</p>
+
+<p>
 二级缓存：应用级别的缓存，在所有 Session 中都有效，支持配置第三方的缓存，如：EhCache。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org1f2dc7c" class="outline-3">
-<h3 id="org1f2dc7c"><span class="section-number-3">11.49</span> hibernate 对象有哪些状态？</h3>
-<div class="outline-text-3" id="text-11-49">
+<h3 id="org1f2dc7c"><span class="section-number-3">14.10</span> hibernate 对象有哪些状态？</h3>
+<div class="outline-text-3" id="text-14-10">
 <ul class="org-ul">
 <li>临时/瞬时状态：直接 new 出来的对象，该对象还没被持久化（没保存在数据库中），不受 Session 管理。</li>
 <li>持久化状态：当调用 Session 的 save/saveOrupdate/get/load/list 等方法的时候，对象就是持久化状态。</li>
@@ -2405,85 +2512,105 @@ hibernate 常用的缓存有一级缓存和二级缓存：
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org5e4ad75" class="outline-3">
-<h3 id="org5e4ad75"><span class="section-number-3">11.50</span> 在 hibernate 中 getCurrentSession 和 openSession 的区别是什么？</h3>
-<div class="outline-text-3" id="text-11-50">
+<h3 id="org5e4ad75"><span class="section-number-3">14.11</span> 在 hibernate 中 getCurrentSession 和 openSession 的区别是什么？</h3>
+<div class="outline-text-3" id="text-14-11">
 <ul class="org-ul">
 <li>getCurrentSession 会绑定当前线程，而 openSession 则不会。</li>
 <li>getCurrentSession 事务是 Spring 控制的，并且不需要手动关闭，而 openSession 需要我们自己手动开启和提交事务。</li>
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org29d70f3" class="outline-3">
-<h3 id="org29d70f3"><span class="section-number-3">11.51</span> hibernate 实体类必须要有无参构造函数吗？为什么？</h3>
-<div class="outline-text-3" id="text-11-51">
+<h3 id="org29d70f3"><span class="section-number-3">14.12</span> hibernate 实体类必须要有无参构造函数吗？为什么？</h3>
+<div class="outline-text-3" id="text-14-12">
 <p>
 hibernate 中每个实体类必须提供一个无参构造函数，因为 hibernate 框架要使用 reflection api，通过调用 ClassnewInstance() 来创建实体类的实例，如果没有无参的构造函数就会抛出异常。
-MyBatis
 </p>
 </div>
 </div>
+</section>
+
+<section id="outline-container-org39255d1" class="outline-2">
+<h2 id="org39255d1"><span class="section-number-2">15</span> MyBatis</h2>
+<div class="outline-text-2" id="text-15">
+</div>
 <div id="outline-container-org9ea8349" class="outline-3">
-<h3 id="org9ea8349"><span class="section-number-3">11.52</span> MyBatis 中 #{}和 ${}的区别是什么？</h3>
-<div class="outline-text-3" id="text-11-52">
+<h3 id="org9ea8349"><span class="section-number-3">15.1</span> MyBatis 中 #{}和 ${}的区别是什么？</h3>
+<div class="outline-text-3" id="text-15-1">
 <p>
 \#{}是预编译处理，${}是字符替换。 在使用 #{}时，MyBatis 会将 SQL 中的 #{}替换成“?”，配合 PreparedStatement 的 set 方法赋值，这样可以有效的防止 SQL 注入，保证程序的运行安全。
 </p>
 </div>
 </div>
+
 <div id="outline-container-orgb954a3b" class="outline-3">
-<h3 id="orgb954a3b"><span class="section-number-3">11.53</span> MyBatis 有几种分页方式？</h3>
-<div class="outline-text-3" id="text-11-53">
-<p>
-分页方式：逻辑分页和物理分页。
-逻辑分页： 使用 MyBatis 自带的 RowBounds 进行分页，它是一次性查询很多数据，然后在数据中再进行检索。
-物理分页： 自己手写 SQL 分页或使用分页插件 PageHelper，去数据库查询指定条数的分页数据的形式。
-</p>
+<h3 id="orgb954a3b"><span class="section-number-3">15.2</span> MyBatis 有几种分页方式？</h3>
+<div class="outline-text-3" id="text-15-2">
+<ul class="org-ul">
+<li>分页方式：逻辑分页和物理分页。</li>
+<li>逻辑分页： 使用 MyBatis 自带的 RowBounds 进行分页，它是一次性查询很多数据，然后在数据中再进行检索。</li>
+<li>物理分页： 自己手写 SQL 分页或使用分页插件 PageHelper，去数据库查询指定条数的分页数据的形式。</li>
+</ul>
 </div>
 </div>
+
 <div id="outline-container-org330d77a" class="outline-3">
-<h3 id="org330d77a"><span class="section-number-3">11.54</span> RowBounds 是一次性查询全部结果吗？为什么？</h3>
-<div class="outline-text-3" id="text-11-54">
+<h3 id="org330d77a"><span class="section-number-3">15.3</span> RowBounds 是一次性查询全部结果吗？为什么？</h3>
+<div class="outline-text-3" id="text-15-3">
 <p>
 RowBounds 表面是在“所有”数据中检索数据，其实并非是一次性查询出所有数据，因为 MyBatis 是对 jdbc 的封装，在 jdbc 驱动中有一个 Fetch Size 的配置，它规定了每次最多从数据库查询多少条数据，假如你要查询更多数据，它会在你执行 next()的时候，去查询更多的数据。就好比你去自动取款机取 10000 元，但取款机每次最多能取 2500 元，所以你要取 4 次才能把钱取完。只是对于 jdbc 来说，当你调用 next()的时候会自动帮你完成查询工作。这样做的好处可以有效的防止内存溢出。
 Fetch Size 官方相关文档：<a href="http://t">http://t</a>. cn/EfSE2g3
 </p>
 </div>
 </div>
+
 <div id="outline-container-org24bbbfc" class="outline-3">
-<h3 id="org24bbbfc"><span class="section-number-3">11.55</span> MyBatis 逻辑分页和物理分页的区别是什么？</h3>
-<div class="outline-text-3" id="text-11-55">
+<h3 id="org24bbbfc"><span class="section-number-3">15.4</span> MyBatis 逻辑分页和物理分页的区别是什么？</h3>
+<div class="outline-text-3" id="text-15-4">
 <ul class="org-ul">
 <li>逻辑分页是一次性查询很多数据，然后再在结果中检索分页的数据。这样做弊端是需要消耗大量的内存、有内存溢出的风险、对数据库压力较大。</li>
 <li>物理分页是从数据库查询指定条数的数据，弥补了一次性全部查出的所有数据的种种缺点，比如需要大量的内存，对数据库查询压力较大等问题。</li>
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org35995c4" class="outline-3">
-<h3 id="org35995c4"><span class="section-number-3">11.56</span> MyBatis 是否支持延迟加载？延迟加载的原理是什么？</h3>
-<div class="outline-text-3" id="text-11-56">
+<h3 id="org35995c4"><span class="section-number-3">15.5</span> MyBatis 是否支持延迟加载？延迟加载的原理是什么？</h3>
+<div class="outline-text-3" id="text-15-5">
 <p>
 MyBatis 支持延迟加载，设置 lazyLoadingEnabled=true 即可。
+</p>
+
+<p>
 延迟加载的原理的是调用的时候触发加载，而不是在初始化的时候就加载信息。比如调用 a. getB(). getName()，这个时候发现 a. getB() 的值为 null，此时会单独触发事先保存好的关联 B 对象的 SQL，先查询出来 B，然后再调用 a. setB(b)，而这时候再调用 a. getB(). getName() 就有值了，这就是延迟加载的基本原理。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org5cabb10" class="outline-3">
-<h3 id="org5cabb10"><span class="section-number-3">11.57</span> 说一下 MyBatis 的一级缓存和二级缓存？</h3>
-<div class="outline-text-3" id="text-11-57">
+<h3 id="org5cabb10"><span class="section-number-3">15.6</span> 说一下 MyBatis 的一级缓存和二级缓存？</h3>
+<div class="outline-text-3" id="text-15-6">
 <ul class="org-ul">
 <li>一级缓存：基于 PerpetualCache 的 HashMap 本地缓存，它的声明周期是和 SQLSession 一致的，有多个 SQLSession 或者分布式的环境中数据库操作，可能会出现脏数据。当 Session flush 或 close 之后，该 Session 中的所有 Cache 就将清空，默认一级缓存是开启的。</li>
 <li>二级缓存：也是基于 PerpetualCache 的 HashMap 本地缓存，不同在于其存储作用域为 Mapper 级别的，如果多个SQLSession之间需要共享缓存，则需要使用到二级缓存，并且二级缓存可自定义存储源，如 Ehcache。默认不打开二级缓存，要开启二级缓存，使用二级缓存属性类需要实现 Serializable 序列化接口(可用来保存对象的状态)。</li>
 </ul>
+
 <p>
 开启二级缓存数据查询流程：二级缓存 -&gt; 一级缓存 -&gt; 数据库。
+</p>
+
+<p>
 缓存更新机制：当某一个作用域(一级缓存 Session/二级缓存 Mapper)进行了C/U/D 操作后，默认该作用域下所有 select 中的缓存将被 clear。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org763627a" class="outline-3">
-<h3 id="org763627a"><span class="section-number-3">11.58</span> MyBatis 和 hibernate 的区别有哪些？</h3>
-<div class="outline-text-3" id="text-11-58">
+<h3 id="org763627a"><span class="section-number-3">15.7</span> MyBatis 和 hibernate 的区别有哪些？</h3>
+<div class="outline-text-3" id="text-15-7">
 <ul class="org-ul">
 <li>灵活性：MyBatis 更加灵活，自己可以写 SQL 语句，使用起来比较方便。</li>
 <li>可移植性：MyBatis 有很多自己写的 SQL，因为每个数据库的 SQL 可以不相同，所以可移植性比较差。</li>
@@ -2492,9 +2619,10 @@ MyBatis 支持延迟加载，设置 lazyLoadingEnabled=true 即可。
 </ul>
 </div>
 </div>
+
 <div id="outline-container-orgeea0d49" class="outline-3">
-<h3 id="orgeea0d49"><span class="section-number-3">11.59</span> MyBatis 有哪些执行器（Executor）？</h3>
-<div class="outline-text-3" id="text-11-59">
+<h3 id="orgeea0d49"><span class="section-number-3">15.8</span> MyBatis 有哪些执行器（Executor）？</h3>
+<div class="outline-text-3" id="text-15-8">
 <p>
 MyBatis 有三种基本的Executor执行器：
 </p>
@@ -2505,19 +2633,24 @@ MyBatis 有三种基本的Executor执行器：
 </ul>
 </div>
 </div>
+
 <div id="outline-container-orgbdaa491" class="outline-3">
-<h3 id="orgbdaa491"><span class="section-number-3">11.60</span> MyBatis 分页插件的实现原理是什么？</h3>
-<div class="outline-text-3" id="text-11-60">
+<h3 id="orgbdaa491"><span class="section-number-3">15.9</span> MyBatis 分页插件的实现原理是什么？</h3>
+<div class="outline-text-3" id="text-15-9">
 <p>
 分页插件的基本原理是使用 MyBatis 提供的插件接口，实现自定义插件，在插件的拦截方法内拦截待执行的 SQL，然后重写 SQL，根据 dialect 方言，添加对应的物理分页语句和物理分页参数。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org79fe8ca" class="outline-3">
-<h3 id="org79fe8ca"><span class="section-number-3">11.61</span> MyBatis 如何编写一个自定义插件？</h3>
-<div class="outline-text-3" id="text-11-61">
+<h3 id="org79fe8ca"><span class="section-number-3">15.10</span> MyBatis 如何编写一个自定义插件？</h3>
+<div class="outline-text-3" id="text-15-10">
 <p>
 自定义插件实现原理
+</p>
+
+<p>
 MyBatis 自定义插件针对 MyBatis 四大对象（Executor、StatementHandler、ParameterHandler、ResultSetHandler）进行拦截：
 </p>
 <ul class="org-ul">
@@ -2526,46 +2659,67 @@ MyBatis 自定义插件针对 MyBatis 四大对象（Executor、StatementHandler
 <li>ParameterHandler：拦截参数的处理；</li>
 <li>ResultSetHandler：拦截结果集的处理。</li>
 </ul>
+
 <p>
 自定义插件实现关键
-MyBatis 插件要实现 Interceptor 接口，接口包含的方法，如下：
-public interface Interceptor {   
-   Object intercept(Invocation invocation) throws Throwable;       
-   Object plugin(Object target);    
-   void setProperties(Properties properties);
-}
 </p>
+
+<p>
+MyBatis 插件要实现 Interceptor 接口，接口包含的方法，如下：
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">interface</span> <span class="org-type">Interceptor</span> {   
+   <span class="org-type">Object</span> <span class="org-function-name">intercept</span>(<span class="org-type">Invocation</span> <span class="org-variable-name">invocation</span>) <span class="org-keyword">throws</span> <span class="org-type">Throwable</span>;       
+   <span class="org-type">Object</span> <span class="org-function-name">plugin</span>(<span class="org-type">Object</span> <span class="org-variable-name">target</span>);    
+   <span class="org-type">void</span> <span class="org-function-name">setProperties</span>(<span class="org-type">Properties</span> <span class="org-variable-name">properties</span>);
+}
+</pre>
+</div>
+
 <ul class="org-ul">
 <li>setProperties 方法是在 MyBatis 进行配置插件的时候可以配置自定义相关属性，即：接口实现对象的参数配置；</li>
 <li>plugin 方法是插件用于封装目标对象的，通过该方法我们可以返回目标对象本身，也可以返回一个它的代理，可以决定是否要进行拦截进而决定要返回一个什么样的目标对象，官方提供了示例：return Plugin. wrap(target, this)；</li>
 <li>intercept 方法就是要进行拦截的时候要执行的方法。</li>
 </ul>
+
 <p>
 自定义插件实现示例
+</p>
+
+<p>
 官方插件实现：
-@Intercepts({@Signature(type = Executor. class, method = "query",
-        args = {MappedStatement. class, Object. class, RowBounds. class, ResultHandler. class})})
-public class TestInterceptor implements Interceptor {
-   public Object intercept(Invocation invocation) throws Throwable {
-     Object target = invocation. getTarget(); //被代理对象
-     Method method = invocation. getMethod(); //代理方法
-     Object[] args = invocation. getArgs(); <i>/方法参数
-     /</i> do something . . . . . .  方法拦截前执行代码块
-     Object result = invocation. proceed();
-     // do something . . . . . . . 方法拦截后执行代码块
-     return result;
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-c-annotation">@Intercepts</span>({<span class="org-c-annotation">@Signature</span>(type = Executor. <span class="org-keyword">class</span>, method = <span class="org-string">"query"</span>,
+        args = {MappedStatement. <span class="org-keyword">class</span>, Object. <span class="org-keyword">class</span>, RowBounds. <span class="org-keyword">class</span>, ResultHandler. <span class="org-keyword">class</span>})})
+<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">TestInterceptor</span> <span class="org-keyword">implements</span> <span class="org-type">Interceptor</span> {
+   <span class="org-keyword">public</span> <span class="org-type">Object</span> <span class="org-function-name">intercept</span>(<span class="org-type">Invocation</span> <span class="org-variable-name">invocation</span>) <span class="org-keyword">throws</span> <span class="org-type">Throwable</span> {
+     <span class="org-type">Object</span> <span class="org-variable-name">target</span> = invocation. getTarget(); <span class="org-comment-delimiter">//</span><span class="org-comment">&#34987;&#20195;&#29702;&#23545;&#35937;</span>
+     <span class="org-type">Method</span> <span class="org-variable-name">method</span> = invocation. getMethod(); <span class="org-comment-delimiter">//</span><span class="org-comment">&#20195;&#29702;&#26041;&#27861;</span>
+     <span class="org-type">Object</span>[] <span class="org-variable-name">args</span> = invocation. getArgs(); <span class="org-comment-delimiter">//</span><span class="org-comment">&#26041;&#27861;&#21442;&#25968;</span>
+     <span class="org-comment-delimiter">// </span><span class="org-comment">do something . . . . . .  &#26041;&#27861;&#25318;&#25130;&#21069;&#25191;&#34892;&#20195;&#30721;&#22359;</span>
+     <span class="org-type">Object</span> <span class="org-variable-name">result</span> = invocation. proceed();
+     <span class="org-comment-delimiter">// </span><span class="org-comment">do something . . . . . . . &#26041;&#27861;&#25318;&#25130;&#21518;&#25191;&#34892;&#20195;&#30721;&#22359;</span>
+     <span class="org-keyword">return</span> result;
    }
-   public Object plugin(Object target) {
-     return Plugin. wrap(target, this);
+   <span class="org-keyword">public</span> <span class="org-type">Object</span> <span class="org-function-name">plugin</span>(<span class="org-type">Object</span> <span class="org-variable-name">target</span>) {
+     <span class="org-keyword">return</span> Plugin. wrap(target, <span class="org-keyword">this</span>);
    }
 }
-RabbitMQ
-</p>
+</pre>
 </div>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-orgd623272" class="outline-2">
+<h2 id="orgd623272"><span class="section-number-2">16</span> RabbitMQ</h2>
+<div class="outline-text-2" id="text-16">
 </div>
 <div id="outline-container-org4999058" class="outline-3">
-<h3 id="org4999058"><span class="section-number-3">11.62</span> RabbitMQ 的使用场景有哪些？</h3>
-<div class="outline-text-3" id="text-11-62">
+<h3 id="org4999058"><span class="section-number-3">16.1</span> RabbitMQ 的使用场景有哪些？</h3>
+<div class="outline-text-3" id="text-16-1">
 <ul class="org-ul">
 <li>抢购活动，削峰填谷，防止系统崩塌。</li>
 <li>延迟信息处理，比如 10 分钟之后给下单未付款的用户发送邮件提醒。</li>
@@ -2573,9 +2727,10 @@ RabbitMQ
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org0ccee60" class="outline-3">
-<h3 id="org0ccee60"><span class="section-number-3">11.63</span> RabbitMQ 有哪些重要的角色？</h3>
-<div class="outline-text-3" id="text-11-63">
+<h3 id="org0ccee60"><span class="section-number-3">16.2</span> RabbitMQ 有哪些重要的角色？</h3>
+<div class="outline-text-3" id="text-16-2">
 <p>
 RabbitMQ 中重要的角色有：生产者、消费者和代理：
 </p>
@@ -2586,9 +2741,10 @@ RabbitMQ 中重要的角色有：生产者、消费者和代理：
 </ul>
 </div>
 </div>
+
 <div id="outline-container-orga05867f" class="outline-3">
-<h3 id="orga05867f"><span class="section-number-3">11.64</span> RabbitMQ 有哪些重要的组件？</h3>
-<div class="outline-text-3" id="text-11-64">
+<h3 id="orga05867f"><span class="section-number-3">16.3</span> RabbitMQ 有哪些重要的组件？</h3>
+<div class="outline-text-3" id="text-16-3">
 <ul class="org-ul">
 <li>ConnectionFactory（连接管理器）：应用程序与Rabbit之间建立连接的管理器，程序代码中使用。</li>
 <li>Channel（信道）：消息推送使用的通道。</li>
@@ -2599,65 +2755,73 @@ RabbitMQ 中重要的角色有：生产者、消费者和代理：
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org0474510" class="outline-3">
-<h3 id="org0474510"><span class="section-number-3">11.65</span> RabbitMQ 中 vhost 的作用是什么？</h3>
-<div class="outline-text-3" id="text-11-65">
+<h3 id="org0474510"><span class="section-number-3">16.4</span> RabbitMQ 中 vhost 的作用是什么？</h3>
+<div class="outline-text-3" id="text-16-4">
 <p>
 vhost：每个 RabbitMQ 都能创建很多 vhost，我们称之为虚拟主机，每个虚拟主机其实都是 mini 版的RabbitMQ，它拥有自己的队列，交换器和绑定，拥有自己的权限机制。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org9040f24" class="outline-3">
-<h3 id="org9040f24"><span class="section-number-3">11.66</span> RabbitMQ 的消息是怎么发送的？</h3>
-<div class="outline-text-3" id="text-11-66">
+<h3 id="org9040f24"><span class="section-number-3">16.5</span> RabbitMQ 的消息是怎么发送的？</h3>
+<div class="outline-text-3" id="text-16-5">
 <p>
 首先客户端必须连接到 RabbitMQ 服务器才能发布和消费消息，客户端和 rabbit server 之间会创建一个 tcp 连接，一旦 tcp 打开并通过了认证（认证就是你发送给 rabbit 服务器的用户名和密码），你的客户端和 RabbitMQ 就创建了一条 amqp 信道（channel），信道是创建在“真实” tcp 上的虚拟连接，amqp 命令都是通过信道发送出去的，每个信道都会有一个唯一的 id，不论是发布消息，订阅队列都是通过这个信道完成的。
 </p>
 </div>
 </div>
+
 <div id="outline-container-orge8296f5" class="outline-3">
-<h3 id="orge8296f5"><span class="section-number-3">11.67</span> RabbitMQ 怎么保证消息的稳定性？</h3>
-<div class="outline-text-3" id="text-11-67">
+<h3 id="orge8296f5"><span class="section-number-3">16.6</span> RabbitMQ 怎么保证消息的稳定性？</h3>
+<div class="outline-text-3" id="text-16-6">
 <ul class="org-ul">
 <li>提供了事务的功能。</li>
 <li>通过将 channel 设置为 confirm（确认）模式。</li>
 </ul>
 </div>
 </div>
+
 <div id="outline-container-orgc5ce44d" class="outline-3">
-<h3 id="orgc5ce44d"><span class="section-number-3">11.68</span> RabbitMQ 怎么避免消息丢失？</h3>
-<div class="outline-text-3" id="text-11-68">
+<h3 id="orgc5ce44d"><span class="section-number-3">16.7</span> RabbitMQ 怎么避免消息丢失？</h3>
+<div class="outline-text-3" id="text-16-7">
 <ul class="org-ul">
 <li>把消息持久化磁盘，保证服务器重启消息不丢失。</li>
 <li>每个集群中至少有一个物理磁盘，保证消息落入磁盘。</li>
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org7fd2bb7" class="outline-3">
-<h3 id="org7fd2bb7"><span class="section-number-3">11.69</span> 要保证消息持久化成功的条件有哪些？</h3>
-<div class="outline-text-3" id="text-11-69">
+<h3 id="org7fd2bb7"><span class="section-number-3">16.8</span> 要保证消息持久化成功的条件有哪些？</h3>
+<div class="outline-text-3" id="text-16-8">
 <ul class="org-ul">
 <li>声明队列必须设置持久化 durable 设置为 true.</li>
 <li>消息推送投递模式必须设置持久化，deliveryMode 设置为 2（持久）。</li>
 <li>消息已经到达持久化交换器。</li>
 <li>消息已经到达持久化队列。</li>
 </ul>
+
 <p>
 以上四个条件都满足才能保证消息持久化成功。
 </p>
 </div>
 </div>
+
 <div id="outline-container-orge5a6758" class="outline-3">
-<h3 id="orge5a6758"><span class="section-number-3">11.70</span> RabbitMQ 持久化有什么缺点？</h3>
-<div class="outline-text-3" id="text-11-70">
+<h3 id="orge5a6758"><span class="section-number-3">16.9</span> RabbitMQ 持久化有什么缺点？</h3>
+<div class="outline-text-3" id="text-16-9">
 <p>
 持久化的缺地就是降低了服务器的吞吐量，因为使用的是磁盘而非内存存储，从而降低了吞吐量。可尽量使用 ssd 硬盘来缓解吞吐量的问题。
 </p>
 </div>
 </div>
+
 <div id="outline-container-orgb0b2f60" class="outline-3">
-<h3 id="orgb0b2f60"><span class="section-number-3">11.71</span> RabbitMQ 有几种广播类型？</h3>
-<div class="outline-text-3" id="text-11-71">
+<h3 id="orgb0b2f60"><span class="section-number-3">16.10</span> RabbitMQ 有几种广播类型？</h3>
+<div class="outline-text-3" id="text-16-10">
 <ul class="org-ul">
 <li>direct（默认方式）：最基础最简单的模式，发送方把消息发送给订阅方，如果有多个订阅者，默认采取轮询的方式进行消息发送。</li>
 <li>headers：与 direct 类似，只是性能很差，此类型几乎用不到。</li>
@@ -2666,9 +2830,10 @@ vhost：每个 RabbitMQ 都能创建很多 vhost，我们称之为虚拟主机�
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org3843a29" class="outline-3">
-<h3 id="org3843a29"><span class="section-number-3">11.72</span> RabbitMQ 怎么实现延迟消息队列？</h3>
-<div class="outline-text-3" id="text-11-72">
+<h3 id="org3843a29"><span class="section-number-3">16.11</span> RabbitMQ 怎么实现延迟消息队列？</h3>
+<div class="outline-text-3" id="text-16-11">
 <p>
 延迟队列的实现有两种方式：
 </p>
@@ -2678,9 +2843,10 @@ vhost：每个 RabbitMQ 都能创建很多 vhost，我们称之为虚拟主机�
 </ul>
 </div>
 </div>
+
 <div id="outline-container-orgc919715" class="outline-3">
-<h3 id="orgc919715"><span class="section-number-3">11.73</span> RabbitMQ 集群有什么用？</h3>
-<div class="outline-text-3" id="text-11-73">
+<h3 id="orgc919715"><span class="section-number-3">16.12</span> RabbitMQ 集群有什么用？</h3>
+<div class="outline-text-3" id="text-16-12">
 <p>
 集群主要有以下两个用途：
 </p>
@@ -2690,18 +2856,20 @@ vhost：每个 RabbitMQ 都能创建很多 vhost，我们称之为虚拟主机�
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org917698b" class="outline-3">
-<h3 id="org917698b"><span class="section-number-3">11.74</span> RabbitMQ 节点的类型有哪些？</h3>
-<div class="outline-text-3" id="text-11-74">
+<h3 id="org917698b"><span class="section-number-3">16.13</span> RabbitMQ 节点的类型有哪些？</h3>
+<div class="outline-text-3" id="text-16-13">
 <ul class="org-ul">
 <li>磁盘节点：消息会存储到磁盘。</li>
 <li>内存节点：消息都存储在内存中，重启服务器消息丢失，性能高于磁盘类型。</li>
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org4f9b505" class="outline-3">
-<h3 id="org4f9b505"><span class="section-number-3">11.75</span> RabbitMQ 集群搭建需要注意哪些问题？</h3>
-<div class="outline-text-3" id="text-11-75">
+<h3 id="org4f9b505"><span class="section-number-3">16.14</span> RabbitMQ 集群搭建需要注意哪些问题？</h3>
+<div class="outline-text-3" id="text-16-14">
 <ul class="org-ul">
 <li>各节点之间使用“&#x2013;link”连接，此属性不能忽略。</li>
 <li>各节点使用的 erlang cookie 值必须相同，此值相当于“秘钥”的功能，用于各节点的认证。</li>
@@ -2709,9 +2877,10 @@ vhost：每个 RabbitMQ 都能创建很多 vhost，我们称之为虚拟主机�
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org81559a6" class="outline-3">
-<h3 id="org81559a6"><span class="section-number-3">11.76</span> RabbitMQ 每个节点是其他节点的完整拷贝吗？为什么？</h3>
-<div class="outline-text-3" id="text-11-76">
+<h3 id="org81559a6"><span class="section-number-3">16.15</span> RabbitMQ 每个节点是其他节点的完整拷贝吗？为什么？</h3>
+<div class="outline-text-3" id="text-16-15">
 <p>
 不是，原因有以下两个：
 </p>
@@ -2721,12 +2890,14 @@ vhost：每个 RabbitMQ 都能创建很多 vhost，我们称之为虚拟主机�
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org9b23d8e" class="outline-3">
-<h3 id="org9b23d8e"><span class="section-number-3">11.77</span> RabbitMQ 集群中唯一一个磁盘节点崩溃了会发生什么情况？</h3>
-<div class="outline-text-3" id="text-11-77">
+<h3 id="org9b23d8e"><span class="section-number-3">16.16</span> RabbitMQ 集群中唯一一个磁盘节点崩溃了会发生什么情况？</h3>
+<div class="outline-text-3" id="text-16-16">
 <p>
 如果唯一磁盘的磁盘节点崩溃了，不能进行以下操作：
 </p>
+
 <ul class="org-ul">
 <li>不能创建队列</li>
 <li>不能创建交换器</li>
@@ -2735,47 +2906,57 @@ vhost：每个 RabbitMQ 都能创建很多 vhost，我们称之为虚拟主机�
 <li>不能更改权限</li>
 <li>不能添加和删除集群节点</li>
 </ul>
+
 <p>
 唯一磁盘节点崩溃了，集群是可以保持运行的，但你不能更改任何东西。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org77f87d0" class="outline-3">
-<h3 id="org77f87d0"><span class="section-number-3">11.78</span> RabbitMQ 对集群节点停止顺序有要求吗？</h3>
-<div class="outline-text-3" id="text-11-78">
+<h3 id="org77f87d0"><span class="section-number-3">16.17</span> RabbitMQ 对集群节点停止顺序有要求吗？</h3>
+<div class="outline-text-3" id="text-16-17">
 <p>
 RabbitMQ 对集群的停止的顺序是有要求的，应该先关闭内存节点，最后再关闭磁盘节点。如果顺序恰好相反的话，可能会造成消息的丢失。
-Kafka
 </p>
 </div>
 </div>
+</section>
+
+<section id="outline-container-orgbe2d3e5" class="outline-2">
+<h2 id="orgbe2d3e5"><span class="section-number-2">17</span> Kafka</h2>
+<div class="outline-text-2" id="text-17">
+</div>
 <div id="outline-container-orga7f8d11" class="outline-3">
-<h3 id="orga7f8d11"><span class="section-number-3">11.79</span> kafka 可以脱离 zookeeper 单独使用吗？为什么？</h3>
-<div class="outline-text-3" id="text-11-79">
+<h3 id="orga7f8d11"><span class="section-number-3">17.1</span> kafka 可以脱离 zookeeper 单独使用吗？为什么？</h3>
+<div class="outline-text-3" id="text-17-1">
 <p>
 kafka 不能脱离 zookeeper 单独使用，因为 kafka 使用 zookeeper 管理和协调 kafka 的节点服务器。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org4bde414" class="outline-3">
-<h3 id="org4bde414"><span class="section-number-3">11.80</span> kafka 有几种数据保留的策略？</h3>
-<div class="outline-text-3" id="text-11-80">
+<h3 id="org4bde414"><span class="section-number-3">17.2</span> kafka 有几种数据保留的策略？</h3>
+<div class="outline-text-3" id="text-17-2">
 <p>
 kafka 有两种数据保存策略：按照过期时间保留和按照存储的消息大小保留。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org33aa278" class="outline-3">
-<h3 id="org33aa278"><span class="section-number-3">11.81</span> kafka 同时设置了 7 天和 10G 清除数据，到第五天的时候消息达到了 10G，这个时候 kafka 将如何处理？</h3>
-<div class="outline-text-3" id="text-11-81">
+<h3 id="org33aa278"><span class="section-number-3">17.3</span> kafka 同时设置了 7 天和 10G 清除数据，到第五天的时候消息达到了 10G，这个时候 kafka 将如何处理？</h3>
+<div class="outline-text-3" id="text-17-3">
 <p>
 这个时候 kafka 会执行数据清除工作，时间和大小不论那个满足条件，都会清空数据。
 </p>
 </div>
 </div>
+
 <div id="outline-container-orgd599d66" class="outline-3">
-<h3 id="orgd599d66"><span class="section-number-3">11.82</span> 什么情况会导致 kafka 运行变慢？</h3>
-<div class="outline-text-3" id="text-11-82">
+<h3 id="orgd599d66"><span class="section-number-3">17.4</span> 什么情况会导致 kafka 运行变慢？</h3>
+<div class="outline-text-3" id="text-17-4">
 <ul class="org-ul">
 <li>cpu 性能瓶颈</li>
 <li>磁盘读写瓶颈</li>
@@ -2783,9 +2964,10 @@ kafka 有两种数据保存策略：按照过期时间保留和按照存储的�
 </ul>
 </div>
 </div>
+
 <div id="outline-container-orga875cea" class="outline-3">
-<h3 id="orga875cea"><span class="section-number-3">11.83</span> 使用 kafka 集群需要注意什么？</h3>
-<div class="outline-text-3" id="text-11-83">
+<h3 id="orga875cea"><span class="section-number-3">17.5</span> 使用 kafka 集群需要注意什么？</h3>
+<div class="outline-text-3" id="text-17-5">
 <ul class="org-ul">
 <li>集群的数量不是越多越好，最好不要超过 7 个，因为节点越多，消息复制需要的时间就越长，整个群组的吞吐量就越低。</li>
 <li>集群数量最好是单数，因为超过一半故障集群就不能用了，设置为单数容错率更高。</li>
@@ -2795,12 +2977,12 @@ kafka 有两种数据保存策略：按照过期时间保留和按照存储的�
 </section>
 
 <section id="outline-container-orge7c3b13" class="outline-2">
-<h2 id="orge7c3b13"><span class="section-number-2">12</span> Zookeeper</h2>
-<div class="outline-text-2" id="text-12">
+<h2 id="orge7c3b13"><span class="section-number-2">18</span> Zookeeper</h2>
+<div class="outline-text-2" id="text-18">
 </div>
 <div id="outline-container-org3ad7adb" class="outline-3">
-<h3 id="org3ad7adb"><span class="section-number-3">12.1</span> zookeeper 是什么？</h3>
-<div class="outline-text-3" id="text-12-1">
+<h3 id="org3ad7adb"><span class="section-number-3">18.1</span> zookeeper 是什么？</h3>
+<div class="outline-text-3" id="text-18-1">
 <p>
 zookeeper 是一个分布式的，开放源码的分布式应用程序协调服务，是 google chubby 的开源实现，是 hadoop 和 hbase 的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。
 </p>
@@ -2808,8 +2990,8 @@ zookeeper 是一个分布式的，开放源码的分布式应用程序协调服�
 </div>
 
 <div id="outline-container-org4e7cd12" class="outline-3">
-<h3 id="org4e7cd12"><span class="section-number-3">12.2</span> zookeeper 都有哪些功能？</h3>
-<div class="outline-text-3" id="text-12-2">
+<h3 id="org4e7cd12"><span class="section-number-3">18.2</span> zookeeper 都有哪些功能？</h3>
+<div class="outline-text-3" id="text-18-2">
 <ul class="org-ul">
 <li>集群管理：监控节点存活状态、运行请求等。</li>
 <li>主节点选举：主节点挂掉了之后可以从备用的节点开始新一轮选主，主节点选举说的就是这个选举的过程，使用 zookeeper 可以协助完成这个过程。</li>
@@ -2820,8 +3002,8 @@ zookeeper 是一个分布式的，开放源码的分布式应用程序协调服�
 </div>
 
 <div id="outline-container-org67a3e84" class="outline-3">
-<h3 id="org67a3e84"><span class="section-number-3">12.3</span> zookeeper 有几种部署模式？</h3>
-<div class="outline-text-3" id="text-12-3">
+<h3 id="org67a3e84"><span class="section-number-3">18.3</span> zookeeper 有几种部署模式？</h3>
+<div class="outline-text-3" id="text-18-3">
 <p>
 zookeeper 有三种部署模式：
 </p>
@@ -2834,8 +3016,8 @@ zookeeper 有三种部署模式：
 </div>
 
 <div id="outline-container-org7200c42" class="outline-3">
-<h3 id="org7200c42"><span class="section-number-3">12.4</span> zookeeper 怎么保证主从节点的状态同步？</h3>
-<div class="outline-text-3" id="text-12-4">
+<h3 id="org7200c42"><span class="section-number-3">18.4</span> zookeeper 怎么保证主从节点的状态同步？</h3>
+<div class="outline-text-3" id="text-18-4">
 <p>
 zookeeper 的核心是原子广播，这个机制保证了各个 server 之间的同步。实现这个机制的协议叫做 zab 协议。 zab 协议有两种模式，分别是恢复模式（选主）和广播模式（同步）。当服务启动或者在领导者崩溃后，zab 就进入了恢复模式，当领导者被选举出来，且大多数 server 完成了和 leader 的状态同步以后，恢复模式就结束了。状态同步保证了 leader 和 server 具有相同的系统状态。
 </p>
@@ -2843,8 +3025,8 @@ zookeeper 的核心是原子广播，这个机制保证了各个 server 之间�
 </div>
 
 <div id="outline-container-org08ce561" class="outline-3">
-<h3 id="org08ce561"><span class="section-number-3">12.5</span> 集群中为什么要有主节点？</h3>
-<div class="outline-text-3" id="text-12-5">
+<h3 id="org08ce561"><span class="section-number-3">18.5</span> 集群中为什么要有主节点？</h3>
+<div class="outline-text-3" id="text-18-5">
 <p>
 在分布式环境中，有些业务逻辑只需要集群中的某一台机器进行执行，其他的机器可以共享这个结果，这样可以大大减少重复计算，提高性能，所以就需要主节点。
 </p>
@@ -2852,8 +3034,8 @@ zookeeper 的核心是原子广播，这个机制保证了各个 server 之间�
 </div>
 
 <div id="outline-container-orgbe259dc" class="outline-3">
-<h3 id="orgbe259dc"><span class="section-number-3">12.6</span> 集群中有 3 台服务器，其中一个节点宕机，这个时候 zookeeper 还可以使用吗？</h3>
-<div class="outline-text-3" id="text-12-6">
+<h3 id="orgbe259dc"><span class="section-number-3">18.6</span> 集群中有 3 台服务器，其中一个节点宕机，这个时候 zookeeper 还可以使用吗？</h3>
+<div class="outline-text-3" id="text-18-6">
 <p>
 可以继续使用，单数服务器只要没超过一半的服务器宕机就可以继续使用。
 </p>
@@ -2861,8 +3043,8 @@ zookeeper 的核心是原子广播，这个机制保证了各个 server 之间�
 </div>
 
 <div id="outline-container-orgfdca9db" class="outline-3">
-<h3 id="orgfdca9db"><span class="section-number-3">12.7</span> 说一下 zookeeper 的通知机制？</h3>
-<div class="outline-text-3" id="text-12-7">
+<h3 id="orgfdca9db"><span class="section-number-3">18.7</span> 说一下 zookeeper 的通知机制？</h3>
+<div class="outline-text-3" id="text-18-7">
 <p>
 客户端端会对某个 znode 建立一个 watcher 事件，当该 znode 发生变化时，这些客户端会收到 zookeeper 的通知，然后客户端可以根据 znode 变化来做出业务上的改变。
 </p>
@@ -2871,12 +3053,12 @@ zookeeper 的核心是原子广播，这个机制保证了各个 server 之间�
 </section>
 
 <section id="outline-container-org65e9d2a" class="outline-2">
-<h2 id="org65e9d2a"><span class="section-number-2">13</span> JVM</h2>
-<div class="outline-text-2" id="text-13">
+<h2 id="org65e9d2a"><span class="section-number-2">19</span> JVM</h2>
+<div class="outline-text-2" id="text-19">
 </div>
 <div id="outline-container-org74c0d66" class="outline-3">
-<h3 id="org74c0d66"><span class="section-number-3">13.1</span> 说一下 JVM 的主要组成部分？及其作用？</h3>
-<div class="outline-text-3" id="text-13-1">
+<h3 id="org74c0d66"><span class="section-number-3">19.1</span> 说一下 JVM 的主要组成部分？及其作用？</h3>
+<div class="outline-text-3" id="text-19-1">
 <ul class="org-ul">
 <li>类加载器（ClassLoader）</li>
 <li>运行时数据区（Runtime Data Area）</li>
@@ -2891,8 +3073,8 @@ zookeeper 的核心是原子广播，这个机制保证了各个 server 之间�
 </div>
 
 <div id="outline-container-org9601c25" class="outline-3">
-<h3 id="org9601c25"><span class="section-number-3">13.2</span> 说一下 JVM 运行时数据区？</h3>
-<div class="outline-text-3" id="text-13-2">
+<h3 id="org9601c25"><span class="section-number-3">19.2</span> 说一下 JVM 运行时数据区？</h3>
+<div class="outline-text-3" id="text-19-2">
 <p>
 不同虚拟机的运行时数据区可能略微有所不同，但都会遵从 Java 虚拟机规范， Java 虚拟机规范规定的区域分为以下 5 个部分：
 </p>
@@ -2907,8 +3089,8 @@ zookeeper 的核心是原子广播，这个机制保证了各个 server 之间�
 </div>
 
 <div id="outline-container-org60a1422" class="outline-3">
-<h3 id="org60a1422"><span class="section-number-3">13.3</span> 说一下堆栈的区别？</h3>
-<div class="outline-text-3" id="text-13-3">
+<h3 id="org60a1422"><span class="section-number-3">19.3</span> 说一下堆栈的区别？</h3>
+<div class="outline-text-3" id="text-19-3">
 <ul class="org-ul">
 <li>功能方面：堆是用来存放对象的，栈是用来执行程序的。</li>
 <li>共享性：堆是线程共享的，栈是线程私有的。</li>
@@ -2918,8 +3100,8 @@ zookeeper 的核心是原子广播，这个机制保证了各个 server 之间�
 </div>
 
 <div id="outline-container-orgefe8790" class="outline-3">
-<h3 id="orgefe8790"><span class="section-number-3">13.4</span> 队列和栈是什么？有什么区别？</h3>
-<div class="outline-text-3" id="text-13-4">
+<h3 id="orgefe8790"><span class="section-number-3">19.4</span> 队列和栈是什么？有什么区别？</h3>
+<div class="outline-text-3" id="text-19-4">
 <p>
 队列和栈都是被用来预存储数据的。
 </p>
@@ -2935,8 +3117,8 @@ zookeeper 的核心是原子广播，这个机制保证了各个 server 之间�
 </div>
 
 <div id="outline-container-orga2f5a3d" class="outline-3">
-<h3 id="orga2f5a3d"><span class="section-number-3">13.5</span> 什么是双亲委派模型？</h3>
-<div class="outline-text-3" id="text-13-5">
+<h3 id="orga2f5a3d"><span class="section-number-3">19.5</span> 什么是双亲委派模型？</h3>
+<div class="outline-text-3" id="text-19-5">
 <p>
 在介绍双亲委派模型之前先说下类加载器。对于任意一个类，都需要由加载它的类加载器和这个类本身一同确立在 JVM 中的唯一性，每一个类加载器，都有一个独立的类名称空间。类加载器就是根据指定全限定名称将 class 文件加载到 JVM 内存，然后再转化为 class 对象。
 </p>
@@ -2958,8 +3140,8 @@ zookeeper 的核心是原子广播，这个机制保证了各个 server 之间�
 </div>
 
 <div id="outline-container-org1e4f97c" class="outline-3">
-<h3 id="org1e4f97c"><span class="section-number-3">13.6</span> 说一下类装载的执行过程？</h3>
-<div class="outline-text-3" id="text-13-6">
+<h3 id="org1e4f97c"><span class="section-number-3">19.6</span> 说一下类装载的执行过程？</h3>
+<div class="outline-text-3" id="text-19-6">
 <p>
 类装载分为以下 5 个步骤：
 </p>
@@ -2974,8 +3156,8 @@ zookeeper 的核心是原子广播，这个机制保证了各个 server 之间�
 </div>
 
 <div id="outline-container-orgef4ed8b" class="outline-3">
-<h3 id="orgef4ed8b"><span class="section-number-3">13.7</span> 怎么判断对象是否可以被回收？</h3>
-<div class="outline-text-3" id="text-13-7">
+<h3 id="orgef4ed8b"><span class="section-number-3">19.7</span> 怎么判断对象是否可以被回收？</h3>
+<div class="outline-text-3" id="text-19-7">
 <p>
 一般有两种方法来判断：
 </p>
@@ -2987,8 +3169,8 @@ zookeeper 的核心是原子广播，这个机制保证了各个 server 之间�
 </div>
 
 <div id="outline-container-org9ae252d" class="outline-3">
-<h3 id="org9ae252d"><span class="section-number-3">13.8</span> Java 中都有哪些引用类型？</h3>
-<div class="outline-text-3" id="text-13-8">
+<h3 id="org9ae252d"><span class="section-number-3">19.8</span> Java 中都有哪些引用类型？</h3>
+<div class="outline-text-3" id="text-19-8">
 <ul class="org-ul">
 <li>强引用：发生 gc 的时候不会被回收。</li>
 <li>软引用：有用但不是必须的对象，在发生内存溢出之前会被回收。</li>
@@ -2999,8 +3181,8 @@ zookeeper 的核心是原子广播，这个机制保证了各个 server 之间�
 </div>
 
 <div id="outline-container-org7ed8358" class="outline-3">
-<h3 id="org7ed8358"><span class="section-number-3">13.9</span> 说一下 JVM 有哪些垃圾回收算法？</h3>
-<div class="outline-text-3" id="text-13-9">
+<h3 id="org7ed8358"><span class="section-number-3">19.9</span> 说一下 JVM 有哪些垃圾回收算法？</h3>
+<div class="outline-text-3" id="text-19-9">
 <ul class="org-ul">
 <li>标记-清除算法：标记无用对象，然后进行清除回收。缺点：效率不高，无法清除垃圾碎片。</li>
 <li>标记-整理算法：标记无用对象，让所有存活的对象都向一端移动，然后直接清除掉端边界以外的内存。</li>
@@ -3011,8 +3193,8 @@ zookeeper 的核心是原子广播，这个机制保证了各个 server 之间�
 </div>
 
 <div id="outline-container-org10b8d67" class="outline-3">
-<h3 id="org10b8d67"><span class="section-number-3">13.10</span> 说一下 JVM 有哪些垃圾回收器？</h3>
-<div class="outline-text-3" id="text-13-10">
+<h3 id="org10b8d67"><span class="section-number-3">19.10</span> 说一下 JVM 有哪些垃圾回收器？</h3>
+<div class="outline-text-3" id="text-19-10">
 <ul class="org-ul">
 <li>Serial：最早的单线程串行垃圾回收器。</li>
 <li>Serial Old：Serial 垃圾回收器的老年版本，同样也是单线程的，可以作为 CMS 垃圾回收器的备选预案。</li>
@@ -3026,8 +3208,8 @@ zookeeper 的核心是原子广播，这个机制保证了各个 server 之间�
 </div>
 
 <div id="outline-container-orgb9218ea" class="outline-3">
-<h3 id="orgb9218ea"><span class="section-number-3">13.11</span> 详细介绍一下 CMS 垃圾回收器？</h3>
-<div class="outline-text-3" id="text-13-11">
+<h3 id="orgb9218ea"><span class="section-number-3">19.11</span> 详细介绍一下 CMS 垃圾回收器？</h3>
+<div class="outline-text-3" id="text-19-11">
 <p>
 CMS 是英文 Concurrent Mark-Sweep 的简称，是以牺牲吞吐量为代价来获得最短回收停顿时间的垃圾回收器。对于要求服务器响应速度的应用上，这种垃圾回收器非常适合。在启动 JVM 的参数加上“-XX:+UseConcMarkSweepGC”来指定使用 CMS 垃圾回收器。
 </p>
@@ -3039,8 +3221,8 @@ CMS 使用的是标记-清除的算法实现的，所以在 gc 的时候回产�
 </div>
 
 <div id="outline-container-org2bef7c1" class="outline-3">
-<h3 id="org2bef7c1"><span class="section-number-3">13.12</span> 新生代垃圾回收器和老生代垃圾回收器都有哪些？有什么区别？</h3>
-<div class="outline-text-3" id="text-13-12">
+<h3 id="org2bef7c1"><span class="section-number-3">19.12</span> 新生代垃圾回收器和老生代垃圾回收器都有哪些？有什么区别？</h3>
+<div class="outline-text-3" id="text-19-12">
 <ul class="org-ul">
 <li>新生代回收器：Serial、ParNew、Parallel Scavenge</li>
 <li>老年代回收器：Serial Old、Parallel Old、CMS</li>
@@ -3054,8 +3236,8 @@ CMS 使用的是标记-清除的算法实现的，所以在 gc 的时候回产�
 </div>
 
 <div id="outline-container-org14babe5" class="outline-3">
-<h3 id="org14babe5"><span class="section-number-3">13.13</span> 简述分代垃圾回收器是怎么工作的？</h3>
-<div class="outline-text-3" id="text-13-13">
+<h3 id="org14babe5"><span class="section-number-3">19.13</span> 简述分代垃圾回收器是怎么工作的？</h3>
+<div class="outline-text-3" id="text-19-13">
 <p>
 分代回收器有两个分区：老生代和新生代，新生代默认的空间占比总空间的 1/3，老生代的默认占比是 2/3。
 </p>
@@ -3078,8 +3260,8 @@ CMS 使用的是标记-清除的算法实现的，所以在 gc 的时候回产�
 </div>
 
 <div id="outline-container-org78d30f5" class="outline-3">
-<h3 id="org78d30f5"><span class="section-number-3">13.14</span> 说一下 JVM 调优的工具？</h3>
-<div class="outline-text-3" id="text-13-14">
+<h3 id="org78d30f5"><span class="section-number-3">19.14</span> 说一下 JVM 调优的工具？</h3>
+<div class="outline-text-3" id="text-19-14">
 <p>
 JDK 自带了很多监控工具，都位于 JDK 的 bin 目录下，其中最常用的是 jconsole 和 jvisualvm 这两款视图监控工具。
 </p>
@@ -3091,8 +3273,8 @@ JDK 自带了很多监控工具，都位于 JDK 的 bin 目录下，其中最常
 </div>
 
 <div id="outline-container-org2860b75" class="outline-3">
-<h3 id="org2860b75"><span class="section-number-3">13.15</span> 常用的 JVM 调优的参数都有哪些？</h3>
-<div class="outline-text-3" id="text-13-15">
+<h3 id="org2860b75"><span class="section-number-3">19.15</span> 常用的 JVM 调优的参数都有哪些？</h3>
+<div class="outline-text-3" id="text-19-15">
 <ul class="org-ul">
 <li>-Xms2g：初始化推大小为 2g；</li>
 <li>-Xmx2g：堆最大内存为 2g；</li>
@@ -3110,7 +3292,7 @@ JDK 自带了很多监控工具，都位于 JDK 的 bin 目录下，其中最常
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2019-03-14 周四 03:59</p>
+<p class="date">Created: 2019-03-14 周四 04:03</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
