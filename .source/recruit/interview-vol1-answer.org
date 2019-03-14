@@ -1,5 +1,6 @@
 #+TITLE: 208道面试题，答案
 
+
 由方成龙提供！感谢！
 
 
@@ -245,17 +246,17 @@ Java 容器分为 Collection 和 Map 两大类，其下又有很多子类，如�
 
 - Collection
 - List
-o	ArrayList
-o	LinkedList
-o	Vector
-o	Stack
+  + ArrayList
+  + LinkedList
+  + Vector
+  + Stack
 - Set
-o	HashSet
-o	LinkedHashSet
-o	TreeSet
+  + HashSet
+  + LinkedHashSet
+  + TreeSet
 - Map
 - HashMap
-o	LinkedHashMap
+  + LinkedHashMap
 - TreeMap
 - ConcurrentHashMap
 - Hashtable
@@ -268,6 +269,7 @@ o	LinkedHashMap
 ** List、Set、Map 之间的区别是什么？
 
 List、Set、Map 的区别主要体现在两个方面：元素是否有序、是否允许元素重复。
+
 三者之间的区别，如下表：
  
 ** HashMap 和 Hashtable 有什么区别？
@@ -283,6 +285,7 @@ List、Set、Map 的区别主要体现在两个方面：元素是否有序、是
 ** 说一下 HashMap 的实现原理？
 
 HashMap 基于 Hash 算法实现的，我们通过 put(key,value)存储，get(key)来获取。当传入 key 时，HashMap 会根据 key. hashCode() 计算出 hash 值，根据 hash 值将 value 保存在 bucket 里。当计算出的 hash 值相同时，我们称之为 hash 冲突，HashMap 的做法是用链表和红黑树存储相同 hash 值的 value。当 hash 冲突的个数比较少时，使用链表否则使用红黑树。
+
 ** 说一下 HashSet 的实现原理？
 
 HashSet 是基于 HashMap 实现的，HashSet 底层使用 HashMap 来保存所有元素，因此 HashSet 的实现比较简单，相关 HashSet 的操作，基本上都是直接调用底层 HashMap 的相关方法来完成，HashSet 不允许重复的值。
@@ -388,6 +391,7 @@ Iterator 的特点是更加安全，因为它可以确保，在当前遍历的�
 如下图：
  
 并发 = 两个队列和一台咖啡机。
+
 并行 = 两个队列和两台咖啡机。
 
 ** 线程和进程的区别？
@@ -468,7 +472,7 @@ Callable 类型的任务可以获取执行的返回值，而 Runnable 执行无�
 手动锁 Java 示例代码如下：
 #+BEGIN_SRC java
   Lock lock = new ReentrantLock();
-  lock. lock();
+  lock.lock();
   try {
       System. out. println("获得锁");
   } catch (Exception e) {
@@ -482,6 +486,7 @@ Callable 类型的任务可以获取执行的返回值，而 Runnable 执行无�
 ** 多线程中 synchronized 锁升级的原理是什么？
 
 synchronized 锁升级原理：在锁对象的对象头里面有一个 threadid 字段，在第一次访问的时候 threadid 为空，jvm 让其持有偏向锁，并将 threadid 设置为其线程 id，再次进入的时候会先判断 threadid 是否与其线程 id 一致，如果一致则可以直接使用此对象，如果不一致，则升级偏向锁为轻量级锁，通过自旋循环一定次数来获取锁，执行一定次数之后，如果还没有正常获取到要使用的对象，此时就会把锁从轻量级升级为重量级锁，此过程就构成了 synchronized 锁的升级。
+
 锁的升级的目的：锁升级是为了减低了锁带来的性能消耗。在 Java 6 之后优化 synchronized 的实现方式，使用了偏向锁升级为轻量级锁再升级到重量级锁的方式，从而减低了锁带来的性能消耗。
 
 ** 什么是死锁？

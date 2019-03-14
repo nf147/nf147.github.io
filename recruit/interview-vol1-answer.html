@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-03-14 周四 04:05 -->
+<!-- 2019-03-14 周四 06:00 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>208道面试题，答案</title>
@@ -729,30 +729,24 @@ Java 容器分为 Collection 和 Map 两大类，其下又有很多子类，如�
 
 <ul class="org-ul">
 <li>Collection</li>
-<li>List</li>
-</ul>
-<p>
-o	ArrayList
-o	LinkedList
-o	Vector
-o	Stack
-</p>
+<li>List
 <ul class="org-ul">
-<li>Set</li>
-</ul>
-<p>
-o	HashSet
-o	LinkedHashSet
-o	TreeSet
-</p>
+<li>ArrayList</li>
+<li>LinkedList</li>
+<li>Vector</li>
+<li>Stack</li>
+</ul></li>
+<li>Set
 <ul class="org-ul">
+<li>HashSet</li>
+<li>LinkedHashSet</li>
+<li>TreeSet</li>
+</ul></li>
 <li>Map</li>
-<li>HashMap</li>
-</ul>
-<p>
-o	LinkedHashMap
-</p>
+<li>HashMap
 <ul class="org-ul">
+<li>LinkedHashMap</li>
+</ul></li>
 <li>TreeMap</li>
 <li>ConcurrentHashMap</li>
 <li>Hashtable</li>
@@ -775,6 +769,9 @@ o	LinkedHashMap
 <div class="outline-text-3" id="text-2-3">
 <p>
 List、Set、Map 的区别主要体现在两个方面：元素是否有序、是否允许元素重复。
+</p>
+
+<p>
 三者之间的区别，如下表：
 </p>
 </div>
@@ -808,6 +805,7 @@ HashMap 基于 Hash 算法实现的，我们通过 put(key,value)存储，get(ke
 </p>
 </div>
 </div>
+
 <div id="outline-container-orgdb29181" class="outline-3">
 <h3 id="orgdb29181"><span class="section-number-3">2.7</span> 说一下 HashSet 的实现原理？</h3>
 <div class="outline-text-3" id="text-2-7">
@@ -992,6 +990,9 @@ System. out. println(list. size());
 
 <p>
 并发 = 两个队列和一台咖啡机。
+</p>
+
+<p>
 并行 = 两个队列和两台咖啡机。
 </p>
 </div>
@@ -1143,7 +1144,7 @@ Callable 类型的任务可以获取执行的返回值，而 Runnable 执行无�
 </p>
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-type">Lock</span> <span class="org-variable-name">lock</span> = <span class="org-keyword">new</span> <span class="org-type">ReentrantLock</span>();
-lock. lock();
+lock.lock();
 <span class="org-keyword">try</span> {
     System. out. println(<span class="org-string">"&#33719;&#24471;&#38145;"</span>);
 } <span class="org-keyword">catch</span> (<span class="org-type">Exception</span> <span class="org-variable-name">e</span>) {
@@ -1162,6 +1163,9 @@ lock. lock();
 <div class="outline-text-3" id="text-3-14">
 <p>
 synchronized 锁升级原理：在锁对象的对象头里面有一个 threadid 字段，在第一次访问的时候 threadid 为空，jvm 让其持有偏向锁，并将 threadid 设置为其线程 id，再次进入的时候会先判断 threadid 是否与其线程 id 一致，如果一致则可以直接使用此对象，如果不一致，则升级偏向锁为轻量级锁，通过自旋循环一定次数来获取锁，执行一定次数之后，如果还没有正常获取到要使用的对象，此时就会把锁从轻量级升级为重量级锁，此过程就构成了 synchronized 锁的升级。
+</p>
+
+<p>
 锁的升级的目的：锁升级是为了减低了锁带来的性能消耗。在 Java 6 之后优化 synchronized 的实现方式，使用了偏向锁升级为轻量级锁再升级到重量级锁的方式，从而减低了锁带来的性能消耗。
 </p>
 </div>
@@ -3293,7 +3297,7 @@ JDK 自带了很多监控工具，都位于 JDK 的 bin 目录下，其中最常
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2019-03-14 周四 04:05</p>
+<p class="date">Created: 2019-03-14 周四 06:00</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
