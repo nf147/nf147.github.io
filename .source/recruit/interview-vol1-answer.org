@@ -205,6 +205,9 @@ String 不属于基础类型，基础类型有 8 种：byte、boolean、char、s
 ** 抽象类能使用 final 修饰吗？
 
 不能，定义抽象类就是让其他类继承的，如果定义为 final 该类就不能被继承，这样彼此就会产生矛盾，所以 final 不能修饰抽象类，如下图所示，编辑器也会提示错误信息：
+
+#+DOWNLOADED: c:/Users/nf147/AppData/Local/Temp/clip.png @ 2019-03-14 06:09:16
+[[file:clip_2019-03-14_06-09-16.png]]
  
 ** 接口和抽象类有什么区别？
 
@@ -271,6 +274,10 @@ Java 容器分为 Collection 和 Map 两大类，其下又有很多子类，如�
 List、Set、Map 的区别主要体现在两个方面：元素是否有序、是否允许元素重复。
 
 三者之间的区别，如下表：
+
+
+#+DOWNLOADED: c:/Users/nf147/AppData/Local/Temp/clip.png @ 2019-03-14 06:09:46
+[[file:clip_2019-03-14_06-09-46.png]]
  
 ** HashMap 和 Hashtable 有什么区别？
 
@@ -389,6 +396,10 @@ Iterator 的特点是更加安全，因为它可以确保，在当前遍历的�
 - 并发：多个任务在同一个 CPU 核上，按细分的时间片轮流(交替)执行，从逻辑上来看那些任务是同时执行。
 
 如下图：
+
+
+#+DOWNLOADED: c:/Users/nf147/AppData/Local/Temp/clip.png @ 2019-03-14 06:10:12
+[[file:clip_2019-03-14_06-10-12.png]]
  
 并发 = 两个队列和一台咖啡机。
 
