@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-03-14 周四 03:57 -->
+<!-- 2019-03-14 周四 03:59 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>208道面试题</title>
@@ -270,28 +270,36 @@
 <li><a href="#org33aa278">11.81. kafka 同时设置了 7 天和 10G 清除数据，到第五天的时候消息达到了 10G，这个时候 kafka 将如何处理？</a></li>
 <li><a href="#orgd599d66">11.82. 什么情况会导致 kafka 运行变慢？</a></li>
 <li><a href="#orga875cea">11.83. 使用 kafka 集群需要注意什么？</a></li>
-<li><a href="#org3ad7adb">11.84. zookeeper 是什么？</a></li>
-<li><a href="#org4e7cd12">11.85. zookeeper 都有哪些功能？</a></li>
-<li><a href="#org67a3e84">11.86. zookeeper 有几种部署模式？</a></li>
-<li><a href="#org7200c42">11.87. zookeeper 怎么保证主从节点的状态同步？</a></li>
-<li><a href="#org08ce561">11.88. 集群中为什么要有主节点？</a></li>
-<li><a href="#orgbe259dc">11.89. 集群中有 3 台服务器，其中一个节点宕机，这个时候 zookeeper 还可以使用吗？</a></li>
-<li><a href="#orgfdca9db">11.90. 说一下 zookeeper 的通知机制？</a></li>
-<li><a href="#org74c0d66">11.91. 说一下 JVM 的主要组成部分？及其作用？</a></li>
-<li><a href="#org9601c25">11.92. 说一下 JVM 运行时数据区？</a></li>
-<li><a href="#org60a1422">11.93. 说一下堆栈的区别？</a></li>
-<li><a href="#orgefe8790">11.94. 队列和栈是什么？有什么区别？</a></li>
-<li><a href="#orga2f5a3d">11.95. 什么是双亲委派模型？</a></li>
-<li><a href="#org1e4f97c">11.96. 说一下类装载的执行过程？</a></li>
-<li><a href="#orgef4ed8b">11.97. 怎么判断对象是否可以被回收？</a></li>
-<li><a href="#org9ae252d">11.98. Java 中都有哪些引用类型？</a></li>
-<li><a href="#org7ed8358">11.99. 说一下 JVM 有哪些垃圾回收算法？</a></li>
-<li><a href="#org10b8d67">11.100. 说一下 JVM 有哪些垃圾回收器？</a></li>
-<li><a href="#orgb9218ea">11.101. 详细介绍一下 CMS 垃圾回收器？</a></li>
-<li><a href="#org2bef7c1">11.102. 新生代垃圾回收器和老生代垃圾回收器都有哪些？有什么区别？</a></li>
-<li><a href="#org14babe5">11.103. 简述分代垃圾回收器是怎么工作的？</a></li>
-<li><a href="#org78d30f5">11.104. 说一下 JVM 调优的工具？</a></li>
-<li><a href="#org2860b75">11.105. 常用的 JVM 调优的参数都有哪些？</a></li>
+</ul>
+</li>
+<li><a href="#orge7c3b13">12. Zookeeper</a>
+<ul>
+<li><a href="#org3ad7adb">12.1. zookeeper 是什么？</a></li>
+<li><a href="#org4e7cd12">12.2. zookeeper 都有哪些功能？</a></li>
+<li><a href="#org67a3e84">12.3. zookeeper 有几种部署模式？</a></li>
+<li><a href="#org7200c42">12.4. zookeeper 怎么保证主从节点的状态同步？</a></li>
+<li><a href="#org08ce561">12.5. 集群中为什么要有主节点？</a></li>
+<li><a href="#orgbe259dc">12.6. 集群中有 3 台服务器，其中一个节点宕机，这个时候 zookeeper 还可以使用吗？</a></li>
+<li><a href="#orgfdca9db">12.7. 说一下 zookeeper 的通知机制？</a></li>
+</ul>
+</li>
+<li><a href="#org65e9d2a">13. JVM</a>
+<ul>
+<li><a href="#org74c0d66">13.1. 说一下 JVM 的主要组成部分？及其作用？</a></li>
+<li><a href="#org9601c25">13.2. 说一下 JVM 运行时数据区？</a></li>
+<li><a href="#org60a1422">13.3. 说一下堆栈的区别？</a></li>
+<li><a href="#orgefe8790">13.4. 队列和栈是什么？有什么区别？</a></li>
+<li><a href="#orga2f5a3d">13.5. 什么是双亲委派模型？</a></li>
+<li><a href="#org1e4f97c">13.6. 说一下类装载的执行过程？</a></li>
+<li><a href="#orgef4ed8b">13.7. 怎么判断对象是否可以被回收？</a></li>
+<li><a href="#org9ae252d">13.8. Java 中都有哪些引用类型？</a></li>
+<li><a href="#org7ed8358">13.9. 说一下 JVM 有哪些垃圾回收算法？</a></li>
+<li><a href="#org10b8d67">13.10. 说一下 JVM 有哪些垃圾回收器？</a></li>
+<li><a href="#orgb9218ea">13.11. 详细介绍一下 CMS 垃圾回收器？</a></li>
+<li><a href="#org2bef7c1">13.12. 新生代垃圾回收器和老生代垃圾回收器都有哪些？有什么区别？</a></li>
+<li><a href="#org14babe5">13.13. 简述分代垃圾回收器是怎么工作的？</a></li>
+<li><a href="#org78d30f5">13.14. 说一下 JVM 调优的工具？</a></li>
+<li><a href="#org2860b75">13.15. 常用的 JVM 调优的参数都有哪些？</a></li>
 </ul>
 </li>
 </ul>
@@ -2782,22 +2790,26 @@ kafka 有两种数据保存策略：按照过期时间保留和按照存储的�
 <li>集群的数量不是越多越好，最好不要超过 7 个，因为节点越多，消息复制需要的时间就越长，整个群组的吞吐量就越低。</li>
 <li>集群数量最好是单数，因为超过一半故障集群就不能用了，设置为单数容错率更高。</li>
 </ul>
-<p>
-Zookeeper
-</p>
 </div>
+</div>
+</section>
+
+<section id="outline-container-orge7c3b13" class="outline-2">
+<h2 id="orge7c3b13"><span class="section-number-2">12</span> Zookeeper</h2>
+<div class="outline-text-2" id="text-12">
 </div>
 <div id="outline-container-org3ad7adb" class="outline-3">
-<h3 id="org3ad7adb"><span class="section-number-3">11.84</span> zookeeper 是什么？</h3>
-<div class="outline-text-3" id="text-11-84">
+<h3 id="org3ad7adb"><span class="section-number-3">12.1</span> zookeeper 是什么？</h3>
+<div class="outline-text-3" id="text-12-1">
 <p>
 zookeeper 是一个分布式的，开放源码的分布式应用程序协调服务，是 google chubby 的开源实现，是 hadoop 和 hbase 的重要组件。它是一个为分布式应用提供一致性服务的软件，提供的功能包括：配置维护、域名服务、分布式同步、组服务等。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org4e7cd12" class="outline-3">
-<h3 id="org4e7cd12"><span class="section-number-3">11.85</span> zookeeper 都有哪些功能？</h3>
-<div class="outline-text-3" id="text-11-85">
+<h3 id="org4e7cd12"><span class="section-number-3">12.2</span> zookeeper 都有哪些功能？</h3>
+<div class="outline-text-3" id="text-12-2">
 <ul class="org-ul">
 <li>集群管理：监控节点存活状态、运行请求等。</li>
 <li>主节点选举：主节点挂掉了之后可以从备用的节点开始新一轮选主，主节点选举说的就是这个选举的过程，使用 zookeeper 可以协助完成这个过程。</li>
@@ -2806,9 +2818,10 @@ zookeeper 是一个分布式的，开放源码的分布式应用程序协调服�
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org67a3e84" class="outline-3">
-<h3 id="org67a3e84"><span class="section-number-3">11.86</span> zookeeper 有几种部署模式？</h3>
-<div class="outline-text-3" id="text-11-86">
+<h3 id="org67a3e84"><span class="section-number-3">12.3</span> zookeeper 有几种部署模式？</h3>
+<div class="outline-text-3" id="text-12-3">
 <p>
 zookeeper 有三种部署模式：
 </p>
@@ -2819,56 +2832,67 @@ zookeeper 有三种部署模式：
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org7200c42" class="outline-3">
-<h3 id="org7200c42"><span class="section-number-3">11.87</span> zookeeper 怎么保证主从节点的状态同步？</h3>
-<div class="outline-text-3" id="text-11-87">
+<h3 id="org7200c42"><span class="section-number-3">12.4</span> zookeeper 怎么保证主从节点的状态同步？</h3>
+<div class="outline-text-3" id="text-12-4">
 <p>
 zookeeper 的核心是原子广播，这个机制保证了各个 server 之间的同步。实现这个机制的协议叫做 zab 协议。 zab 协议有两种模式，分别是恢复模式（选主）和广播模式（同步）。当服务启动或者在领导者崩溃后，zab 就进入了恢复模式，当领导者被选举出来，且大多数 server 完成了和 leader 的状态同步以后，恢复模式就结束了。状态同步保证了 leader 和 server 具有相同的系统状态。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org08ce561" class="outline-3">
-<h3 id="org08ce561"><span class="section-number-3">11.88</span> 集群中为什么要有主节点？</h3>
-<div class="outline-text-3" id="text-11-88">
+<h3 id="org08ce561"><span class="section-number-3">12.5</span> 集群中为什么要有主节点？</h3>
+<div class="outline-text-3" id="text-12-5">
 <p>
 在分布式环境中，有些业务逻辑只需要集群中的某一台机器进行执行，其他的机器可以共享这个结果，这样可以大大减少重复计算，提高性能，所以就需要主节点。
 </p>
 </div>
 </div>
+
 <div id="outline-container-orgbe259dc" class="outline-3">
-<h3 id="orgbe259dc"><span class="section-number-3">11.89</span> 集群中有 3 台服务器，其中一个节点宕机，这个时候 zookeeper 还可以使用吗？</h3>
-<div class="outline-text-3" id="text-11-89">
+<h3 id="orgbe259dc"><span class="section-number-3">12.6</span> 集群中有 3 台服务器，其中一个节点宕机，这个时候 zookeeper 还可以使用吗？</h3>
+<div class="outline-text-3" id="text-12-6">
 <p>
 可以继续使用，单数服务器只要没超过一半的服务器宕机就可以继续使用。
 </p>
 </div>
 </div>
+
 <div id="outline-container-orgfdca9db" class="outline-3">
-<h3 id="orgfdca9db"><span class="section-number-3">11.90</span> 说一下 zookeeper 的通知机制？</h3>
-<div class="outline-text-3" id="text-11-90">
+<h3 id="orgfdca9db"><span class="section-number-3">12.7</span> 说一下 zookeeper 的通知机制？</h3>
+<div class="outline-text-3" id="text-12-7">
 <p>
 客户端端会对某个 znode 建立一个 watcher 事件，当该 znode 发生变化时，这些客户端会收到 zookeeper 的通知，然后客户端可以根据 znode 变化来做出业务上的改变。
-JVM
 </p>
 </div>
 </div>
+</section>
+
+<section id="outline-container-org65e9d2a" class="outline-2">
+<h2 id="org65e9d2a"><span class="section-number-2">13</span> JVM</h2>
+<div class="outline-text-2" id="text-13">
+</div>
 <div id="outline-container-org74c0d66" class="outline-3">
-<h3 id="org74c0d66"><span class="section-number-3">11.91</span> 说一下 JVM 的主要组成部分？及其作用？</h3>
-<div class="outline-text-3" id="text-11-91">
+<h3 id="org74c0d66"><span class="section-number-3">13.1</span> 说一下 JVM 的主要组成部分？及其作用？</h3>
+<div class="outline-text-3" id="text-13-1">
 <ul class="org-ul">
 <li>类加载器（ClassLoader）</li>
 <li>运行时数据区（Runtime Data Area）</li>
 <li>执行引擎（Execution Engine）</li>
 <li>本地库接口（Native Interface）</li>
 </ul>
+
 <p>
 组件的作用： 首先通过类加载器（ClassLoader）会把 Java 代码转换成字节码，运行时数据区（Runtime Data Area）再把字节码加载到内存中，而字节码文件只是 JVM 的一套指令集规范，并不能直接交个底层操作系统去执行，因此需要特定的命令解析器执行引擎（Execution Engine），将字节码翻译成底层系统指令，再交由 CPU 去执行，而这个过程中需要调用其他语言的本地库接口（Native Interface）来实现整个程序的功能。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org9601c25" class="outline-3">
-<h3 id="org9601c25"><span class="section-number-3">11.92</span> 说一下 JVM 运行时数据区？</h3>
-<div class="outline-text-3" id="text-11-92">
+<h3 id="org9601c25"><span class="section-number-3">13.2</span> 说一下 JVM 运行时数据区？</h3>
+<div class="outline-text-3" id="text-13-2">
 <p>
 不同虚拟机的运行时数据区可能略微有所不同，但都会遵从 Java 虚拟机规范， Java 虚拟机规范规定的区域分为以下 5 个部分：
 </p>
@@ -2881,9 +2905,10 @@ JVM
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org60a1422" class="outline-3">
-<h3 id="org60a1422"><span class="section-number-3">11.93</span> 说一下堆栈的区别？</h3>
-<div class="outline-text-3" id="text-11-93">
+<h3 id="org60a1422"><span class="section-number-3">13.3</span> 说一下堆栈的区别？</h3>
+<div class="outline-text-3" id="text-13-3">
 <ul class="org-ul">
 <li>功能方面：堆是用来存放对象的，栈是用来执行程序的。</li>
 <li>共享性：堆是线程共享的，栈是线程私有的。</li>
@@ -2891,21 +2916,32 @@ JVM
 </ul>
 </div>
 </div>
+
 <div id="outline-container-orgefe8790" class="outline-3">
-<h3 id="orgefe8790"><span class="section-number-3">11.94</span> 队列和栈是什么？有什么区别？</h3>
-<div class="outline-text-3" id="text-11-94">
+<h3 id="orgefe8790"><span class="section-number-3">13.4</span> 队列和栈是什么？有什么区别？</h3>
+<div class="outline-text-3" id="text-13-4">
 <p>
 队列和栈都是被用来预存储数据的。
+</p>
+
+<p>
 队列允许先进先出检索元素，但也有例外的情况，Deque 接口允许从两端检索元素。
+</p>
+
+<p>
 栈和队列很相似，但它运行对元素进行后进先出进行检索。
 </p>
 </div>
 </div>
+
 <div id="outline-container-orga2f5a3d" class="outline-3">
-<h3 id="orga2f5a3d"><span class="section-number-3">11.95</span> 什么是双亲委派模型？</h3>
-<div class="outline-text-3" id="text-11-95">
+<h3 id="orga2f5a3d"><span class="section-number-3">13.5</span> 什么是双亲委派模型？</h3>
+<div class="outline-text-3" id="text-13-5">
 <p>
 在介绍双亲委派模型之前先说下类加载器。对于任意一个类，都需要由加载它的类加载器和这个类本身一同确立在 JVM 中的唯一性，每一个类加载器，都有一个独立的类名称空间。类加载器就是根据指定全限定名称将 class 文件加载到 JVM 内存，然后再转化为 class 对象。
+</p>
+
+<p>
 类加载器分类：
 </p>
 <ul class="org-ul">
@@ -2914,14 +2950,16 @@ JVM
 <li>扩展类加载器（Extension ClassLoader）：负责加载\lib\ext目录或Java. ext. dirs系统变量指定的路径中的所有类库；</li>
 <li>应用程序类加载器（Application ClassLoader）。负责加载用户类路径（classpath）上的指定类库，我们可以直接使用这个类加载器。一般情况，如果我们没有自定义类加载器默认就是用这个加载器。</li>
 </ul>
+
 <p>
 双亲委派模型：如果一个类加载器收到了类加载的请求，它首先不会自己去加载这个类，而是把这个请求委派给父类加载器去完成，每一层的类加载器都是如此，这样所有的加载请求都会被传送到顶层的启动类加载器中，只有当父加载无法完成加载请求（它的搜索范围中没找到所需的类）时，子加载器才会尝试去加载类。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org1e4f97c" class="outline-3">
-<h3 id="org1e4f97c"><span class="section-number-3">11.96</span> 说一下类装载的执行过程？</h3>
-<div class="outline-text-3" id="text-11-96">
+<h3 id="org1e4f97c"><span class="section-number-3">13.6</span> 说一下类装载的执行过程？</h3>
+<div class="outline-text-3" id="text-13-6">
 <p>
 类装载分为以下 5 个步骤：
 </p>
@@ -2934,9 +2972,10 @@ JVM
 </ul>
 </div>
 </div>
+
 <div id="outline-container-orgef4ed8b" class="outline-3">
-<h3 id="orgef4ed8b"><span class="section-number-3">11.97</span> 怎么判断对象是否可以被回收？</h3>
-<div class="outline-text-3" id="text-11-97">
+<h3 id="orgef4ed8b"><span class="section-number-3">13.7</span> 怎么判断对象是否可以被回收？</h3>
+<div class="outline-text-3" id="text-13-7">
 <p>
 一般有两种方法来判断：
 </p>
@@ -2946,9 +2985,10 @@ JVM
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org9ae252d" class="outline-3">
-<h3 id="org9ae252d"><span class="section-number-3">11.98</span> Java 中都有哪些引用类型？</h3>
-<div class="outline-text-3" id="text-11-98">
+<h3 id="org9ae252d"><span class="section-number-3">13.8</span> Java 中都有哪些引用类型？</h3>
+<div class="outline-text-3" id="text-13-8">
 <ul class="org-ul">
 <li>强引用：发生 gc 的时候不会被回收。</li>
 <li>软引用：有用但不是必须的对象，在发生内存溢出之前会被回收。</li>
@@ -2957,9 +2997,10 @@ JVM
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org7ed8358" class="outline-3">
-<h3 id="org7ed8358"><span class="section-number-3">11.99</span> 说一下 JVM 有哪些垃圾回收算法？</h3>
-<div class="outline-text-3" id="text-11-99">
+<h3 id="org7ed8358"><span class="section-number-3">13.9</span> 说一下 JVM 有哪些垃圾回收算法？</h3>
+<div class="outline-text-3" id="text-13-9">
 <ul class="org-ul">
 <li>标记-清除算法：标记无用对象，然后进行清除回收。缺点：效率不高，无法清除垃圾碎片。</li>
 <li>标记-整理算法：标记无用对象，让所有存活的对象都向一端移动，然后直接清除掉端边界以外的内存。</li>
@@ -2968,9 +3009,10 @@ JVM
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org10b8d67" class="outline-3">
-<h3 id="org10b8d67"><span class="section-number-3">11.100</span> 说一下 JVM 有哪些垃圾回收器？</h3>
-<div class="outline-text-3" id="text-11-100">
+<h3 id="org10b8d67"><span class="section-number-3">13.10</span> 说一下 JVM 有哪些垃圾回收器？</h3>
+<div class="outline-text-3" id="text-13-10">
 <ul class="org-ul">
 <li>Serial：最早的单线程串行垃圾回收器。</li>
 <li>Serial Old：Serial 垃圾回收器的老年版本，同样也是单线程的，可以作为 CMS 垃圾回收器的备选预案。</li>
@@ -2982,49 +3024,62 @@ JVM
 </ul>
 </div>
 </div>
+
 <div id="outline-container-orgb9218ea" class="outline-3">
-<h3 id="orgb9218ea"><span class="section-number-3">11.101</span> 详细介绍一下 CMS 垃圾回收器？</h3>
-<div class="outline-text-3" id="text-11-101">
+<h3 id="orgb9218ea"><span class="section-number-3">13.11</span> 详细介绍一下 CMS 垃圾回收器？</h3>
+<div class="outline-text-3" id="text-13-11">
 <p>
 CMS 是英文 Concurrent Mark-Sweep 的简称，是以牺牲吞吐量为代价来获得最短回收停顿时间的垃圾回收器。对于要求服务器响应速度的应用上，这种垃圾回收器非常适合。在启动 JVM 的参数加上“-XX:+UseConcMarkSweepGC”来指定使用 CMS 垃圾回收器。
+</p>
+
+<p>
 CMS 使用的是标记-清除的算法实现的，所以在 gc 的时候回产生大量的内存碎片，当剩余内存不能满足程序运行要求时，系统将会出现 Concurrent Mode Failure，临时 CMS 会采用 Serial Old 回收器进行垃圾清除，此时的性能将会被降低。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org2bef7c1" class="outline-3">
-<h3 id="org2bef7c1"><span class="section-number-3">11.102</span> 新生代垃圾回收器和老生代垃圾回收器都有哪些？有什么区别？</h3>
-<div class="outline-text-3" id="text-11-102">
+<h3 id="org2bef7c1"><span class="section-number-3">13.12</span> 新生代垃圾回收器和老生代垃圾回收器都有哪些？有什么区别？</h3>
+<div class="outline-text-3" id="text-13-12">
 <ul class="org-ul">
 <li>新生代回收器：Serial、ParNew、Parallel Scavenge</li>
 <li>老年代回收器：Serial Old、Parallel Old、CMS</li>
 <li>整堆回收器：G1</li>
 </ul>
+
 <p>
 新生代垃圾回收器一般采用的是复制算法，复制算法的优点是效率高，缺点是内存利用率低；老年代回收器一般采用的是标记-整理的算法进行垃圾回收。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org14babe5" class="outline-3">
-<h3 id="org14babe5"><span class="section-number-3">11.103</span> 简述分代垃圾回收器是怎么工作的？</h3>
-<div class="outline-text-3" id="text-11-103">
+<h3 id="org14babe5"><span class="section-number-3">13.13</span> 简述分代垃圾回收器是怎么工作的？</h3>
+<div class="outline-text-3" id="text-13-13">
 <p>
 分代回收器有两个分区：老生代和新生代，新生代默认的空间占比总空间的 1/3，老生代的默认占比是 2/3。
+</p>
+
+<p>
 新生代使用的是复制算法，新生代里有 3 个分区：Eden、To Survivor、From Survivor，它们的默认占比是 8:1:1，它的执行流程如下：
 </p>
+
 <ul class="org-ul">
 <li>把 Eden + From Survivor 存活的对象放入 To Survivor 区；</li>
 <li>清空 Eden 和 From Survivor 分区；</li>
 <li>From Survivor 和 To Survivor 分区交换，From Survivor 变 To Survivor，To Survivor 变 From Survivor。</li>
 </ul>
+
 <p>
 每次在 From Survivor 到 To Survivor 移动时都存活的对象，年龄就 +1，当年龄到达 15（默认配置是 15）时，升级为老生代。大对象也会直接进入老生代。
 老生代当空间占用到达某个值之后就会触发全局垃圾收回，一般使用标记整理的执行算法。以上这些循环往复就构成了整个分代垃圾回收的整体执行流程。
 </p>
 </div>
 </div>
+
 <div id="outline-container-org78d30f5" class="outline-3">
-<h3 id="org78d30f5"><span class="section-number-3">11.104</span> 说一下 JVM 调优的工具？</h3>
-<div class="outline-text-3" id="text-11-104">
+<h3 id="org78d30f5"><span class="section-number-3">13.14</span> 说一下 JVM 调优的工具？</h3>
+<div class="outline-text-3" id="text-13-14">
 <p>
 JDK 自带了很多监控工具，都位于 JDK 的 bin 目录下，其中最常用的是 jconsole 和 jvisualvm 这两款视图监控工具。
 </p>
@@ -3034,9 +3089,10 @@ JDK 自带了很多监控工具，都位于 JDK 的 bin 目录下，其中最常
 </ul>
 </div>
 </div>
+
 <div id="outline-container-org2860b75" class="outline-3">
-<h3 id="org2860b75"><span class="section-number-3">11.105</span> 常用的 JVM 调优的参数都有哪些？</h3>
-<div class="outline-text-3" id="text-11-105">
+<h3 id="org2860b75"><span class="section-number-3">13.15</span> 常用的 JVM 调优的参数都有哪些？</h3>
+<div class="outline-text-3" id="text-13-15">
 <ul class="org-ul">
 <li>-Xms2g：初始化推大小为 2g；</li>
 <li>-Xmx2g：堆最大内存为 2g；</li>
@@ -3054,7 +3110,7 @@ JDK 自带了很多监控工具，都位于 JDK 的 bin 目录下，其中最常
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2019-03-14 周四 03:57</p>
+<p class="date">Created: 2019-03-14 周四 03:59</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
