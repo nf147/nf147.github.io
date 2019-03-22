@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-03-22 周五 01:00 -->
+<!-- 2019-03-22 周五 01:08 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MySQL</title>
 <meta name="generator" content="Org mode">
-<meta name="author" content="孙悟空">
+<meta name="author" content="unname">
 <link rel='stylesheet' href='/asset/common.css' />
 <script src='https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js'></script>
 <script src='https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
@@ -165,7 +165,8 @@ use bookstore;  <span class="org-comment">-- &#20999;&#25442;&#21040;&#25968;&#2
 </div>
 
 <p>
-虽然 root 用户强大无比，但是使用 root 用户进行数据库操作不是一个好的行为。所以我们需要为数据库的操作创建相关的用户:
+虽然 root 用户强大无比，但是使用 root 用户进行数据库操作不是一个好的行为。
+所以我们需要为数据库的操作创建相关的用户:
 </p>
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-comment">-- &#29305;&#21035;&#38656;&#35201;&#27880;&#24847;&#65292;&#22312; MySQL &#20013;&#65292;&#36134;&#21495;&#30001;&#20004;&#37096;&#20998;&#32452;&#25104;:</span>
@@ -181,7 +182,8 @@ use bookstore;  <span class="org-comment">-- &#20999;&#25442;&#21040;&#25968;&#2
 </div>
 
 <p>
-新创建的用户没有多少权限，登录之后，只能访问操作 test 以及以 test 开头的数据库。如果想让新用户有更多权限，就需要用到授权语句(DCL)：
+新创建的用户没有多少权限，登录之后，只能访问操作 test 以及以 test 开头的数据库。
+如果想让新用户有更多权限，就需要用到授权语句(DCL)：
 </p>
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">grant</span> <span class="org-keyword">all</span> <span class="org-keyword">on</span> *.* <span class="org-keyword">to</span> vip@<span class="org-string">'127.0.0.1'</span>;        <span class="org-comment">-- &#23558;&#25152;&#26377;&#25968;&#25454;&#24211;&#19978;&#30340;&#25152;&#26377;&#26435;&#21033;&#37117;&#25480;&#20104;&#36890;&#36807;&#26412;&#26426;&#36830;&#25509;&#30340; vip &#29992;&#25143;&#65281;</span>
@@ -621,7 +623,7 @@ ENUM 跟 SET 是两种比较特殊的字符串类型，他们对字段进行了�
 </ol>
 
 <p>
-所谓<b>代理键</b>是指跟业务无关的字段:
+所谓 <b>代理键</b> 是指跟业务无关的字段:
 </p>
 <ul class="org-ul">
 <li>因为和业务无关，所以可以使用 int 等类型尽量短</li>
@@ -2203,8 +2205,8 @@ lagou_company 公司分离:
 </section>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2019-03-22 周五 01:00</p>
+<p class="author">Author: unname</p>
+<p class="date">Created: 2019-03-22 周五 01:08</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

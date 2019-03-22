@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-03-22 周五 01:00 -->
+<!-- 2019-03-22 周五 01:08 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring.AOP</title>
 <meta name="generator" content="Org mode">
-<meta name="author" content="孙悟空">
+<meta name="author" content="unname">
 <link rel='stylesheet' href='/asset/common.css' />
 <script src='https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js'></script>
 <script src='https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
@@ -40,7 +40,7 @@
 <h2 id="org19a7139"><span class="section-number-2">1</span> 面向切面编程 (AOP, Aspect Oriten Program)</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-如果对一个对象的方法进行<b>扩充</b>（不改变源码的情况之下，增加或修改行为）的话，一般使用代理模式：
+如果对一个对象的方法进行 <b>扩充</b> （不改变源码的情况之下，增加或修改行为）的话，一般使用代理模式：
 </p>
 <ol class="org-ol">
 <li><del>静态代理（太麻烦，一般不会用）</del></li>
@@ -78,7 +78,7 @@
 <li>默认情况下，它基于 JDK 动态代理，所以它需要有接口。</li>
 <li>但是，也可以调用 CGLib 的代理方式。</li>
 <li>一般情况下，要为一个类产生代理。如果它有接口，那么 Spring 会采取 JDK 动态代理方式；如果没接口，这时候它会尝试使用 CGLib 的方式产生代理</li>
-<li>Spring AOP 实现，它的功能<b>相对来说</b>比较弱，只能基于方法进行织入</li>
+<li>Spring AOP 实现，它的功能 <b>相对来说</b> 比较弱，只能基于方法进行织入</li>
 <li>Spring AOP 压根就没有想过成为一个全能的 AOP 实现来取代 AspectJ，它主要的精力放在怎么跟容器结合起来更好用，怎么才能更好得配合企业级开发</li>
 <li>Spring AOP 借鉴了 AspectJ 的非常多的特性，比如说，Spring AOP 可以使用跟 AspectJ 完全一样的注解来声明切面。当然要明白，虽然我们可以使用 @AspectJ 的注解，但后面运行的还是实打实的 Spring AOP。</li>
 <li>Spring 中可以非常简单的将其他 AOP 的实现无缝整合到框架中，所以，如果你觉得 Spring AOP 的实现太逊，你完全可以将其他实现整合进来，取代 Spring AOP。</li>
@@ -372,8 +372,8 @@ org.aspectj:aspectjweaver:1.8.9
 </section>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2019-03-22 周五 01:00</p>
+<p class="author">Author: unname</p>
+<p class="date">Created: 2019-03-22 周五 01:08</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

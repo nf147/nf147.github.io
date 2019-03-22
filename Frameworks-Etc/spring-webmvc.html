@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-03-22 周五 01:00 -->
+<!-- 2019-03-22 周五 01:08 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring Web MVC</title>
 <meta name="generator" content="Org mode">
-<meta name="author" content="孙悟空">
+<meta name="author" content="unname">
 <link rel='stylesheet' href='/asset/common.css' />
 <script src='https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js'></script>
 <script src='https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
@@ -315,7 +315,8 @@ Spring MVC 在启动的时候会初始化容器，所以需要通过 xml 配置�
 </div>
 
 <p>
-然后在 form 表单中添加一个隐藏域 _method="delete"，就可以通过 post 方法模拟 delete 请求了。也可以通过 form:form 标签简化此操作。
+然后在 form 表单中添加一个隐藏域 _method="delete"，就可以通过 post 方法模拟 delete 请求了。
+也可以通过 form:form 标签简化此操作。
 </p>
 
 <p>
@@ -1328,7 +1329,8 @@ Spring 提供了两个接口用于国际化文件处理:
 </ol>
 
 <p>
-如果想使用资源文件，只需要在容器里注册一个 MessageSource 的实例即可。一般情况下，使用 Spring 内置的 ReloadableResourceBundleMessageSource 实现:
+如果想使用资源文件，只需要在容器里注册一个 MessageSource 的实例即可。
+一般情况下，使用 Spring 内置的 ReloadableResourceBundleMessageSource 实现:
 </p>
 <div class="org-src-container">
 <pre class="src src-sgml">&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"messageSource"</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.springframework.context.support.ReloadableResourceBundleMessageSource"</span>&gt;
@@ -1383,11 +1385,13 @@ Spring 提供了两个接口用于国际化文件处理:
 <hr>
 
 <p>
-默认情况下，Spring 使用 AcceptHeaderLocaleResolver 来解析用户的区域。它本质是调用 <code>request.getLocale()</code> 方法，通过 <code>Accept-Language</code> 来获取的区域。
+默认情况下，Spring 使用 AcceptHeaderLocaleResolver 来解析用户的区域。
+它本质是调用 <code>request.getLocale()</code> 方法，通过 <code>Accept-Language</code> 来获取的区域。
 </p>
 
 <p>
-如果，这种自动确定区域的方式不适合你，那么你需要亲自注册一个 LocaleResolver 来制定 Locale 策略。可选的策略有 <code>SessionLocaleResolver/CookieLocaleResolver/FixedLocaleResolver</code>:
+如果，这种自动确定区域的方式不适合你，那么你需要亲自注册一个 LocaleResolver 来制定 Locale 策略。
+可选的策略有 <code>SessionLocaleResolver/CookieLocaleResolver/FixedLocaleResolver</code>:
 </p>
 <div class="org-src-container">
 <pre class="src src-sgml">&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">id</span>=<span class="org-string">"localeResolver"</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.springframework.web.servlet.i18n.SessionLocaleResolver"</span>&gt;
@@ -1913,8 +1917,8 @@ Producer/Consumer (生产/消费模式)。
 </section>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2019-03-22 周五 01:00</p>
+<p class="author">Author: unname</p>
+<p class="date">Created: 2019-03-22 周五 01:08</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
