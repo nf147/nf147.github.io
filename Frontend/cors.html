@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-03-22 周五 01:30 -->
+<!-- 2019-03-22 周五 01:32 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CORS 跨域</title>
@@ -20,21 +20,21 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orga1ad796">1. 什么是跨域问题</a>
+<li><a href="#org843863e">1. 什么是跨域问题</a>
 <ul>
-<li><a href="#org7c8d031">1.1. JSONP</a></li>
-<li><a href="#orgd1b44a7">1.2. CORS (Cross Origin Resource Share)</a></li>
+<li><a href="#org807634e">1.1. JSONP</a></li>
+<li><a href="#org325cc43">1.2. CORS (Cross Origin Resource Share)</a></li>
 </ul>
 </li>
-<li><a href="#org7faa176">2. 手动解除浏览器跨域限制</a></li>
+<li><a href="#org879a40b">2. 手动解除浏览器跨域限制</a></li>
 </ul>
 </div>
 </nav>
 
 
 
-<section id="outline-container-orga1ad796" class="outline-2">
-<h2 id="orga1ad796"><span class="section-number-2">1</span> 什么是跨域问题</h2>
+<section id="outline-container-org843863e" class="outline-2">
+<h2 id="org843863e"><span class="section-number-2">1</span> 什么是跨域问题</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 基于安全考虑，<b>浏览器</b> 会限制使用脚本发起任何跨域请求。
@@ -54,8 +54,8 @@
 </p>
 </div>
 
-<div id="outline-container-org7c8d031" class="outline-3">
-<h3 id="org7c8d031"><span class="section-number-3">1.1</span> JSONP</h3>
+<div id="outline-container-org807634e" class="outline-3">
+<h3 id="org807634e"><span class="section-number-3">1.1</span> JSONP</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 虽然浏览器有跨域请求的限制，但是一直以来，页面中的 src 元素链接的数据是可以跨域的:
@@ -111,8 +111,8 @@ loadScript(<span class="org-string">'http://&#21478;&#19968;&#20010;&#32593;&#31
 </div>
 </div>
 
-<div id="outline-container-orgd1b44a7" class="outline-3">
-<h3 id="orgd1b44a7"><span class="section-number-3">1.2</span> CORS (Cross Origin Resource Share)</h3>
+<div id="outline-container-org325cc43" class="outline-3">
+<h3 id="org325cc43"><span class="section-number-3">1.2</span> CORS (Cross Origin Resource Share)</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 一年一年又一年，过去了很多年，所有人只能忍受跨域的问题，想尽各种办法曲线救国。
@@ -227,8 +227,8 @@ Access-Control-Max-Age: 86400                           <span class="org-comment
 </div>
 </section>
 
-<section id="outline-container-org7faa176" class="outline-2">
-<h2 id="org7faa176"><span class="section-number-2">2</span> 手动解除浏览器跨域限制</h2>
+<section id="outline-container-org879a40b" class="outline-2">
+<h2 id="org879a40b"><span class="section-number-2">2</span> 手动解除浏览器跨域限制</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 将谷歌浏览器的跨域限制给去除，只需要在启动的快捷方式里添加参数即可:
@@ -249,7 +249,7 @@ Access-Control-Max-Age: 86400                           <span class="org-comment
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: unname</p>
-<p class="date">Created: 2019-03-22 周五 01:30</p>
+<p class="date">Created: 2019-03-22 周五 01:32</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

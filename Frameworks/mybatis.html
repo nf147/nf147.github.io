@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-03-22 周五 01:30 -->
+<!-- 2019-03-22 周五 01:32 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MyBatis</title>
@@ -20,49 +20,49 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org7ef767e">1. 历史背景</a>
+<li><a href="#orga20ecbe">1. 历史背景</a>
 <ul>
-<li><a href="#orgaaed73c">1.1. 背景</a></li>
-<li><a href="#orgab2ec5e">1.2. Hibernate</a></li>
-<li><a href="#org0606745">1.3. MyBatis</a></li>
+<li><a href="#org566c966">1.1. 背景</a></li>
+<li><a href="#org02b168b">1.2. Hibernate</a></li>
+<li><a href="#orge60b6e0">1.3. MyBatis</a></li>
 </ul>
 </li>
-<li><a href="#orgf53a440">2. 核心配置文件 (mybatis-config.xml)</a>
+<li><a href="#orgeaad62d">2. 核心配置文件 (mybatis-config.xml)</a>
 <ul>
-<li><a href="#orgfa6f1cb">2.1. 配置文件示例</a></li>
-<li><a href="#org65cffe8">2.2. TypeHandler 示例</a></li>
-<li><a href="#orgd8036fb">2.3. ObjectFactory 示例</a></li>
-<li><a href="#orgde0250c">2.4. DataSourceFactory 示例</a></li>
-<li><a href="#orgfa152e9">2.5. Plugin 示例</a></li>
+<li><a href="#org5e0f49f">2.1. 配置文件示例</a></li>
+<li><a href="#orgaa37d77">2.2. TypeHandler 示例</a></li>
+<li><a href="#org5ed63e4">2.3. ObjectFactory 示例</a></li>
+<li><a href="#orgd172275">2.4. DataSourceFactory 示例</a></li>
+<li><a href="#org2eb9bb1">2.5. Plugin 示例</a></li>
 </ul>
 </li>
-<li><a href="#org527648c">3. 映射文件 (EntityMapper.xml)</a>
+<li><a href="#org369a99d">3. 映射文件 (EntityMapper.xml)</a>
 <ul>
-<li><a href="#org0842393">3.1. 配置文件</a></li>
-<li><a href="#org01edb15">3.2. sql</a></li>
-<li><a href="#org7b91e9c">3.3. 动态语句之 if</a></li>
-<li><a href="#orgef9b255">3.4. 动态语句之 trim/where/set</a></li>
-<li><a href="#orga6976c1">3.5. 动态语句之 foreach</a></li>
+<li><a href="#orgc800853">3.1. 配置文件</a></li>
+<li><a href="#org30b4404">3.2. sql</a></li>
+<li><a href="#orge7611de">3.3. 动态语句之 if</a></li>
+<li><a href="#org913a38f">3.4. 动态语句之 trim/where/set</a></li>
+<li><a href="#org666e4ce">3.5. 动态语句之 foreach</a></li>
 </ul>
 </li>
-<li><a href="#org684b1c6">4. 常用 API</a></li>
-<li><a href="#org3e90f4a">5. 示例表</a></li>
-<li><a href="#org8c16267">6. 任务指导手册 P58 答案参考</a>
+<li><a href="#org00e4111">4. 常用 API</a></li>
+<li><a href="#org9ba0c66">5. 示例表</a></li>
+<li><a href="#org81607a0">6. 任务指导手册 P58 答案参考</a>
 <ul>
-<li><a href="#orgdc7f78b">6.1. 首先，在数据库中创建表，并插入测试数据:</a></li>
-<li><a href="#org046bac2">6.2. 其次，为表创建相应实体类:</a></li>
-<li><a href="#org39558a0">6.3. 然后，创建接口。按照需求，我们要实现两个方法:</a></li>
-<li><a href="#org085f112">6.4. 为上述接口，写测试方法:</a></li>
-<li><a href="#orge3dff1d">6.5. Mapper 的第一种方式，Nested ResultMap:</a></li>
-<li><a href="#orga1b2421">6.6. Mapper 的第二种方式，Nested Select:</a></li>
+<li><a href="#orgddb42b8">6.1. 首先，在数据库中创建表，并插入测试数据:</a></li>
+<li><a href="#orgbebd364">6.2. 其次，为表创建相应实体类:</a></li>
+<li><a href="#orgf9727f6">6.3. 然后，创建接口。按照需求，我们要实现两个方法:</a></li>
+<li><a href="#org8cea24f">6.4. 为上述接口，写测试方法:</a></li>
+<li><a href="#orgcaa1b0e">6.5. Mapper 的第一种方式，Nested ResultMap:</a></li>
+<li><a href="#org8bcf559">6.6. Mapper 的第二种方式，Nested Select:</a></li>
 </ul>
 </li>
-<li><a href="#org34b6bef">7. 缓存 (Cache)</a></li>
-<li><a href="#org4abc8fa">8. 分页 (Pagination)</a></li>
-<li><a href="#orgdbdec29">9. MBG (MyBatis-Generator)</a>
+<li><a href="#org892efcf">7. 缓存 (Cache)</a></li>
+<li><a href="#orgf24035f">8. 分页 (Pagination)</a></li>
+<li><a href="#org9799ebc">9. MBG (MyBatis-Generator)</a>
 <ul>
-<li><a href="#org6f15db7">9.1. Quick Start</a></li>
-<li><a href="#org5c6a81e">9.2. 配置文件总览</a></li>
+<li><a href="#org3b1ea56">9.1. Quick Start</a></li>
+<li><a href="#orgfef33fa">9.2. 配置文件总览</a></li>
 </ul>
 </li>
 </ul>
@@ -70,12 +70,12 @@
 </nav>
 
 
-<section id="outline-container-org7ef767e" class="outline-2">
-<h2 id="org7ef767e"><span class="section-number-2">1</span> 历史背景</h2>
+<section id="outline-container-orga20ecbe" class="outline-2">
+<h2 id="orga20ecbe"><span class="section-number-2">1</span> 历史背景</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orgaaed73c" class="outline-3">
-<h3 id="orgaaed73c"><span class="section-number-3">1.1</span> 背景</h3>
+<div id="outline-container-org566c966" class="outline-3">
+<h3 id="org566c966"><span class="section-number-3">1.1</span> 背景</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>SSH, Spring + Struts1,2 + Hibernate</li>
@@ -123,8 +123,8 @@ ORM:
 </div>
 
 
-<div id="outline-container-orgab2ec5e" class="outline-3">
-<h3 id="orgab2ec5e"><span class="section-number-3">1.2</span> Hibernate</h3>
+<div id="outline-container-org02b168b" class="outline-3">
+<h3 id="org02b168b"><span class="section-number-3">1.2</span> Hibernate</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 想法:
@@ -234,8 +234,8 @@ System.out.println(book1.getName());
 </div>
 </div>
 
-<div id="outline-container-org0606745" class="outline-3">
-<h3 id="org0606745"><span class="section-number-3">1.3</span> MyBatis</h3>
+<div id="outline-container-orge60b6e0" class="outline-3">
+<h3 id="orge60b6e0"><span class="section-number-3">1.3</span> MyBatis</h3>
 <div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
 <li>select id, name, wexin from person where ?</li>
@@ -282,12 +282,12 @@ helper.help(<span class="org-string">"yuju2"</span>);
 </div>
 </section>
 
-<section id="outline-container-orgf53a440" class="outline-2">
-<h2 id="orgf53a440"><span class="section-number-2">2</span> 核心配置文件 (mybatis-config.xml)</h2>
+<section id="outline-container-orgeaad62d" class="outline-2">
+<h2 id="orgeaad62d"><span class="section-number-2">2</span> 核心配置文件 (mybatis-config.xml)</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-orgfa6f1cb" class="outline-3">
-<h3 id="orgfa6f1cb"><span class="section-number-3">2.1</span> 配置文件示例</h3>
+<div id="outline-container-org5e0f49f" class="outline-3">
+<h3 id="org5e0f49f"><span class="section-number-3">2.1</span> 配置文件示例</h3>
 <div class="outline-text-3" id="text-2-1">
 <div class="org-src-container">
 <pre class="src src-sgml"><span class="org-string">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
@@ -390,8 +390,8 @@ helper.help(<span class="org-string">"yuju2"</span>);
 </div>
 </div>
 
-<div id="outline-container-org65cffe8" class="outline-3">
-<h3 id="org65cffe8"><span class="section-number-3">2.2</span> TypeHandler 示例</h3>
+<div id="outline-container-orgaa37d77" class="outline-3">
+<h3 id="orgaa37d77"><span class="section-number-3">2.2</span> TypeHandler 示例</h3>
 <div class="outline-text-3" id="text-2-2">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-c-annotation">@MappedJdbcTypes</span>(<span class="org-constant">JdbcType</span>.<span class="org-type">Integer</span>)
@@ -406,8 +406,8 @@ helper.help(<span class="org-string">"yuju2"</span>);
 </div>
 </div>
 
-<div id="outline-container-orgd8036fb" class="outline-3">
-<h3 id="orgd8036fb"><span class="section-number-3">2.3</span> ObjectFactory 示例</h3>
+<div id="outline-container-org5ed63e4" class="outline-3">
+<h3 id="org5ed63e4"><span class="section-number-3">2.3</span> ObjectFactory 示例</h3>
 <div class="outline-text-3" id="text-2-3">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">OurObjectFactory</span> <span class="org-keyword">extends</span> <span class="org-type">DefaultObjectFactory</span> {
@@ -422,8 +422,8 @@ helper.help(<span class="org-string">"yuju2"</span>);
 </div>
 </div>
 
-<div id="outline-container-orgde0250c" class="outline-3">
-<h3 id="orgde0250c"><span class="section-number-3">2.4</span> DataSourceFactory 示例</h3>
+<div id="outline-container-orgd172275" class="outline-3">
+<h3 id="orgd172275"><span class="section-number-3">2.4</span> DataSourceFactory 示例</h3>
 <div class="outline-text-3" id="text-2-4">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">MyDataSourceFactory</span> <span class="org-keyword">extends</span> <span class="org-type">UnpooledDataSourceFactory</span> {
@@ -437,8 +437,8 @@ helper.help(<span class="org-string">"yuju2"</span>);
 </div>
 </div>
 
-<div id="outline-container-orgfa152e9" class="outline-3">
-<h3 id="orgfa152e9"><span class="section-number-3">2.5</span> Plugin 示例</h3>
+<div id="outline-container-org2eb9bb1" class="outline-3">
+<h3 id="org2eb9bb1"><span class="section-number-3">2.5</span> Plugin 示例</h3>
 <div class="outline-text-3" id="text-2-5">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-c-annotation">@Intercepts</span>({<span class="org-c-annotation">@Signature</span>(
@@ -462,12 +462,12 @@ helper.help(<span class="org-string">"yuju2"</span>);
 </div>
 </div>
 </section>
-<section id="outline-container-org527648c" class="outline-2">
-<h2 id="org527648c"><span class="section-number-2">3</span> 映射文件 (EntityMapper.xml)</h2>
+<section id="outline-container-org369a99d" class="outline-2">
+<h2 id="org369a99d"><span class="section-number-2">3</span> 映射文件 (EntityMapper.xml)</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org0842393" class="outline-3">
-<h3 id="org0842393"><span class="section-number-3">3.1</span> 配置文件</h3>
+<div id="outline-container-orgc800853" class="outline-3">
+<h3 id="orgc800853"><span class="section-number-3">3.1</span> 配置文件</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 示例 XML:
@@ -662,8 +662,8 @@ System.out.println(comments);
 </div>
 </div>
 
-<div id="outline-container-org01edb15" class="outline-3">
-<h3 id="org01edb15"><span class="section-number-3">3.2</span> sql</h3>
+<div id="outline-container-org30b4404" class="outline-3">
+<h3 id="org30b4404"><span class="section-number-3">3.2</span> sql</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 用于在指定位置插入代码片段，这可以达到代码片段复用的目的。
@@ -751,8 +751,8 @@ System.out.println(comments);
 </div>
 
 
-<div id="outline-container-org7b91e9c" class="outline-3">
-<h3 id="org7b91e9c"><span class="section-number-3">3.3</span> 动态语句之 if</h3>
+<div id="outline-container-orge7611de" class="outline-3">
+<h3 id="orge7611de"><span class="section-number-3">3.3</span> 动态语句之 if</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 基本语法是:
@@ -782,8 +782,8 @@ System.out.println(comments);
 </div>
 </div>
 
-<div id="outline-container-orgef9b255" class="outline-3">
-<h3 id="orgef9b255"><span class="section-number-3">3.4</span> 动态语句之 trim/where/set</h3>
+<div id="outline-container-org913a38f" class="outline-3">
+<h3 id="org913a38f"><span class="section-number-3">3.4</span> 动态语句之 trim/where/set</h3>
 <div class="outline-text-3" id="text-3-4">
 <p>
 这些都是结合 if 语句使用，防止拼接多个语句的时候，产生多余的前缀、后缀，是一种辅助语法。
@@ -843,8 +843,8 @@ where city = #{city} and address like #{address}
 </div>
 </div>
 
-<div id="outline-container-orga6976c1" class="outline-3">
-<h3 id="orga6976c1"><span class="section-number-3">3.5</span> 动态语句之 foreach</h3>
+<div id="outline-container-org666e4ce" class="outline-3">
+<h3 id="org666e4ce"><span class="section-number-3">3.5</span> 动态语句之 foreach</h3>
 <div class="outline-text-3" id="text-3-5">
 <p>
 比如，动态组合成 in (xxx, yyy) 语句，那么这么写:
@@ -917,8 +917,8 @@ session.commit();
 </div>
 </section>
 
-<section id="outline-container-org684b1c6" class="outline-2">
-<h2 id="org684b1c6"><span class="section-number-2">4</span> 常用 API</h2>
+<section id="outline-container-org00e4111" class="outline-2">
+<h2 id="org00e4111"><span class="section-number-2">4</span> 常用 API</h2>
 <div class="outline-text-2" id="text-4">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">main</span>(<span class="org-type">String</span>[] <span class="org-variable-name">args</span>) <span class="org-keyword">throws</span> <span class="org-type">Exception</span> {
@@ -983,8 +983,8 @@ session.commit();
 </div>
 </section>
 
-<section id="outline-container-org3e90f4a" class="outline-2">
-<h2 id="org3e90f4a"><span class="section-number-2">5</span> 示例表</h2>
+<section id="outline-container-org9ba0c66" class="outline-2">
+<h2 id="org9ba0c66"><span class="section-number-2">5</span> 示例表</h2>
 <div class="outline-text-2" id="text-5">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">sss_author</span> (
@@ -1028,12 +1028,12 @@ session.commit();
 </div>
 </div>
 </section>
-<section id="outline-container-org8c16267" class="outline-2">
-<h2 id="org8c16267"><span class="section-number-2">6</span> 任务指导手册 P58 答案参考</h2>
+<section id="outline-container-org81607a0" class="outline-2">
+<h2 id="org81607a0"><span class="section-number-2">6</span> 任务指导手册 P58 答案参考</h2>
 <div class="outline-text-2" id="text-6">
 </div>
-<div id="outline-container-orgdc7f78b" class="outline-3">
-<h3 id="orgdc7f78b"><span class="section-number-3">6.1</span> 首先，在数据库中创建表，并插入测试数据:</h3>
+<div id="outline-container-orgddb42b8" class="outline-3">
+<h3 id="orgddb42b8"><span class="section-number-3">6.1</span> 首先，在数据库中创建表，并插入测试数据:</h3>
 <div class="outline-text-3" id="text-6-1">
 <div class="org-src-container">
 <pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> <span class="org-function-name">customer</span>(
@@ -1077,8 +1077,8 @@ session.commit();
 </div>
 </div>
 
-<div id="outline-container-org046bac2" class="outline-3">
-<h3 id="org046bac2"><span class="section-number-3">6.2</span> 其次，为表创建相应实体类:</h3>
+<div id="outline-container-orgbebd364" class="outline-3">
+<h3 id="orgbebd364"><span class="section-number-3">6.2</span> 其次，为表创建相应实体类:</h3>
 <div class="outline-text-3" id="text-6-2">
 <ul class="org-ul">
 <li>注意，处理好依赖关系</li>
@@ -1088,8 +1088,8 @@ session.commit();
 </div>
 </div>
 
-<div id="outline-container-org39558a0" class="outline-3">
-<h3 id="org39558a0"><span class="section-number-3">6.3</span> 然后，创建接口。按照需求，我们要实现两个方法:</h3>
+<div id="outline-container-orgf9727f6" class="outline-3">
+<h3 id="orgf9727f6"><span class="section-number-3">6.3</span> 然后，创建接口。按照需求，我们要实现两个方法:</h3>
 <div class="outline-text-3" id="text-6-3">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">interface</span> <span class="org-type">InvoiceMapper</span> {
@@ -1101,8 +1101,8 @@ session.commit();
 </div>
 </div>
 
-<div id="outline-container-org085f112" class="outline-3">
-<h3 id="org085f112"><span class="section-number-3">6.4</span> 为上述接口，写测试方法:</h3>
+<div id="outline-container-org8cea24f" class="outline-3">
+<h3 id="org8cea24f"><span class="section-number-3">6.4</span> 为上述接口，写测试方法:</h3>
 <div class="outline-text-3" id="text-6-4">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">AppTest</span> {
@@ -1145,8 +1145,8 @@ session.commit();
 </div>
 </div>
 
-<div id="outline-container-orge3dff1d" class="outline-3">
-<h3 id="orge3dff1d"><span class="section-number-3">6.5</span> Mapper 的第一种方式，Nested ResultMap:</h3>
+<div id="outline-container-orgcaa1b0e" class="outline-3">
+<h3 id="orgcaa1b0e"><span class="section-number-3">6.5</span> Mapper 的第一种方式，Nested ResultMap:</h3>
 <div class="outline-text-3" id="text-6-5">
 <p>
 嵌套的 ResultMap。
@@ -1214,8 +1214,8 @@ session.commit();
 </div>
 </div>
 
-<div id="outline-container-orga1b2421" class="outline-3">
-<h3 id="orga1b2421"><span class="section-number-3">6.6</span> Mapper 的第二种方式，Nested Select:</h3>
+<div id="outline-container-org8bcf559" class="outline-3">
+<h3 id="org8bcf559"><span class="section-number-3">6.6</span> Mapper 的第二种方式，Nested Select:</h3>
 <div class="outline-text-3" id="text-6-6">
 <p>
 嵌套的 Select 查询。
@@ -1265,8 +1265,8 @@ session.commit();
 </div>
 </section>
 
-<section id="outline-container-org34b6bef" class="outline-2">
-<h2 id="org34b6bef"><span class="section-number-2">7</span> 缓存 (Cache)</h2>
+<section id="outline-container-org892efcf" class="outline-2">
+<h2 id="org892efcf"><span class="section-number-2">7</span> 缓存 (Cache)</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 缓存类型:
@@ -1320,8 +1320,8 @@ session.commit();
 </div>
 </section>
 
-<section id="outline-container-org4abc8fa" class="outline-2">
-<h2 id="org4abc8fa"><span class="section-number-2">8</span> 分页 (Pagination)</h2>
+<section id="outline-container-orgf24035f" class="outline-2">
+<h2 id="orgf24035f"><span class="section-number-2">8</span> 分页 (Pagination)</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 分页方式的分类:
@@ -1398,16 +1398,16 @@ assertEquals(<span class="org-constant">true</span>,  page.isHasNextPage());
 </div>
 </section>
 
-<section id="outline-container-orgdbdec29" class="outline-2">
-<h2 id="orgdbdec29"><span class="section-number-2">9</span> MBG (MyBatis-Generator)</h2>
+<section id="outline-container-org9799ebc" class="outline-2">
+<h2 id="org9799ebc"><span class="section-number-2">9</span> MBG (MyBatis-Generator)</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 <a href="http://www.mybatis.org/generator/">http://www.mybatis.org/generator/</a>
 </p>
 </div>
 
-<div id="outline-container-org6f15db7" class="outline-3">
-<h3 id="org6f15db7"><span class="section-number-3">9.1</span> Quick Start</h3>
+<div id="outline-container-org3b1ea56" class="outline-3">
+<h3 id="org3b1ea56"><span class="section-number-3">9.1</span> Quick Start</h3>
 <div class="outline-text-3" id="text-9-1">
 <p>
 首先，创建配置文件 <code>generatorConfig.xml</code>:
@@ -1490,8 +1490,8 @@ mvn mybatis-generator:generate -Dmybatis.generator.overwrite=true  # 可以传�
 </div>
 </div>
 
-<div id="outline-container-org5c6a81e" class="outline-3">
-<h3 id="org5c6a81e"><span class="section-number-3">9.2</span> 配置文件总览</h3>
+<div id="outline-container-orgfef33fa" class="outline-3">
+<h3 id="orgfef33fa"><span class="section-number-3">9.2</span> 配置文件总览</h3>
 <div class="outline-text-3" id="text-9-2">
 <div class="org-src-container">
 <pre class="src src-sgml"><span class="org-string">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
@@ -1595,7 +1595,7 @@ mvn mybatis-generator:generate -Dmybatis.generator.overwrite=true  # 可以传�
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: unname</p>
-<p class="date">Created: 2019-03-22 周五 01:30</p>
+<p class="date">Created: 2019-03-22 周五 01:32</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

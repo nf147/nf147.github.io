@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-03-22 周五 01:30 -->
+<!-- 2019-03-22 周五 01:32 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring.IOC</title>
@@ -20,31 +20,31 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgdc88e0c">1. vs. 工厂模式</a></li>
-<li><a href="#orgfd290b3">2. 接口</a></li>
-<li><a href="#orgb889dea">3. 配置</a>
+<li><a href="#org3b1cab6">1. vs. 工厂模式</a></li>
+<li><a href="#orgb341dc8">2. 接口</a></li>
+<li><a href="#orga0eb780">3. 配置</a>
 <ul>
-<li><a href="#org01e3eff">3.1. 传统的方式 xml</a></li>
-<li><a href="#orga64d95b">3.2. 基于 Java 的方式进行配置</a></li>
-<li><a href="#org49f17d1">3.3. 混合双打</a></li>
+<li><a href="#orgcd0163a">3.1. 传统的方式 xml</a></li>
+<li><a href="#orgb87f73e">3.2. 基于 Java 的方式进行配置</a></li>
+<li><a href="#orgf1207cd">3.3. 混合双打</a></li>
 </ul>
 </li>
-<li><a href="#org37cf5d0">4. 装配 (Wiring)</a>
+<li><a href="#org0da5acb">4. 装配 (Wiring)</a>
 <ul>
-<li><a href="#org280d7ae">4.1. Wiring in XML</a></li>
-<li><a href="#org99fb9b2">4.2. Wiring in JavaConfig</a></li>
-<li><a href="#orgc52a34e">4.3. Wiring with Annotation</a></li>
+<li><a href="#orgf08d38b">4.1. Wiring in XML</a></li>
+<li><a href="#org0e20b90">4.2. Wiring in JavaConfig</a></li>
+<li><a href="#orgbcf0b59">4.3. Wiring with Annotation</a></li>
 </ul>
 </li>
-<li><a href="#org0aaf411">5. 生命周期 (Lifecycle)</a></li>
+<li><a href="#orgc96bde3">5. 生命周期 (Lifecycle)</a></li>
 </ul>
 </div>
 </nav>
 
 
 
-<section id="outline-container-orgdc88e0c" class="outline-2">
-<h2 id="orgdc88e0c"><span class="section-number-2">1</span> vs. 工厂模式</h2>
+<section id="outline-container-org3b1cab6" class="outline-2">
+<h2 id="org3b1cab6"><span class="section-number-2">1</span> vs. 工厂模式</h2>
 <div class="outline-text-2" id="text-1">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">ServiceFactory</span> {
@@ -107,8 +107,8 @@ xml 暴露出来，用来 <b>描述</b> 工厂需要实例化的类以及他们�
 </div>
 </section>
 
-<section id="outline-container-orgfd290b3" class="outline-2">
-<h2 id="orgfd290b3"><span class="section-number-2">2</span> 接口</h2>
+<section id="outline-container-orgb341dc8" class="outline-2">
+<h2 id="orgb341dc8"><span class="section-number-2">2</span> 接口</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 最核心的 jar 包:
@@ -156,12 +156,12 @@ xml 暴露出来，用来 <b>描述</b> 工厂需要实例化的类以及他们�
 </section>
 
 
-<section id="outline-container-orgb889dea" class="outline-2">
-<h2 id="orgb889dea"><span class="section-number-2">3</span> 配置</h2>
+<section id="outline-container-orga0eb780" class="outline-2">
+<h2 id="orga0eb780"><span class="section-number-2">3</span> 配置</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org01e3eff" class="outline-3">
-<h3 id="org01e3eff"><span class="section-number-3">3.1</span> 传统的方式 xml</h3>
+<div id="outline-container-orgcd0163a" class="outline-3">
+<h3 id="orgcd0163a"><span class="section-number-3">3.1</span> 传统的方式 xml</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 这种方式，充分利用了 xml 文件的优势:
@@ -208,8 +208,8 @@ xml 暴露出来，用来 <b>描述</b> 工厂需要实例化的类以及他们�
 </div>
 </div>
 
-<div id="outline-container-orga64d95b" class="outline-3">
-<h3 id="orga64d95b"><span class="section-number-3">3.2</span> 基于 Java 的方式进行配置</h3>
+<div id="outline-container-orgb87f73e" class="outline-3">
+<h3 id="orgb87f73e"><span class="section-number-3">3.2</span> 基于 Java 的方式进行配置</h3>
 <div class="outline-text-3" id="text-3-2">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-c-annotation">@Configuration</span>
@@ -240,8 +240,8 @@ xml 暴露出来，用来 <b>描述</b> 工厂需要实例化的类以及他们�
 </div>
 </div>
 
-<div id="outline-container-org49f17d1" class="outline-3">
-<h3 id="org49f17d1"><span class="section-number-3">3.3</span> 混合双打</h3>
+<div id="outline-container-orgf1207cd" class="outline-3">
+<h3 id="orgf1207cd"><span class="section-number-3">3.3</span> 混合双打</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 Java Style 中混入 XML Style:
@@ -288,8 +288,8 @@ XML style 中混入 Java Style:
 </div>
 </div>
 </section>
-<section id="outline-container-org37cf5d0" class="outline-2">
-<h2 id="org37cf5d0"><span class="section-number-2">4</span> 装配 (Wiring)</h2>
+<section id="outline-container-org0da5acb" class="outline-2">
+<h2 id="org0da5acb"><span class="section-number-2">4</span> 装配 (Wiring)</h2>
 <div class="outline-text-2" id="text-4">
 <blockquote>
 <p>
@@ -315,8 +315,8 @@ XML style 中混入 Java Style:
 </ol>
 </div>
 
-<div id="outline-container-org280d7ae" class="outline-3">
-<h3 id="org280d7ae"><span class="section-number-3">4.1</span> Wiring in XML</h3>
+<div id="outline-container-orgf08d38b" class="outline-3">
+<h3 id="orgf08d38b"><span class="section-number-3">4.1</span> Wiring in XML</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 装配:
@@ -397,8 +397,8 @@ XML style 中混入 Java Style:
 </div>
 </div>
 
-<div id="outline-container-org99fb9b2" class="outline-3">
-<h3 id="org99fb9b2"><span class="section-number-3">4.2</span> Wiring in JavaConfig</h3>
+<div id="outline-container-org0e20b90" class="outline-3">
+<h3 id="org0e20b90"><span class="section-number-3">4.2</span> Wiring in JavaConfig</h3>
 <div class="outline-text-3" id="text-4-2">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-c-annotation">@Configuration</span>
@@ -426,8 +426,8 @@ XML style 中混入 Java Style:
 </div>
 </div>
 
-<div id="outline-container-orgc52a34e" class="outline-3">
-<h3 id="orgc52a34e"><span class="section-number-3">4.3</span> Wiring with Annotation</h3>
+<div id="outline-container-orgbcf0b59" class="outline-3">
+<h3 id="orgbcf0b59"><span class="section-number-3">4.3</span> Wiring with Annotation</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 首先，需要开启 Component Scanning，即组件扫描:
@@ -507,8 +507,8 @@ XML style 中混入 Java Style:
 </div>
 </section>
 
-<section id="outline-container-org0aaf411" class="outline-2">
-<h2 id="org0aaf411"><span class="section-number-2">5</span> 生命周期 (Lifecycle)</h2>
+<section id="outline-container-orgc96bde3" class="outline-2">
+<h2 id="orgc96bde3"><span class="section-number-2">5</span> 生命周期 (Lifecycle)</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 如果想在 Bean 实例化过程中，做一些额外的事情，
@@ -546,7 +546,7 @@ XML style 中混入 Java Style:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: unname</p>
-<p class="date">Created: 2019-03-22 周五 01:30</p>
+<p class="date">Created: 2019-03-22 周五 01:32</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

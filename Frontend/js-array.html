@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-03-22 周五 01:30 -->
+<!-- 2019-03-22 周五 01:32 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JS 对数组的常规操作</title>
@@ -20,21 +20,21 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgd3c593f">1. 示例数据</a></li>
-<li><a href="#orgaed4e5a">2. 基本问题</a></li>
-<li><a href="#orge3ced16">3. 问题一</a>
+<li><a href="#org0f7c2ee">1. 示例数据</a></li>
+<li><a href="#orgde3dd7b">2. 基本问题</a></li>
+<li><a href="#org5a00dbe">3. 问题一</a>
 <ul>
-<li><a href="#orgd002eba">3.1. 使用 for 循环</a></li>
-<li><a href="#org5700833">3.2. 使用 forEach 循环（有两种形式）</a></li>
-<li><a href="#org20b0943">3.3. 使用 filter 方式实现</a></li>
+<li><a href="#orgf46eeeb">3.1. 使用 for 循环</a></li>
+<li><a href="#org858fa07">3.2. 使用 forEach 循环（有两种形式）</a></li>
+<li><a href="#org478a4f8">3.3. 使用 filter 方式实现</a></li>
 </ul>
 </li>
-<li><a href="#org6a45b82">4. 问题二</a></li>
-<li><a href="#orgf759c17">5. 问题三</a>
+<li><a href="#org242d6e4">4. 问题二</a></li>
+<li><a href="#org6a94689">5. 问题三</a>
 <ul>
-<li><a href="#org86064b1">5.1. 首先，封装 getAge 方法:</a></li>
-<li><a href="#org717337b">5.2. 用 concat/map 方法实现</a></li>
-<li><a href="#org364c14e">5.3. 使用 ES6 语法实现</a></li>
+<li><a href="#org548c566">5.1. 首先，封装 getAge 方法:</a></li>
+<li><a href="#orgd86d34d">5.2. 用 concat/map 方法实现</a></li>
+<li><a href="#org0665944">5.3. 使用 ES6 语法实现</a></li>
 </ul>
 </li>
 </ul>
@@ -42,8 +42,8 @@
 </nav>
 
 
-<section id="outline-container-orgd3c593f" class="outline-2">
-<h2 id="orgd3c593f"><span class="section-number-2">1</span> 示例数据</h2>
+<section id="outline-container-org0f7c2ee" class="outline-2">
+<h2 id="org0f7c2ee"><span class="section-number-2">1</span> 示例数据</h2>
 <div class="outline-text-2" id="text-1">
 <div class="org-src-container">
 <pre class="src src-json">var array=[
@@ -74,8 +74,8 @@
 </div>
 </section>
 
-<section id="outline-container-orgaed4e5a" class="outline-2">
-<h2 id="orgaed4e5a"><span class="section-number-2">2</span> 基本问题</h2>
+<section id="outline-container-orgde3dd7b" class="outline-2">
+<h2 id="orgde3dd7b"><span class="section-number-2">2</span> 基本问题</h2>
 <div class="outline-text-2" id="text-2">
 <ol class="org-ol">
 <li>过滤，3000-3500之内的工资？</li>
@@ -85,16 +85,16 @@
 </div>
 </section>
 
-<section id="outline-container-orge3ced16" class="outline-2">
-<h2 id="orge3ced16"><span class="section-number-2">3</span> 问题一</h2>
+<section id="outline-container-org5a00dbe" class="outline-2">
+<h2 id="org5a00dbe"><span class="section-number-2">3</span> 问题一</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 可以用三种方法
 </p>
 </div>
 
-<div id="outline-container-orgd002eba" class="outline-3">
-<h3 id="orgd002eba"><span class="section-number-3">3.1</span> 使用 for 循环</h3>
+<div id="outline-container-orgf46eeeb" class="outline-3">
+<h3 id="orgf46eeeb"><span class="section-number-3">3.1</span> 使用 for 循环</h3>
 <div class="outline-text-3" id="text-3-1">
 <div class="org-src-container">
 <pre class="src src-js"><span class="org-keyword">var</span> <span class="org-variable-name">arr1</span> = [];
@@ -108,8 +108,8 @@
 </div>
 </div>
 
-<div id="outline-container-org5700833" class="outline-3">
-<h3 id="org5700833"><span class="section-number-3">3.2</span> 使用 forEach 循环（有两种形式）</h3>
+<div id="outline-container-org858fa07" class="outline-3">
+<h3 id="org858fa07"><span class="section-number-3">3.2</span> 使用 forEach 循环（有两种形式）</h3>
 <div class="outline-text-3" id="text-3-2">
 <div class="org-src-container">
 <pre class="src src-js"><span class="org-keyword">var</span> <span class="org-variable-name">arr2</span> = [];
@@ -130,8 +130,8 @@ array.forEach(<span class="org-keyword">function</span>(<span class="org-variabl
 </div>
 </div>
 
-<div id="outline-container-org20b0943" class="outline-3">
-<h3 id="org20b0943"><span class="section-number-3">3.3</span> 使用 filter 方式实现</h3>
+<div id="outline-container-org478a4f8" class="outline-3">
+<h3 id="org478a4f8"><span class="section-number-3">3.3</span> 使用 filter 方式实现</h3>
 <div class="outline-text-3" id="text-3-3">
 <div class="org-src-container">
 <pre class="src src-js"><span class="org-keyword">var</span> <span class="org-variable-name">array1</span> = array.filter(<span class="org-keyword">function</span>(<span class="org-variable-name">v</span>) {
@@ -146,8 +146,8 @@ array.forEach(<span class="org-keyword">function</span>(<span class="org-variabl
 </div>
 </section>
 
-<section id="outline-container-org6a45b82" class="outline-2">
-<h2 id="org6a45b82"><span class="section-number-2">4</span> 问题二</h2>
+<section id="outline-container-org242d6e4" class="outline-2">
+<h2 id="org242d6e4"><span class="section-number-2">4</span> 问题二</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 可以转换为上述的 filter 问题
@@ -161,12 +161,12 @@ console.log(arr4);
 </div>
 </section>
 
-<section id="outline-container-orgf759c17" class="outline-2">
-<h2 id="orgf759c17"><span class="section-number-2">5</span> 问题三</h2>
+<section id="outline-container-org6a94689" class="outline-2">
+<h2 id="org6a94689"><span class="section-number-2">5</span> 问题三</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-org86064b1" class="outline-3">
-<h3 id="org86064b1"><span class="section-number-3">5.1</span> 首先，封装 getAge 方法:</h3>
+<div id="outline-container-org548c566" class="outline-3">
+<h3 id="org548c566"><span class="section-number-3">5.1</span> 首先，封装 getAge 方法:</h3>
 <div class="outline-text-3" id="text-5-1">
 <div class="org-src-container">
 <pre class="src src-js"><span class="org-keyword">function</span> <span class="org-function-name">getAge</span>(<span class="org-variable-name">birthday</span>){
@@ -177,8 +177,8 @@ console.log(arr4);
 </div>
 </div>
 
-<div id="outline-container-org717337b" class="outline-3">
-<h3 id="org717337b"><span class="section-number-3">5.2</span> 用 concat/map 方法实现</h3>
+<div id="outline-container-orgd86d34d" class="outline-3">
+<h3 id="orgd86d34d"><span class="section-number-3">5.2</span> 用 concat/map 方法实现</h3>
 <div class="outline-text-3" id="text-5-2">
 <div class="org-src-container">
 <pre class="src src-js"><span class="org-keyword">var</span> <span class="org-variable-name">arr5</span> = array.concat();
@@ -195,8 +195,8 @@ console.log(arr4);
 </div>
 </div>
 
-<div id="outline-container-org364c14e" class="outline-3">
-<h3 id="org364c14e"><span class="section-number-3">5.3</span> 使用 ES6 语法实现</h3>
+<div id="outline-container-org0665944" class="outline-3">
+<h3 id="org0665944"><span class="section-number-3">5.3</span> 使用 ES6 语法实现</h3>
 <div class="outline-text-3" id="text-5-3">
 <div class="org-src-container">
 <pre class="src src-js"><span class="org-constant">this</span>.data = array.map(e =&gt; ({ ...e, age: getAge(e.birth) }));
@@ -208,7 +208,7 @@ console.log(arr4);
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: unname</p>
-<p class="date">Created: 2019-03-22 周五 01:30</p>
+<p class="date">Created: 2019-03-22 周五 01:32</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
