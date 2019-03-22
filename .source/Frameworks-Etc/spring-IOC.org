@@ -1,6 +1,7 @@
 #+TITLE: Spring.IOC
 
 
+
 * vs. 工厂模式
 
 #+BEGIN_SRC java
