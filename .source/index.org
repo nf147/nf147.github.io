@@ -22,7 +22,7 @@
 
 #+HTML: <section id="toc">
 
-#+HTML: <h3 style='color: red;'>鹏程万里，一往直前。</h3>
+#+HTML: <h1 style='color: red;'>鹏程万里！</h1>
 
 #+HTML: <h3 style='margin-top: 2em'>当前任务</h3>
 #+INCLUDE: "0000/tasks.org::#active" :only-contents t
