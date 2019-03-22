@@ -17,7 +17,7 @@
     :with-toc 3
     :html-preamble t
     :auto-sitemap t
-    :author "noname"
+    :author "unname"
     :sitemap-filename ".sitemap.org")
    ("_assets"
     :base-directory "./"

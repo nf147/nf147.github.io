@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-12-11 Tue 08:26 -->
+<!-- 2019-03-22 周五 01:00 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>工厂模式</title>
@@ -24,7 +24,6 @@
 <li><a href="#org3d6b7c4">2. 有了接口之后</a></li>
 <li><a href="#orgacc7e65">3. 简单工厂</a></li>
 <li><a href="#orga60af77">4. 工厂方法模式</a></li>
-<li><a href="#org8c118aa">5. 抽象工厂</a></li>
 </ul>
 </div>
 </nav>
@@ -254,57 +253,10 @@ pgPf.createPhone().play();
 </ul>
 </div>
 </section>
-
-<section id="outline-container-org8c118aa" class="outline-2">
-<h2 id="org8c118aa"><span class="section-number-2">5</span> 抽象工厂</h2>
-<div class="outline-text-2" id="text-5">
-<div class="org-src-container">
-<pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">interface</span> <span class="org-type">PhoneFactory</span> {
-    <span class="org-type">Phone</span> <span class="org-function-name">createPhone</span>();
-    <span class="org-type">Usb</span> <span class="org-function-name">createUSB</span>();
-    <span class="org-type">Charger</span> <span class="org-function-name">createCharger</span>();
-}
-</pre>
-</div>
-
-<p>
-华为手机:
-</p>
-<div class="org-src-container">
-<pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">HuaweiPhoneFactory</span> <span class="org-keyword">implements</span> <span class="org-type">PhoneFactory</span> {
-    <span class="org-type">Phone</span> <span class="org-function-name">createPhone</span>() {
-        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">HuaweiPhone</span>();
-    }
-    <span class="org-type">Usb</span> <span class="org-function-name">createUSB</span>() {
-        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">HuaweiUSB</span>();
-    }
-    <span class="org-type">Charger</span> <span class="org-function-name">createCharger</span>() {
-        <span class="org-keyword">return</span> <span class="org-keyword">new</span> <span class="org-type">HuaweiCharger</span>();
-    }
-}
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">...</span>
-</pre>
-</div>
-
-<p>
-客户端调用:
-</p>
-<div class="org-src-container">
-<pre class="src src-java"><span class="org-type">PhoneFactory</span> <span class="org-variable-name">pf</span> = <span class="org-keyword">new</span> <span class="org-type">HuaweiPhoneFactory</span>();
-pf.createPhone();
-pf.createUsb();
-pf.createCharger();
-
-<span class="org-comment-delimiter">// </span><span class="org-comment">&#36890;&#36807;&#19968;&#20010;&#24037;&#21378;&#65292;&#25226;&#19968;&#20010;&#26063;&#20013;&#30340;&#30456;&#20851;&#20135;&#21697;&#20840;&#37117;&#36755;&#20986;&#26469;&#20102;</span>
-</pre>
-</div>
-</div>
-</section>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-12-11 Tue 08:26</p>
+<p class="date">Created: 2019-03-22 周五 01:00</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

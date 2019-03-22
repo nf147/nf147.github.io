@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-03-14 Thu 06:11 -->
+<!-- 2019-03-22 周五 01:00 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>208道面试题，答案</title>
@@ -2116,8 +2116,7 @@ chat 优点：效率高；缺点：占用空间；适用场景：存储密码的
 <h3 id="org31b49fa"><span class="section-number-3">12.7</span> MySQL 的内连接、左连接、右连接有什么区别？</h3>
 <div class="outline-text-3" id="text-12-7">
 <p>
-内连接关键字：inner join；左连接：left join；右连接：right join。
-内连接是把匹配的关联数据显示出来；左连接是左边的表全部显示出来，右边的表显示出符合条件的数据；右连接正好相反。
+内连接关键字：inner join；左连接：left join；右连接：right join。内连接是把匹配的关联数据显示出来；左连接是左边的表全部显示出来，右边的表显示出符合条件的数据；右连接正好相反。
 </p>
 </div>
 </div>
@@ -2126,8 +2125,7 @@ chat 优点：效率高；缺点：占用空间；适用场景：存储密码的
 <h3 id="org7b289ca"><span class="section-number-3">12.8</span> MySQL 索引是怎么实现的？</h3>
 <div class="outline-text-3" id="text-12-8">
 <p>
-索引是满足某种特定查找算法的数据结构，而这些数据结构会以某种方式指向数据，从而实现高效查找数据。
-具体来说 MySQL 中的索引，不同的数据引擎实现有所不同，但目前主流的数据库引擎的索引都是 B+ 树实现的，B+ 树的搜索效率，可以到达二分法的性能，找到数据区域之后就找到了完整的数据结构了，所有索引的性能也是更好的。
+索引是满足某种特定查找算法的数据结构，而这些数据结构会以某种方式指向数据，从而实现高效查找数据。具体来说 MySQL 中的索引，不同的数据引擎实现有所不同，但目前主流的数据库引擎的索引都是 B+ 树实现的，B+ 树的搜索效率，可以到达二分法的性能，找到数据区域之后就找到了完整的数据结构了，所有索引的性能也是更好的。
 </p>
 </div>
 </div>
@@ -2295,9 +2293,7 @@ Redis 使用场景：
 <h3 id="org159e4c9"><span class="section-number-3">13.4</span> Redis 为什么是单线程的？</h3>
 <div class="outline-text-3" id="text-13-4">
 <p>
-因为 cpu 不是 Redis 的瓶颈，Redis 的瓶颈最有可能是机器内存或者网络带宽。既然单线程容易实现，而且 cpu 又不会成为瓶颈，那就顺理成章地采用单线程的方案了。
-关于 Redis 的性能，官方网站也有，普通笔记本轻松处理每秒几十万的请求。
-而且单线程并不代表就慢 nginx 和 nodejs 也都是高性能单线程的代表。
+因为 cpu 不是 Redis 的瓶颈，Redis 的瓶颈最有可能是机器内存或者网络带宽。既然单线程容易实现，而且 cpu 又不会成为瓶颈，那就顺理成章地采用单线程的方案了。关于 Redis 的性能，官方网站也有，普通笔记本轻松处理每秒几十万的请求。而且单线程并不代表就慢 nginx 和 nodejs 也都是高性能单线程的代表。
 </p>
 </div>
 </div>
@@ -2370,8 +2366,7 @@ Redis 的持久化有两种方式，或者说有两种策略：
 <h3 id="org518f8b0"><span class="section-number-3">13.11</span> Redis 怎么实现分布式锁？</h3>
 <div class="outline-text-3" id="text-13-11">
 <p>
-Redis 分布式锁其实就是在系统里面占一个“坑”，其他程序也要占“坑”的时候，占用成功了就可以继续执行，失败了就只能放弃或稍后重试。
-占坑一般使用 setnx(set if not exists)指令，只允许被一个程序占有，使用完调用 del 释放锁。
+Redis 分布式锁其实就是在系统里面占一个“坑”，其他程序也要占“坑”的时候，占用成功了就可以继续执行，失败了就只能放弃或稍后重试。占坑一般使用 setnx(set if not exists)指令，只允许被一个程序占有，使用完调用 del 释放锁。
 </p>
 </div>
 </div>
@@ -3278,8 +3273,7 @@ CMS 使用的是标记-清除的算法实现的，所以在 gc 的时候回产�
 </ul>
 
 <p>
-每次在 From Survivor 到 To Survivor 移动时都存活的对象，年龄就 +1，当年龄到达 15（默认配置是 15）时，升级为老生代。大对象也会直接进入老生代。
-老生代当空间占用到达某个值之后就会触发全局垃圾收回，一般使用标记整理的执行算法。以上这些循环往复就构成了整个分代垃圾回收的整体执行流程。
+每次在 From Survivor 到 To Survivor 移动时都存活的对象，年龄就 +1，当年龄到达 15（默认配置是 15）时，升级为老生代。大对象也会直接进入老生代。老生代当空间占用到达某个值之后就会触发全局垃圾收回，一般使用标记整理的执行算法。以上这些循环往复就构成了整个分代垃圾回收的整体执行流程。
 </p>
 </div>
 </div>
@@ -3317,7 +3311,7 @@ JDK 自带了很多监控工具，都位于 JDK 的 bin 目录下，其中最常
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2019-03-14 Thu 06:11</p>
+<p class="date">Created: 2019-03-22 周五 01:00</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
