@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-03-22 周五 01:08 -->
+<!-- 2019-03-22 周五 01:18 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>工厂模式</title>
@@ -20,10 +20,10 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgedef072">1. 最原始的方式</a></li>
-<li><a href="#org3d6b7c4">2. 有了接口之后</a></li>
-<li><a href="#orgacc7e65">3. 简单工厂</a></li>
-<li><a href="#orga60af77">4. 工厂方法模式</a></li>
+<li><a href="#org901af74">1. 最原始的方式</a></li>
+<li><a href="#org0ae9711">2. 有了接口之后</a></li>
+<li><a href="#orgef2581f">3. 简单工厂</a></li>
+<li><a href="#orgcaa8a1d">4. 工厂方法模式</a></li>
 </ul>
 </div>
 </nav>
@@ -40,8 +40,8 @@
 </p>
 
 
-<section id="outline-container-orgedef072" class="outline-2">
-<h2 id="orgedef072"><span class="section-number-2">1</span> 最原始的方式</h2>
+<section id="outline-container-org901af74" class="outline-2">
+<h2 id="org901af74"><span class="section-number-2">1</span> 最原始的方式</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 比如说，有一系列的代码，是用来创建不同品牌的手机。代码是这样的:
@@ -88,8 +88,8 @@ phone2.yyy();
 </div>
 </section>
 
-<section id="outline-container-org3d6b7c4" class="outline-2">
-<h2 id="org3d6b7c4"><span class="section-number-2">2</span> 有了接口之后</h2>
+<section id="outline-container-org0ae9711" class="outline-2">
+<h2 id="org0ae9711"><span class="section-number-2">2</span> 有了接口之后</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 为了减少方法调用的复杂度，也为了便于抽象跟代码管理，咱们额外提供一个接口:
@@ -142,8 +142,8 @@ phone3.play();
 </div>
 </section>
 
-<section id="outline-container-orgacc7e65" class="outline-2">
-<h2 id="orgacc7e65"><span class="section-number-2">3</span> 简单工厂</h2>
+<section id="outline-container-orgef2581f" class="outline-2">
+<h2 id="orgef2581f"><span class="section-number-2">3</span> 简单工厂</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 在中间加一层:
@@ -191,8 +191,8 @@ pf.createPhone(<span class="org-string">"xm"</span>).play();
 </div>
 </section>
 
-<section id="outline-container-orga60af77" class="outline-2">
-<h2 id="orga60af77"><span class="section-number-2">4</span> 工厂方法模式</h2>
+<section id="outline-container-orgcaa8a1d" class="outline-2">
+<h2 id="orgcaa8a1d"><span class="section-number-2">4</span> 工厂方法模式</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 为 Phone 工厂，创建一个接口:
@@ -256,7 +256,7 @@ pgPf.createPhone().play();
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: unname</p>
-<p class="date">Created: 2019-03-22 周五 01:08</p>
+<p class="date">Created: 2019-03-22 周五 01:18</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

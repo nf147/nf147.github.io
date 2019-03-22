@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-03-22 周五 01:08 -->
+<!-- 2019-03-22 周五 01:18 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GNU/Linux</title>
@@ -20,58 +20,58 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgba20d58">1. APT</a>
+<li><a href="#org5054df0">1. APT</a>
 <ul>
-<li><a href="#org68cbd69">1.1. 设置国内源</a></li>
-<li><a href="#orgafba976">1.2. 基本命令</a></li>
+<li><a href="#orge037a1d">1.1. 设置国内源</a></li>
+<li><a href="#org3c9216c">1.2. 基本命令</a></li>
 </ul>
 </li>
-<li><a href="#org4aa4145">2. 常用命令</a>
+<li><a href="#orgfc514e7">2. 常用命令</a>
 <ul>
-<li><a href="#org2c7336c">2.1. 文件相关</a></li>
-<li><a href="#org6602f6d">2.2. 归档、压缩</a></li>
-<li><a href="#org3e2d935">2.3. 远程连接</a></li>
+<li><a href="#orgcc6525e">2.1. 文件相关</a></li>
+<li><a href="#orgc441357">2.2. 归档、压缩</a></li>
+<li><a href="#org7b2a2b4">2.3. 远程连接</a></li>
 </ul>
 </li>
-<li><a href="#org54b3f12">3. 命令行下常用快捷键</a></li>
-<li><a href="#org68f5a2f">4. Linux 的目录结构</a>
+<li><a href="#orgd99b0f2">3. 命令行下常用快捷键</a></li>
+<li><a href="#org20e5c17">4. Linux 的目录结构</a>
 <ul>
-<li><a href="#orgc77785f">4.1. /bin</a></li>
-<li><a href="#org9bab17d">4.2. /etc</a></li>
-<li><a href="#orgc1439e3">4.3. /usr</a>
+<li><a href="#org93c8d12">4.1. /bin</a></li>
+<li><a href="#org0ee0879">4.2. /etc</a></li>
+<li><a href="#orgf097b3b">4.3. /usr</a>
 <ul>
-<li><a href="#orgef60a99">4.3.1. /usr/share</a></li>
-<li><a href="#org66cdc18">4.3.2. /usr/lib</a></li>
-<li><a href="#org249e601">4.3.3. /usr/local</a></li>
+<li><a href="#org2d7eaf1">4.3.1. /usr/share</a></li>
+<li><a href="#orgab4f58b">4.3.2. /usr/lib</a></li>
+<li><a href="#org5c541fe">4.3.3. /usr/local</a></li>
 </ul>
 </li>
-<li><a href="#org1da9a01">4.4. /home</a></li>
-<li><a href="#org45d1a8d">4.5. /dev</a></li>
-<li><a href="#org29fd16b">4.6. /opt</a></li>
+<li><a href="#org03b8625">4.4. /home</a></li>
+<li><a href="#orgc8a57c6">4.5. /dev</a></li>
+<li><a href="#orgcc67b29">4.6. /opt</a></li>
 </ul>
 </li>
-<li><a href="#org30b654e">5. Miscellaneous</a>
+<li><a href="#org1ddd5b0">5. Miscellaneous</a>
 <ul>
-<li><a href="#orge56bcb5">5.1. Linux 常用命令 (add by 成盛文)</a>
+<li><a href="#org5440d54">5.1. Linux 常用命令 (add by 成盛文)</a>
 <ul>
-<li><a href="#org59f165a">5.1.1. 文件与目录操作</a></li>
-<li><a href="#orge809162">5.1.2. 备份与压缩</a></li>
-<li><a href="#org07a7f2f">5.1.3. 文本处理</a></li>
-<li><a href="#org5930a4e">5.1.4. shell指令</a></li>
-<li><a href="#orgc4db4c7">5.1.5. 打印相关指令</a></li>
-<li><a href="#org9a673d9">5.1.6. 其他基础指令</a></li>
-<li><a href="#org375efd8">5.1.7. 用户管理</a></li>
-<li><a href="#org18b49b0">5.1.8. 进程管理</a></li>
-<li><a href="#org8874b11">5.1.9. 磁盘与文件系统管理</a></li>
-<li><a href="#org207d7c4">5.1.10. 内核与性能</a></li>
-<li><a href="#org3f0623e">5.1.11. X-Window系统</a></li>
-<li><a href="#orgfc880ca">5.1.12. 系统安全</a></li>
-<li><a href="#org9f9e6ab">5.1.13. 编程相关指令</a></li>
-<li><a href="#org71ce1a1">5.1.14. 其他系统管理与维护指令</a></li>
-<li><a href="#orgfd55102">5.1.15. 网络配置</a></li>
-<li><a href="#org2ae3da3">5.1.16. 网络测试与应用</a></li>
-<li><a href="#orgd850a64">5.1.17. 高级网络指令</a></li>
-<li><a href="#orgbebb432">5.1.18. 网络服务器指令</a></li>
+<li><a href="#org5214dd5">5.1.1. 文件与目录操作</a></li>
+<li><a href="#orga0ac570">5.1.2. 备份与压缩</a></li>
+<li><a href="#org70b1370">5.1.3. 文本处理</a></li>
+<li><a href="#org0193b76">5.1.4. shell指令</a></li>
+<li><a href="#org5c2dbd6">5.1.5. 打印相关指令</a></li>
+<li><a href="#org9ef5ccf">5.1.6. 其他基础指令</a></li>
+<li><a href="#org83ec873">5.1.7. 用户管理</a></li>
+<li><a href="#org50ce813">5.1.8. 进程管理</a></li>
+<li><a href="#org5d72a0b">5.1.9. 磁盘与文件系统管理</a></li>
+<li><a href="#orge1a8a51">5.1.10. 内核与性能</a></li>
+<li><a href="#org888dc36">5.1.11. X-Window系统</a></li>
+<li><a href="#org99af69e">5.1.12. 系统安全</a></li>
+<li><a href="#orgf3e98ab">5.1.13. 编程相关指令</a></li>
+<li><a href="#orgd24da0f">5.1.14. 其他系统管理与维护指令</a></li>
+<li><a href="#orgd173555">5.1.15. 网络配置</a></li>
+<li><a href="#orgc189e06">5.1.16. 网络测试与应用</a></li>
+<li><a href="#org2a56877">5.1.17. 高级网络指令</a></li>
+<li><a href="#orgd206ad9">5.1.18. 网络服务器指令</a></li>
 </ul>
 </li>
 </ul>
@@ -81,12 +81,12 @@
 </nav>
 
 
-<section id="outline-container-orgba20d58" class="outline-2">
-<h2 id="orgba20d58"><span class="section-number-2">1</span> APT</h2>
+<section id="outline-container-org5054df0" class="outline-2">
+<h2 id="org5054df0"><span class="section-number-2">1</span> APT</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-org68cbd69" class="outline-3">
-<h3 id="org68cbd69"><span class="section-number-3">1.1</span> 设置国内源</h3>
+<div id="outline-container-orge037a1d" class="outline-3">
+<h3 id="orge037a1d"><span class="section-number-3">1.1</span> 设置国内源</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 sudo gedit /etc/apt/sources.list:
@@ -118,8 +118,8 @@ lsb_release -a
 </div>
 </div>
 
-<div id="outline-container-orgafba976" class="outline-3">
-<h3 id="orgafba976"><span class="section-number-3">1.2</span> 基本命令</h3>
+<div id="outline-container-org3c9216c" class="outline-3">
+<h3 id="org3c9216c"><span class="section-number-3">1.2</span> 基本命令</h3>
 <div class="outline-text-3" id="text-1-2">
 <div class="org-src-container">
 <pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">&#20174;&#36828;&#31243;&#26356;&#26032;&#36719;&#20214;&#21015;&#34920;</span>
@@ -152,12 +152,12 @@ apt 命令是一些更加底层的命令，比如 <code>apt-get/apt-cache</code>
 </div>
 </section>
 
-<section id="outline-container-org4aa4145" class="outline-2">
-<h2 id="org4aa4145"><span class="section-number-2">2</span> 常用命令</h2>
+<section id="outline-container-orgfc514e7" class="outline-2">
+<h2 id="orgfc514e7"><span class="section-number-2">2</span> 常用命令</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-org2c7336c" class="outline-3">
-<h3 id="org2c7336c"><span class="section-number-3">2.1</span> 文件相关</h3>
+<div id="outline-container-orgcc6525e" class="outline-3">
+<h3 id="orgcc6525e"><span class="section-number-3">2.1</span> 文件相关</h3>
 <div class="outline-text-3" id="text-2-1">
 <div class="org-src-container">
 <pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">list, &#26597;&#30475;&#30446;&#24405;&#25991;&#20214;</span>
@@ -185,8 +185,8 @@ rm -rf /sss/ <span class="org-comment-delimiter"># </span><span class="org-comme
 </div>
 </div>
 
-<div id="outline-container-org6602f6d" class="outline-3">
-<h3 id="org6602f6d"><span class="section-number-3">2.2</span> 归档、压缩</h3>
+<div id="outline-container-orgc441357" class="outline-3">
+<h3 id="orgc441357"><span class="section-number-3">2.2</span> 归档、压缩</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 归档、压缩是两个不同的阶段：
@@ -213,8 +213,8 @@ tar xzvf xxx.tar.gz  <span class="org-comment-delimiter"># </span><span class="o
 </div>
 </div>
 
-<div id="outline-container-org3e2d935" class="outline-3">
-<h3 id="org3e2d935"><span class="section-number-3">2.3</span> 远程连接</h3>
+<div id="outline-container-org7b2a2b4" class="outline-3">
+<h3 id="org7b2a2b4"><span class="section-number-3">2.3</span> 远程连接</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 首先，在服务端安装并开启 ssh 服务:
@@ -271,8 +271,8 @@ scp -r user@192.168.3.3:~/target/ ~/ <span class="org-comment-delimiter"># </spa
 </div>
 </section>
 
-<section id="outline-container-org54b3f12" class="outline-2">
-<h2 id="org54b3f12"><span class="section-number-2">3</span> 命令行下常用快捷键</h2>
+<section id="outline-container-orgd99b0f2" class="outline-2">
+<h2 id="orgd99b0f2"><span class="section-number-2">3</span> 命令行下常用快捷键</h2>
 <div class="outline-text-2" id="text-3">
 <ul class="org-ul">
 <li><code>Ctrl-a</code>, 返回行首</li>
@@ -293,16 +293,16 @@ scp -r user@192.168.3.3:~/target/ ~/ <span class="org-comment-delimiter"># </spa
 </div>
 </section>
 
-<section id="outline-container-org68f5a2f" class="outline-2">
-<h2 id="org68f5a2f"><span class="section-number-2">4</span> Linux 的目录结构</h2>
+<section id="outline-container-org20e5c17" class="outline-2">
+<h2 id="org20e5c17"><span class="section-number-2">4</span> Linux 的目录结构</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 目录树
 </p>
 </div>
 
-<div id="outline-container-orgc77785f" class="outline-3">
-<h3 id="orgc77785f"><span class="section-number-3">4.1</span> /bin</h3>
+<div id="outline-container-org93c8d12" class="outline-3">
+<h3 id="org93c8d12"><span class="section-number-3">4.1</span> /bin</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 全局可执行文件
@@ -310,8 +310,8 @@ scp -r user@192.168.3.3:~/target/ ~/ <span class="org-comment-delimiter"># </spa
 </div>
 </div>
 
-<div id="outline-container-org9bab17d" class="outline-3">
-<h3 id="org9bab17d"><span class="section-number-3">4.2</span> /etc</h3>
+<div id="outline-container-org0ee0879" class="outline-3">
+<h3 id="org0ee0879"><span class="section-number-3">4.2</span> /etc</h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 全局配置文件
@@ -319,26 +319,26 @@ scp -r user@192.168.3.3:~/target/ ~/ <span class="org-comment-delimiter"># </spa
 </div>
 </div>
 
-<div id="outline-container-orgc1439e3" class="outline-3">
-<h3 id="orgc1439e3"><span class="section-number-3">4.3</span> /usr</h3>
+<div id="outline-container-orgf097b3b" class="outline-3">
+<h3 id="orgf097b3b"><span class="section-number-3">4.3</span> /usr</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 User Resources，用户的资源文件
 </p>
 </div>
 
-<div id="outline-container-orgef60a99" class="outline-4">
-<h4 id="orgef60a99"><span class="section-number-4">4.3.1</span> /usr/share</h4>
+<div id="outline-container-org2d7eaf1" class="outline-4">
+<h4 id="org2d7eaf1"><span class="section-number-4">4.3.1</span> /usr/share</h4>
 </div>
-<div id="outline-container-org66cdc18" class="outline-4">
-<h4 id="org66cdc18"><span class="section-number-4">4.3.2</span> /usr/lib</h4>
+<div id="outline-container-orgab4f58b" class="outline-4">
+<h4 id="orgab4f58b"><span class="section-number-4">4.3.2</span> /usr/lib</h4>
 </div>
-<div id="outline-container-org249e601" class="outline-4">
-<h4 id="org249e601"><span class="section-number-4">4.3.3</span> /usr/local</h4>
+<div id="outline-container-org5c541fe" class="outline-4">
+<h4 id="org5c541fe"><span class="section-number-4">4.3.3</span> /usr/local</h4>
 </div>
 </div>
-<div id="outline-container-org1da9a01" class="outline-3">
-<h3 id="org1da9a01"><span class="section-number-3">4.4</span> /home</h3>
+<div id="outline-container-org03b8625" class="outline-3">
+<h3 id="org03b8625"><span class="section-number-3">4.4</span> /home</h3>
 <div class="outline-text-3" id="text-4-4">
 <p>
 用户的主目录
@@ -346,8 +346,8 @@ User Resources，用户的资源文件
 </div>
 </div>
 
-<div id="outline-container-org45d1a8d" class="outline-3">
-<h3 id="org45d1a8d"><span class="section-number-3">4.5</span> /dev</h3>
+<div id="outline-container-orgc8a57c6" class="outline-3">
+<h3 id="orgc8a57c6"><span class="section-number-3">4.5</span> /dev</h3>
 <div class="outline-text-3" id="text-4-5">
 <p>
 硬件
@@ -355,8 +355,8 @@ User Resources，用户的资源文件
 </div>
 </div>
 
-<div id="outline-container-org29fd16b" class="outline-3">
-<h3 id="org29fd16b"><span class="section-number-3">4.6</span> /opt</h3>
+<div id="outline-container-orgcc67b29" class="outline-3">
+<h3 id="orgcc67b29"><span class="section-number-3">4.6</span> /opt</h3>
 <div class="outline-text-3" id="text-4-6">
 <p>
 一般用来放置一些第三方的软件，比如自己下载的 tomcat 等
@@ -365,16 +365,16 @@ User Resources，用户的资源文件
 </div>
 </section>
 
-<section id="outline-container-org30b654e" class="outline-2">
-<h2 id="org30b654e"><span class="section-number-2">5</span> Miscellaneous</h2>
+<section id="outline-container-org1ddd5b0" class="outline-2">
+<h2 id="org1ddd5b0"><span class="section-number-2">5</span> Miscellaneous</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-orge56bcb5" class="outline-3">
-<h3 id="orge56bcb5"><span class="section-number-3">5.1</span> Linux 常用命令 (add by 成盛文)</h3>
+<div id="outline-container-org5440d54" class="outline-3">
+<h3 id="org5440d54"><span class="section-number-3">5.1</span> Linux 常用命令 (add by 成盛文)</h3>
 <div class="outline-text-3" id="text-5-1">
 </div>
-<div id="outline-container-org59f165a" class="outline-4">
-<h4 id="org59f165a"><span class="section-number-4">5.1.1</span> 文件与目录操作</h4>
+<div id="outline-container-org5214dd5" class="outline-4">
+<h4 id="org5214dd5"><span class="section-number-4">5.1.1</span> 文件与目录操作</h4>
 <div class="outline-text-4" id="text-5-1-1">
 <ul class="org-ul">
 <li>basename：从文件名中去掉路径和扩展名</li>
@@ -403,8 +403,8 @@ User Resources，用户的资源文件
 </div>
 </div>
 
-<div id="outline-container-orge809162" class="outline-4">
-<h4 id="orge809162"><span class="section-number-4">5.1.2</span> 备份与压缩</h4>
+<div id="outline-container-orga0ac570" class="outline-4">
+<h4 id="orga0ac570"><span class="section-number-4">5.1.2</span> 备份与压缩</h4>
 <div class="outline-text-4" id="text-5-1-2">
 <ul class="org-ul">
 <li>ar：创建、修改归档文件和从归档文件中提取文件</li>
@@ -435,8 +435,8 @@ User Resources，用户的资源文件
 </div>
 </div>
 
-<div id="outline-container-org07a7f2f" class="outline-4">
-<h4 id="org07a7f2f"><span class="section-number-4">5.1.3</span> 文本处理</h4>
+<div id="outline-container-org70b1370" class="outline-4">
+<h4 id="org70b1370"><span class="section-number-4">5.1.3</span> 文本处理</h4>
 <div class="outline-text-4" id="text-5-1-3">
 <ul class="org-ul">
 <li>cat：链接文件并显示到标准输出</li>
@@ -485,8 +485,8 @@ User Resources，用户的资源文件
 </div>
 </div>
 
-<div id="outline-container-org5930a4e" class="outline-4">
-<h4 id="org5930a4e"><span class="section-number-4">5.1.4</span> shell指令</h4>
+<div id="outline-container-org0193b76" class="outline-4">
+<h4 id="org0193b76"><span class="section-number-4">5.1.4</span> shell指令</h4>
 <div class="outline-text-4" id="text-5-1-4">
 <ul class="org-ul">
 <li>alias：定义命令别名</li>
@@ -519,8 +519,8 @@ User Resources，用户的资源文件
 </div>
 </div>
 
-<div id="outline-container-orgc4db4c7" class="outline-4">
-<h4 id="orgc4db4c7"><span class="section-number-4">5.1.5</span> 打印相关指令</h4>
+<div id="outline-container-org5c2dbd6" class="outline-4">
+<h4 id="org5c2dbd6"><span class="section-number-4">5.1.5</span> 打印相关指令</h4>
 <div class="outline-text-4" id="text-5-1-5">
 <ul class="org-ul">
 <li>accept：接受打印请求</li>
@@ -540,8 +540,8 @@ User Resources，用户的资源文件
 </div>
 </div>
 
-<div id="outline-container-org9a673d9" class="outline-4">
-<h4 id="org9a673d9"><span class="section-number-4">5.1.6</span> 其他基础指令</h4>
+<div id="outline-container-org9ef5ccf" class="outline-4">
+<h4 id="org9ef5ccf"><span class="section-number-4">5.1.6</span> 其他基础指令</h4>
 <div class="outline-text-4" id="text-5-1-6">
 <ul class="org-ul">
 <li>bc：实现精确计算的计算器</li>
@@ -578,8 +578,8 @@ User Resources，用户的资源文件
 </div>
 </div>
 
-<div id="outline-container-org375efd8" class="outline-4">
-<h4 id="org375efd8"><span class="section-number-4">5.1.7</span> 用户管理</h4>
+<div id="outline-container-org83ec873" class="outline-4">
+<h4 id="org83ec873"><span class="section-number-4">5.1.7</span> 用户管理</h4>
 <div class="outline-text-4" id="text-5-1-7">
 <ul class="org-ul">
 <li>chfn：改变用户的finger信息</li>
@@ -607,8 +607,8 @@ User Resources，用户的资源文件
 </div>
 </div>
 
-<div id="outline-container-org18b49b0" class="outline-4">
-<h4 id="org18b49b0"><span class="section-number-4">5.1.8</span> 进程管理</h4>
+<div id="outline-container-org50ce813" class="outline-4">
+<h4 id="org50ce813"><span class="section-number-4">5.1.8</span> 进程管理</h4>
 <div class="outline-text-4" id="text-5-1-8">
 <ul class="org-ul">
 <li>init：进程初始化控制</li>
@@ -627,8 +627,8 @@ User Resources，用户的资源文件
 </div>
 </div>
 
-<div id="outline-container-org8874b11" class="outline-4">
-<h4 id="org8874b11"><span class="section-number-4">5.1.9</span> 磁盘与文件系统管理</h4>
+<div id="outline-container-org5d72a0b" class="outline-4">
+<h4 id="org5d72a0b"><span class="section-number-4">5.1.9</span> 磁盘与文件系统管理</h4>
 <div class="outline-text-4" id="text-5-1-9">
 <ul class="org-ul">
 <li>badblocks：磁盘坏块检查工具</li>
@@ -673,8 +673,8 @@ User Resources，用户的资源文件
 </div>
 </div>
 
-<div id="outline-container-org207d7c4" class="outline-4">
-<h4 id="org207d7c4"><span class="section-number-4">5.1.10</span> 内核与性能</h4>
+<div id="outline-container-orge1a8a51" class="outline-4">
+<h4 id="orge1a8a51"><span class="section-number-4">5.1.10</span> 内核与性能</h4>
 <div class="outline-text-4" id="text-5-1-10">
 <ul class="org-ul">
 <li>depmod：处理内核可加载模块的依赖关系</li>
@@ -701,8 +701,8 @@ User Resources，用户的资源文件
 </div>
 </div>
 
-<div id="outline-container-org3f0623e" class="outline-4">
-<h4 id="org3f0623e"><span class="section-number-4">5.1.11</span> X-Window系统</h4>
+<div id="outline-container-org888dc36" class="outline-4">
+<h4 id="org888dc36"><span class="section-number-4">5.1.11</span> X-Window系统</h4>
 <div class="outline-text-4" id="text-5-1-11">
 <ul class="org-ul">
 <li>startx：初始化X-Window会话</li>
@@ -717,8 +717,8 @@ User Resources，用户的资源文件
 </div>
 </div>
 
-<div id="outline-container-orgfc880ca" class="outline-4">
-<h4 id="orgfc880ca"><span class="section-number-4">5.1.12</span> 系统安全</h4>
+<div id="outline-container-org99af69e" class="outline-4">
+<h4 id="org99af69e"><span class="section-number-4">5.1.12</span> 系统安全</h4>
 <div class="outline-text-4" id="text-5-1-12">
 <ul class="org-ul">
 <li>chroot：以指定根目录运行指令</li>
@@ -732,8 +732,8 @@ User Resources，用户的资源文件
 </div>
 </div>
 
-<div id="outline-container-org9f9e6ab" class="outline-4">
-<h4 id="org9f9e6ab"><span class="section-number-4">5.1.13</span> 编程相关指令</h4>
+<div id="outline-container-orgf3e98ab" class="outline-4">
+<h4 id="orgf3e98ab"><span class="section-number-4">5.1.13</span> 编程相关指令</h4>
 <div class="outline-text-4" id="text-5-1-13">
 <ul class="org-ul">
 <li>awk/gawk：模式扫描与处理语言</li>
@@ -750,8 +750,8 @@ User Resources，用户的资源文件
 </div>
 </div>
 
-<div id="outline-container-org71ce1a1" class="outline-4">
-<h4 id="org71ce1a1"><span class="section-number-4">5.1.14</span> 其他系统管理与维护指令</h4>
+<div id="outline-container-orgd24da0f" class="outline-4">
+<h4 id="orgd24da0f"><span class="section-number-4">5.1.14</span> 其他系统管理与维护指令</h4>
 <div class="outline-text-4" id="text-5-1-14">
 <ul class="org-ul">
 <li>arch：显示当前主机的硬件架构</li>
@@ -777,8 +777,8 @@ User Resources，用户的资源文件
 </div>
 </div>
 
-<div id="outline-container-orgfd55102" class="outline-4">
-<h4 id="orgfd55102"><span class="section-number-4">5.1.15</span> 网络配置</h4>
+<div id="outline-container-orgd173555" class="outline-4">
+<h4 id="orgd173555"><span class="section-number-4">5.1.15</span> 网络配置</h4>
 <div class="outline-text-4" id="text-5-1-15">
 <ul class="org-ul">
 <li>dnsdomainname：显示系统的DNS域名</li>
@@ -795,8 +795,8 @@ User Resources，用户的资源文件
 </div>
 </div>
 
-<div id="outline-container-org2ae3da3" class="outline-4">
-<h4 id="org2ae3da3"><span class="section-number-4">5.1.16</span> 网络测试与应用</h4>
+<div id="outline-container-orgc189e06" class="outline-4">
+<h4 id="orgc189e06"><span class="section-number-4">5.1.16</span> 网络测试与应用</h4>
 <div class="outline-text-4" id="text-5-1-16">
 <ul class="org-ul">
 <li>arp：管理本机arp缓冲区</li>
@@ -825,8 +825,8 @@ User Resources，用户的资源文件
 </div>
 </div>
 
-<div id="outline-container-orgd850a64" class="outline-4">
-<h4 id="orgd850a64"><span class="section-number-4">5.1.17</span> 高级网络指令</h4>
+<div id="outline-container-org2a56877" class="outline-4">
+<h4 id="org2a56877"><span class="section-number-4">5.1.17</span> 高级网络指令</h4>
 <div class="outline-text-4" id="text-5-1-17">
 <ul class="org-ul">
 <li>arptables：管理内核的ARP规则表</li>
@@ -839,8 +839,8 @@ User Resources，用户的资源文件
 </div>
 </div>
 
-<div id="outline-container-orgbebb432" class="outline-4">
-<h4 id="orgbebb432"><span class="section-number-4">5.1.18</span> 网络服务器指令</h4>
+<div id="outline-container-orgd206ad9" class="outline-4">
+<h4 id="orgd206ad9"><span class="section-number-4">5.1.18</span> 网络服务器指令</h4>
 <div class="outline-text-4" id="text-5-1-18">
 <ul class="org-ul">
 <li>ab：Web服务器性能测试</li>
@@ -871,7 +871,7 @@ User Resources，用户的资源文件
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: unname</p>
-<p class="date">Created: 2019-03-22 周五 01:08</p>
+<p class="date">Created: 2019-03-22 周五 01:18</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

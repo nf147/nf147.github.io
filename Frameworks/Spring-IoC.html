@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2018-12-18 Tue 07:19 -->
+<!-- 2019-03-22 周五 01:18 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Spring Framework</title>
+<title>Spring.IOC</title>
 <meta name="generator" content="Org mode">
-<meta name="author" content="孙悟空">
+<meta name="author" content="unname">
 <link rel='stylesheet' href='/asset/common.css' />
 <script src='https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js'></script>
 <script src='https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
@@ -15,39 +15,36 @@
 <body>
 <div id="content">
 <header>
-<h1 class="title">Spring Framework</h1>
+<h1 class="title">Spring.IOC</h1>
 </header><nav id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org647e25c">1. vs. 工厂模式</a></li>
-<li><a href="#orgbedddb2">2. 接口</a></li>
-<li><a href="#org64d7018">3. 配置</a>
+<li><a href="#orgdc88e0c">1. vs. 工厂模式</a></li>
+<li><a href="#orgfd290b3">2. 接口</a></li>
+<li><a href="#orgb889dea">3. 配置</a>
 <ul>
-<li><a href="#orgacd61ef">3.1. 传统的方式 xml</a></li>
-<li><a href="#orgdaf4698">3.2. 基于 Java 的方式进行配置</a></li>
-<li><a href="#orgc89bd36">3.3. 混合双打</a></li>
+<li><a href="#org01e3eff">3.1. 传统的方式 xml</a></li>
+<li><a href="#orga64d95b">3.2. 基于 Java 的方式进行配置</a></li>
+<li><a href="#org49f17d1">3.3. 混合双打</a></li>
 </ul>
 </li>
-<li><a href="#orgbfc911f">4. 装配 (Wiring)</a>
+<li><a href="#org37cf5d0">4. 装配 (Wiring)</a>
 <ul>
-<li><a href="#org04c06e1">4.1. Wiring in XML</a></li>
-<li><a href="#org4d36aa6">4.2. Wiring in JavaConfig</a></li>
-<li><a href="#org580d7b1">4.3. Wiring with Annotation</a></li>
+<li><a href="#org280d7ae">4.1. Wiring in XML</a></li>
+<li><a href="#org99fb9b2">4.2. Wiring in JavaConfig</a></li>
+<li><a href="#orgc52a34e">4.3. Wiring with Annotation</a></li>
 </ul>
 </li>
-<li><a href="#orgff8392d">5. 生命周期 (Lifecycle)</a></li>
-<li><a href="#orgd96689a">6. 面向切面编程 (AOP, Aspect Oriten Program)</a></li>
-<li><a href="#org80086d2">7. 概念</a></li>
-<li><a href="#org847d884">8. 使用 @AspectJ 注解</a></li>
-<li><a href="#orgef39585">9. 使用 XML 配置的示例</a></li>
+<li><a href="#org0aaf411">5. 生命周期 (Lifecycle)</a></li>
 </ul>
 </div>
 </nav>
 
 
-<section id="outline-container-org647e25c" class="outline-2">
-<h2 id="org647e25c"><span class="section-number-2">1</span> vs. 工厂模式</h2>
+
+<section id="outline-container-orgdc88e0c" class="outline-2">
+<h2 id="orgdc88e0c"><span class="section-number-2">1</span> vs. 工厂模式</h2>
 <div class="outline-text-2" id="text-1">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">ServiceFactory</span> {
@@ -84,7 +81,7 @@
 </p>
 
 <p>
-xml 暴露出来，用来<b>描述</b>工厂需要实例化的类以及他们之间的关系。
+xml 暴露出来，用来 <b>描述</b> 工厂需要实例化的类以及他们之间的关系。
 </p>
 
 <div class="org-src-container">
@@ -110,8 +107,8 @@ xml 暴露出来，用来<b>描述</b>工厂需要实例化的类以及他们之
 </div>
 </section>
 
-<section id="outline-container-orgbedddb2" class="outline-2">
-<h2 id="orgbedddb2"><span class="section-number-2">2</span> 接口</h2>
+<section id="outline-container-orgfd290b3" class="outline-2">
+<h2 id="orgfd290b3"><span class="section-number-2">2</span> 接口</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 最核心的 jar 包:
@@ -148,22 +145,23 @@ xml 暴露出来，用来<b>描述</b>工厂需要实例化的类以及他们之
 </figure>
 
 <p>
-可以看到，ApplicationContext 除了实现了 BeanFactory，还实现了其他一些实用的接口。因此，它是在 Spring 中操作一切的核心。
+可以看到，ApplicationContext 除了实现了 BeanFactory，还实现了其他一些
+实用的接口。因此，它是在 Spring 中操作一切的核心。
 </p>
 
 <p>
-这是<b>门面模式</b>的一种典型使用。
+这是 <b>门面模式</b> 的一种典型使用。
 </p>
 </div>
 </section>
 
 
-<section id="outline-container-org64d7018" class="outline-2">
-<h2 id="org64d7018"><span class="section-number-2">3</span> 配置</h2>
+<section id="outline-container-orgb889dea" class="outline-2">
+<h2 id="orgb889dea"><span class="section-number-2">3</span> 配置</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-orgacd61ef" class="outline-3">
-<h3 id="orgacd61ef"><span class="section-number-3">3.1</span> 传统的方式 xml</h3>
+<div id="outline-container-org01e3eff" class="outline-3">
+<h3 id="org01e3eff"><span class="section-number-3">3.1</span> 传统的方式 xml</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 这种方式，充分利用了 xml 文件的优势:
@@ -210,8 +208,8 @@ xml 暴露出来，用来<b>描述</b>工厂需要实例化的类以及他们之
 </div>
 </div>
 
-<div id="outline-container-orgdaf4698" class="outline-3">
-<h3 id="orgdaf4698"><span class="section-number-3">3.2</span> 基于 Java 的方式进行配置</h3>
+<div id="outline-container-orga64d95b" class="outline-3">
+<h3 id="orga64d95b"><span class="section-number-3">3.2</span> 基于 Java 的方式进行配置</h3>
 <div class="outline-text-3" id="text-3-2">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-c-annotation">@Configuration</span>
@@ -242,8 +240,8 @@ xml 暴露出来，用来<b>描述</b>工厂需要实例化的类以及他们之
 </div>
 </div>
 
-<div id="outline-container-orgc89bd36" class="outline-3">
-<h3 id="orgc89bd36"><span class="section-number-3">3.3</span> 混合双打</h3>
+<div id="outline-container-org49f17d1" class="outline-3">
+<h3 id="org49f17d1"><span class="section-number-3">3.3</span> 混合双打</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 Java Style 中混入 XML Style:
@@ -290,8 +288,8 @@ XML style 中混入 Java Style:
 </div>
 </div>
 </section>
-<section id="outline-container-orgbfc911f" class="outline-2">
-<h2 id="orgbfc911f"><span class="section-number-2">4</span> 装配 (Wiring)</h2>
+<section id="outline-container-org37cf5d0" class="outline-2">
+<h2 id="org37cf5d0"><span class="section-number-2">4</span> 装配 (Wiring)</h2>
 <div class="outline-text-2" id="text-4">
 <blockquote>
 <p>
@@ -317,8 +315,8 @@ XML style 中混入 Java Style:
 </ol>
 </div>
 
-<div id="outline-container-org04c06e1" class="outline-3">
-<h3 id="org04c06e1"><span class="section-number-3">4.1</span> Wiring in XML</h3>
+<div id="outline-container-org280d7ae" class="outline-3">
+<h3 id="org280d7ae"><span class="section-number-3">4.1</span> Wiring in XML</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 装配:
@@ -399,8 +397,8 @@ XML style 中混入 Java Style:
 </div>
 </div>
 
-<div id="outline-container-org4d36aa6" class="outline-3">
-<h3 id="org4d36aa6"><span class="section-number-3">4.2</span> Wiring in JavaConfig</h3>
+<div id="outline-container-org99fb9b2" class="outline-3">
+<h3 id="org99fb9b2"><span class="section-number-3">4.2</span> Wiring in JavaConfig</h3>
 <div class="outline-text-3" id="text-4-2">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-c-annotation">@Configuration</span>
@@ -428,8 +426,8 @@ XML style 中混入 Java Style:
 </div>
 </div>
 
-<div id="outline-container-org580d7b1" class="outline-3">
-<h3 id="org580d7b1"><span class="section-number-3">4.3</span> Wiring with Annotation</h3>
+<div id="outline-container-orgc52a34e" class="outline-3">
+<h3 id="orgc52a34e"><span class="section-number-3">4.3</span> Wiring with Annotation</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 首先，需要开启 Component Scanning，即组件扫描:
@@ -509,11 +507,12 @@ XML style 中混入 Java Style:
 </div>
 </section>
 
-<section id="outline-container-orgff8392d" class="outline-2">
-<h2 id="orgff8392d"><span class="section-number-2">5</span> 生命周期 (Lifecycle)</h2>
+<section id="outline-container-org0aaf411" class="outline-2">
+<h2 id="org0aaf411"><span class="section-number-2">5</span> 生命周期 (Lifecycle)</h2>
 <div class="outline-text-2" id="text-5">
 <p>
-如果想在 Bean 实例化过程中，做一些额外的事情，就需要了解 Bean 从产生，到使用，到最后销毁的整个过程。
+如果想在 Bean 实例化过程中，做一些额外的事情，
+就需要了解 Bean 从产生，到使用，到最后销毁的整个过程。
 </p>
 
 <p>
@@ -544,262 +543,10 @@ XML style 中混入 Java Style:
 </ol>
 </div>
 </section>
-<section id="outline-container-orgd96689a" class="outline-2">
-<h2 id="orgd96689a"><span class="section-number-2">6</span> 面向切面编程 (AOP, Aspect Oriten Program)</h2>
-<div class="outline-text-2" id="text-6">
-<p>
-如果对一个对象的方法进行<b>扩充</b>（不改变源码的情况之下，增加或修改行为）的话，一般使用代理模式：
-</p>
-<ol class="org-ol">
-<li><del>静态代理（太麻烦，一般不会用）</del></li>
-<li>JDK 的动态代理</li>
-<li>CGLib 的动态代理</li>
-</ol>
-
-<p>
-但是，直接写代理生成太麻烦了，所以，基于动态代理，产生了 AOP 的编程思想。
-</p>
-
-<blockquote>
-<p>
-
-</p>
-
-<p>
-扩充 = 功能分离。主线功能，支线功能，分开来，实现解耦。
-</p>
-</blockquote>
-
-<p>
-实际中，基于代理实现的 AOP 方案有很多，比如:
-</p>
-<ol class="org-ol">
-<li>AspectJ 实现</li>
-<li>Jboss AOP 实现</li>
-<li>Spring AOP 实现</li>
-</ol>
-
-<p>
-关于 Spring AOP:
-</p>
-<ul class="org-ul">
-<li>默认情况下，它基于 JDK 动态代理，所以它需要有接口。</li>
-<li>但是，也可以调用 CGLib 的代理方式。</li>
-<li>一般情况下，要为一个类产生代理。如果它有接口，那么 Spring 会采取 JDK 动态代理方式；如果没接口，这时候它会尝试使用 CGLib 的方式产生代理</li>
-<li>Spring AOP 实现，它的功能<b>相对来说</b>比较弱，只能基于方法进行织入</li>
-<li>Spring AOP 压根就没有想过成为一个全能的 AOP 实现来取代 AspectJ，它主要的精力放在怎么跟容器结合起来更好用，怎么才能更好得配合企业级开发</li>
-<li>Spring AOP 借鉴了 AspectJ 的非常多的特性，比如说，Spring AOP 可以使用跟 AspectJ 完全一样的注解来声明切面。当然要明白，虽然我们可以使用 @AspectJ 的注解，但后面运行的还是实打实的 Spring AOP。</li>
-<li>Spring 中可以非常简单的将其他 AOP 的实现无缝整合到框架中，所以，如果你觉得 Spring AOP 的实现太逊，你完全可以将其他实现整合进来，取代 Spring AOP。</li>
-</ul>
-</div>
-</section>
-
-
-<section id="outline-container-org80086d2" class="outline-2">
-<h2 id="org80086d2"><span class="section-number-2">7</span> 概念</h2>
-<div class="outline-text-2" id="text-7">
-
-<figure>
-<img src="img/clip_2018-12-18_07-19-33.png" alt="clip_2018-12-18_07-19-33.png">
-
-</figure>
-
-<p>
-基本概念:
-</p>
-<ul class="org-ul">
-<li><b>Advice</b>: 要向目标位置加入什么</li>
-<li><b>Pointcut</b>: 要加到哪些位置</li>
-<li><b>Aspect</b>: 一系列 Advice + Pointcut 的集合。</li>
-<li><b>Joinpoint</b>: Pointcut 中的具体某个位置</li>
-</ul>
-
-<p>
-<b>织入(Weaving)</b> 是把切面应用到目标对象并创建新的代理对象的过程:
-</p>
-<ul class="org-ul">
-<li>编译期。切面在目标类编译时被织入。这需要特殊的编译器，比如 AspectJ</li>
-<li>类加载期。需要特殊的 Classloader。AspectJ 的加载时织入就支持这种方式织入切面</li>
-<li>运行期。使用动态代理的方式织入。Spring AOP 就是用这种方式织入的</li>
-</ul>
-
-<p>
-<b>通知类型</b>:
-</p>
-<ul class="org-ul">
-<li>前置通知(Before advice): 在某连接点之前执行的通知，但这个通知不能阻止连接点之前的执行流程（除非它抛出一个异常）</li>
-<li>后置通知(After returning advice): 在某连接点正常完成后执行的通知</li>
-<li>异常通知(After throwing advice): 在方法抛出异常退出时执行的通知</li>
-<li>最终通知(After (finally) advice): 当某连接点退出的时候执行的通知（不论是正常返回还是异常退出）。</li>
-<li>环绕通知(Around Advice): 包围一个连接点的通知，如方法调用</li>
-</ul>
-</div>
-</section>
-
-<section id="outline-container-org847d884" class="outline-2">
-<h2 id="org847d884"><span class="section-number-2">8</span> 使用 @AspectJ 注解</h2>
-<div class="outline-text-2" id="text-8">
-<p>
-使用 @AspectJ 的注解，需要相关 jar 包支持:
-:org.aspectj:aspectjweaver:1.8.9
-</p>
-
-<p>
-而且需要在配置文件中添加:
-</p>
-<div class="org-src-container">
-<pre class="src src-sgml">&lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">aspectj-autoproxy</span>/&gt;
-&lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">aspectj-autoproxy</span> <span class="org-variable-name">proxy-target-class</span>=<span class="org-string">"true"</span>/&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">cglib support </span><span class="org-comment-delimiter">--&gt;</span>
-
-<span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">or </span><span class="org-comment-delimiter">--&gt;</span>
-&lt;<span class="org-function-name">bean</span> <span class="org-variable-name">class</span>=<span class="org-string">"org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator"</span>/&gt;
-</pre>
-</div>
-
-<p>
-如果使用 Java 配置，需要添加:
-</p>
-<div class="org-src-container">
-<pre class="src src-java"><span class="org-c-annotation">@Configuration</span>
-<span class="org-c-annotation">@ComponentScan</span>(basePackages = <span class="org-string">"the.aop"</span>)
-<span class="org-c-annotation">@EnableAspectJAutoProxy</span>
-<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">SpringConfig</span> {
-}
-</pre>
-</div>
-
-<p>
-代码示例:
-</p>
-<div class="org-src-container">
-<pre class="src src-java"><span class="org-c-annotation">@Component</span>
-<span class="org-c-annotation">@Aspect</span>
-<span class="org-keyword">public</span> <span class="org-keyword">class</span> <span class="org-type">Audience</span> {
-    <span class="org-c-annotation">@Pointcut</span>(<span class="org-string">"execution(** concert.Performance.perform(..))"</span>)
-    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">xxx</span>();
-
-    <span class="org-c-annotation">@Before</span>(<span class="org-string">"xxx()"</span>)
-    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">silenceCellPhones</span>() {
-        System.out.println(<span class="org-string">"Silencing cell phones"</span>);
-    }
-
-    <span class="org-c-annotation">@Before</span>(<span class="org-string">"execution(** concert.Performance.perform(..))"</span>)
-    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">takeSeats</span>() {
-        System.out.println(<span class="org-string">"Taking seats"</span>);
-    }
-
-    <span class="org-c-annotation">@AfterReturning</span>(<span class="org-string">"execution(** concert.Performance.perform(..))"</span>)
-    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">applause</span>() {
-        System.out.println(<span class="org-string">"CLAP CLAP CLAP!!!"</span>);
-    }
-
-    <span class="org-c-annotation">@AfterThrowing</span>(<span class="org-string">"execution(** concert.Performance.perform(..))"</span>)
-    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">demandRefund</span>() {
-        System.out.println(<span class="org-string">"Demanding a refund"</span>);
-    }
-
-    <span class="org-c-annotation">@Around</span>(<span class="org-string">"xxx()"</span>)
-    <span class="org-keyword">public</span> <span class="org-type">void</span> <span class="org-function-name">yyyy</span>(<span class="org-type">ProceedingJoinPoint</span> <span class="org-variable-name">jp</span>) {
-        <span class="org-keyword">try</span> {
-            System.out.println(<span class="org-string">"aaaa"</span>);
-            jp.proceed();
-            System.out.println(<span class="org-string">"bbb"</span>);
-        } <span class="org-keyword">catch</span>(<span class="org-type">Throwable</span> <span class="org-variable-name">e</span>) {
-            System.out.println(<span class="org-string">"error"</span>);
-        }
-    }
-}
-</pre>
-</div>
-
-<p>
-切点表达式:
-</p>
-<table>
-
-
-<colgroup>
-<col  class="org-left">
-
-<col  class="org-left">
-</colgroup>
-<thead>
-<tr>
-<th scope="col" class="org-left">函数</th>
-<th scope="col" class="org-left">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="org-left">execution()</td>
-<td class="org-left">execution(* com.*.*(..)), 表示匹配 com 包下所有方法</td>
-</tr>
-
-<tr>
-<td class="org-left">@annotation()</td>
-<td class="org-left">@annotation(com.Test), 表示匹配所有标注了 @Test 的方法</td>
-</tr>
-
-<tr>
-<td class="org-left">args()</td>
-<td class="org-left">arg(int, int), 表示匹配所有参数为 int, int 的方法</td>
-</tr>
-
-<tr>
-<td class="org-left">@args()</td>
-<td class="org-left">@arg(Test), 匹配参数注解为 Test 的方法</td>
-</tr>
-
-<tr>
-<td class="org-left">within()</td>
-<td class="org-left">within(sss.*), 匹配 sss 包下所有的类下的所有方法</td>
-</tr>
-
-<tr>
-<td class="org-left">target()</td>
-<td class="org-left">target(sss.Test), 匹配所有的类及其子类</td>
-</tr>
-
-<tr>
-<td class="org-left">@within()</td>
-<td class="org-left">@within(sss.Test), 匹配所有使用 Test 注解的类的所有方法</td>
-</tr>
-
-<tr>
-<td class="org-left">@target</td>
-<td class="org-left">@target(sss.Test), 所有当前目标对象使用 Test 注解的类的所有方法</td>
-</tr>
-
-<tr>
-<td class="org-left">this()</td>
-<td class="org-left">this(sss.Test), 当前 AOP 对象实现了 Test 接口的所有方法</td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-
-<section id="outline-container-orgef39585" class="outline-2">
-<h2 id="orgef39585"><span class="section-number-2">9</span> 使用 XML 配置的示例</h2>
-<div class="outline-text-2" id="text-9">
-<div class="org-src-container">
-<pre class="src src-sgml">&lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">config</span>&gt;
-  &lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">aspect</span> <span class="org-variable-name">ref</span>=<span class="org-string">"loggingAspect"</span>&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#20999;&#38754;&#31867; </span><span class="org-comment-delimiter">--&gt;</span>
-    &lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">pointcut</span> <span class="org-variable-name">id</span>=<span class="org-string">"persons"</span> <span class="org-variable-name">expression</span>=<span class="org-string">"execution(* xxx.*.*(..))"</span> /&gt; <span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">&#20999;&#28857; </span><span class="org-comment-delimiter">--&gt;</span>
-
-    &lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">before</span> <span class="org-variable-name">method</span>=<span class="org-string">"beforeEat"</span> <span class="org-variable-name">pointcut-ref</span>=<span class="org-string">"persons"</span> /&gt;
-    &lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">after-returning</span> <span class="org-variable-name">method</span>=<span class="org-string">"endIt"</span> <span class="org-variable-name">pointcut-ref</span>=<span class="org-string">"persons"</span> /&gt;
-    &lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">after-throwing</span> <span class="org-variable-name">method</span>=<span class="org-string">"whenError"</span> <span class="org-variable-name">pointcut-ref</span>=<span class="org-string">"execution(** concert.Performance.perform(..))"</span> /&gt;
-  &lt;/<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">aspect</span>&gt;
-&lt;/<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">config</span>&gt;
-</pre>
-</div>
-</div>
-</section>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: 孙悟空</p>
-<p class="date">Created: 2018-12-18 Tue 07:19</p>
+<p class="author">Author: unname</p>
+<p class="date">Created: 2019-03-22 周五 01:18</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

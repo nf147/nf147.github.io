@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-03-22 周五 01:12 -->
+<!-- 2019-03-22 周五 01:18 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spring.AOP</title>
@@ -20,14 +20,14 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org1636aea">1. 面向切面编程 (AOP, Aspect Oriten Program)</a></li>
-<li><a href="#org45bd09d">2. 概念</a></li>
-<li><a href="#orgfeee4d4">3. 使用 @AspectJ 注解实现</a></li>
-<li><a href="#orgf703e89">4. 使用 XML 配置的方式实现</a></li>
-<li><a href="#orgc7ee8d1">5. 声明式事务管理</a>
+<li><a href="#org7f7bc29">1. 面向切面编程 (AOP, Aspect Oriten Program)</a></li>
+<li><a href="#org51be45d">2. 概念</a></li>
+<li><a href="#orgcee717b">3. 使用 @AspectJ 注解实现</a></li>
+<li><a href="#org051c7b5">4. 使用 XML 配置的方式实现</a></li>
+<li><a href="#org9e35fb4">5. 声明式事务管理</a>
 <ul>
-<li><a href="#org4c5a671">5.1. XML Style</a></li>
-<li><a href="#org77c67ea">5.2. @Transactional Style</a></li>
+<li><a href="#org7521ae3">5.1. XML Style</a></li>
+<li><a href="#org22d9929">5.2. @Transactional Style</a></li>
 </ul>
 </li>
 </ul>
@@ -36,8 +36,8 @@
 
 
 
-<section id="outline-container-org1636aea" class="outline-2">
-<h2 id="org1636aea"><span class="section-number-2">1</span> 面向切面编程 (AOP, Aspect Oriten Program)</h2>
+<section id="outline-container-org7f7bc29" class="outline-2">
+<h2 id="org7f7bc29"><span class="section-number-2">1</span> 面向切面编程 (AOP, Aspect Oriten Program)</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 如果对一个对象的方法进行 <b>扩充</b> （不改变源码的情况之下，增加或修改行为）的话，一般使用代理模式：
@@ -86,8 +86,8 @@
 </div>
 </section>
 
-<section id="outline-container-org45bd09d" class="outline-2">
-<h2 id="org45bd09d"><span class="section-number-2">2</span> 概念</h2>
+<section id="outline-container-org51be45d" class="outline-2">
+<h2 id="org51be45d"><span class="section-number-2">2</span> 概念</h2>
 <div class="outline-text-2" id="text-2">
 
 <figure>
@@ -127,8 +127,8 @@
 </div>
 </section>
 
-<section id="outline-container-orgfeee4d4" class="outline-2">
-<h2 id="orgfeee4d4"><span class="section-number-2">3</span> 使用 @AspectJ 注解实现</h2>
+<section id="outline-container-orgcee717b" class="outline-2">
+<h2 id="orgcee717b"><span class="section-number-2">3</span> 使用 @AspectJ 注解实现</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 使用 @AspectJ 的注解，需要相关 jar 包支持:
@@ -274,8 +274,8 @@ org.aspectj:aspectjweaver:1.8.9
 </div>
 </section>
 
-<section id="outline-container-orgf703e89" class="outline-2">
-<h2 id="orgf703e89"><span class="section-number-2">4</span> 使用 XML 配置的方式实现</h2>
+<section id="outline-container-org051c7b5" class="outline-2">
+<h2 id="org051c7b5"><span class="section-number-2">4</span> 使用 XML 配置的方式实现</h2>
 <div class="outline-text-2" id="text-4">
 <div class="org-src-container">
 <pre class="src src-sgml">&lt;<span class="org-sgml-namespace">aop</span>:<span class="org-function-name">config</span>&gt;
@@ -292,16 +292,16 @@ org.aspectj:aspectjweaver:1.8.9
 </div>
 </section>
 
-<section id="outline-container-orgc7ee8d1" class="outline-2">
-<h2 id="orgc7ee8d1"><span class="section-number-2">5</span> 声明式事务管理</h2>
+<section id="outline-container-org9e35fb4" class="outline-2">
+<h2 id="org9e35fb4"><span class="section-number-2">5</span> 声明式事务管理</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 这是 AOP 的一种典型运用场景:
 </p>
 </div>
 
-<div id="outline-container-org4c5a671" class="outline-3">
-<h3 id="org4c5a671"><span class="section-number-3">5.1</span> XML Style</h3>
+<div id="outline-container-org7521ae3" class="outline-3">
+<h3 id="org7521ae3"><span class="section-number-3">5.1</span> XML Style</h3>
 <div class="outline-text-3" id="text-5-1">
 <div class="org-src-container">
 <pre class="src src-sgml"><span class="org-comment-delimiter">&lt;!--</span><span class="org-comment">1.&#37197;&#32622;&#20107;&#21153;&#31649;&#29702;&#22120;</span><span class="org-comment-delimiter">--&gt;</span>
@@ -325,8 +325,8 @@ org.aspectj:aspectjweaver:1.8.9
 </div>
 </div>
 
-<div id="outline-container-org77c67ea" class="outline-3">
-<h3 id="org77c67ea"><span class="section-number-3">5.2</span> @Transactional Style</h3>
+<div id="outline-container-org22d9929" class="outline-3">
+<h3 id="org22d9929"><span class="section-number-3">5.2</span> @Transactional Style</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 首先，开启注解支持:
@@ -373,7 +373,7 @@ org.aspectj:aspectjweaver:1.8.9
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: unname</p>
-<p class="date">Created: 2019-03-22 周五 01:12</p>
+<p class="date">Created: 2019-03-22 周五 01:18</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

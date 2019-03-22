@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-03-22 周五 01:08 -->
+<!-- 2019-03-22 周五 01:18 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shiro</title>
@@ -20,28 +20,28 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org747b57d">1. Shiro 架构及概念</a></li>
-<li><a href="#orge2afe1b">2. 验证方式</a>
+<li><a href="#org54bd1c3">1. Shiro 架构及概念</a></li>
+<li><a href="#org112d3dc">2. 验证方式</a>
 <ul>
-<li><a href="#orgb41979d">2.1. URL级别验证</a></li>
-<li><a href="#org5cdf53b">2.2. 编程式验证</a></li>
-<li><a href="#orgfa536ec">2.3. JSP标签 / Annotation</a></li>
+<li><a href="#org46857a1">2.1. URL级别验证</a></li>
+<li><a href="#org4722af1">2.2. 编程式验证</a></li>
+<li><a href="#org6b249d1">2.3. JSP标签 / Annotation</a></li>
 </ul>
 </li>
-<li><a href="#org085a750">3. Spring MVC + Shiro</a>
+<li><a href="#orgcbec666">3. Spring MVC + Shiro</a>
 <ul>
-<li><a href="#org5bf1b1d">3.1. 首先，添加 jar 包</a></li>
-<li><a href="#org3f5868d">3.2. 其次，为项目添加过滤器</a></li>
-<li><a href="#org125cd5b">3.3. 配置容器</a></li>
-<li><a href="#org577a77b">3.4. 可自定义 Realm / CredentialsMatcher</a></li>
-<li><a href="#org07fd4b0">3.5. 登录示例</a></li>
+<li><a href="#org6b03c8e">3.1. 首先，添加 jar 包</a></li>
+<li><a href="#org712ea37">3.2. 其次，为项目添加过滤器</a></li>
+<li><a href="#orgb791059">3.3. 配置容器</a></li>
+<li><a href="#orga30e2f7">3.4. 可自定义 Realm / CredentialsMatcher</a></li>
+<li><a href="#org307cf22">3.5. 登录示例</a></li>
 </ul>
 </li>
-<li><a href="#orgc5d8cb6">4. Spring + Shiro + JWT 实现无状态鉴权</a>
+<li><a href="#orgb090773">4. Spring + Shiro + JWT 实现无状态鉴权</a>
 <ul>
-<li><a href="#orgbed25c6">4.1. 基本流程（参考）</a></li>
-<li><a href="#orgd577e21">4.2. UserController 示例</a></li>
-<li><a href="#org2c07b34">4.3. 前端接收/发送 token 示例</a></li>
+<li><a href="#org7f01f20">4.1. 基本流程（参考）</a></li>
+<li><a href="#org5cf5179">4.2. UserController 示例</a></li>
+<li><a href="#org36f048b">4.3. 前端接收/发送 token 示例</a></li>
 </ul>
 </li>
 </ul>
@@ -49,8 +49,8 @@
 </nav>
 
 
-<section id="outline-container-org747b57d" class="outline-2">
-<h2 id="org747b57d"><span class="section-number-2">1</span> Shiro 架构及概念</h2>
+<section id="outline-container-org54bd1c3" class="outline-2">
+<h2 id="org54bd1c3"><span class="section-number-2">1</span> Shiro 架构及概念</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 在 Shiro 中，认证的对象用 <b>Subject</b> 表示，它相当于请求过来的用户，主要包含两个信息:
@@ -88,12 +88,12 @@ Shiro 的核心是 SecurityManager，获取数据的途径是 Realm:
 </div>
 </section>
 
-<section id="outline-container-orge2afe1b" class="outline-2">
-<h2 id="orge2afe1b"><span class="section-number-2">2</span> 验证方式</h2>
+<section id="outline-container-org112d3dc" class="outline-2">
+<h2 id="org112d3dc"><span class="section-number-2">2</span> 验证方式</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-orgb41979d" class="outline-3">
-<h3 id="orgb41979d"><span class="section-number-3">2.1</span> URL级别验证</h3>
+<div id="outline-container-org46857a1" class="outline-3">
+<h3 id="org46857a1"><span class="section-number-3">2.1</span> URL级别验证</h3>
 <div class="outline-text-3" id="text-2-1">
 <div class="org-src-container">
 <pre class="src src-conf"><span class="org-variable-name">/index.html</span> = anon
@@ -136,8 +136,8 @@ Shiro 的核心是 SecurityManager，获取数据的途径是 Realm:
 </div>
 
 
-<div id="outline-container-org5cdf53b" class="outline-3">
-<h3 id="org5cdf53b"><span class="section-number-3">2.2</span> 编程式验证</h3>
+<div id="outline-container-org4722af1" class="outline-3">
+<h3 id="org4722af1"><span class="section-number-3">2.2</span> 编程式验证</h3>
 <div class="outline-text-3" id="text-2-2">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-type">Subject</span> <span class="org-variable-name">subject</span> = SecurityUtils.getSubject();
@@ -151,8 +151,8 @@ Shiro 的核心是 SecurityManager，获取数据的途径是 Realm:
 </div>
 </div>
 
-<div id="outline-container-orgfa536ec" class="outline-3">
-<h3 id="orgfa536ec"><span class="section-number-3">2.3</span> JSP标签 / Annotation</h3>
+<div id="outline-container-org6b249d1" class="outline-3">
+<h3 id="org6b249d1"><span class="section-number-3">2.3</span> JSP标签 / Annotation</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 这是为了能够简化使用:
@@ -224,12 +224,12 @@ Shiro 的核心是 SecurityManager，获取数据的途径是 Realm:
 </section>
 
 
-<section id="outline-container-org085a750" class="outline-2">
-<h2 id="org085a750"><span class="section-number-2">3</span> Spring MVC + Shiro</h2>
+<section id="outline-container-orgcbec666" class="outline-2">
+<h2 id="orgcbec666"><span class="section-number-2">3</span> Spring MVC + Shiro</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org5bf1b1d" class="outline-3">
-<h3 id="org5bf1b1d"><span class="section-number-3">3.1</span> 首先，添加 jar 包</h3>
+<div id="outline-container-org6b03c8e" class="outline-3">
+<h3 id="org6b03c8e"><span class="section-number-3">3.1</span> 首先，添加 jar 包</h3>
 <div class="outline-text-3" id="text-3-1">
 <div class="org-src-container">
 <pre class="src src-sgml"><span class="org-comment-delimiter">&lt;!-- </span><span class="org-comment">https://mvnrepository.com/artifact/org.apache.shiro/shiro-spring </span><span class="org-comment-delimiter">--&gt;</span>
@@ -243,8 +243,8 @@ Shiro 的核心是 SecurityManager，获取数据的途径是 Realm:
 </div>
 </div>
 
-<div id="outline-container-org3f5868d" class="outline-3">
-<h3 id="org3f5868d"><span class="section-number-3">3.2</span> 其次，为项目添加过滤器</h3>
+<div id="outline-container-org712ea37" class="outline-3">
+<h3 id="org712ea37"><span class="section-number-3">3.2</span> 其次，为项目添加过滤器</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 主要配置 SecurityManager 和 ShiroFilter 两个 Bean:
@@ -266,8 +266,8 @@ Shiro 的核心是 SecurityManager，获取数据的途径是 Realm:
 </div>
 </div>
 
-<div id="outline-container-org125cd5b" class="outline-3">
-<h3 id="org125cd5b"><span class="section-number-3">3.3</span> 配置容器</h3>
+<div id="outline-container-orgb791059" class="outline-3">
+<h3 id="orgb791059"><span class="section-number-3">3.3</span> 配置容器</h3>
 <div class="outline-text-3" id="text-3-3">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-c-annotation">@Configuration</span>
@@ -328,8 +328,8 @@ Shiro 的核心是 SecurityManager，获取数据的途径是 Realm:
 </div>
 </div>
 
-<div id="outline-container-org577a77b" class="outline-3">
-<h3 id="org577a77b"><span class="section-number-3">3.4</span> 可自定义 Realm / CredentialsMatcher</h3>
+<div id="outline-container-orga30e2f7" class="outline-3">
+<h3 id="orga30e2f7"><span class="section-number-3">3.4</span> 可自定义 Realm / CredentialsMatcher</h3>
 <div class="outline-text-3" id="text-3-4">
 <p>
 定义 Realm，只需要实现 AuthorizingRealm 接口:
@@ -371,8 +371,8 @@ Shiro 的核心是 SecurityManager，获取数据的途径是 Realm:
 </div>
 </div>
 
-<div id="outline-container-org07fd4b0" class="outline-3">
-<h3 id="org07fd4b0"><span class="section-number-3">3.5</span> 登录示例</h3>
+<div id="outline-container-org307cf22" class="outline-3">
+<h3 id="org307cf22"><span class="section-number-3">3.5</span> 登录示例</h3>
 <div class="outline-text-3" id="text-3-5">
 <p>
 Controller
@@ -439,12 +439,12 @@ login.jsp:
 </div>
 </section>
 
-<section id="outline-container-orgc5d8cb6" class="outline-2">
-<h2 id="orgc5d8cb6"><span class="section-number-2">4</span> Spring + Shiro + JWT 实现无状态鉴权</h2>
+<section id="outline-container-orgb090773" class="outline-2">
+<h2 id="orgb090773"><span class="section-number-2">4</span> Spring + Shiro + JWT 实现无状态鉴权</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-orgbed25c6" class="outline-3">
-<h3 id="orgbed25c6"><span class="section-number-3">4.1</span> 基本流程（参考）</h3>
+<div id="outline-container-org7f01f20" class="outline-3">
+<h3 id="org7f01f20"><span class="section-number-3">4.1</span> 基本流程（参考）</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 基本流程:
@@ -480,8 +480,8 @@ login.jsp:
 </div>
 </div>
 
-<div id="outline-container-orgd577e21" class="outline-3">
-<h3 id="orgd577e21"><span class="section-number-3">4.2</span> UserController 示例</h3>
+<div id="outline-container-org5cf5179" class="outline-3">
+<h3 id="org5cf5179"><span class="section-number-3">4.2</span> UserController 示例</h3>
 <div class="outline-text-3" id="text-4-2">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-c-annotation">@RestController</span>
@@ -677,8 +677,8 @@ login.jsp:
 </div>
 </div>
 
-<div id="outline-container-org2c07b34" class="outline-3">
-<h3 id="org2c07b34"><span class="section-number-3">4.3</span> 前端接收/发送 token 示例</h3>
+<div id="outline-container-org36f048b" class="outline-3">
+<h3 id="org36f048b"><span class="section-number-3">4.3</span> 前端接收/发送 token 示例</h3>
 <div class="outline-text-3" id="text-4-3">
 <p>
 在 Vue 中设置 axios 的拦截器，来获取/刷新登录:
@@ -721,7 +721,7 @@ login.jsp:
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: unname</p>
-<p class="date">Created: 2019-03-22 周五 01:08</p>
+<p class="date">Created: 2019-03-22 周五 01:18</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

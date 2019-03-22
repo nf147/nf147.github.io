@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-03-22 周五 01:08 -->
+<!-- 2019-03-22 周五 01:18 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>_ES6+</title>
@@ -20,33 +20,33 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgb3585df">1. ES6 语法</a>
+<li><a href="#org9485c4c">1. ES6 语法</a>
 <ul>
-<li><a href="#orgeec6524">1.1. let/const/var</a></li>
-<li><a href="#org7824466">1.2. 模板字符串</a></li>
-<li><a href="#org036a608">1.3. 箭头函数</a></li>
-<li><a href="#org4779666">1.4. 结构化赋值</a></li>
+<li><a href="#orgc46d8bc">1.1. let/const/var</a></li>
+<li><a href="#org95c693a">1.2. 模板字符串</a></li>
+<li><a href="#org4f465c7">1.3. 箭头函数</a></li>
+<li><a href="#orgc0ad291">1.4. 结构化赋值</a></li>
 </ul>
 </li>
-<li><a href="#orgfa94ed6">2. 模块</a>
+<li><a href="#org1068df7">2. 模块</a>
 <ul>
-<li><a href="#org11678ad">2.1. CommonJS 规范</a></li>
-<li><a href="#org0a7b4da">2.2. AMD 规范</a></li>
-<li><a href="#orgf1d939d">2.3. 其他规范</a>
+<li><a href="#org5de0905">2.1. CommonJS 规范</a></li>
+<li><a href="#org9f1ba7f">2.2. AMD 规范</a></li>
+<li><a href="#org17c0f87">2.3. 其他规范</a>
 <ul>
-<li><a href="#org11c1ced">2.3.1. UMD规范</a></li>
-<li><a href="#orgc1deb01">2.3.2. CMD 规范</a></li>
+<li><a href="#orgcdcb5fe">2.3.1. UMD规范</a></li>
+<li><a href="#org87a7480">2.3.2. CMD 规范</a></li>
 </ul>
 </li>
-<li><a href="#org46d5e16">2.4. es6 Module</a></li>
+<li><a href="#org072436b">2.4. es6 Module</a></li>
 </ul>
 </li>
-<li><a href="#orgebd6e6f">3. 前端工程化</a>
+<li><a href="#org6e56a84">3. 前端工程化</a>
 <ul>
-<li><a href="#orgd6e6d98">3.1. babel</a></li>
-<li><a href="#org31181a0">3.2. npm/yarn</a></li>
-<li><a href="#org940505b">3.3. Webpack</a></li>
-<li><a href="#org01ab5c9">3.4. 其他的脚手架</a></li>
+<li><a href="#orga72f818">3.1. babel</a></li>
+<li><a href="#org6614fa7">3.2. npm/yarn</a></li>
+<li><a href="#org3e737eb">3.3. Webpack</a></li>
+<li><a href="#org8f7c16b">3.4. 其他的脚手架</a></li>
 </ul>
 </li>
 </ul>
@@ -54,12 +54,12 @@
 </nav>
 
 
-<section id="outline-container-orgb3585df" class="outline-2">
-<h2 id="orgb3585df"><span class="section-number-2">1</span> ES6 语法</h2>
+<section id="outline-container-org9485c4c" class="outline-2">
+<h2 id="org9485c4c"><span class="section-number-2">1</span> ES6 语法</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orgeec6524" class="outline-3">
-<h3 id="orgeec6524"><span class="section-number-3">1.1</span> let/const/var</h3>
+<div id="outline-container-orgc46d8bc" class="outline-3">
+<h3 id="orgc46d8bc"><span class="section-number-3">1.1</span> let/const/var</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 const 定义的变量，是不能够重新赋值的。
@@ -132,8 +132,8 @@ for..var / for..let:
 </div>
 
 
-<div id="outline-container-org7824466" class="outline-3">
-<h3 id="org7824466"><span class="section-number-3">1.2</span> 模板字符串</h3>
+<div id="outline-container-org95c693a" class="outline-3">
+<h3 id="org95c693a"><span class="section-number-3">1.2</span> 模板字符串</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 字符串的写法，现在有三种:
@@ -159,8 +159,8 @@ for..var / for..let:
 </div>
 </div>
 
-<div id="outline-container-org036a608" class="outline-3">
-<h3 id="org036a608"><span class="section-number-3">1.3</span> 箭头函数</h3>
+<div id="outline-container-org4f465c7" class="outline-3">
+<h3 id="org4f465c7"><span class="section-number-3">1.3</span> 箭头函数</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 短而易用。
@@ -196,8 +196,8 @@ setTimeout(p.tell, 0);
 </div>
 </div>
 
-<div id="outline-container-org4779666" class="outline-3">
-<h3 id="org4779666"><span class="section-number-3">1.4</span> 结构化赋值</h3>
+<div id="outline-container-orgc0ad291" class="outline-3">
+<h3 id="orgc0ad291"><span class="section-number-3">1.4</span> 结构化赋值</h3>
 <div class="outline-text-3" id="text-1-4">
 <div class="org-src-container">
 <pre class="src src-js"><span class="org-keyword">var</span> <span class="org-variable-name">arr</span> = [22, 33, 445, 6667];
@@ -237,8 +237,8 @@ tell(...aaa);
 </div>
 </section>
 
-<section id="outline-container-orgfa94ed6" class="outline-2">
-<h2 id="orgfa94ed6"><span class="section-number-2">2</span> 模块</h2>
+<section id="outline-container-org1068df7" class="outline-2">
+<h2 id="org1068df7"><span class="section-number-2">2</span> 模块</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 JS 是一门仓促产生的语言，
@@ -258,8 +258,8 @@ JS 是一门仓促产生的语言，
 </p>
 </div>
 
-<div id="outline-container-org11678ad" class="outline-3">
-<h3 id="org11678ad"><span class="section-number-3">2.1</span> CommonJS 规范</h3>
+<div id="outline-container-org5de0905" class="outline-3">
+<h3 id="org5de0905"><span class="section-number-3">2.1</span> CommonJS 规范</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 两个主要 api:
@@ -271,8 +271,8 @@ JS 是一门仓促产生的语言，
 </div>
 </div>
 
-<div id="outline-container-org0a7b4da" class="outline-3">
-<h3 id="org0a7b4da"><span class="section-number-3">2.2</span> AMD 规范</h3>
+<div id="outline-container-org9f1ba7f" class="outline-3">
+<h3 id="org9f1ba7f"><span class="section-number-3">2.2</span> AMD 规范</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 requirejs 是他的一个主要实现。
@@ -280,12 +280,12 @@ requirejs 是他的一个主要实现。
 </div>
 </div>
 
-<div id="outline-container-orgf1d939d" class="outline-3">
-<h3 id="orgf1d939d"><span class="section-number-3">2.3</span> 其他规范</h3>
+<div id="outline-container-org17c0f87" class="outline-3">
+<h3 id="org17c0f87"><span class="section-number-3">2.3</span> 其他规范</h3>
 <div class="outline-text-3" id="text-2-3">
 </div>
-<div id="outline-container-org11c1ced" class="outline-4">
-<h4 id="org11c1ced"><span class="section-number-4">2.3.1</span> UMD规范</h4>
+<div id="outline-container-orgcdcb5fe" class="outline-4">
+<h4 id="orgcdcb5fe"><span class="section-number-4">2.3.1</span> UMD规范</h4>
 <div class="outline-text-4" id="text-2-3-1">
 <p>
 语法丑陋，但是兼容了 CommonJS 和 AMD
@@ -293,8 +293,8 @@ requirejs 是他的一个主要实现。
 </div>
 </div>
 
-<div id="outline-container-orgc1deb01" class="outline-4">
-<h4 id="orgc1deb01"><span class="section-number-4">2.3.2</span> CMD 规范</h4>
+<div id="outline-container-org87a7480" class="outline-4">
+<h4 id="org87a7480"><span class="section-number-4">2.3.2</span> CMD 规范</h4>
 <div class="outline-text-4" id="text-2-3-2">
 <p>
 是中国人搞的
@@ -303,8 +303,8 @@ requirejs 是他的一个主要实现。
 </div>
 </div>
 
-<div id="outline-container-org46d5e16" class="outline-3">
-<h3 id="org46d5e16"><span class="section-number-3">2.4</span> es6 Module</h3>
+<div id="outline-container-org072436b" class="outline-3">
+<h3 id="org072436b"><span class="section-number-3">2.4</span> es6 Module</h3>
 <div class="outline-text-3" id="text-2-4">
 <p>
 经过了漫长的岁月，终于，在 es6 中出现了语言级别的
@@ -331,12 +331,12 @@ requirejs 是他的一个主要实现。
 </section>
 
 
-<section id="outline-container-orgebd6e6f" class="outline-2">
-<h2 id="orgebd6e6f"><span class="section-number-2">3</span> 前端工程化</h2>
+<section id="outline-container-org6e56a84" class="outline-2">
+<h2 id="org6e56a84"><span class="section-number-2">3</span> 前端工程化</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-orgd6e6d98" class="outline-3">
-<h3 id="orgd6e6d98"><span class="section-number-3">3.1</span> babel</h3>
+<div id="outline-container-orga72f818" class="outline-3">
+<h3 id="orga72f818"><span class="section-number-3">3.1</span> babel</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 <a href="https://babeljs.io/">https://babeljs.io/</a>
@@ -367,8 +367,8 @@ requirejs 是他的一个主要实现。
 </div>
 </div>
 
-<div id="outline-container-org31181a0" class="outline-3">
-<h3 id="org31181a0"><span class="section-number-3">3.2</span> npm/yarn</h3>
+<div id="outline-container-org6614fa7" class="outline-3">
+<h3 id="org6614fa7"><span class="section-number-3">3.2</span> npm/yarn</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 包的管理工具
@@ -436,8 +436,8 @@ npm run hahaha
 </div>
 </div>
 
-<div id="outline-container-org940505b" class="outline-3">
-<h3 id="org940505b"><span class="section-number-3">3.3</span> Webpack</h3>
+<div id="outline-container-org3e737eb" class="outline-3">
+<h3 id="org3e737eb"><span class="section-number-3">3.3</span> Webpack</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 用来:
@@ -449,8 +449,8 @@ npm run hahaha
 </div>
 </div>
 
-<div id="outline-container-org01ab5c9" class="outline-3">
-<h3 id="org01ab5c9"><span class="section-number-3">3.4</span> 其他的脚手架</h3>
+<div id="outline-container-org8f7c16b" class="outline-3">
+<h3 id="org8f7c16b"><span class="section-number-3">3.4</span> 其他的脚手架</h3>
 <div class="outline-text-3" id="text-3-4">
 <p>
 cli: command line interface，命令行工具
@@ -461,7 +461,7 @@ cli: command line interface，命令行工具
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: unname</p>
-<p class="date">Created: 2019-03-22 周五 01:08</p>
+<p class="date">Created: 2019-03-22 周五 01:18</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>

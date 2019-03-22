@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- 2019-03-22 周五 01:08 -->
+<!-- 2019-03-22 周五 01:18 -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vue.js</title>
@@ -20,45 +20,45 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org0cb7fb8">1. MVC/MVP/MVVM</a></li>
-<li><a href="#org8bd99d5">2. 示例</a></li>
-<li><a href="#org667ec36">3. 示例，用户评论</a>
+<li><a href="#org7a2ad1a">1. MVC/MVP/MVVM</a></li>
+<li><a href="#org9a15d2a">2. 示例</a></li>
+<li><a href="#orgacef64d">3. 示例，用户评论</a>
 <ul>
-<li><a href="#org8d9c7e8">3.1. 最终效果如图</a></li>
-<li><a href="#orgc5c446d">3.2. 分析页面，划分组件，确定组件间的数据传输方式</a></li>
-<li><a href="#org65b7a8a">3.3. Index.html/index.css</a></li>
-<li><a href="#org1a37a5e">3.4. CommentComp</a></li>
-<li><a href="#org95c29cf">3.5. CommentInput</a></li>
-<li><a href="#org4bc6ef6">3.6. CommentList</a></li>
+<li><a href="#org3e57394">3.1. 最终效果如图</a></li>
+<li><a href="#orgcef6ac7">3.2. 分析页面，划分组件，确定组件间的数据传输方式</a></li>
+<li><a href="#org5c08a3f">3.3. Index.html/index.css</a></li>
+<li><a href="#org9b0929a">3.4. CommentComp</a></li>
+<li><a href="#org7fabf28">3.5. CommentInput</a></li>
+<li><a href="#org7e90f52">3.6. CommentList</a></li>
 </ul>
 </li>
-<li><a href="#org38f4ece">4. Vue API</a>
+<li><a href="#org4cb7cc8">4. Vue API</a>
 <ul>
-<li><a href="#org2609d67">4.1. 指令</a></li>
-<li><a href="#org8dd3ddb">4.2. 选项</a></li>
-<li><a href="#orgcb00ac9">4.3. 实例属性、方法、事件</a></li>
-<li><a href="#orgef106d0">4.4. 全局 API</a></li>
-<li><a href="#orgcc37618">4.5. 其他</a></li>
+<li><a href="#orgf0516d5">4.1. 指令</a></li>
+<li><a href="#org1d203b5">4.2. 选项</a></li>
+<li><a href="#org20c9f93">4.3. 实例属性、方法、事件</a></li>
+<li><a href="#org4610191">4.4. 全局 API</a></li>
+<li><a href="#org42d161d">4.5. 其他</a></li>
 </ul>
 </li>
-<li><a href="#org9c37f43">5. Vue-loader/Vue-CLI</a>
+<li><a href="#orgc70bf1d">5. Vue-loader/Vue-CLI</a>
 <ul>
-<li><a href="#org3e91273">5.1. Vue-loader</a></li>
-<li><a href="#orgc788bb3">5.2. Vue CLI</a></li>
+<li><a href="#orgdd4f1ef">5.1. Vue-loader</a></li>
+<li><a href="#orga66bd30">5.2. Vue CLI</a></li>
 </ul>
 </li>
-<li><a href="#org808c13c">6. ElementUI</a></li>
-<li><a href="#org06f4d2b">7. 从 0 开始搭建 element 项目</a>
+<li><a href="#org851808b">6. ElementUI</a></li>
+<li><a href="#org8b2e247">7. 从 0 开始搭建 element 项目</a>
 <ul>
-<li><a href="#org59eb344">7.1. 第零步，安装 Nodejs/NPM</a></li>
-<li><a href="#orgcfda2bf">7.2. 第一步，安装 vue-cli</a></li>
-<li><a href="#org8d4bb29">7.3. 第二步，创建新的项目</a></li>
-<li><a href="#org261839b">7.4. 第三步，增加 ElementUI 的支持</a></li>
-<li><a href="#orgf90cfec">7.5. 第四步，增加 router 支持</a></li>
-<li><a href="#orgf4d54cc">7.6. 第五步，开始编码。</a></li>
-<li><a href="#orgcc0ab9b">7.7. 另外的另外</a></li>
-<li><a href="#org6ab1fe1">7.8. 另外的另外的另外</a></li>
-<li><a href="#org3c2fb0e">7.9. 另外的另外的另外的另外</a></li>
+<li><a href="#org3f336e6">7.1. 第零步，安装 Nodejs/NPM</a></li>
+<li><a href="#org8069925">7.2. 第一步，安装 vue-cli</a></li>
+<li><a href="#org5731e6e">7.3. 第二步，创建新的项目</a></li>
+<li><a href="#orgda5fe12">7.4. 第三步，增加 ElementUI 的支持</a></li>
+<li><a href="#org51a20c8">7.5. 第四步，增加 router 支持</a></li>
+<li><a href="#org686a967">7.6. 第五步，开始编码。</a></li>
+<li><a href="#orgd7e6f79">7.7. 另外的另外</a></li>
+<li><a href="#org02bb13a">7.8. 另外的另外的另外</a></li>
+<li><a href="#org2b62f10">7.9. 另外的另外的另外的另外</a></li>
 </ul>
 </li>
 </ul>
@@ -66,8 +66,8 @@
 </nav>
 
 
-<section id="outline-container-org0cb7fb8" class="outline-2">
-<h2 id="org0cb7fb8"><span class="section-number-2">1</span> MVC/MVP/MVVM</h2>
+<section id="outline-container-org7a2ad1a" class="outline-2">
+<h2 id="org7a2ad1a"><span class="section-number-2">1</span> MVC/MVP/MVVM</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 MVC:
@@ -135,8 +135,8 @@ MVVM:
 </div>
 </div>
 </section>
-<section id="outline-container-org8bd99d5" class="outline-2">
-<h2 id="org8bd99d5"><span class="section-number-2">2</span> 示例</h2>
+<section id="outline-container-org9a15d2a" class="outline-2">
+<h2 id="org9a15d2a"><span class="section-number-2">2</span> 示例</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 指令模板 (View):
@@ -298,12 +298,12 @@ View Model:
 </div>
 </div>
 </section>
-<section id="outline-container-org667ec36" class="outline-2">
-<h2 id="org667ec36"><span class="section-number-2">3</span> 示例，用户评论</h2>
+<section id="outline-container-orgacef64d" class="outline-2">
+<h2 id="orgacef64d"><span class="section-number-2">3</span> 示例，用户评论</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-org8d9c7e8" class="outline-3">
-<h3 id="org8d9c7e8"><span class="section-number-3">3.1</span> 最终效果如图</h3>
+<div id="outline-container-org3e57394" class="outline-3">
+<h3 id="org3e57394"><span class="section-number-3">3.1</span> 最终效果如图</h3>
 <div class="outline-text-3" id="text-3-1">
 
 <figure>
@@ -326,8 +326,8 @@ View Model:
 </div>
 </div>
 
-<div id="outline-container-orgc5c446d" class="outline-3">
-<h3 id="orgc5c446d"><span class="section-number-3">3.2</span> 分析页面，划分组件，确定组件间的数据传输方式</h3>
+<div id="outline-container-orgcef6ac7" class="outline-3">
+<h3 id="orgcef6ac7"><span class="section-number-3">3.2</span> 分析页面，划分组件，确定组件间的数据传输方式</h3>
 <div class="outline-text-3" id="text-3-2">
 
 <figure>
@@ -337,8 +337,8 @@ View Model:
 </div>
 </div>
 
-<div id="outline-container-org65b7a8a" class="outline-3">
-<h3 id="org65b7a8a"><span class="section-number-3">3.3</span> Index.html/index.css</h3>
+<div id="outline-container-org5c08a3f" class="outline-3">
+<h3 id="org5c08a3f"><span class="section-number-3">3.3</span> Index.html/index.css</h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 html:
@@ -427,8 +427,8 @@ css:
 </div>
 </div>
 </div>
-<div id="outline-container-org1a37a5e" class="outline-3">
-<h3 id="org1a37a5e"><span class="section-number-3">3.4</span> CommentComp</h3>
+<div id="outline-container-org9b0929a" class="outline-3">
+<h3 id="org9b0929a"><span class="section-number-3">3.4</span> CommentComp</h3>
 <div class="outline-text-3" id="text-3-4">
 <div class="org-src-container">
 <pre class="src src-js"><span class="org-keyword">import</span> commentInput from <span class="org-string">'./comment-input.js'</span>;
@@ -472,8 +472,8 @@ css:
 </div>
 </div>
 </div>
-<div id="outline-container-org95c29cf" class="outline-3">
-<h3 id="org95c29cf"><span class="section-number-3">3.5</span> CommentInput</h3>
+<div id="outline-container-org7fabf28" class="outline-3">
+<h3 id="org7fabf28"><span class="section-number-3">3.5</span> CommentInput</h3>
 <div class="outline-text-3" id="text-3-5">
 <div class="org-src-container">
 <pre class="src src-js"><span class="org-comment-delimiter">// </span><span class="org-comment">1. &#23450;&#20041;</span>
@@ -537,8 +537,8 @@ css:
 </div>
 </div>
 
-<div id="outline-container-org4bc6ef6" class="outline-3">
-<h3 id="org4bc6ef6"><span class="section-number-3">3.6</span> CommentList</h3>
+<div id="outline-container-org7e90f52" class="outline-3">
+<h3 id="org7e90f52"><span class="section-number-3">3.6</span> CommentList</h3>
 <div class="outline-text-3" id="text-3-6">
 <p>
 list:
@@ -594,16 +594,16 @@ item:
 </div>
 </div>
 </section>
-<section id="outline-container-org38f4ece" class="outline-2">
-<h2 id="org38f4ece"><span class="section-number-2">4</span> Vue API</h2>
+<section id="outline-container-org4cb7cc8" class="outline-2">
+<h2 id="org4cb7cc8"><span class="section-number-2">4</span> Vue API</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 <a href="https://cn.vuejs.org/v2/api/index.html">https://cn.vuejs.org/v2/api/index.html</a>
 </p>
 </div>
 
-<div id="outline-container-org2609d67" class="outline-3">
-<h3 id="org2609d67"><span class="section-number-3">4.1</span> 指令</h3>
+<div id="outline-container-orgf0516d5" class="outline-3">
+<h3 id="orgf0516d5"><span class="section-number-3">4.1</span> 指令</h3>
 <div class="outline-text-3" id="text-4-1">
 <ul class="org-ul">
 <li><code>v-text</code></li>
@@ -623,8 +623,8 @@ item:
 </div>
 </div>
 
-<div id="outline-container-org8dd3ddb" class="outline-3">
-<h3 id="org8dd3ddb"><span class="section-number-3">4.2</span> 选项</h3>
+<div id="outline-container-org1d203b5" class="outline-3">
+<h3 id="org1d203b5"><span class="section-number-3">4.2</span> 选项</h3>
 <div class="outline-text-3" id="text-4-2">
 <div class="org-src-container">
 <pre class="src src-js"><span class="org-keyword">new</span> <span class="org-type">Vue</span>({
@@ -670,8 +670,8 @@ item:
 </div>
 </div>
 
-<div id="outline-container-orgcb00ac9" class="outline-3">
-<h3 id="orgcb00ac9"><span class="section-number-3">4.3</span> 实例属性、方法、事件</h3>
+<div id="outline-container-org20c9f93" class="outline-3">
+<h3 id="org20c9f93"><span class="section-number-3">4.3</span> 实例属性、方法、事件</h3>
 <div class="outline-text-3" id="text-4-3">
 <div class="org-src-container">
 <pre class="src src-js"><span class="org-keyword">new</span> <span class="org-type">Vue</span>({
@@ -705,8 +705,8 @@ item:
 </div>
 </div>
 
-<div id="outline-container-orgef106d0" class="outline-3">
-<h3 id="orgef106d0"><span class="section-number-3">4.4</span> 全局 API</h3>
+<div id="outline-container-org4610191" class="outline-3">
+<h3 id="org4610191"><span class="section-number-3">4.4</span> 全局 API</h3>
 <div class="outline-text-3" id="text-4-4">
 <ul class="org-ul">
 <li><code>Vue.extend()</code></li>
@@ -728,8 +728,8 @@ Q:
 </div>
 </div>
 
-<div id="outline-container-orgcc37618" class="outline-3">
-<h3 id="orgcc37618"><span class="section-number-3">4.5</span> 其他</h3>
+<div id="outline-container-org42d161d" class="outline-3">
+<h3 id="org42d161d"><span class="section-number-3">4.5</span> 其他</h3>
 <div class="outline-text-3" id="text-4-5">
 <p>
 特殊特性:
@@ -757,12 +757,12 @@ Q:
 </div>
 </section>
 
-<section id="outline-container-org9c37f43" class="outline-2">
-<h2 id="org9c37f43"><span class="section-number-2">5</span> Vue-loader/Vue-CLI</h2>
+<section id="outline-container-orgc70bf1d" class="outline-2">
+<h2 id="orgc70bf1d"><span class="section-number-2">5</span> Vue-loader/Vue-CLI</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-org3e91273" class="outline-3">
-<h3 id="org3e91273"><span class="section-number-3">5.1</span> Vue-loader</h3>
+<div id="outline-container-orgdd4f1ef" class="outline-3">
+<h3 id="orgdd4f1ef"><span class="section-number-3">5.1</span> Vue-loader</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 Vue-loader 是一个插件，它能让下面格式的文件转换为普通的 JS 模板的文件:
@@ -796,8 +796,8 @@ Vue-loader 是一个插件，它能让下面格式的文件转换为普通的 JS
 </p>
 </div>
 </div>
-<div id="outline-container-orgc788bb3" class="outline-3">
-<h3 id="orgc788bb3"><span class="section-number-3">5.2</span> Vue CLI</h3>
+<div id="outline-container-orga66bd30" class="outline-3">
+<h3 id="orga66bd30"><span class="section-number-3">5.2</span> Vue CLI</h3>
 <div class="outline-text-3" id="text-5-2">
 <p>
 <a href="https://cli.vuejs.org/zh/">https://cli.vuejs.org/zh/</a>
@@ -872,8 +872,8 @@ vue ui
 </div>
 </div>
 </section>
-<section id="outline-container-org808c13c" class="outline-2">
-<h2 id="org808c13c"><span class="section-number-2">6</span> ElementUI</h2>
+<section id="outline-container-org851808b" class="outline-2">
+<h2 id="org851808b"><span class="section-number-2">6</span> ElementUI</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 <a href="http://element-cn.eleme.io/#/zh-CN">http://element-cn.eleme.io/#/zh-CN</a>
@@ -937,12 +937,12 @@ vue add element
 </p>
 </div>
 </section>
-<section id="outline-container-org06f4d2b" class="outline-2">
-<h2 id="org06f4d2b"><span class="section-number-2">7</span> 从 0 开始搭建 element 项目</h2>
+<section id="outline-container-org8b2e247" class="outline-2">
+<h2 id="org8b2e247"><span class="section-number-2">7</span> 从 0 开始搭建 element 项目</h2>
 <div class="outline-text-2" id="text-7">
 </div>
-<div id="outline-container-org59eb344" class="outline-3">
-<h3 id="org59eb344"><span class="section-number-3">7.1</span> 第零步，安装 Nodejs/NPM</h3>
+<div id="outline-container-org3f336e6" class="outline-3">
+<h3 id="org3f336e6"><span class="section-number-3">7.1</span> 第零步，安装 Nodejs/NPM</h3>
 <div class="outline-text-3" id="text-7-1">
 <p>
 <a href="https://nodejs.org/zh-cn/download/">https://nodejs.org/zh-cn/download/</a>
@@ -954,8 +954,8 @@ vue add element
 </div>
 </div>
 
-<div id="outline-container-orgcfda2bf" class="outline-3">
-<h3 id="orgcfda2bf"><span class="section-number-3">7.2</span> 第一步，安装 vue-cli</h3>
+<div id="outline-container-org8069925" class="outline-3">
+<h3 id="org8069925"><span class="section-number-3">7.2</span> 第一步，安装 vue-cli</h3>
 <div class="outline-text-3" id="text-7-2">
 <p>
 打开 cmd 创建，在命令行下执行命令即可安装:
@@ -977,8 +977,8 @@ vue --version
 </div>
 </div>
 
-<div id="outline-container-org8d4bb29" class="outline-3">
-<h3 id="org8d4bb29"><span class="section-number-3">7.3</span> 第二步，创建新的项目</h3>
+<div id="outline-container-org5731e6e" class="outline-3">
+<h3 id="org5731e6e"><span class="section-number-3">7.3</span> 第二步，创建新的项目</h3>
 <div class="outline-text-3" id="text-7-3">
 <p>
 打开 cmd 窗口，切换到相关工作目录:
@@ -1008,8 +1008,8 @@ vue create vue-xiangmu
 </div>
 </div>
 
-<div id="outline-container-org261839b" class="outline-3">
-<h3 id="org261839b"><span class="section-number-3">7.4</span> 第三步，增加 ElementUI 的支持</h3>
+<div id="outline-container-orgda5fe12" class="outline-3">
+<h3 id="orgda5fe12"><span class="section-number-3">7.4</span> 第三步，增加 ElementUI 的支持</h3>
 <div class="outline-text-3" id="text-7-4">
 <p>
 在刚才的命令行下，敲入命令:
@@ -1033,8 +1033,8 @@ vue add element
 </div>
 </div>
 
-<div id="outline-container-orgf90cfec" class="outline-3">
-<h3 id="orgf90cfec"><span class="section-number-3">7.5</span> 第四步，增加 router 支持</h3>
+<div id="outline-container-org51a20c8" class="outline-3">
+<h3 id="org51a20c8"><span class="section-number-3">7.5</span> 第四步，增加 router 支持</h3>
 <div class="outline-text-3" id="text-7-5">
 <p>
 在上述的命令行下，敲入命令:
@@ -1053,11 +1053,11 @@ vue add router
 </div>
 </div>
 
-<div id="outline-container-orgf4d54cc" class="outline-3">
-<h3 id="orgf4d54cc"><span class="section-number-3">7.6</span> 第五步，开始编码。</h3>
+<div id="outline-container-org686a967" class="outline-3">
+<h3 id="org686a967"><span class="section-number-3">7.6</span> 第五步，开始编码。</h3>
 </div>
-<div id="outline-container-orgcc0ab9b" class="outline-3">
-<h3 id="orgcc0ab9b"><span class="section-number-3">7.7</span> 另外的另外</h3>
+<div id="outline-container-orgd7e6f79" class="outline-3">
+<h3 id="orgd7e6f79"><span class="section-number-3">7.7</span> 另外的另外</h3>
 <div class="outline-text-3" id="text-7-7">
 <p>
 <b>vue add router</b> 命令等同于:
@@ -1119,8 +1119,8 @@ Vue.use(ElementUI);
 
 
 
-<div id="outline-container-org6ab1fe1" class="outline-3">
-<h3 id="org6ab1fe1"><span class="section-number-3">7.8</span> 另外的另外的另外</h3>
+<div id="outline-container-org02bb13a" class="outline-3">
+<h3 id="org02bb13a"><span class="section-number-3">7.8</span> 另外的另外的另外</h3>
 <div class="outline-text-3" id="text-7-8">
 <p>
 <code>src/main.js</code> 是项目的 <b>入口文件</b>，也就是说，是打开应用要执行的:
@@ -1134,8 +1134,8 @@ Vue.use(ElementUI);
 </div>
 </div>
 
-<div id="outline-container-org3c2fb0e" class="outline-3">
-<h3 id="org3c2fb0e"><span class="section-number-3">7.9</span> 另外的另外的另外的另外</h3>
+<div id="outline-container-org2b62f10" class="outline-3">
+<h3 id="org2b62f10"><span class="section-number-3">7.9</span> 另外的另外的另外的另外</h3>
 <div class="outline-text-3" id="text-7-9">
 <p>
 先把环境搭好，学会使用。
@@ -1156,7 +1156,7 @@ Vue.use(ElementUI);
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: unname</p>
-<p class="date">Created: 2019-03-22 周五 01:08</p>
+<p class="date">Created: 2019-03-22 周五 01:18</p>
 <p class="validation">Go ahead, never stop.</p>
 </div>
 </body>
