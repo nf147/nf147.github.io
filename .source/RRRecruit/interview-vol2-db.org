@@ -1,0 +1,412 @@
+#+TITLE: SQL面试45题
+
+
+SQL:
+#+BEGIN_SRC sql
+  create database  school;
+  use school;
+
+  #学生表
+  create table `Student`
+  (
+    `Sno` varchar(20) not null COMMENT '人名',
+    `Sname` varchar(20) not null COMMENT '姓名',
+    `Ssex` varchar(20) not null COMMENT '性别',
+    `Sbirthday` datetime COMMENT '出生日期',
+    `Class` varchar(20) COMMENT '班级'
+  );
+  #课程表
+  create table `Course`(
+    `Cno` varchar(20) not null COMMENT '课程号',
+    `Cname` varchar(20) not null COMMENT '课程名称',
+    `Tno` varchar(20) not null COMMENT '教工编号'
+  );
+  #成绩表
+  Create table `Score` (
+    `Sno` varchar(20) not null COMMENT '学号',
+    `Cno` varchar(20) not NULL comment '课程号',
+    `Degree` DECIMAL(4,1) null COMMENT '成绩'
+  );
+  #教师表
+  create table `Teacher` (
+    `Tno` varchar(20) not null COMMENT '教工编号',
+    `Tname` varchar(20) not null COMMENT '教工姓名',
+    `Tsex` varchar(20) not null COMMENT '教工性别',
+    `Tbirthday` datetime null COMMENT '教工出生日期',
+    `Prof` varchar(20) null COMMENT '职称',
+    `Depart` varchar(20) null COMMENT '教工所在部门'
+  );
+
+  insert into `Student` value
+  (108,'曾华','男','1977-09-01',95033),
+  (105,'匡明','男','1975-10-02',95031),
+  (107,'王丽','女','1976-01-23',95033),
+  (101,'李军','男','1976-02-20',95033),
+  (109,'王芳','女','1975-02-10',95031),
+  (103,'陆军','男','1974-06-03',95031);
+
+  insert into `Course` value
+  (3-105,'计算机导论',825),
+  (3-245,'操作系统',804),
+  (6-166,'数字电路',856),
+  (9-888,'高等数学',831);
+
+  insert into `Score` value
+  (103,3-245,86),
+  (105,3-245,75),
+  (109,3-245,68),
+  (103,3-105,92),
+  (105,3-105,88),
+  (109,3-105,76),
+  (101,2-105,64),
+  (107,3-105,91),
+  (108,3-105,78),
+  (101,6-166,85),
+  (107,6-166,79),
+  (108,6-166,81);
+
+  insert into `Teacher` value
+  (804,'李城','男','1958-12-02','副教授','计算机系'),
+  (856,'张旭','男','1969-03-12','讲师','电子工程系'),
+  (825,'王萍','女','1972-05-05','助教','计算机系'),
+  (831,'刘冰','女','1977-08-14','助教','电子工程系');
+
+#+END_SRC
+
+* 查询Student表中的所有记录的Sname、Ssex和Class列
+
+#+BEGIN_SRC sql
+  select `Sname`,`Ssex`,`Class` from `Student`;
+#+END_SRC
+
+
+* 查询教师所有的单位即不重复的Depart列。（多练）
+
+#+BEGIN_SRC sql
+  select distinct Depart from `Teacher`;
+#+END_SRC
+
+*  查询Student表的所有记录
+
+#+BEGIN_SRC sql
+  select * from `Student`;
+#+END_SRC
+
+* 查询Score表中成绩在60到80之间的所有记录
+
+#+BEGIN_SRC sql
+  select * from `Score` where Degree >60 and Degree<80;
+  select * from `Score` where Degree between 60 and 80;
+#+END_SRC
+
+* 查询Score表中成绩为85，86或88的记录
+
+#+BEGIN_SRC sql
+  select * from `Score` where Degree = 85  or Degree =  86 or  Degree =  88;
+  select * from `Score` where Degree in(85,86,88);
+#+END_SRC
+
+* 查询Student表中“95031”班或性别为“女”的同学记录
+
+#+BEGIN_SRC sql
+  select * from `Student` where Class = '95031' or Ssex ='女';
+#+END_SRC
+
+* 以Class降序查询Student表的所有记录
+
+#+BEGIN_SRC sql
+  select * from `Student` order by Class desc;
+#+END_SRC
+
+* 以Cno升序、Degree降序查询Score表的所有记录
+
+#+BEGIN_SRC sql
+  select * from `Score` order by Cno asc,Degree desc ;
+#+END_SRC
+
+* 查询“95031”班的学生人数
+
+#+BEGIN_SRC sql
+  select count(*) from `Student` where Class = '95031';
+#+END_SRC
+
+* 查询Score表中的最高分的学生学号和课程号。（子查询或者排序）
+
+#+BEGIN_SRC sql
+  select Sno,Cno from `Score` where Degree=(select Max(Degree) from Score);
+  select Sno,Cno from `Score` order by Degree desc;
+#+END_SRC
+
+* 查询每门课的平均成绩。(group by:根据Cno进行分组)
+
+#+BEGIN_SRC sql
+  select Cno,AVG(Degree) as 平均分 from `Score` group by Cno;
+#+END_SRC
+
+* 查询Score表中至少有5名学生选修的并以3开头的课程的平均分数
+
+#+BEGIN_SRC sql
+  select * from `Score` where Cno like '3%' group by Cno having Count(Cno)>4;
+#+END_SRC
+
+* 查询分数大于70，小于90的Sno列
+
+#+BEGIN_SRC sql
+  select Sno from `Score` where Degree>70 or Degree<90;
+  select Sno from `Score` where Degree between 70 and 90;
+#+END_SRC
+
+* 查询所有学生的Sname、Cno和Degree列
+
+#+BEGIN_SRC sql
+  select Sname,Cno from `Student` join `Score` on `Student`.Sno = `Score`.Sno;
+#+END_SRC
+
+* 查询所有学生的Sno、Cname和Degree列
+
+#+BEGIN_SRC sql
+  select Sno,Cname,Degree from Score join Course on Course.Cno = Score.Cno;
+#+END_SRC
+
+* 查询所有学生的Sname、Cname和Degree列
+
+#+BEGIN_SRC sql
+  select Sname,Cname,Degree from `Student` join Score on
+  `Student`.Sno = `Score`.Sno join Course on `Course`.Cno = `Score`.Sno;
+#+END_SRC
+
+* 查询“95033”班学生的平均分。(子查询or条件查询)
+
+#+BEGIN_SRC sql
+  select AVG(Degree) from  `Score` where Sno in(select Sno from `Student` where Class='95033');
+
+  select Avg(Degree) from `Score`,Student where Student.Sno = Score.Sno and Class = '95033';
+#+END_SRC
+
+* 假设使用如下命令建立了一个grade表
+
+#+BEGIN_SRC sql
+  create table `grede`(
+    `low` int   COMMENT '人名',
+    `upp` int not null COMMENT '课长',
+    `rank` varchar(20) not null COMMENT '等级'
+  );
+  insert into `grede` values(90,100,'A');
+  insert into `grede` values(80,89,'B');
+  insert into `grede` values(70,79,'C');
+  insert into `grede` values(60,69,'D');
+  insert into `grede` values(0,59,'E');
+#+END_SRC
+
+* 现查询所有同学的Sno、Cno和rank列。(between选取两个值之间的数据范围)
+
+#+BEGIN_SRC sql
+  select Sno,Cno,Degree,rank from grede join Score on Score.Degree between
+      low and upp;
+
+  select Sno,Cno,Degree,rank from  Score,grede where Degree between
+      low and upp;
+
+#+END_SRC
+
+* 查询选修“3-105”课程的成绩高于“109”号同学成绩的所有同学的记录
+
+#+BEGIN_SRC sql
+  select * from Student,Score where Score.Cno = '3-105' and Student.Sno = Score.Sno
+  and Score.Degree>(select Degree from Score where Cno = '3-105' and Sno = '109');
+#+END_SRC
+
+* 查询score中选学多门课程的同学中分数为非最高分成绩的记录
+
+#+BEGIN_SRC sql
+  select * from Score a where Degree<(select MAX(Degree)from  Score b
+  where a.Cno = b.Cno) and Sno in(select Sno from Score group by  Sno having  count(*) > 1);
+#+END_SRC
+
+* 查询成绩高于学号为“109”、课程号为“3-105”的成绩的所有记录
+
+#+BEGIN_SRC sql
+  select * from Student,Score where Student.Sno = Score.Sno and Score.Degree>
+  (select Degree from Score where Cno='3-105' and Sno = '109');
+#+END_SRC
+
+* 查询和学号为107的同学同年出生的所有学生的Sno、Sname和Sbirthday列
+
+#+BEGIN_SRC sql
+  select Sno,Sname,Sbirthday from student where year(Student.Sbirthday) = (
+      select year(Sbirthday) from student where Sno = '107'
+      );
+#+END_SRC
+
+* 查询“张旭“教师任课的学生成绩
+
+#+BEGIN_SRC sql
+  select Sno,Cno,Degree from Score where Cno in(select Cno from Course where
+     Tno in(select Tno from Teacher where Tname = '张旭'));
+#+END_SRC
+
+* 查询选修某课程的同学人数多于5人的教师姓名
+
+#+BEGIN_SRC sql
+  select Tname from Teacher where Tno in(select Tno from Course where Cno in(select Cno from Score
+  group by Cno having Count(*)>5));
+#+END_SRC
+
+
+* 查询95033班和95031班全体学生的记录
+
+#+BEGIN_SRC sql
+  select * from Student where Class = '95033' or Class = '95031';
+#+END_SRC
+
+
+* 查询存在有85分以上成绩的课程Cno
+
+#+BEGIN_SRC sql
+  select distinct cno from Score where Degree>85;
+#+END_SRC
+
+
+* 查询出“计算机系“教师所教课程的成绩表
+
+#+BEGIN_SRC sql
+  select Sno,Cno,Degree from Score where Cno in(select Cno from Course where Tno in(
+      select tno from Teacher where Depart = '计算机系'
+      ));
+#+END_SRC
+
+
+* 查询“计算机系”与“电子工程系“不同职称的教师的Tname和Prof。使用相关子查询
+
+#+BEGIN_SRC sql
+  select Tname,Prof from Teacher a where Prof not in(select Prof from Teacher b where
+  a.Depart!=b.Depart);
+#+END_SRC
+
+* 查询选修编号为“3-105“课程且成绩至少高于选修编号为“3-245”课程的同学的Cno、Sno和Degree,并按Degree从高到低次序排序
+
+#+BEGIN_SRC sql
+  select Cno,Sno,Degree from Score a where (select Degree from Score b where Cno='3-105' and
+  b.Sno = a.Sno)>=(select Degree from Score c where Cno='3-245' and c.Sno = a.Sno)order by
+  Degree desc ;
+#+END_SRC
+
+
+* 查询选修编号为“3-105”课程且成绩高于选修编号为“3-245”课程的同学的Cno、Sno和Degree.
+
+#+BEGIN_SRC sql
+  select Cno,Sno,Degree from Score a where (select Degree from Score b where Cno='3-105' and
+  b.Sno=a.Sno)>(select Degree from Score c where Cno='3-245' and c.Sno=a.Sno);
+#+END_SRC
+
+
+* 查询所有教师和同学的name、sex和birthday
+
+#+BEGIN_SRC sql
+  select distinct Sname as name,Ssex as sex,Sbirthday as birthday from student
+  union
+  select distinct Tname as name,Tsex as sex,Tbirthday as birthday from Teacher;
+#+END_SRC
+
+
+* 查询所有“女”教师和“女”同学的name、sex和birthday.
+
+#+BEGIN_SRC sql
+  select distinct Sname as name,Ssex as sex,Sbirthday as birthday from student where Ssex = '女'
+  union
+  select distinct Tname as name,Tsex as sex,Tbirthday as birthday from Teacher where Tsex = '女';
+#+END_SRC
+
+
+* 查询成绩比该课程平均成绩低的同学的成绩表
+
+#+BEGIN_SRC sql
+  select Sno,Cno,Degree from Score a where  a.Degree<(select AVG(Degree) from Score b where a.Cno = b.Cno);
+#+END_SRC
+
+
+* 查询所有任课教师的Tname和Depart
+
+#+BEGIN_SRC sql
+  select Tname,Depart from Teacher where Tname in(select distinct Tname from Teacher,
+  Course,Score where Teacher.Tno = Course.Tno and Course.Cno = Score.Cno);
+
+  select Tname,Depart from Teacher where tno in (select tno from course where Cno in (select distinct Cno from Score));
+#+END_SRC
+
+
+* 查询所有未讲课的教师的Tname和Depart
+
+#+BEGIN_SRC sql
+  select Tname,Depart from Teacher where Tname not in(select distinct Tname from Teacher,Course,Score where Teacher.Tno=Course.Tno and Course.Cno = Score.Cno);
+#+END_SRC
+
+* 查询至少有2名男生的班号
+
+#+BEGIN_SRC sql
+  select Class from student where Ssex='男' group by Class having count(*)>1;
+#+END_SRC
+
+
+* 查询Student表中不姓“王”的同学记录
+
+#+BEGIN_SRC sql
+  select * from Student where Sname not like ('王%');
+#+END_SRC
+
+
+* 查询Student表中每个学生的姓名和年龄
+
+#+BEGIN_SRC sql
+  select Sname,YEAR(GETDATE())-year(Sbirthday) from student;
+#+END_SRC
+
+
+* 查询Student表中最大和最小的Sbirthday日期值
+
+#+BEGIN_SRC sql
+  select MAX(Sbirthday) as 最大,MIN(Sbirthday) as 最小 from student;
+#+END_SRC
+
+
+* 以班号和年龄从大到小的顺序查询Student表中的全部记录
+
+#+BEGIN_SRC sql
+  select * from Student order by Class desc ,Sbirthday asc;
+#+END_SRC
+
+
+* 查询“男”教师及其所上的课程
+
+#+BEGIN_SRC sql
+  select Tname,Cname from Teacher,Course where Tsex='男' and Teacher.Tno = Course.Tno;
+#+END_SRC
+
+
+* 查询最高分同学的Sno、Cno和Degree列
+
+#+BEGIN_SRC sql
+  select Sno,Cno,Degree from Score where Degree=(select MAX(Degree) FROM score);
+#+END_SRC
+
+
+* 查询和“李军”同性别的所有同学的Sname.
+
+#+BEGIN_SRC sql
+  select SName from Student where Ssex=(select Ssex from Student where Sname='李军')and Sname
+  not in ('李军');
+#+END_SRC
+
+* 查询和“李军”同性别并同班的同学Sname
+
+#+BEGIN_SRC sql
+  select Sname from Student where Ssex=(select Ssex from Student where Sname='李军')and Sname not in
+  ('李军')and Class=(select Class from Student where Sname='李军');
+#+END_SRC
+
+* 查询所有选修“计算机导论”课程的“男”同学的成绩表
+
+#+BEGIN_SRC sql
+  select Sno,Degree from Score where Sno in(select Sno from Student where Ssex='男')and Cno in
+  (select Cno from Course where Cname='计算机导论');
+#+END_SRC

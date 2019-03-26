@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- 2019-03-26 周二 01:35 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SQL面试45题</title>
+<meta name="generator" content="Org mode">
+<meta name="author" content="unname">
+<link rel='stylesheet' href='/asset/common.css' />
+<script src='https://cdn.bootcss.com/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js'></script>
+<script src='/asset/common.js'></script>
+</head>
+<body>
+<div id="content">
+<header>
+<h1 class="title">SQL面试45题</h1>
+</header><nav id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org2dec9d1">1. 查询Student表中的所有记录的Sname、Ssex和Class列</a></li>
+<li><a href="#org9aec7bd">2. 查询教师所有的单位即不重复的Depart列。（多练）</a></li>
+<li><a href="#org4dcc839">3. 查询Student表的所有记录</a></li>
+<li><a href="#org46a6b07">4. 查询Score表中成绩在60到80之间的所有记录</a></li>
+<li><a href="#org51af733">5. 查询Score表中成绩为85，86或88的记录</a></li>
+<li><a href="#org8d98d79">6. 查询Student表中“95031”班或性别为“女”的同学记录</a></li>
+<li><a href="#org943e006">7. 以Class降序查询Student表的所有记录</a></li>
+<li><a href="#org1a22978">8. 以Cno升序、Degree降序查询Score表的所有记录</a></li>
+<li><a href="#org453cb7c">9. 查询“95031”班的学生人数</a></li>
+<li><a href="#org10e895b">10. 查询Score表中的最高分的学生学号和课程号。（子查询或者排序）</a></li>
+<li><a href="#orgf666123">11. 查询每门课的平均成绩。(group by:根据Cno进行分组)</a></li>
+<li><a href="#org696da58">12. 查询Score表中至少有5名学生选修的并以3开头的课程的平均分数</a></li>
+<li><a href="#orgac2f19c">13. 查询分数大于70，小于90的Sno列</a></li>
+<li><a href="#orgdb92105">14. 查询所有学生的Sname、Cno和Degree列</a></li>
+<li><a href="#orga1a7075">15. 查询所有学生的Sno、Cname和Degree列</a></li>
+<li><a href="#orgb7be05f">16. 查询所有学生的Sname、Cname和Degree列</a></li>
+<li><a href="#orgfc72885">17. 查询“95033”班学生的平均分。(子查询or条件查询)</a></li>
+<li><a href="#org5126c59">18. 假设使用如下命令建立了一个grade表</a></li>
+<li><a href="#org089abc5">19. 现查询所有同学的Sno、Cno和rank列。(between选取两个值之间的数据范围)</a></li>
+<li><a href="#org16b0d38">20. 查询选修“3-105”课程的成绩高于“109”号同学成绩的所有同学的记录</a></li>
+<li><a href="#org1617588">21. 查询score中选学多门课程的同学中分数为非最高分成绩的记录</a></li>
+<li><a href="#orge3963fc">22. 查询成绩高于学号为“109”、课程号为“3-105”的成绩的所有记录</a></li>
+<li><a href="#org7f0715d">23. 查询和学号为107的同学同年出生的所有学生的Sno、Sname和Sbirthday列</a></li>
+<li><a href="#org591fcd2">24. 查询“张旭“教师任课的学生成绩</a></li>
+<li><a href="#orgd033219">25. 查询选修某课程的同学人数多于5人的教师姓名</a></li>
+<li><a href="#orgd1af653">26. 查询95033班和95031班全体学生的记录</a></li>
+<li><a href="#org1a6d7ca">27. 查询存在有85分以上成绩的课程Cno</a></li>
+<li><a href="#orga79c5b3">28. 查询出“计算机系“教师所教课程的成绩表</a></li>
+<li><a href="#org70abc62">29. 查询“计算机系”与“电子工程系“不同职称的教师的Tname和Prof。使用相关子查询</a></li>
+<li><a href="#orge52afbe">30. 查询选修编号为“3-105“课程且成绩至少高于选修编号为“3-245”课程的同学的Cno、Sno和Degree,并按Degree从高到低次序排序</a></li>
+<li><a href="#org947a46b">31. 查询选修编号为“3-105”课程且成绩高于选修编号为“3-245”课程的同学的Cno、Sno和Degree.</a></li>
+<li><a href="#orgff8970b">32. 查询所有教师和同学的name、sex和birthday</a></li>
+<li><a href="#orgaf384f2">33. 查询所有“女”教师和“女”同学的name、sex和birthday.</a></li>
+<li><a href="#org9d1f036">34. 查询成绩比该课程平均成绩低的同学的成绩表</a></li>
+<li><a href="#org3b848fe">35. 查询所有任课教师的Tname和Depart</a></li>
+<li><a href="#orgf0e1501">36. 查询所有未讲课的教师的Tname和Depart</a></li>
+<li><a href="#orgfc149af">37. 查询至少有2名男生的班号</a></li>
+<li><a href="#org845fb02">38. 查询Student表中不姓“王”的同学记录</a></li>
+<li><a href="#org3b323da">39. 查询Student表中每个学生的姓名和年龄</a></li>
+<li><a href="#orga2c4ecb">40. 查询Student表中最大和最小的Sbirthday日期值</a></li>
+<li><a href="#orgab33403">41. 以班号和年龄从大到小的顺序查询Student表中的全部记录</a></li>
+<li><a href="#org2e51169">42. 查询“男”教师及其所上的课程</a></li>
+<li><a href="#orgabd5db8">43. 查询最高分同学的Sno、Cno和Degree列</a></li>
+<li><a href="#org9559dc6">44. 查询和“李军”同性别的所有同学的Sname.</a></li>
+<li><a href="#orga8b1b5f">45. 查询和“李军”同性别并同班的同学Sname</a></li>
+<li><a href="#org27b36b7">46. 查询所有选修“计算机导论”课程的“男”同学的成绩表</a></li>
+</ul>
+</div>
+</nav>
+<p>
+SQL:
+</p>
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">create</span> database  school;
+use school;
+
+#&#23398;&#29983;&#34920;
+<span class="org-keyword">create</span> <span class="org-keyword">table</span> `Student`
+(
+  `Sno` <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span> COMMENT <span class="org-string">'&#20154;&#21517;'</span>,
+  `Sname` <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span> COMMENT <span class="org-string">'&#22995;&#21517;'</span>,
+  `Ssex` <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span> COMMENT <span class="org-string">'&#24615;&#21035;'</span>,
+  `Sbirthday` datetime COMMENT <span class="org-string">'&#20986;&#29983;&#26085;&#26399;'</span>,
+  `<span class="org-keyword">Class</span>` <span class="org-type">varchar</span>(20) COMMENT <span class="org-string">'&#29677;&#32423;'</span>
+);
+#&#35838;&#31243;&#34920;
+<span class="org-keyword">create</span> <span class="org-keyword">table</span> `Course`(
+  `Cno` <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span> COMMENT <span class="org-string">'&#35838;&#31243;&#21495;'</span>,
+  `Cname` <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span> COMMENT <span class="org-string">'&#35838;&#31243;&#21517;&#31216;'</span>,
+  `Tno` <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span> COMMENT <span class="org-string">'&#25945;&#24037;&#32534;&#21495;'</span>
+);
+#&#25104;&#32489;&#34920;
+<span class="org-keyword">Create</span> <span class="org-keyword">table</span> `Score` (
+  `Sno` <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span> COMMENT <span class="org-string">'&#23398;&#21495;'</span>,
+  `Cno` <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">NULL</span> comment <span class="org-string">'&#35838;&#31243;&#21495;'</span>,
+  `Degree` <span class="org-type">DECIMAL</span>(4,1) <span class="org-keyword">null</span> COMMENT <span class="org-string">'&#25104;&#32489;'</span>
+);
+#&#25945;&#24072;&#34920;
+<span class="org-keyword">create</span> <span class="org-keyword">table</span> `Teacher` (
+  `Tno` <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span> COMMENT <span class="org-string">'&#25945;&#24037;&#32534;&#21495;'</span>,
+  `Tname` <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span> COMMENT <span class="org-string">'&#25945;&#24037;&#22995;&#21517;'</span>,
+  `Tsex` <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span> COMMENT <span class="org-string">'&#25945;&#24037;&#24615;&#21035;'</span>,
+  `Tbirthday` datetime <span class="org-keyword">null</span> COMMENT <span class="org-string">'&#25945;&#24037;&#20986;&#29983;&#26085;&#26399;'</span>,
+  `Prof` <span class="org-type">varchar</span>(20) <span class="org-keyword">null</span> COMMENT <span class="org-string">'&#32844;&#31216;'</span>,
+  `Depart` <span class="org-type">varchar</span>(20) <span class="org-keyword">null</span> COMMENT <span class="org-string">'&#25945;&#24037;&#25152;&#22312;&#37096;&#38376;'</span>
+);
+
+<span class="org-keyword">insert</span> <span class="org-keyword">into</span> `Student` <span class="org-keyword">value</span>
+(108,<span class="org-string">'&#26366;&#21326;'</span>,<span class="org-string">'&#30007;'</span>,<span class="org-string">'1977-09-01'</span>,95033),
+(105,<span class="org-string">'&#21281;&#26126;'</span>,<span class="org-string">'&#30007;'</span>,<span class="org-string">'1975-10-02'</span>,95031),
+(107,<span class="org-string">'&#29579;&#20029;'</span>,<span class="org-string">'&#22899;'</span>,<span class="org-string">'1976-01-23'</span>,95033),
+(101,<span class="org-string">'&#26446;&#20891;'</span>,<span class="org-string">'&#30007;'</span>,<span class="org-string">'1976-02-20'</span>,95033),
+(109,<span class="org-string">'&#29579;&#33459;'</span>,<span class="org-string">'&#22899;'</span>,<span class="org-string">'1975-02-10'</span>,95031),
+(103,<span class="org-string">'&#38470;&#20891;'</span>,<span class="org-string">'&#30007;'</span>,<span class="org-string">'1974-06-03'</span>,95031);
+
+<span class="org-keyword">insert</span> <span class="org-keyword">into</span> `Course` <span class="org-keyword">value</span>
+(3-105,<span class="org-string">'&#35745;&#31639;&#26426;&#23548;&#35770;'</span>,825),
+(3-245,<span class="org-string">'&#25805;&#20316;&#31995;&#32479;'</span>,804),
+(6-166,<span class="org-string">'&#25968;&#23383;&#30005;&#36335;'</span>,856),
+(9-888,<span class="org-string">'&#39640;&#31561;&#25968;&#23398;'</span>,831);
+
+<span class="org-keyword">insert</span> <span class="org-keyword">into</span> `Score` <span class="org-keyword">value</span>
+(103,3-245,86),
+(105,3-245,75),
+(109,3-245,68),
+(103,3-105,92),
+(105,3-105,88),
+(109,3-105,76),
+(101,2-105,64),
+(107,3-105,91),
+(108,3-105,78),
+(101,6-166,85),
+(107,6-166,79),
+(108,6-166,81);
+
+<span class="org-keyword">insert</span> <span class="org-keyword">into</span> `Teacher` <span class="org-keyword">value</span>
+(804,<span class="org-string">'&#26446;&#22478;'</span>,<span class="org-string">'&#30007;'</span>,<span class="org-string">'1958-12-02'</span>,<span class="org-string">'&#21103;&#25945;&#25480;'</span>,<span class="org-string">'&#35745;&#31639;&#26426;&#31995;'</span>),
+(856,<span class="org-string">'&#24352;&#26093;'</span>,<span class="org-string">'&#30007;'</span>,<span class="org-string">'1969-03-12'</span>,<span class="org-string">'&#35762;&#24072;'</span>,<span class="org-string">'&#30005;&#23376;&#24037;&#31243;&#31995;'</span>),
+(825,<span class="org-string">'&#29579;&#33805;'</span>,<span class="org-string">'&#22899;'</span>,<span class="org-string">'1972-05-05'</span>,<span class="org-string">'&#21161;&#25945;'</span>,<span class="org-string">'&#35745;&#31639;&#26426;&#31995;'</span>),
+(831,<span class="org-string">'&#21016;&#20912;'</span>,<span class="org-string">'&#22899;'</span>,<span class="org-string">'1977-08-14'</span>,<span class="org-string">'&#21161;&#25945;'</span>,<span class="org-string">'&#30005;&#23376;&#24037;&#31243;&#31995;'</span>);
+
+</pre>
+</div>
+
+<section id="outline-container-org2dec9d1" class="outline-2">
+<h2 id="org2dec9d1"><span class="section-number-2">1</span> 查询Student表中的所有记录的Sname、Ssex和Class列</h2>
+<div class="outline-text-2" id="text-1">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> `Sname`,`Ssex`,`<span class="org-keyword">Class</span>` <span class="org-keyword">from</span> `Student`;
+</pre>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-org9aec7bd" class="outline-2">
+<h2 id="org9aec7bd"><span class="section-number-2">2</span> 查询教师所有的单位即不重复的Depart列。（多练）</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> <span class="org-keyword">distinct</span> Depart <span class="org-keyword">from</span> `Teacher`;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org4dcc839" class="outline-2">
+<h2 id="org4dcc839"><span class="section-number-2">3</span> 查询Student表的所有记录</h2>
+<div class="outline-text-2" id="text-3">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> * <span class="org-keyword">from</span> `Student`;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org46a6b07" class="outline-2">
+<h2 id="org46a6b07"><span class="section-number-2">4</span> 查询Score表中成绩在60到80之间的所有记录</h2>
+<div class="outline-text-2" id="text-4">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> * <span class="org-keyword">from</span> `Score` <span class="org-keyword">where</span> Degree &gt;60 <span class="org-keyword">and</span> Degree&lt;80;
+<span class="org-keyword">select</span> * <span class="org-keyword">from</span> `Score` <span class="org-keyword">where</span> Degree <span class="org-keyword">between</span> 60 <span class="org-keyword">and</span> 80;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org51af733" class="outline-2">
+<h2 id="org51af733"><span class="section-number-2">5</span> 查询Score表中成绩为85，86或88的记录</h2>
+<div class="outline-text-2" id="text-5">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> * <span class="org-keyword">from</span> `Score` <span class="org-keyword">where</span> Degree = 85  <span class="org-keyword">or</span> Degree =  86 <span class="org-keyword">or</span>  Degree =  88;
+<span class="org-keyword">select</span> * <span class="org-keyword">from</span> `Score` <span class="org-keyword">where</span> Degree <span class="org-keyword">in</span>(85,86,88);
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org8d98d79" class="outline-2">
+<h2 id="org8d98d79"><span class="section-number-2">6</span> 查询Student表中“95031”班或性别为“女”的同学记录</h2>
+<div class="outline-text-2" id="text-6">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> * <span class="org-keyword">from</span> `Student` <span class="org-keyword">where</span> <span class="org-keyword">Class</span> = <span class="org-string">'95031'</span> <span class="org-keyword">or</span> Ssex =<span class="org-string">'&#22899;'</span>;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org943e006" class="outline-2">
+<h2 id="org943e006"><span class="section-number-2">7</span> 以Class降序查询Student表的所有记录</h2>
+<div class="outline-text-2" id="text-7">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> * <span class="org-keyword">from</span> `Student` <span class="org-keyword">order</span> <span class="org-keyword">by</span> <span class="org-keyword">Class</span> <span class="org-keyword">desc</span>;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org1a22978" class="outline-2">
+<h2 id="org1a22978"><span class="section-number-2">8</span> 以Cno升序、Degree降序查询Score表的所有记录</h2>
+<div class="outline-text-2" id="text-8">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> * <span class="org-keyword">from</span> `Score` <span class="org-keyword">order</span> <span class="org-keyword">by</span> Cno <span class="org-keyword">asc</span>,Degree <span class="org-keyword">desc</span> ;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org453cb7c" class="outline-2">
+<h2 id="org453cb7c"><span class="section-number-2">9</span> 查询“95031”班的学生人数</h2>
+<div class="outline-text-2" id="text-9">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> <span class="org-builtin">count</span>(*) <span class="org-keyword">from</span> `Student` <span class="org-keyword">where</span> <span class="org-keyword">Class</span> = <span class="org-string">'95031'</span>;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org10e895b" class="outline-2">
+<h2 id="org10e895b"><span class="section-number-2">10</span> 查询Score表中的最高分的学生学号和课程号。（子查询或者排序）</h2>
+<div class="outline-text-2" id="text-10">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Sno,Cno <span class="org-keyword">from</span> `Score` <span class="org-keyword">where</span> Degree=(<span class="org-keyword">select</span> <span class="org-builtin">Max</span>(Degree) <span class="org-keyword">from</span> Score);
+<span class="org-keyword">select</span> Sno,Cno <span class="org-keyword">from</span> `Score` <span class="org-keyword">order</span> <span class="org-keyword">by</span> Degree <span class="org-keyword">desc</span>;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgf666123" class="outline-2">
+<h2 id="orgf666123"><span class="section-number-2">11</span> 查询每门课的平均成绩。(group by:根据Cno进行分组)</h2>
+<div class="outline-text-2" id="text-11">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Cno,<span class="org-builtin">AVG</span>(Degree) <span class="org-keyword">as</span> &#24179;&#22343;&#20998; <span class="org-keyword">from</span> `Score` <span class="org-keyword">group</span> <span class="org-keyword">by</span> Cno;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org696da58" class="outline-2">
+<h2 id="org696da58"><span class="section-number-2">12</span> 查询Score表中至少有5名学生选修的并以3开头的课程的平均分数</h2>
+<div class="outline-text-2" id="text-12">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> * <span class="org-keyword">from</span> `Score` <span class="org-keyword">where</span> Cno <span class="org-keyword">like</span> <span class="org-string">'3%'</span> <span class="org-keyword">group</span> <span class="org-keyword">by</span> Cno <span class="org-keyword">having</span> <span class="org-builtin">Count</span>(Cno)&gt;4;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgac2f19c" class="outline-2">
+<h2 id="orgac2f19c"><span class="section-number-2">13</span> 查询分数大于70，小于90的Sno列</h2>
+<div class="outline-text-2" id="text-13">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Sno <span class="org-keyword">from</span> `Score` <span class="org-keyword">where</span> Degree&gt;70 <span class="org-keyword">or</span> Degree&lt;90;
+<span class="org-keyword">select</span> Sno <span class="org-keyword">from</span> `Score` <span class="org-keyword">where</span> Degree <span class="org-keyword">between</span> 70 <span class="org-keyword">and</span> 90;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgdb92105" class="outline-2">
+<h2 id="orgdb92105"><span class="section-number-2">14</span> 查询所有学生的Sname、Cno和Degree列</h2>
+<div class="outline-text-2" id="text-14">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Sname,Cno <span class="org-keyword">from</span> `Student` <span class="org-keyword">join</span> `Score` <span class="org-keyword">on</span> `Student`.Sno = `Score`.Sno;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orga1a7075" class="outline-2">
+<h2 id="orga1a7075"><span class="section-number-2">15</span> 查询所有学生的Sno、Cname和Degree列</h2>
+<div class="outline-text-2" id="text-15">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Sno,Cname,Degree <span class="org-keyword">from</span> Score <span class="org-keyword">join</span> Course <span class="org-keyword">on</span> Course.Cno = Score.Cno;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgb7be05f" class="outline-2">
+<h2 id="orgb7be05f"><span class="section-number-2">16</span> 查询所有学生的Sname、Cname和Degree列</h2>
+<div class="outline-text-2" id="text-16">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Sname,Cname,Degree <span class="org-keyword">from</span> `Student` <span class="org-keyword">join</span> Score <span class="org-keyword">on</span>
+`Student`.Sno = `Score`.Sno <span class="org-keyword">join</span> Course <span class="org-keyword">on</span> `Course`.Cno = `Score`.Sno;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgfc72885" class="outline-2">
+<h2 id="orgfc72885"><span class="section-number-2">17</span> 查询“95033”班学生的平均分。(子查询or条件查询)</h2>
+<div class="outline-text-2" id="text-17">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> <span class="org-builtin">AVG</span>(Degree) <span class="org-keyword">from</span>  `Score` <span class="org-keyword">where</span> Sno <span class="org-keyword">in</span>(<span class="org-keyword">select</span> Sno <span class="org-keyword">from</span> `Student` <span class="org-keyword">where</span> <span class="org-keyword">Class</span>=<span class="org-string">'95033'</span>);
+
+<span class="org-keyword">select</span> <span class="org-builtin">Avg</span>(Degree) <span class="org-keyword">from</span> `Score`,Student <span class="org-keyword">where</span> Student.Sno = Score.Sno <span class="org-keyword">and</span> <span class="org-keyword">Class</span> = <span class="org-string">'95033'</span>;
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org5126c59" class="outline-2">
+<h2 id="org5126c59"><span class="section-number-2">18</span> 假设使用如下命令建立了一个grade表</h2>
+<div class="outline-text-2" id="text-18">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">create</span> <span class="org-keyword">table</span> `grede`(
+  `low` <span class="org-type">int</span>   COMMENT <span class="org-string">'&#20154;&#21517;'</span>,
+  `upp` <span class="org-type">int</span> <span class="org-keyword">not</span> <span class="org-keyword">null</span> COMMENT <span class="org-string">'&#35838;&#38271;'</span>,
+  `rank` <span class="org-type">varchar</span>(20) <span class="org-keyword">not</span> <span class="org-keyword">null</span> COMMENT <span class="org-string">'&#31561;&#32423;'</span>
+);
+<span class="org-keyword">insert</span> <span class="org-keyword">into</span> `grede` <span class="org-keyword">values</span>(90,100,<span class="org-string">'A'</span>);
+<span class="org-keyword">insert</span> <span class="org-keyword">into</span> `grede` <span class="org-keyword">values</span>(80,89,<span class="org-string">'B'</span>);
+<span class="org-keyword">insert</span> <span class="org-keyword">into</span> `grede` <span class="org-keyword">values</span>(70,79,<span class="org-string">'C'</span>);
+<span class="org-keyword">insert</span> <span class="org-keyword">into</span> `grede` <span class="org-keyword">values</span>(60,69,<span class="org-string">'D'</span>);
+<span class="org-keyword">insert</span> <span class="org-keyword">into</span> `grede` <span class="org-keyword">values</span>(0,59,<span class="org-string">'E'</span>);
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org089abc5" class="outline-2">
+<h2 id="org089abc5"><span class="section-number-2">19</span> 现查询所有同学的Sno、Cno和rank列。(between选取两个值之间的数据范围)</h2>
+<div class="outline-text-2" id="text-19">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Sno,Cno,Degree,rank <span class="org-keyword">from</span> grede <span class="org-keyword">join</span> Score <span class="org-keyword">on</span> Score.Degree <span class="org-keyword">between</span>
+    low <span class="org-keyword">and</span> upp;
+
+<span class="org-keyword">select</span> Sno,Cno,Degree,rank <span class="org-keyword">from</span>  Score,grede <span class="org-keyword">where</span> Degree <span class="org-keyword">between</span>
+    low <span class="org-keyword">and</span> upp;
+
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org16b0d38" class="outline-2">
+<h2 id="org16b0d38"><span class="section-number-2">20</span> 查询选修“3-105”课程的成绩高于“109”号同学成绩的所有同学的记录</h2>
+<div class="outline-text-2" id="text-20">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> * <span class="org-keyword">from</span> Student,Score <span class="org-keyword">where</span> Score.Cno = <span class="org-string">'3-105'</span> <span class="org-keyword">and</span> Student.Sno = Score.Sno
+<span class="org-keyword">and</span> Score.Degree&gt;(<span class="org-keyword">select</span> Degree <span class="org-keyword">from</span> Score <span class="org-keyword">where</span> Cno = <span class="org-string">'3-105'</span> <span class="org-keyword">and</span> Sno = <span class="org-string">'109'</span>);
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org1617588" class="outline-2">
+<h2 id="org1617588"><span class="section-number-2">21</span> 查询score中选学多门课程的同学中分数为非最高分成绩的记录</h2>
+<div class="outline-text-2" id="text-21">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> * <span class="org-keyword">from</span> Score a <span class="org-keyword">where</span> Degree&lt;(<span class="org-keyword">select</span> <span class="org-builtin">MAX</span>(Degree)<span class="org-keyword">from</span>  Score b
+<span class="org-keyword">where</span> a.Cno = b.Cno) <span class="org-keyword">and</span> Sno <span class="org-keyword">in</span>(<span class="org-keyword">select</span> Sno <span class="org-keyword">from</span> Score <span class="org-keyword">group</span> <span class="org-keyword">by</span>  Sno <span class="org-keyword">having</span>  <span class="org-builtin">count</span>(*) &gt; 1);
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orge3963fc" class="outline-2">
+<h2 id="orge3963fc"><span class="section-number-2">22</span> 查询成绩高于学号为“109”、课程号为“3-105”的成绩的所有记录</h2>
+<div class="outline-text-2" id="text-22">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> * <span class="org-keyword">from</span> Student,Score <span class="org-keyword">where</span> Student.Sno = Score.Sno <span class="org-keyword">and</span> Score.Degree&gt;
+(<span class="org-keyword">select</span> Degree <span class="org-keyword">from</span> Score <span class="org-keyword">where</span> Cno=<span class="org-string">'3-105'</span> <span class="org-keyword">and</span> Sno = <span class="org-string">'109'</span>);
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org7f0715d" class="outline-2">
+<h2 id="org7f0715d"><span class="section-number-2">23</span> 查询和学号为107的同学同年出生的所有学生的Sno、Sname和Sbirthday列</h2>
+<div class="outline-text-2" id="text-23">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Sno,Sname,Sbirthday <span class="org-keyword">from</span> student <span class="org-keyword">where</span> <span class="org-keyword">year</span>(Student.Sbirthday) = (
+    <span class="org-keyword">select</span> <span class="org-keyword">year</span>(Sbirthday) <span class="org-keyword">from</span> student <span class="org-keyword">where</span> Sno = <span class="org-string">'107'</span>
+    );
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org591fcd2" class="outline-2">
+<h2 id="org591fcd2"><span class="section-number-2">24</span> 查询“张旭“教师任课的学生成绩</h2>
+<div class="outline-text-2" id="text-24">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Sno,Cno,Degree <span class="org-keyword">from</span> Score <span class="org-keyword">where</span> Cno <span class="org-keyword">in</span>(<span class="org-keyword">select</span> Cno <span class="org-keyword">from</span> Course <span class="org-keyword">where</span>
+   Tno <span class="org-keyword">in</span>(<span class="org-keyword">select</span> Tno <span class="org-keyword">from</span> Teacher <span class="org-keyword">where</span> Tname = <span class="org-string">'&#24352;&#26093;'</span>));
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgd033219" class="outline-2">
+<h2 id="orgd033219"><span class="section-number-2">25</span> 查询选修某课程的同学人数多于5人的教师姓名</h2>
+<div class="outline-text-2" id="text-25">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Tname <span class="org-keyword">from</span> Teacher <span class="org-keyword">where</span> Tno <span class="org-keyword">in</span>(<span class="org-keyword">select</span> Tno <span class="org-keyword">from</span> Course <span class="org-keyword">where</span> Cno <span class="org-keyword">in</span>(<span class="org-keyword">select</span> Cno <span class="org-keyword">from</span> Score
+<span class="org-keyword">group</span> <span class="org-keyword">by</span> Cno <span class="org-keyword">having</span> <span class="org-builtin">Count</span>(*)&gt;5));
+</pre>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-orgd1af653" class="outline-2">
+<h2 id="orgd1af653"><span class="section-number-2">26</span> 查询95033班和95031班全体学生的记录</h2>
+<div class="outline-text-2" id="text-26">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> * <span class="org-keyword">from</span> Student <span class="org-keyword">where</span> <span class="org-keyword">Class</span> = <span class="org-string">'95033'</span> <span class="org-keyword">or</span> <span class="org-keyword">Class</span> = <span class="org-string">'95031'</span>;
+</pre>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-org1a6d7ca" class="outline-2">
+<h2 id="org1a6d7ca"><span class="section-number-2">27</span> 查询存在有85分以上成绩的课程Cno</h2>
+<div class="outline-text-2" id="text-27">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> <span class="org-keyword">distinct</span> cno <span class="org-keyword">from</span> Score <span class="org-keyword">where</span> Degree&gt;85;
+</pre>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-orga79c5b3" class="outline-2">
+<h2 id="orga79c5b3"><span class="section-number-2">28</span> 查询出“计算机系“教师所教课程的成绩表</h2>
+<div class="outline-text-2" id="text-28">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Sno,Cno,Degree <span class="org-keyword">from</span> Score <span class="org-keyword">where</span> Cno <span class="org-keyword">in</span>(<span class="org-keyword">select</span> Cno <span class="org-keyword">from</span> Course <span class="org-keyword">where</span> Tno <span class="org-keyword">in</span>(
+    <span class="org-keyword">select</span> tno <span class="org-keyword">from</span> Teacher <span class="org-keyword">where</span> Depart = <span class="org-string">'&#35745;&#31639;&#26426;&#31995;'</span>
+    ));
+</pre>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-org70abc62" class="outline-2">
+<h2 id="org70abc62"><span class="section-number-2">29</span> 查询“计算机系”与“电子工程系“不同职称的教师的Tname和Prof。使用相关子查询</h2>
+<div class="outline-text-2" id="text-29">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Tname,Prof <span class="org-keyword">from</span> Teacher a <span class="org-keyword">where</span> Prof <span class="org-keyword">not</span> <span class="org-keyword">in</span>(<span class="org-keyword">select</span> Prof <span class="org-keyword">from</span> Teacher b <span class="org-keyword">where</span>
+a.Depart!=b.Depart);
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orge52afbe" class="outline-2">
+<h2 id="orge52afbe"><span class="section-number-2">30</span> 查询选修编号为“3-105“课程且成绩至少高于选修编号为“3-245”课程的同学的Cno、Sno和Degree,并按Degree从高到低次序排序</h2>
+<div class="outline-text-2" id="text-30">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Cno,Sno,Degree <span class="org-keyword">from</span> Score a <span class="org-keyword">where</span> (<span class="org-keyword">select</span> Degree <span class="org-keyword">from</span> Score b <span class="org-keyword">where</span> Cno=<span class="org-string">'3-105'</span> <span class="org-keyword">and</span>
+b.Sno = a.Sno)&gt;=(<span class="org-keyword">select</span> Degree <span class="org-keyword">from</span> Score c <span class="org-keyword">where</span> Cno=<span class="org-string">'3-245'</span> <span class="org-keyword">and</span> c.Sno = a.Sno)<span class="org-keyword">order</span> <span class="org-keyword">by</span>
+Degree <span class="org-keyword">desc</span> ;
+</pre>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-org947a46b" class="outline-2">
+<h2 id="org947a46b"><span class="section-number-2">31</span> 查询选修编号为“3-105”课程且成绩高于选修编号为“3-245”课程的同学的Cno、Sno和Degree.</h2>
+<div class="outline-text-2" id="text-31">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Cno,Sno,Degree <span class="org-keyword">from</span> Score a <span class="org-keyword">where</span> (<span class="org-keyword">select</span> Degree <span class="org-keyword">from</span> Score b <span class="org-keyword">where</span> Cno=<span class="org-string">'3-105'</span> <span class="org-keyword">and</span>
+b.Sno=a.Sno)&gt;(<span class="org-keyword">select</span> Degree <span class="org-keyword">from</span> Score c <span class="org-keyword">where</span> Cno=<span class="org-string">'3-245'</span> <span class="org-keyword">and</span> c.Sno=a.Sno);
+</pre>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-orgff8970b" class="outline-2">
+<h2 id="orgff8970b"><span class="section-number-2">32</span> 查询所有教师和同学的name、sex和birthday</h2>
+<div class="outline-text-2" id="text-32">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> <span class="org-keyword">distinct</span> Sname <span class="org-keyword">as</span> <span class="org-keyword">name</span>,Ssex <span class="org-keyword">as</span> sex,Sbirthday <span class="org-keyword">as</span> birthday <span class="org-keyword">from</span> student
+<span class="org-keyword">union</span>
+<span class="org-keyword">select</span> <span class="org-keyword">distinct</span> Tname <span class="org-keyword">as</span> <span class="org-keyword">name</span>,Tsex <span class="org-keyword">as</span> sex,Tbirthday <span class="org-keyword">as</span> birthday <span class="org-keyword">from</span> Teacher;
+</pre>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-orgaf384f2" class="outline-2">
+<h2 id="orgaf384f2"><span class="section-number-2">33</span> 查询所有“女”教师和“女”同学的name、sex和birthday.</h2>
+<div class="outline-text-2" id="text-33">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> <span class="org-keyword">distinct</span> Sname <span class="org-keyword">as</span> <span class="org-keyword">name</span>,Ssex <span class="org-keyword">as</span> sex,Sbirthday <span class="org-keyword">as</span> birthday <span class="org-keyword">from</span> student <span class="org-keyword">where</span> Ssex = <span class="org-string">'&#22899;'</span>
+<span class="org-keyword">union</span>
+<span class="org-keyword">select</span> <span class="org-keyword">distinct</span> Tname <span class="org-keyword">as</span> <span class="org-keyword">name</span>,Tsex <span class="org-keyword">as</span> sex,Tbirthday <span class="org-keyword">as</span> birthday <span class="org-keyword">from</span> Teacher <span class="org-keyword">where</span> Tsex = <span class="org-string">'&#22899;'</span>;
+</pre>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-org9d1f036" class="outline-2">
+<h2 id="org9d1f036"><span class="section-number-2">34</span> 查询成绩比该课程平均成绩低的同学的成绩表</h2>
+<div class="outline-text-2" id="text-34">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Sno,Cno,Degree <span class="org-keyword">from</span> Score a <span class="org-keyword">where</span>  a.Degree&lt;(<span class="org-keyword">select</span> <span class="org-builtin">AVG</span>(Degree) <span class="org-keyword">from</span> Score b <span class="org-keyword">where</span> a.Cno = b.Cno);
+</pre>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-org3b848fe" class="outline-2">
+<h2 id="org3b848fe"><span class="section-number-2">35</span> 查询所有任课教师的Tname和Depart</h2>
+<div class="outline-text-2" id="text-35">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Tname,Depart <span class="org-keyword">from</span> Teacher <span class="org-keyword">where</span> Tname <span class="org-keyword">in</span>(<span class="org-keyword">select</span> <span class="org-keyword">distinct</span> Tname <span class="org-keyword">from</span> Teacher,
+Course,Score <span class="org-keyword">where</span> Teacher.Tno = Course.Tno <span class="org-keyword">and</span> Course.Cno = Score.Cno);
+
+<span class="org-keyword">select</span> Tname,Depart <span class="org-keyword">from</span> Teacher <span class="org-keyword">where</span> tno <span class="org-keyword">in</span> (<span class="org-keyword">select</span> tno <span class="org-keyword">from</span> course <span class="org-keyword">where</span> Cno <span class="org-keyword">in</span> (<span class="org-keyword">select</span> <span class="org-keyword">distinct</span> Cno <span class="org-keyword">from</span> Score));
+</pre>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-orgf0e1501" class="outline-2">
+<h2 id="orgf0e1501"><span class="section-number-2">36</span> 查询所有未讲课的教师的Tname和Depart</h2>
+<div class="outline-text-2" id="text-36">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Tname,Depart <span class="org-keyword">from</span> Teacher <span class="org-keyword">where</span> Tname <span class="org-keyword">not</span> <span class="org-keyword">in</span>(<span class="org-keyword">select</span> <span class="org-keyword">distinct</span> Tname <span class="org-keyword">from</span> Teacher,Course,Score <span class="org-keyword">where</span> Teacher.Tno=Course.Tno <span class="org-keyword">and</span> Course.Cno = Score.Cno);
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orgfc149af" class="outline-2">
+<h2 id="orgfc149af"><span class="section-number-2">37</span> 查询至少有2名男生的班号</h2>
+<div class="outline-text-2" id="text-37">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> <span class="org-keyword">Class</span> <span class="org-keyword">from</span> student <span class="org-keyword">where</span> Ssex=<span class="org-string">'&#30007;'</span> <span class="org-keyword">group</span> <span class="org-keyword">by</span> <span class="org-keyword">Class</span> <span class="org-keyword">having</span> <span class="org-builtin">count</span>(*)&gt;1;
+</pre>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-org845fb02" class="outline-2">
+<h2 id="org845fb02"><span class="section-number-2">38</span> 查询Student表中不姓“王”的同学记录</h2>
+<div class="outline-text-2" id="text-38">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> * <span class="org-keyword">from</span> Student <span class="org-keyword">where</span> Sname <span class="org-keyword">not</span> <span class="org-keyword">like</span> (<span class="org-string">'&#29579;%'</span>);
+</pre>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-org3b323da" class="outline-2">
+<h2 id="org3b323da"><span class="section-number-2">39</span> 查询Student表中每个学生的姓名和年龄</h2>
+<div class="outline-text-2" id="text-39">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Sname,<span class="org-keyword">YEAR</span>(GETDATE())-<span class="org-keyword">year</span>(Sbirthday) <span class="org-keyword">from</span> student;
+</pre>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-orga2c4ecb" class="outline-2">
+<h2 id="orga2c4ecb"><span class="section-number-2">40</span> 查询Student表中最大和最小的Sbirthday日期值</h2>
+<div class="outline-text-2" id="text-40">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> <span class="org-builtin">MAX</span>(Sbirthday) <span class="org-keyword">as</span> &#26368;&#22823;,<span class="org-builtin">MIN</span>(Sbirthday) <span class="org-keyword">as</span> &#26368;&#23567; <span class="org-keyword">from</span> student;
+</pre>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-orgab33403" class="outline-2">
+<h2 id="orgab33403"><span class="section-number-2">41</span> 以班号和年龄从大到小的顺序查询Student表中的全部记录</h2>
+<div class="outline-text-2" id="text-41">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> * <span class="org-keyword">from</span> Student <span class="org-keyword">order</span> <span class="org-keyword">by</span> <span class="org-keyword">Class</span> <span class="org-keyword">desc</span> ,Sbirthday <span class="org-keyword">asc</span>;
+</pre>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-org2e51169" class="outline-2">
+<h2 id="org2e51169"><span class="section-number-2">42</span> 查询“男”教师及其所上的课程</h2>
+<div class="outline-text-2" id="text-42">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Tname,Cname <span class="org-keyword">from</span> Teacher,Course <span class="org-keyword">where</span> Tsex=<span class="org-string">'&#30007;'</span> <span class="org-keyword">and</span> Teacher.Tno = Course.Tno;
+</pre>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-orgabd5db8" class="outline-2">
+<h2 id="orgabd5db8"><span class="section-number-2">43</span> 查询最高分同学的Sno、Cno和Degree列</h2>
+<div class="outline-text-2" id="text-43">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Sno,Cno,Degree <span class="org-keyword">from</span> Score <span class="org-keyword">where</span> Degree=(<span class="org-keyword">select</span> <span class="org-builtin">MAX</span>(Degree) <span class="org-keyword">FROM</span> score);
+</pre>
+</div>
+</div>
+</section>
+
+
+<section id="outline-container-org9559dc6" class="outline-2">
+<h2 id="org9559dc6"><span class="section-number-2">44</span> 查询和“李军”同性别的所有同学的Sname.</h2>
+<div class="outline-text-2" id="text-44">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> SName <span class="org-keyword">from</span> Student <span class="org-keyword">where</span> Ssex=(<span class="org-keyword">select</span> Ssex <span class="org-keyword">from</span> Student <span class="org-keyword">where</span> Sname=<span class="org-string">'&#26446;&#20891;'</span>)<span class="org-keyword">and</span> Sname
+<span class="org-keyword">not</span> <span class="org-keyword">in</span> (<span class="org-string">'&#26446;&#20891;'</span>);
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-orga8b1b5f" class="outline-2">
+<h2 id="orga8b1b5f"><span class="section-number-2">45</span> 查询和“李军”同性别并同班的同学Sname</h2>
+<div class="outline-text-2" id="text-45">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Sname <span class="org-keyword">from</span> Student <span class="org-keyword">where</span> Ssex=(<span class="org-keyword">select</span> Ssex <span class="org-keyword">from</span> Student <span class="org-keyword">where</span> Sname=<span class="org-string">'&#26446;&#20891;'</span>)<span class="org-keyword">and</span> Sname <span class="org-keyword">not</span> <span class="org-keyword">in</span>
+(<span class="org-string">'&#26446;&#20891;'</span>)<span class="org-keyword">and</span> <span class="org-keyword">Class</span>=(<span class="org-keyword">select</span> <span class="org-keyword">Class</span> <span class="org-keyword">from</span> Student <span class="org-keyword">where</span> Sname=<span class="org-string">'&#26446;&#20891;'</span>);
+</pre>
+</div>
+</div>
+</section>
+
+<section id="outline-container-org27b36b7" class="outline-2">
+<h2 id="org27b36b7"><span class="section-number-2">46</span> 查询所有选修“计算机导论”课程的“男”同学的成绩表</h2>
+<div class="outline-text-2" id="text-46">
+<div class="org-src-container">
+<pre class="src src-sql"><span class="org-keyword">select</span> Sno,Degree <span class="org-keyword">from</span> Score <span class="org-keyword">where</span> Sno <span class="org-keyword">in</span>(<span class="org-keyword">select</span> Sno <span class="org-keyword">from</span> Student <span class="org-keyword">where</span> Ssex=<span class="org-string">'&#30007;'</span>)<span class="org-keyword">and</span> Cno <span class="org-keyword">in</span>
+(<span class="org-keyword">select</span> Cno <span class="org-keyword">from</span> Course <span class="org-keyword">where</span> Cname=<span class="org-string">'&#35745;&#31639;&#26426;&#23548;&#35770;'</span>);
+</pre>
+</div>
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: unname</p>
+<p class="date">Created: 2019-03-26 周二 01:35</p>
+<p class="validation">Go ahead, never stop.</p>
+</div>
+</body>
+</html>
